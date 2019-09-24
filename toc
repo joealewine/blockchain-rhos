@@ -54,7 +54,7 @@ IBM Blockchain Platform v2.1.0
 	[API reference](https://cloud.ibm.com/apidocs/blockchain)
 	/blockchain/blockchain-hyperledger-fabric
 	/blockchain/blockchain-k8s-overview
-	/reference/videos.md
+	reference/videos.md
 	glossary.md
 	{: .navgroup-end}
 

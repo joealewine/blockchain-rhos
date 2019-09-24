@@ -29,7 +29,7 @@ You can watch the getting started video series to learn more about how to use {{
 The video series are in a playlist and play continuously in the video frame below. You can also click the menu icon in the upper left corner of the video to open the playlist and switch to another video.
 {:note}
 
-## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}
+## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform
 {: #ibp-videos-ibp-v2}
 
 Watch the following [video series]( http://ibm.biz/BlockchainPlatformSeries) to learn more about the {{site.data.keyword.blockchainfull_notm}} Platform and how you can get started to build your own network.

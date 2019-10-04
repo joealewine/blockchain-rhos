@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-09-30"
 
 keywords: client application, Commercial Paper, SDK, wallet, generate a certificate, generate a private key, fabric gateway, APIs, smart contract
 
@@ -16,6 +16,7 @@ subcollection: blockchain
 {:codeblock: .codeblock}
 {:note: .note}
 {:important: .important}
+{:javascript: data-hd-programlang="javascript"}
 {:tip: .tip}
 {:pre: .pre}
 
@@ -107,7 +108,7 @@ Once the network operator provides the enroll ID and secret of the application i
 1. Save the connection profile to your local machine and rename it `connection.json`.
 2. Save the following code block as `enrollUser.js` in the same directory as your connection profile:
 
-    ```
+    ```javascript
     'use strict';
 
     const FabricCAServices = require('fabric-ca-client');
@@ -152,7 +153,7 @@ Once the network operator provides the enroll ID and secret of the application i
 
     main();
     ```
-    {:codeblock}
+    {: pre}
 
 3. Edit `enrollUser.js` to replace the following values:
   - Replace  ``<CA_Name>`` with the name of your organizations CA. You can find your CA name in the "organizations" section of your connection profile under "Certificate Authorities". Do not use the "caName" in the "Certificate Authorities" section.
@@ -177,7 +178,7 @@ After you have generated the application signing certificate and private key and
 
 1. Save the file below on your local machine as `invoke.js`. Save the file in the same directory as `enrollUser.js`
 
-    ```
+    ```javascript
     'use strict';
 
     const { FileSystemWallet, Gateway } = require('fabric-network');
@@ -222,7 +223,7 @@ After you have generated the application signing certificate and private key and
       }
     main();
     ```
-    {:codeblock}
+    {: pre}
 
 2. Edit `invoke.js` to replace the following values:
   - Replace  ``<channel_name>`` with the name of the channel the smart contract was instantiated on. You can find your CA name under the "Certificate Authorities" section of your connection profile.
@@ -328,7 +329,7 @@ Use your console to [download your connection profile](/docs/services/blockchain
 
 Navigate to the ``/magnetocorp/application`` directory and save the following code block as `enrollUser.js`.
 
-  ```
+  ```javascript
   'use strict';
 
   const FabricCAServices = require('fabric-ca-client');
@@ -370,33 +371,33 @@ Navigate to the ``/magnetocorp/application`` directory and save the following co
   }
   main();
   ```
-  {:codeblock}
+  {: pre}
 
 We should take moment to study how this file works before we edit it. First, `enrollUser.js` imports the `FileSystemWallet` and `X509WalletMixin` classes from the `fabric-network` library.
 
-```
+```javascript
 const FabricCAServices = require('fabric-ca-client');
 const { FileSystemWallet, X509WalletMixin } = require('fabric-network');
 ```
-{:codeblock}
+{: pre}
 
 The file then uses the `FileSystemWallet` class to build a wallet on your local filesystem. You can edit the line below to store the wallet in a different location.
 
-```
+```javascript
 const wallet = new FileSystemWallet('../identity/user/isabella/wallet')
 ```
-{:codeblock}
+{: pre}
 
 After creating the wallet, the code snippet uses the enroll ID and secret to enroll using your organization CA. It then creates an identity for the signing certificate and private key and imports them into the wallet. Notice how the file passes your organization MSP ID into the wallet as well.
 
-```
+```javascript
 // Enroll the admin user, and import the new identity into the wallet.
 const enrollment = await ca.enroll({ enrollmentID: '<app_enroll_id>', enrollmentSecret: '<app_enroll_secret>' });
 const identity = X509WalletMixin.createIdentity('<msp_id>', enrollment.certificate, enrollment.key.toBytes());
 wallet.import('user1', identity);
 console.log('Successfully enrolled client "user1" and imported it into the wallet');
 ```
-{:codeblock}
+{: pre}
 
 **Edit** `enrollUser.js` to replace the following values:
 - Replace  `<CA_Name>` with the name of your organizations CA. You can find your CA name in the "organizations" section of your connection profile under "Certificate Authorities". Do not use the "caName" in the "Certificate Authorities" section.
@@ -427,31 +428,31 @@ You have already downloaded your connection profile and used it to connect to yo
 
 Open the file `issue.js` in a text editor. Before you edit the file, notice that it imports the `FileSystemWallet` and `Gateway` classes from fabric-network library.
 
-```
+```javascript
 const { FileSystemWallet, Gateway } = require('fabric-network')
 ```
-{:codeblock}
+{: pre}
 
 The `Gateway` class is used to construct a gateway that you will used to submit your transaction.
 
-```
+```javascript
 const gateway = new Gateway()
 ```
-{:codeblock}
+{: pre}
 
 The `FileSystemWallet` class is used to load the wallet you created in the previous step. **Edit** the line below if you changed the location of the wallet on your filesystem.
 
-```
+```javascript
 const wallet = new FileSystemWallet('../identity/user/isabella/wallet');
 ```
-{:codeblock}
+{: pre}
 
 After importing your wallet, use the following code to pass your connection profile and wallet to the new gateway. You will need to make the following **Edits** to the code so it resembles the code snippet below. The lines that print logs have been removed for brevity.
 - Update the `userName` to match the value that you selected for your `identityLabel` in `enrollUser.js`.
 - Update the discovery options to take advantage of service discovery on your network. Set `discovery: { enabled: true, asLocalhost: false }`.  
 - Update the section importing your connection profile. The console connection profile is in JSON format rather than a YAML file used by the sample.  
 
-```
+```javascript
 const userName = 'user1';
 
 // Load connection profile; will be used to locate a gateway
@@ -468,7 +469,7 @@ let connectionOptions = {
 
 await gateway.connect(connectionProfile, connectionOptions);
 ```
-{:codeblock}
+{: pre}
 
 This code snippet uses the gateway to open gRPC connections to the peer and orderer nodes, and interact with your network.
 
@@ -478,31 +479,31 @@ After configuring the gateway to connect to the network managed by your console,
 
 **Edit** the line below, replacing `mychannel` with your channel name.
 
-```
+```javascript
 const network = await gateway.getNetwork('mychannel');
 ```
-{:codeblock}
+{: pre}
 
 Following a line of code that prints a message to your console, you can find a line that provides the gateway the smart contract name. **Edit** the line below to change the name `papercontract` to the name of the contract you installed.
 
-```
+```javascript
 const contract = await network.getContract('papercontract-js', 'org.papernet.commercialpaper');
 ```
-{:codeblock}
+{: pre}
 
 The gateway now has all the information it needs to submit a transaction. The following line invokes the `issue` function in the commercial paper contract, with the arguments defining the new commercial paper asset.
 
-```
+```javascript
 const issueResponse = await contract.submitTransaction('issue', 'MagnetoCorp', '00001', '2020-05-31', '2020-11-30', '5000000');
 ```
-{:codeblock}
+{: pre}
 
 After submitting the transaction using the gateway, the `issue.js` file disconnects the gateway connection.
 
-```
+```javascript
 gateway.disconnect();
 ```
-{:codeblock}
+{: pre}
 
 This command closes the gRPC connections opened by your gateway. Closing connections will save network resources and improve performance.
 
@@ -534,7 +535,7 @@ If you are interested in preserving your existing application code, or using Fab
 
 The [Fabric Node SDK](https://fabric-sdk-node.github.io){: external} documentation provides a tutorial on how to [connect to your network using a connection profile](https://fabric-sdk-node.github.io/tutorial-network-config.html){: external}. The tutorial uses the CA endpoint information in your connection profile to generate keys using the SDK. You can also use your console to generate a signing certificate and private key and convert the keys into PEM format. You can then set a user context by passing your keys directly to the SDKs' [Fabric Client class](https://fabric-sdk-node.github.io/Client.html){: external} using the code below:
 
-```
+```javascript
 fabric_client.createUser({
 		username: 'admin',
 		mspid:  'org1',
@@ -543,7 +544,7 @@ fabric_client.createUser({
 			signedCertPEM: fs.readFileSync(path.join(__dirname,'./certificate.pem'))
 		}});
 ```
-{:codeblock}
+{: pre}
 
 If you are using low level SDK APIs to connect to your network, there are additional steps that you can take to manage the performance and availability of your application. For more information, see [Best practices for application connectivity and availability](/docs/services/blockchain-rhos?topic=blockchain-rhos-best-practices-app#best-practices-app-connectivity-availability).
 

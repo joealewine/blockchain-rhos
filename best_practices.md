@@ -53,7 +53,7 @@ When you create peer and orderer objects with the SDK before submitting transact
 ```javascript
 var peer = fabric_client.newPeer(creds.peers["org1-peer1"].url, { pem: creds.peers["org1-peer1"].tlsCACerts.pem , 'ssl-target-name-override': null});
 ```
-{: pre}
+{:codeblock}
 
 When you manage the connections between your application and your network, you might consider the following recommendations.
 
@@ -70,7 +70,7 @@ When you manage the connections between your application and your network, you m
     }
   );
   ```
-  {: pre}
+  {:codeblock}
 
   You can also find these variables with the recommended settings in the `"peers"` section of your network connection profile. The recommended options will be imported into your application automatically if you use the connection profile with the SDK to connect to your network endpoints. You can find more information on how to use a Connection Profile in the [Node SDK documentation](https://fabric-sdk-node.github.io/tutorial-network-config.html){: external}.
 
@@ -122,7 +122,7 @@ Fabric SDKs set default timeout values in client applications for events in the 
      */
     defaultProperty(TRANSACTION_CLEANUP_UP_TIMEOUT_WAIT_TIME, "600000"); //10 min.
 ```
-{: pre}
+{:codeblock}
 
 However, you might need to change the default timeout values in your own application. For example, when your application invokes a transaction that needs more than 5000 ms, which is the default timeout value for event hub connection to respond, you might get a failing error because the invoke event ends at 5000 ms before the transaction completes. You can set the system property to overwrite the default values from your client application. Because the default values are initialized before you set the system property, the system property might not take effect. Therefore, you need to set the system property for timeout in a static construct in your client application. See the following example on changing timeout value for event hub connection to 15000 ms in Fabric Java SDK. The file path is `src\main\java\org\hyperledger\fabric\sdk\helper\Config.java`.
 
@@ -134,13 +134,13 @@ However, you might need to change the default timeout values in your own applica
      System.setProperty(EVENTHUB_CONNECTION_WAIT_TIME, EVENTHUB_CONNECTION_WAIT_TIME_VALUE);
  }
 ```
-{: pre}
+{:codeblock}
 
 If you are using the Node SDK, you can specify the timeout values directly in the method called. As an example, you can use the following line to increase the timeout value for [instantiating a chaincode](https://fabric-sdk-node.github.io/Channel.html#sendInstantiateProposal){: external} to 5 minutes.
 ```javascript
 channel.sendInstantiateProposal(request, 300000);
 ```
-{: pre}
+{:codeblock}
 
 ## Best practices when using CouchDB
 {: #best-practices-app-couchdb-indices}

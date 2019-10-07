@@ -134,13 +134,13 @@ However, you might need to change the default timeout values in your own applica
      System.setProperty(EVENTHUB_CONNECTION_WAIT_TIME, EVENTHUB_CONNECTION_WAIT_TIME_VALUE);
  }
 ```
-{: pre}
+{:codeblock}
 
 If you are using the Node SDK, you can specify the timeout values directly in the method called. As an example, you can use the following line to increase the timeout value for [instantiating a chaincode](https://fabric-sdk-node.github.io/Channel.html#sendInstantiateProposal){: external} to 5 minutes.
 ```javascript
 channel.sendInstantiateProposal(request, 300000);
 ```
-{: pre}
+{:codeblock}
 
 ## Best practices when using CouchDB
 {: #best-practices-app-couchdb-indices}

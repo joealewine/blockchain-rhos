@@ -23,6 +23,9 @@ subcollection: blockchain
 
 The nodes of the {{site.data.keyword.blockchainfull_notm}} Platform are based on Hyperledger Fabric and builds permissioned blockchain networks. This means that all participants of the blockchain consortium need to have identities that are continuously verified by Public Key Infrastructure. The {{site.data.keyword.blockchainfull_notm}} Platform console allows you to create these identities by using your organization's Certificate Authorities (CAs). You need to store these identities in your console wallet so you can use them to operate your network.
 
+
+![A CA overview panel in the {{site.data.keyword.blockchainfull_notm}} Platform Console](../images/console_CA_overview.png " CA overview panel in the {{site.data.keyword.blockchainfull_notm}} Platform Console"){: caption="Figure 1. You can use your CA to register identities and generate certificates"  caption-side="bottom"}
+
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network.
 
 ## Managing Certificate Authorities
@@ -157,6 +160,8 @@ You can find the expiration date in the **Validity** section and follows `Not Af
 
 ## Storing identities in your console wallet
 {: #ibp-console-identities-wallet}
+
+![The {{site.data.keyword.blockchainfull_notm}} Platform Console wallet tab](../images/console_wallet_tab.png "The {{site.data.keyword.blockchainfull_notm}} Platform Console wallet tab"){: caption="Figure 2. Your console uses the identities stored in your console wallet to operate the nodes of network" caption-side="bottom"}
 
 The wallet stores the identities and keys that the {{site.data.keyword.blockchainfull_notm}} Platform console uses to operate the nodes of your network. You need to add your peer, orderer, and organization admins to this wallet before you can use the console to work with channels and smart contracts. You can also use the wallet to conveniently store the identities that will be used by your applications. You can use the wallet to export them at any time. Use the left navigation to browse to the wallet overview panel. You can add, update, and export identities from this wallet by using the overview screen.
 

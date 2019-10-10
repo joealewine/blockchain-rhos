@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-10-01"
 
 keywords: IBM Blockchain Platform, administrate, add user, remove user, password, APIs, authentication, view logs
 
@@ -107,7 +107,12 @@ Component logs can be viewed from the command line by using the [kubectl CLI com
 
   Replace `<pod_name>` with the name of your pod from the command output above.  
   Replace `<node>` with `ca`, `peer`, or `orderer` to view the logs for your node.  
-  Replace `<node>` with `fluentd` to view the logs for your smart contracts.
+  Replace `<node>` with `chaincode-logs` to view the logs for your smart contracts.
+
+  You can also run the command `kubectl logs -f <pod_name>` to get a list of all of the containers that are running inside a pod. The response to the command will be an error message similar to the following:
+  ```
+  Error from server (BadRequest): a container name must be specified for pod peer1org1-7b4b6687dc-7n4fz, choose one of: [dind peer proxy chaincode-logs couchdb] or one of the init containers: [init]
+  ```
 
   For more information about the `kubectl logs` command, see [Kubernetes documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs){: external}.
 
@@ -121,7 +126,7 @@ Component logs can be viewed from the command line by using the [kubectl CLI com
 If you encounter issues with your smart contract, you can view the smart contract, or chaincode, container logs to debug an issue. You can run the following command to view the smart contract container logs:
 
 ```
-kubectl  logs -f <peer_ped> -c fluentd
+kubectl  logs -f <peer_ped> -c chaincode-logs
 ```
 {:codeblock}
 

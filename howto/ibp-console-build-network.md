@@ -468,9 +468,7 @@ For more information about channels and how to use them, see the [Hyperledger Fa
 Watch Video 3 above to learn about the process to create channel and join your peer to the channel.
 
 
-<!--
-Note that even though the {{site.data.keyword.blockchainfull_notm}} Platform 2.0 uses Hyperledger Fabric v1.4 binaries, because the [gossip protocol](https://hyperledger-fabric.readthedocs.io/en/release-1.4/gossip.html){: external} is not being used with the console, Fabric functionalities that leverage gossip, such as [Private Data](https://hyperledger-fabric.readthedocs.io/en/release-1.4/private-data/private-data.html){: external} and [Service Discovery](https://hyperledger-fabric.readthedocs.io/en/release-1.4/discovery-overview.html){: external}, are not available.
--->
+
 
 ### Creating a channel: `channel1`
 {: #ibp-console-build-network-create-channel1}

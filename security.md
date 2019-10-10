@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-01"
+lastupdated: "2019-10-09"
 
 keywords: security, encryption, storage, tls, iam, roles, keys
 
@@ -50,7 +50,7 @@ Note that users can also be managed with [APIs](/docs/services/blockchain-rhos?t
 ### Ports
 {: #ibp-security-ibp-ports}
 
-If you are using a client application to send requests to the console, either via the blockchain APIs or the Fabric SDKs, the standard `HTTPS` (443) console port needs to be exposed in your firewall.
+If you are using a client application to send requests to the console, either via the blockchain APIs or the Fabric SDKs, the standard `HTTPS` (443) port needs to be exposed in your firewall.
 
 ### Key management
 {: #ibp-security-ibp-keys}

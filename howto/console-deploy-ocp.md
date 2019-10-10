@@ -45,6 +45,7 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 ** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
 
 If you are deploying the OpenShift platform on {{site.data.keyword.cloud_notm}}, you must create a 4x16 cluster with multiple nodes. This cluster provides sufficient resources to get started by deploying a basic network. Note that one core in OpenShift is equivalent to one CPU (or vCPU) in {{site.data.keyword.blockchainfull_notm}} Platform.
+{: important}
 
 ## Browsers
 {: #deploy-ocp-browsers}
@@ -81,7 +82,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
 
-2. You need to install and connect to your cluster by using [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
+2. You need to install and connect to your cluster by using the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
 
 ## Log in to your OpenShift cluster
 {: #deploy-ocp-login}
@@ -661,17 +662,18 @@ The console consists of four containers that are deployed inside a single pod:
 - `configtxlator`: A tool used by the console to read and create channel updates.
 - `couchdb`: An instance of CouchDB that stores the data from your console, including your authorization information.
 
-If there is an issue with your deployment, you can view the logs from an individual container. First, run the following command to get the name of the console pod:
+If there is an issue with your deployment, you can view the logs from one of the containers inside the pod. First, run the following command to get the name of the console pod:
 ```
 kubectl get pods -n <PROJECT_NAME>
 ```
 {:codeblock}
 
-Then, use the following command to get the logs from one of the four containers inside the pod:
+Then, use the following command to get the logs from one of the four containers listed above:
 ```
 kubectl logs -f <pod_name> <container_name> -n <PROJECT_NAME>
 ```
 {:codeblock}
+
 As an example, a command to get the logs from the UI container would look like the following example:
 ```
 kubectl logs -f ibpconsole-55cf9db6cc-856nz optools -n blockchain-project

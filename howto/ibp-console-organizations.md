@@ -27,6 +27,8 @@ You can use the {{site.data.keyword.blockchainfull}} Platform console to create 
 You can also use the console to manage which organizations are members of your network. The administrator of the ordering service can use the organizations tab to add members to the blockchain [consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-consortium). Members of the
 consortium can then use the console to add members to new or existing channels.
 
+![{{site.data.keyword.blockchainfull_notm}} Platform console organizations tab](../images/console_organizations_tab.png "{{site.data.keyword.blockchainfull_notm}} Platform console organizations tab"){: caption="Figure 1. You can use the organizations panel to create, import, and manage organization MSP definitions" caption-side="bottom"}
+
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network.
 
 ## Understanding MSPs

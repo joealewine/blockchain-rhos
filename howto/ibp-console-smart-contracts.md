@@ -74,7 +74,7 @@ The {{site.data.keyword.blockchainfull_notm}} console manages the *deployment* o
 - For a more in-depth end-to-end tutorial about using an application to interact with smart contracts, see [Hyperledger Fabric Commercial Paper tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.4/tutorial/commercial_paper.html){: external}.
 - To learn about how to incorporate access control mechanisms into your smart contract, see [Chaincode for Developers](https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4ade.html#chaincode-access-control){: external}.
 - When you are ready to install, the smart contract must be packaged into [.cds format](https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4noah.html#packaging){: external} so that it can be installed onto the peers. For more information, see [Packaging smart contracts](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#packaging-a-smart-contract). Alternatively, you can use the [peer cli commands](https://hyperledger-fabric.readthedocs.io/en/release-1.4/commands/peerchaincode.html#peer-chaincode-package){: external} to build the package.
-<!-- Update the tutorial link to release1-4 when it is published -->
+
 
 
 ## Step two: Install a smart contract
@@ -92,7 +92,7 @@ You can return to the **Smart contracts** tab later to install the smart contrac
 
 **This console cannot be used to install Hyperledger Composer `.bna` files.**
 
-<!-- Instead, `.bna` files must be installed on a peer by using the [`Composer` CLI commands]("peer chaincode").  -->
+
 
 ## Step three: Instantiate a smart contract
 {: #ibp-console-smart-contracts-instantiate}

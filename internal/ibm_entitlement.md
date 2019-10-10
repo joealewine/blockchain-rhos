@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-09-26"
+lastupdated: "2019-09-24"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -19,142 +19,13 @@ subcollection: blockchain
 {:tip: .tip}
 {:pre: .pre}
 
-# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 behind a firewall
-{: #deploy-ocp-firewall}
+# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 from IBM
+{: #deploy-ocp-ibm}
 
-You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.0 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
-{:shortdesc}
-
-You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 onto a Kubernetes cluster that is running on Red Hat OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
-
-## Need to Know
-
-- If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using GO chaincode.
-
-- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
-
-## Resources required
-{: #deploy-ocp-resources-required-firewall}
-
-Ensure that your OpenShift cluster has sufficient resources for the {{site.data.keyword.blockchainfull_notm}} console and for the blockchain nodes that you create. The amount of resources that are required can vary depending on your infrastructure, network design, and performance requirements. To help you deploy a cluster of the appropriate size, the default CPU, memory, and storage requirements for each component type are provided in this table. Your actual resource allocations are visible in your blockchain console when you deploy a node and can be adjusted at deployment time or after deployment according to your business needs.
-
-| **Component** (all containers) | CPU**  | Memory (GB) | Storage (GB) |
-|--------------------------------|---------------|-----------------------|------------------------|
-| **Peer**                       | 1.1           | 2.2                   | 200 (includes 100 GB for peer and 100 GB for state DB)|
-| **CA**                         | 0.1           | 0.2                   | 20                     |
-| **Ordering node**              | 0.35          | 0.7                   | 100                    |
-| **Console**                    | 1.2           | 2.4                   | 10                     |
-| **Operator**                   | 0.1           | 0.2                   | 0                      |
-** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
-
-## Storage
-{: #deploy-ocp-storage-firewall}
-
-{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
-
-Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster in OpenShift Container Platform, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
-
-If you prefer not to choose a persistent storage option, the default storage class of your OpenShift project is used.
-{: note}
-
-## Get your entitlement key
-{: #deploy-ocp-entitlement-key}
-
-When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PPA, you receive an entitlement key for the software is associated with your MyIBM account. You need to access and save this key to deploy the platform.
-
-1. Log in to [MyIBM Container Software Library](https://myibm.ibm.com/products-services/containerlibrary){: external} with the IBMid and password that are associated with the entitled software.
-
-2. In the Entitlement keys section, select Copy key to copy the entitlement key to the clipboard.
-
-## Before you begin
-{: #deploy-ocp-prerequisites-firewall}
-
-1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
-
-2. You need to install and connect to your cluster by using [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform.
-
-## Pull the {{site.data.keyword.blockchainfull_notm}} Platform images
-
-You can download the complete set of {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement Registry. To deploy the platform without access to the public internet, you need to pull the images from the {{site.data.keyword.IBM_notm}} Registry and then push the images to a docker registry that you can access from behind your firewall.
-
-After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You can then use this key to access the {{site.data.keyword.blockchainfull_notm}} Platform images.
-
-Use the following command to log in to the {{site.data.keyword.IBM_notm}} Entitlement Registry:
-```
-docker login --username cp --password <KEY> cp.icr.io
-```
-{:codeblock}
-
-- Replace `<KEY>` with your entitlement key.
-
-After you log in, use the following command to pull all of the component images of the {{site.data.keyword.blockchainfull_notm}} Platform:
-```
-docker pull cp.icr.io/cp/ibp-operator:2.1.0-20190924-amd64
-docker pull cp.icr.io/cp/ibp-ca-init:2.1.0-20190924-amd64
-docker pull cp.icr.io/cp/ibp-init:2.1.0-20190924-amd64
-docker pull cp.icr.io/cp/ibp-peer:1.4.3-20190924-amd64
-docker pull cp.icr.io/cp/ibp-orderer:1.4.3-20190924-amd64
-docker pull cp.icr.io/cp/ibp-ca:1.4.3-20190924-amd64
-docker pull cp.icr.io/cp/ibp-dind:1.4.3-20190924-amd64
-docker pull cp.icr.io/cp/ibp-console:2.1.0-20190924-amd64
-docker pull cp.icr.io/cp/ibp-grpcweb:2.1.0-20190924-amd64
-docker pull cp.icr.io/cp/ibp-utilities:1.4.3-20190924-amd64
-docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20190924-amd64
-docker pull cp.icr.io/cp/ibp-deployer:2.1.0-20190924-amd64
-docker pull cp.icr.io/cp/ibp-fluentd:2.1.0-20190924-amd64
-```
-{:codeblock}
-
-After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
-```
-docker tag cp.icr.io/cp/ibp-operator:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.0-20190924-amd64
-docker tag cp.icr.io/cp/ibp-ca-init:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.0-20190924-amd64
-docker tag cp.icr.io/cp/ibp-init:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.0-20190924-amd64
-docker tag cp.icr.io/cp/ibp-peer:1.4.3-20190924-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.3-20190924-amd64
-docker tag cp.icr.io/cp/ibp-orderer:1.4.3-20190924-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20190924-amd64
-docker tag cp.icr.io/cp/ibp-ca:1.4.3-20190924-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.3-20190924-amd64
-docker tag cp.icr.io/cp/ibp-dind:1.4.3-20190924-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.3-20190924-amd64
-docker tag cp.icr.io/cp/ibp-console:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.0-20190924-amd64
-docker tag cp.icr.io/cp/ibp-grpcweb:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.0-20190924-amd64
-docker tag cp.icr.io/cp/ibp-utilities:1.4.3-20190924-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20190924-amd64
-docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20190924-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20190924-amd64
-docker tag cp.icr.io/cp/ibp-deployer:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.0-20190924-amd64
-docker tag cp.icr.io/cp/ibp-fluentd:2.1.0-20190924-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.0-20190924-amd64
-```
-{:codeblock}
-
-You can use the `docker images` command to check if the new tags have been created. You can push the images with the new tags to your docker registry. Log in to your registry using the following command:
-```
-docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGISTRY>
-```
-{:codeblock}
-
-- Replace `<USER>` with your user name
-- Replace `<LOCAL_REGISTRY_PASSWORD>` with the password to your registry.
-- Replace `<LOCAL_REGISTRY>` with the url of your local registry.
-
-Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` with the url of your local registry.
-```
-docker push <LOCAL_REGISTRY>/ibp-operator:2.1.0-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.0-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-init:2.1.0-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-peer:1.4.3-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca:1.4.3-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-dind:1.4.3-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-console:2.1.0-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.0-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.0-20190924-amd64
-docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.0-20190924-amd64
-```
-{:codeblock}
-
-After you complete these steps, you can use the following instructions to deploy the {{site.data.keyword.blockchainfull_notm}} Platform with the images in your registry.
+These instructions are provided for IBMers only to access the images.
 
 ## Log in to your OpenShift cluster
-{: #deploy-ocp-login-firewall}
+{: #deploy-ocp-ibm-login-firewall}
 
 Before you can complete the next steps, you need to log in to your cluster by using the OpenShift CLI. You can log in to your cluster by using the OpenShift web console.
 
@@ -188,7 +59,7 @@ kubectl get pods
 {:codeblock}
 
 ## Create a new project
-{: #deploy-ocp-project-firewall}
+{: #deploy-ocp-ibm-project-firewall}
 
 After you connect to your cluster, create a new project for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a new project by using the OpenShift web console or OpenShift CLI. The new project needs to be created by a cluster administrator.
 
@@ -217,7 +88,7 @@ oc get storageclasses
 {:codeblock}
 
 ## Add security and access policies
-{: #deploy-ocp-scc-firewall}
+{: #deploy-ocp-ibm-scc-firewall}
 
 The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your project. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies for your project. You must save these files to your local system and then add them your project by using the OpenShift CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
@@ -413,7 +284,7 @@ cluster role "blockchain-project" added: "system:serviceaccounts:blockchain-proj
 ```
 
 ## Create a secret for your entitlement key
-{: #deploy-ocp-docker-registry-secret-firewall}
+{: #deploy-ocp-ibm-docker-registry-secret-firewall}
 
 After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
 
@@ -432,7 +303,7 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 {: note}
 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform operator
-{: #deploy-ocp-operator}
+{: #deploy-ocp-ibm-operator}
 
 The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your project by using the OpenShift CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
@@ -551,7 +422,7 @@ ibp-operator   1         1         1            1           1m
 ```
 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console
-{: #deploy-ocp-console}
+{: #deploy-ocp-ibm-console}
 
 When the operator is running on your namespace, you can apply a custom resource to start the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster. You can then access the console from your browser. Note that you can deploy only one console per OpenShift project.
 
@@ -795,7 +666,7 @@ kubectl logs -f ibpconsole-55cf9db6cc-856nz console -n blockchain-project
 {:codeblock}
 
 ## Log in to the console
-{: #deploy-ocp-log-in}
+{: #deploy-ocp-ibm-log-in}
 
 You can use your browser to access the console by browsing to the console URL:
 

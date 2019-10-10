@@ -120,7 +120,5 @@ Therefore, to preserve data residency, the end-user's browser and the Kubernetes
 
 For a deeper understanding of the flow of data on the {{site.data.keyword.blockchainfull_notm}} Platform network, refer to the [Fabric documentation on transaction flow](https://hyperledger-fabric.readthedocs.io/en/release-1.4/txflow.html){: external}.
 
-In the future, Zero Knowledge Proof will improve the ability to achieve further data residency in Hyperledger Fabric. A Zero-Knowledge Proof (ZKP) allows a “prover” to assure a “verifier” that they have knowledge of a secret without revealing the secret itself. It is a way to show that you know something that satisfies a statement without showing what you know.
-
 You can get more information about Private data collections and Zero Knowledge Proof in the white paper about [Private and confidential transactions with Hyperledger Fabric](https://developer.ibm.com/tutorials/cl-blockchain-private-confidential-transactions-hyperledger-fabric-zero-knowledge-proof/){: external}.
 

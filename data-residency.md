@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-09-24"
+lastupdated: 2019-10-10
 
 keywords: IBM Blockchain Platform, Data residency, world state, channels
 
@@ -22,6 +22,9 @@ subcollection: blockchain
 # Data residency
 {: #console-icp-about-data-residency}
 
+# Data residency
+{: #console-icp-about-data-residency}
+
 Because blockchain networks are oblivious to the type of data that is processed, extra steps must sometimes be taken to keep certain kinds of data secure. The most common requirement on data residency is associated with laws within certain countries, which mandate that all data that is processed and stored in an IT system must remain within a specific country’s borders. Similarly, some companies in highly regulated industries, such as government, healthcare, and financial services, require that data must be stored entirely behind their firewall.
 
 Blockchain networks allow multiple organizations to use a distributed ledger to transact and share data in a way that is trusted and secure. However, this implies that data can be distributed across the nodes of the network and the regions where those nodes reside. Organizations can use several options to segregate data from the rest of the network and achieve data residency:
@@ -36,13 +39,15 @@ Each approach provides an increased level of isolation and protection for your d
 
 The architecture of Hyperledger Fabric that underlies the {{site.data.keyword.blockchainfull_notm}} Platform is centered around three key components: an ordering service (made up of ordering nodes), Certificate Authorities (CA), and peers. Additionally, organizations send transactions to these nodes from client applications using the [Fabric SDKs](https://hyperledger-fabric.readthedocs.io/en/release-1.4/getting_started.html){: external}. When considering data residency, it is important to understand how these components interact with and store data.
 
-**Peers** are used by members of the consortium to store the blockchain [ledger](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html){: external}. The blockchain ledger consists of two parts. The first is the world state, which stores the latest value for all data in the ledger in key-value pairs. The second is the blockchain record of every transaction. Peers receive state updates in the form of new blocks from the ordering service. They then use the blocks and the world state to confirm  (or commit) transactions, update the world state and add the log of transactions on the blockchain. The ordering service establishes the order of transactions for all the peers on the [consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-consortium) and stores a copy of the blockchain portion of the ledger.
+**Peers** are used by members of the consortium to store the blockchain [ledger](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html){: external}. The blockchain ledger consists of two parts. The first is the world state, which stores the latest value for all data in the ledger in key-value pairs. The second is the blockchain record of every transaction. Peers receive state updates in the form of new blocks from the ordering service. They then use the blocks and the world state to confirm  (or commit) transactions, update the world state and add the log of transactions on the blockchain. The ordering service establishes the order of transactions for all the peers on the [consortium](/docs/services/blockchain?topic=blockchain-glossary#glossary-consortium) and stores a copy of the blockchain portion of the ledger.
 
 **Channels** are a mechanism for transmitting data within a network. You cannot participate on a blockchain network without joining a channel. Channels can be used members of the network to create logical separation between business applications and even to boost performance by limiting traffic. They can also be used by subsets of organizations in the consortium to transact privately and segregate data.
 
 Peers maintain a separate ledger for each channel that they join. Only organizations that are members of the channel can join their peers to the channel and receive ledger updates from the ordering service. As a result, each channel is bound to an ordering service, which stores the blockchain portion of every channel ledger that it maintains. Client applications submit transactions to the peers and ordering service of a given channel. These transactions are added to the transaction log within the blockchain and include a [read-write set](https://hyperledger-fabric.readthedocs.io/en/release-1.4/readwrite.html){: external}, which is added to the key-value pairs in the world state.
 
-If in-country data residency is a requirement, you need to consider the location of your peers, the ordering service, as well as your client applications. You also need to know the location of the peers that belong to other organizations on your channels.  If you are using an OpenShift cluster that was deployed using the {{site.data.keyword.IBM_notm}} Kubernetes Service, you can find the list of [OpenShift regions and locations on {{site.data.keyword.cloud_notm}}](/docs/openshift?topic=openshift-regions-and-zones) where you and the members of your consortium can deploy your components.
+If in-country data residency is a requirement, you need to consider the location of your peers, the ordering service, as well as your client applications. You also need to know the location of the peers that belong to other organizations on your channels.
+
+If you are using an OpenShift cluster that was deployed using the {{site.data.keyword.IBM_notm}} Kubernetes Service, you can find the list of [OpenShift regions and locations on {{site.data.keyword.cloud_notm}}](/docs/openshift?topic=openshift-regions-and-zones) where you and the members of your consortium can deploy your components.
 
 ## A use case for data residency
 {: #console-icp-about-data-residency-use-case}
@@ -102,9 +107,13 @@ Creating a channel with all of the components in one country ensures that all of
 ## Considerations around using the {{site.data.keyword.blockchainfull_notm}} Platform console
 {: #console-icp-about-data-residency-considerations}
 
-When you deploy the {{site.data.keyword.blockchainfull_notm}} Platform, an instance of the {{site.data.keyword.blockchainfull_notm}} Platform console is installed on your openShift cluster. The console can be used to create blockchain nodes on the same cluster and operate nodes on other clusters or clouds. No ledger data is ever transmitted from blockchain nodes to the console. For example, if Channel X in figure 1 was created using a console operated by Org C in Germany, no data from Channel X would be found on Org C's console.
 
-However, when you use your console to view the channel details, you can view the ledger data in your browser. The ledger data is transmitted directly from your blockchain nodes to your browser. Therefore, to preserve data residency, the end-user's browser must reside in the same country as their blockchain nodes.
+
+When you deploy the {{site.data.keyword.blockchainfull_notm}} Platform, an instance of the {{site.data.keyword.blockchainfull_notm}} Platform console is installed on your OpenShift cluster.
+
+When you use your console to view the channel details, ledger data is visible in your browser. The ledger data is transmitted directly from the Kubernetes cluster to your browser.
+
+Therefore, to preserve data residency, the end-user's browser and the Kubernetes cluster must reside in the same country.
 
 ## Reference material
 {: #console-icp-about-data-residency-reference}
@@ -114,3 +123,4 @@ For a deeper understanding of the flow of data on the {{site.data.keyword.blockc
 In the future, Zero Knowledge Proof will improve the ability to achieve further data residency in Hyperledger Fabric. A Zero-Knowledge Proof (ZKP) allows a “prover” to assure a “verifier” that they have knowledge of a secret without revealing the secret itself. It is a way to show that you know something that satisfies a statement without showing what you know.
 
 You can get more information about Private data collections and Zero Knowledge Proof in the white paper about [Private and confidential transactions with Hyperledger Fabric](https://developer.ibm.com/tutorials/cl-blockchain-private-confidential-transactions-hyperledger-fabric-zero-knowledge-proof/){: external}.
+

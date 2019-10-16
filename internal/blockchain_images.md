@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-08-26"
+lastupdated: "2019-10-15"
 
 keywords: IBM Blockchain Platform, IBM Cloud Private, Data residency, world state
 
@@ -32,10 +32,11 @@ The {{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric must
 
 - {{site.data.keyword.IBM_notm}} Kubernetes service
 
+The {{site.data.keyword.blockchainfull_notm}} images cannot be deployed on Mac OS or Windows for testing purposes.
 
 ## Supported Fabric versions
 
-The {{site.data.keyword.blockchainfull_notm}} Docker images are based on Hyperledger Fabric v1.4.3. The Fabric images will be updated to support the latest version of Fabric used by the {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0. Because, version 1.4 is the long term support release of Hyperledger Fabric, {{site.data.keyword.blockchainfull_notm}} will support networks deployed on Fabric 1.4 until six months after the {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 moves to the next long term release of Fabric. However, it is recommend that users upgrade the latest version of the images that are available for downlaod.
+The {{site.data.keyword.blockchainfull_notm}} Docker images are based on Hyperledger Fabric v1.4.3. The Fabric images will be updated to support the latest version of Fabric used by the {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0. Because, version 1.4 is the long term support release of Hyperledger Fabric, {{site.data.keyword.blockchainfull_notm}} will support networks deployed on Fabric 1.4 until six months after the {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 moves to the next long term release of Fabric. However, it is recommend that users upgrade to the latest version of the images that are available.
 
 ## Considerations and limitations
 
@@ -88,9 +89,43 @@ To get started using the Fabric images, you need to download the open source too
 
 After you have downloaded the Fabric Samples, you will be able to find the configuration files and binaries that you that you need to set up a network in the `fabric-samples\config` and `fabric-samples\bin` folders. You can also find example artifacts and scripts for setting up a network using Docker Compose in the `fabric-samples\first-network` directory. You learn more about these artifacts and steps involved by visiting the accompanying [Build Your First Network](http://hyperledger-fabric.readthedocs.io/en/release-1.4/build_network.html){: external} tutorial.
 
-When using the open source configuration files, you need to alter the files to use the {{site.data.keyword.IBM_notm}} images instead of the open source Fabric Docker images. For each component, you need to alter the `image` section of the file to use the {{site.data.keyword.IBM_notm}} certified image instead of the open source Fabric Docker image. You also need add the `LICENSE` field to accept the {{site.data.keyword.IBM_notm}} license. If you are deploying a peer node, you need to use the core chaincode variables to instruct the peer to build chaincode using the {{site.data.keyword.IBM_notm}} certified images.
+When using the open source configuration files, you need to alter the files to be able to use the {{site.data.keyword.IBM_notm}} images instead of the open source Fabric Docker images:
 
-As an example, you can use the `peer-base.yaml` file in `fabric-samples/first-network` to deploy an ordering node or a peer node. You can find the orderer section of the file below:
+1. For each component, you need to alter the `image` section of the file to use the {{site.data.keyword.IBM_notm}} image instead of the open source Fabric Docker image.
+
+2. You need add the `LICENSE` field to accept the {{site.data.keyword.IBM_notm}} license:
+  ```
+  LICENSE=accept
+  ```
+
+3. If you are deploying a peer node, you need to use the core chaincode variables to instruct the peer to build chaincode using the {{site.data.keyword.IBM_notm}} certified images.
+
+4. You need to mount the configuration files, `core.yaml` and `orderer.yaml`, inside the node container. Add the `FABRIC_CFG_PATH` environment variable and set it to the path where you mounted the configuration files.
+
+  If you are deploying a peer node, you need to comment out or remove the `PKCS#11` section of the file unless you are using an HSM. You can find the section of `core.yaml` that needs to be removed below:
+  ```
+   Settings for the PKCS#11 crypto provider (i.e. when DEFAULT: PKCS11)
+   PKCS11:
+       # Location of the PKCS11 module library
+       Library:
+       # Token Label
+      Label:
+      # User PIN
+      Pin:
+      Hash:
+      Security:
+      FileKeyStore:
+          KeyStore:
+  ```
+
+5. For security reasons, the {{site.data.keyword.IBM_notm}} images have different permissions to access files than the open source images. You need to change the access of the folder that is mounted to store your ledger data by using the following command:
+  ```
+  chmod -R 775 <folder_name>
+  ```
+
+### Example
+
+You can use the `peer-base.yaml` file in `fabric-samples/first-network` to deploy an ordering or a peer node. You can find the orderer section of the file below:
 
 ```
 orderer-base:
@@ -116,13 +151,14 @@ orderer-base:
   command: orderer
 ```
 
-To use deploy an ordering node using the {{site.data.keyword.IBM_notm}} image, change the `image` field to `ibmblockchain/fabric-orderer:TAG`. Specify the tag of the release that you are using and drop the architecture (x86_64, ppc64le, s390x). Accept the license by adding a field of `LICENSE=accept`. After your changes, the section would look like the example below:
+To use deploy an ordering node using the {{site.data.keyword.IBM_notm}} image, change the `image` field to the tag of the {{site.data.keyword.IBM_notm}} image, `cp.icr.io/cp/ibp-orderer:1.4.3-20190924-amd64`. Specify the tag of the release that you are using and drop the architecture (x86_64, ppc64le, s390x). Accept the license by adding the field of `LICENSE=accept`. Add the `FABRIC_CFG_PATH` environment variable and set the path to the folder where you will mount the configuration files. Set the `working_dir` variable to the same path. After your changes, the orderer section would look like the example below:
 
 ```
 orderer-base:
-  image: cp/ibp-orderer:1.4.3-20190924-amd64
+  image: cp.icr.io/cp/ibp-orderer:1.4.3-20190924-amd64
   environment:
     - LICENSE=accept
+    - FABRIC_CFG_PATH=/etc/hyperledger/fabric
     - FABRIC_LOGGING_SPEC=INFO
     - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
     - ORDERER_GENERAL_GENESISMETHOD=file
@@ -139,11 +175,11 @@ orderer-base:
     - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
     - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
     - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
-  working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+  working_dir: /etc/hyperledger/fabric
   command: orderer
 ```
 
-If you are using `peer-base.yaml` deploy a peer, make the same changes to the peer section of the file that you made to the orderer section. However, you also need add the core chaincode variables and specify the `fabric-ccenv`, `fabric-baseos`, `fabric-baseimage` images that you downloaded from {{site.data.keyword.IBM_notm}}. As an example, the peer section of `peer-base.yaml` would become:
+If you are deploying a peer, you can make the same changes to the peer section of the file. However, you also need add the core chaincode variables and specify the `fabric-ccenv`, `fabric-baseos`, `fabric-baseimage` images that you downloaded from {{site.data.keyword.IBM_notm}}. After your changes, the peer section of `peer-base.yaml` would look like the example below:
 
 ```
 services:
@@ -151,6 +187,7 @@ services:
     image: cp.icr.io/cp/ibp-peer:1.4.3-20190924-amd64
     environment:
       - LICENSE=accept
+      - FABRIC_CFG_PATH=/etc/hyperledger/fabric
       - CORE_CHAINCODE_BUILDER=cp/ibp-ccenv:1.4.3-20190924-amd64
       - CORE_CHAINCODE_GOLANG_RUNTIME=cp/ibp-goenv:1.4.3-20190924-amd64
       - CORE_CHAINCODE_NODE_RUNTIME=cp/ibp-nodeenv:1.4.3-20190924-amd64
@@ -168,14 +205,52 @@ services:
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    working_dir: /etc/hyperledger/fabric
     command: peer node start
 ```
+You specify which files are mounted into the containers with volumes using the `docker-compose-base.yaml` file. In the `volumes:` section, you can add the following line ``../../config:/etc/hyperledger/fabric`` to mount the configuration files in the `fabric-samples` directory.
 
-The Fabric Samples published by the Hyperledger community are intended to be used only as examples. You should not use these samples as templates for deploying production networks.
+```
+peer0.org1.example.com:
+  container_name: peer0.org1.example.com
+  extends:
+    file: peer-base.yaml
+    service: peer-base
+  environment:
+    - CORE_PEER_ID=peer0.org1.example.com
+    - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+    - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+    - CORE_PEER_CHAINCODEADDRESS=peer0.org1.example.com:7052
+    - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+    - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.example.com:8051
+    - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+    - CORE_PEER_LOCALMSPID=Org1MSP
+  volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls
+      - ../peer0.org1.example.com:/var/hyperledger/production
+      - ../../config:/etc/hyperledger/fabric
+  ports:
+    - 7051:7051
+```
+
+The peer ledger is stored in the `/var/hyperledger/production` folder. The folder `/crypto-config/peer0.org1.example.com:` is created and then mounted to store the ledger data. You need to change the permissions of this folder before you start the peer node:
+```
+mkdir peer0.org1.example.com
+chmod -R 775 peer0.org1.example.com
+```
+
+The Fabric samples published by the Hyperledger community are intended to be used only as examples. You should not use the samples as templates for deploying production networks.
+
+## Interoperability
+
+Nodes that are deployed by using the {{site.data.keyword.IBM_notm}} images can join the channels of other {{site.data.keyword.blockchainfull_notm}} offerings, such as {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 and {{site.data.keyword.blockchainfull_notm}} Platform for IBM Cloud. However, because you cannot use the console to operate the images, you need to use fabric tooling to create new channels or join the channels that have been created using the other offerings.
 
 ## Getting support
 
-If you encounter issues that relate to Hyperledger Fabric or the underlying images, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v210){: external} page. When you open a case you will need to select your product, {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0. {{site.data.keyword.blockchainfull_notm}} does not provide support for issues you may encounter related to the deployment and management of your network. If you need assistance with deployment, see [{{site.data.keyword.blockchainfull_notm}} Platform 2.1.0](/docs/services/blockchain?topic=blockchain-console-ocp-about#console-ocp-about).
+If you encounter issues that are related to Hyperledger Fabric or the underlying images, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v210){: external} page. When you open a case you will need to select your product, {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0.
+
+{{site.data.keyword.IBM_notm}} provides support for issues that you may encounter related to Hyperledger Fabric or the steps to pull and deploy the images that you can find in this documentation. {{site.data.keyword.IBM_notm}} does not provide support for support for issues that relate to management or deployment of the images or your underlying infrastructure. If you need assistance with the deployment and management of a Fabric network, use the [{{site.data.keyword.blockchainfull_notm}} Platform 2.1.0](/docs/services/blockchain?topic=blockchain-console-ocp-about#console-ocp-about) offering.
 
 You can take advantage of free blockchain developer resources and support forums in order to troubleshoot problems and get help from {{site.data.keyword.IBM_notm}} and the Fabric community. For more information, see [Resources and support forums](/docs/services/blockchain?topic=blockchain-blockchain-support#blockchain-support-resources).

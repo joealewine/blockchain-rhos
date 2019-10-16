@@ -24,12 +24,12 @@ subcollection: blockchain
 
 You can upgrade the {{site.data.keyword.blockchainfull}} Platform 2.1.0 without disrupting a running network. Because the platform is deployed using a Kubernetes operator, you can pull the upgraded {{site.data.keyword.blockchainfull_notm}} Platform images from the IBM Entitlement registry without having to reinstall the platform. After you upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator and console, you can use your console to upgrade the docker images of your blockchain nodes.
 
-You can follow the instructions in this guide to upgrade to the latest version of the platform. This page is updated with the most recent {site.data.keyword.blockchainfull_notm}} platform images and configuration updates. Because the {{site.data.keyword.blockchainfull_notm}} Platform is compatible with later versions, you can upgrade any deployed network by using the following instructions.
+You can follow the instructions in this guide to upgrade to the latest version of the platform. This page is updated with the most recent {{site.data.keyword.blockchainfull_notm}} platform images and configuration updates. Because the {{site.data.keyword.blockchainfull_notm}} Platform is compatible with later versions, you can upgrade any deployed network by using the following instructions.
 {:shortdesc}
 
 You can upgrade your network by using the following steps:
 
-1. [Upgrade the {site.data.keyword.blockchainfull}} Platform operator](#upgrade-ocp-operator)
+1. [Upgrade the {{site.data.keyword.blockchainfull}} Platform operator](#upgrade-ocp-operator)
 2. [Upgrade your console](#upgrade-ocp-console)
 3. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes)
 

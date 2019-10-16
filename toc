@@ -24,8 +24,6 @@ IBM Blockchain Platform v2.1.0
 		howto/console-deploy-ocp-firewall.md
 		howto/console-upgrade-ocp.md
 		howto/console-delete-ocp.md
-		internal/ibm_entitlement.md
-		internal/blockchain_images.md
 
 	{: .topicgroup}
 	Using the IBM Blockchain Platform console

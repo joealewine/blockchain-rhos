@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: 2019-10-13
+lastupdated: 2019-10-17
 
 keywords: create identities, manage identities, Certificate Authorities, register, enroll, TLS CA, wallet, certificate expiration
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 
@@ -27,7 +27,7 @@ The nodes of the {{site.data.keyword.blockchainfull_notm}} Platform are based on
 
 
 
-## Managing Certificate Authorities
+## Managing Certificate Authorities (CAs)
 {: #ibp-console-identities-manage-ca}
 
 A CA is similar to a publicly trusted notary that acts as an anchor of trust among multiple parties, with each organization in a consortium maintaining their own CA. Your CA creates the identities that belong to your organization and issue each identity a signing certificate and private key. These keys are what allow all of your nodes and applications to sign and verify their actions. For more details about how CAs are used to establish identity, visit [the identity topic](https://hyperledger-fabric.readthedocs.io/en/release-1.4/identity/identity.html){: external} in the Hyperledger Fabric documentation.

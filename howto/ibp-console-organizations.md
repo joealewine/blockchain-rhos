@@ -6,7 +6,7 @@ lastupdated: 2019-10-17
 
 keywords: organizations, MSPs, create an MSP, MSP JSON file, consortium, system channel
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

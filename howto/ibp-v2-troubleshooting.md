@@ -2,11 +2,10 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-24"
-
+lastupdated: "2019-10-17"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 
@@ -32,7 +31,7 @@ General problems may occur when using the console to manage nodes, channels, or 
 This topic describes common issues that can occur when using the {{site.data.keyword.blockchainfull_notm}} Platform console.
 
 **Issues during Deployment**
-
+- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
 - [My deployment fails when I try apply the security and access policies to my namespace](#ibp-v2-troubleshooting-deployment-policies)
 - [My deployment fails when I try apply the custom resource definition of the console or operator](#ibp-v2-troubleshooting-deployment-cr)
 
@@ -58,6 +57,19 @@ This topic describes common issues that can occur when using the {{site.data.key
 - [How can I view my smart contract container logs?](#ibp-console-smart-contracts-troubleshoot-entry2)
 - [Why are the transactions I submit from VS Code failing?](#ibp-v2-troubleshooting-anchor-peer)
 
+
+## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
+{: #ibp-v2-troubleshooting-chrome-v77}
+{: troubleshoot}
+
+The console has been working successfully, but requests have started to fail. For example, after I create an ordering service and open it I see the error: `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details.`
+{: tsSymptoms}
+
+This problem is caused by a bug introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
+{: tsCauses}
+
+To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can downgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser.
+{: tsResolve}
 
 ## My deployment fails when I try apply the security and access policies to my namespace
 {: #ibp-v2-troubleshooting-deployment-policies}

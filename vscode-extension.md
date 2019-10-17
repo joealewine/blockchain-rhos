@@ -108,6 +108,18 @@ You need to package a smart contract in `.cds` format before you can install it 
   - If you have multiple smart contract folders open, you will be asked which one to package.
   - If you have no smart contract folders open, you'll get an error message.
 
+If you wish to control which files in the project are packaged, you can create a `.fabricignore` file in the top level directory of your smart contract project. The file and pattern format for a `.fabricignore` file is the same as a [`.gitignore`](https://git-scm.com/docs/gitignore) file, for example:
+
+```
+/.classpath
+/.git/
+/.gradle/
+/.project
+/.settings/
+/bin/
+/build/
+```
+
 ### Exporting, importing, and deleting a smart contract package
 {: #develop-vscode-exporting-deleting-smart-contract-package}
 
@@ -135,20 +147,20 @@ Use the following steps to deploy the preconfigured network:
 
 1. Ensure that Docker is running on your machine.
 2. Open the **{{site.data.keyword.blockchainfull_notm}} Platform** tab in VS Code.
-3. In the **Local Fabric Ops** pane, click **local fabric runtime**. If Docker is running, the local Hyperledger Fabric instance should be downloaded and started.
-4. Double-click **local_fabric** in the **Fabric Gateways** pane to connect to the local network. By default, the connection uses the admin identity in the Fabric wallets pane. You can create a new identity by right-clicking the certificate authority node in the **Local Fabric Ops** pane. This new identity can then be added to a wallet and be associated with **local_fabric** connection.
+3. In the **Fabric Environments** pane, click **Local Fabric**. If Docker is running, the local Hyperledger Fabric instance should be downloaded and started.
+4. Double-click **Local Fabric** in the **Fabric Gateways** pane to connect to the local network. By default, the connection uses the admin identity in the Fabric wallets pane. You can create a new identity by right-clicking the certificate authority node in the **Fabric Environments** pane. This new identity can then be added to a wallet and be associated with **Local Fabric** connection.
 
-The VS Code extension creates a basic Fabric network that includes one orderer, one peer, and one certificate authority. The peer is joined to a channel named `mychannel`. You can find the list of nodes, organizations, and channels that belong to the network in the **Local Fabric Ops** pane. Above these nodes, you can find the list of smart contracts that have been installed and instantiated.
+The VS Code extension creates a basic Fabric network that includes one orderer, one peer, and one certificate authority. The peer is joined to a channel named `mychannel`. You can find the list of nodes, organizations, and channels that belong to the network in the **Fabric Environments** pane. Above these nodes, you can find the list of smart contracts that have been installed and instantiated.
 
 ### Stopping, restarting, and removing the preconfigured network
 {: #develop-vscode-stop-Fabric-runtime}
 
 You can stop or restart the preconfigured network after it has been created:
 
-1. In the **Local Fabric Ops** pane, click the overflow menu.
+1. In the **Fabric Environments** pane, click the overflow menu.
 2. Select **Restart Fabric Runtime** or **Stop Fabric Runtime** to stop or restart the container.
 
-The connection details are saved to a directory called **local_fabric** that is contained in your current project directory. You can also select **Teardown Fabric Runtime** to completely remove the local Fabric network. **Note:** This removal will result in the loss of the ledger and world state data.
+You can also select **Teardown Fabric Runtime** to completely remove the local Fabric network. **Note:** This removal will result in the loss of the ledger and world state data.
 
 ### Deploying your smart contract to the preconfigured network
 {: #develop-vscode-deploy-smart-contract}
@@ -157,13 +169,13 @@ You can deploy any packages in the **Smart Contracts** pane to a running preconf
 
 First, you need to install the smart contract on a peer:
 
-1. In the **Local Fabric Ops** pane, click **Install Smart Contract**.
+1. In the **Fabric Environments** pane, click **Install Smart Contract**.
 2. Select the peer that you want to install the smart contract on.
 3. Select the smart contract package that you want to install, and click **Install**.
 
 Next, you can instantiate the smart contract on a channel:
 
-1. In the **Local Fabric Ops** pane, click **Instantiate Smart Contract**.
+1. In the **Fabric Environments** pane, click **Instantiate Smart Contract**.
 2. Select the installed smart contract to instantiate.
 3. (Optional) Enter the name of the instantiate function in your smart contract. If you used the default smart contract template, no instantiate function is used.
 4. (Optional) Enter any arguments that your instantiate function requires.
@@ -195,7 +207,7 @@ You can test your client applications by connecting them to the preconfigured ne
 
 First, you need to export your connection profile:
 
-1. Start the network and expand **Nodes** in the **Local Fabric Ops** pane.
+1. Start the network and expand **Nodes** in the **Fabric Environments** pane.
 2. Right-click the peer and select **Export Connection Profile**.
 
 You can then use the Fabric SDKs and the connection profile to enroll your admin identity by using the username `admin` and the password `adminpw`. You can then use this identity to invoke your smart contract or register and enroll additional users.
@@ -224,7 +236,7 @@ where `start.js` contains the line `Shim.start(new Chaincode());`.
 
 Use the following steps to debug your smart contract:
 
-1. Ensure that you are connected to the **local_fabric** network.
+1. Ensure that you are connected to the **Local Fabric** network.
 2. Open your smart contract project in your workspace.
 3. Open the **Debug** view in VS Code from the left-hand navigation bar.
 4. Select **Debug Smart Contract configuration** from the drop-down list in the upper left.
@@ -267,7 +279,7 @@ Open the {{site.data.keyword.blockchainfull_notm}} Platform console that is asso
 1. Open the **{{site.data.keyword.blockchainfull_notm}} Platform** tab.
 2. Hover your mouse over the **Fabric Gateways** pane and click **+**.
 3. Enter a name for the connection.
-4. Enter the fully qualified file path of your connection profile. Your connection should now appear in the connections list underneath **local_fabric**.
+4. Enter the fully qualified file path of your connection profile. Your connection should now appear in the connections list underneath **Local Fabric**.
 5. Hover your mouse over the **Fabric Wallets** pane and click **+**.
 6. Choose **Create a new wallet and add an identity** from the options. Provide a name for your wallet and your identity.
 7. Enter the MSP ID of your organization.

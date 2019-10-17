@@ -27,8 +27,6 @@ subcollection: blockchain
 This guide is for users who have already learned the basics of application development and are ready to scale their solution. Follow these best practices to maximize the performance of your network, and avoid application downtime.
 {:shortdesc}
 
-<br>
-
 ## Application connectivity and availability
 {: #best-practices-app-connectivity-availability}
 

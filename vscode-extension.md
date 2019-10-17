@@ -44,8 +44,8 @@ Before you install the {{site.data.keyword.blockchainfull_notm}} Platform VS Cod
 - [Docker version v17.06.2-ce or greater](https://www.docker.com/get-started){: external}.
 - [Docker Compose v1.14.0 or greater](https://docs.docker.com/compose/install/){: external}.
 - If you are developing Go smart contracts, you will need to install [Go version v1.12 or greater](https://golang.org/dl/){: external}.
-- If you are developing Node smart contracts, you will need to install [Node v8.x or greater and npm v5.x or greater](https://nodejs.org/en/download/){: external}.
-- If you are developing Java smart contracts, you will need to install [Java JDK v8](https://openjdk.java.net/install/){: external}.
+- If you are developing Node smart contracts, you will need to install [Node v8.x or v10.x and npm v6.x or greater](https://nodejs.org/en/download/){: external}.
+- If you are developing Java smart contracts, you will need to install [Java JDK v8](https://adoptopenjdk.net/?variant=openjdk8){: external}.
 
 If you are using Windows, you also must ensure the following:
 
@@ -55,6 +55,8 @@ If you are using Windows, you also must ensure the following:
   - Install the normal version, not the version marked as "light".
   - Install the Win32 version into C:\OpenSSL-Win32 on 32-bit systems.
   - Install the Win64 version into C:\OpenSSL-Win64 on 64-bit systems.
+
+**If installing Node and npm using a manager such as 'nvm' or 'nodenv', you will need to set the default/global version and restart VS Code for the version to be detected by the Prerequisites page.**
 
 ### Install the extension
 {: #develop-vscode-installing-the-extension}
@@ -70,6 +72,7 @@ After the installation, you can use the {{site.data.keyword.blockchainfull_notm}
 The extension also adds new commands to the Visual Studio Code command palette. You can use the command palette to complete many of the operations that are explained in details in this guide.
 
 ### Guided tutorials in VS Code
+{: #develop-vscode-guided-tutorials}
 
 The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. The tutorials provide step by step instructions on how to develop and test your smart contract project, as well has how to deploy the smart contract to a network on {{site.data.keyword.cloud_notm}}. You also can find sample smart contracts that are available for you to download.
 
@@ -259,7 +262,7 @@ After the test file is built, the tests can be run by clicking the **Run Tests**
 
 You can also use the extension to connect to your {{site.data.keyword.blockchainfull_notm}} Platform network and invoke any smart contracts that are installed and instantiated by using the {{site.data.keyword.blockchainfull_notm}} Platform console UI.
 
-Open the {{site.data.keyword.blockchainfull_notm}} Platform console that is associated with your instance of the {{site.data.keyword.blockchainfull_notm}} Platform. Navigate to the **Smart Contracts** tab. Use the **Instantiated Smart Contracts** table on the smart contracts tab to download your [connection profile](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-app#ibp-console-app-profile) to your local file system. Then, [create an application identity](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-app#ibp-console-app-identities) by using your CA and save the enrollID and secret. Follow the steps below to connect to the {{site.data.keyword.blockchainfull_notm}} Platform from VS Code.
+Open the {{site.data.keyword.blockchainfull_notm}} Platform console that is associated with your instance of the {{site.data.keyword.blockchainfull_notm}} Platform. Navigate to the **Smart Contracts** tab. Use the **Instantiated Smart Contracts** table on the smart contracts tab to download your [connection profile](/docs/services/blockchain/howto?topic=blockchain-ibp-console-app#ibp-console-app-profile) to your local file system. Then, [create an application identity](/docs/services/blockchain/howto?topic=blockchain-ibp-console-app#ibp-console-app-identities) by using your CA and save the enrollID and secret. Follow the steps below to connect to the {{site.data.keyword.blockchainfull_notm}} Platform from VS Code.
 
 1. Open the **{{site.data.keyword.blockchainfull_notm}} Platform** tab.
 2. Hover your mouse over the **Fabric Gateways** pane and click **+**.
@@ -306,3 +309,4 @@ To edit a connection, complete the following steps:
 When you are ready to disconnect from the network, click the **Disconnect** icon in the upper right of the **Fabric Gateways** pane.
 
 To delete a connection, right-click the connection and select **Delete Gateway**.
+

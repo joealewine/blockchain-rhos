@@ -31,6 +31,7 @@ You can also use the console to manage which organizations are members of your n
 
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network.
 
+
 ## Understanding MSPs
 {: #console-organizations-about-msp}
 

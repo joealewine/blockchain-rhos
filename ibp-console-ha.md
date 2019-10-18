@@ -190,7 +190,7 @@ In all cases, to protect against data corruption, it is recommended that you reg
 
 | Storage solution provider | Guidance |
 |----------|---------|		|----------|---------|
-| {{site.data.keyword.cloud_notm}} storage solution | You can leverage the [capability provided by {{site.data.keyword.cloud_notm}} Kubernetes service](/docs/services/RegistryImages/ibm-backup-restore?topic=RegistryImages-ibmbackup_restore_starter#ibmbackup_restore_starter){: external}. But be aware that without snapshot capability, nodes must be [stopped](#ibp-console-ha-stop-nodes) in order to ensure a reliable backup.  |		| OpenShift Container Platform | You can leverage the capability that is provided by the OpenShift Container platform to [backup persistent volume claims](https://docs.openshift.com/container-platform/3.11/day_two_guide/environment_backup.html#backing-up-pvc_environment-backup){: external}.  But be aware that without snapshot capability, nodes must be [stopped](#ibp-console-ha-stop-nodes) in order to ensure a reliable backup. |
+| OpenShift Container Platform | You can leverage the capability that is provided by the OpenShift Container platform to [backup persistent volume claims](https://docs.openshift.com/container-platform/3.11/day_two_guide/environment_backup.html#backing-up-pvc_environment-backup){: external}.  But be aware that without snapshot capability, nodes must be [stopped](#ibp-console-ha-stop-nodes) in order to ensure a reliable backup. |
 | Portworx | A [snapshot capability](https://docs.portworx.com/portworx-install-with-kubernetes/cloud/ibm/#prerequisites){: external} is available for taking backups without stopping the nodes. |
 {: caption="Table 2. Backup recommendations for storage" caption-side="top"}
 

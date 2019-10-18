@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: 2019-10-17
+lastupdated: 2019-10-18
 
 keywords: create identities, manage identities, Certificate Authorities, register, enroll, TLS CA, wallet, certificate expiration
 
@@ -24,6 +24,7 @@ The nodes of the {{site.data.keyword.blockchainfull_notm}} Platform are based on
 {:shortdesc}
 
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network.
+
 
 
 

@@ -44,6 +44,7 @@ When you create your nodes, you need to use your root CA to create the following
 
 You can use the console to create these identities by using the [registration process](/docs/services/blockchain/howto?topic=blockchain-ibp-console-identities#ibp-console-identities-register). After you register your admin identities, you need to issue each identity a signing certificate and private key, provide the signing certificate to your organization MSP definition, and add the identity to your console wallet. You can complete these steps for one admin identity when you [create your organization MSP](/docs/services/blockchain/howto?topic=blockchain-ibp-console-organizations#console-organizations-create-msp). You can use separate identities as org admins or node admins, or you can use one identity to do both tasks. The [Build a network tutorial](/docs/services/blockchain/howto?topic=blockchain-ibp-console-build-network#ibp-console-build-network) uses one identity to be an admin for each organization created in the tutorial.
 
+
 ## Associating the identity of the CA admin
 {: #ibp-console-identities-ca-identity}
 

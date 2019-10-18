@@ -122,6 +122,7 @@ Each peer or orderer node that you deploy needs to generate a public TLS certifi
 
 When creating a peer or orderer using your console, you can also use the TLS CA to specify an additional domain name for each node. Enter the new domain name in the **TLS CSR hostname** field when deploying your orderer or peer. This hostname will be added to the list of common names in the TLS certificate issued to your node.
 
+
 ## Certificate expiration
 {: #ibp-console-identities-expiration}
 

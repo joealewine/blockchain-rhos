@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: 2019-10-17
+lastupdated: 2019-10-18
 
 keywords: organizations, MSPs, create an MSP, MSP JSON file, consortium, system channel
 
@@ -55,6 +55,7 @@ You can view all of the MSPs that you have created or imported under **Available
 - If you are a member of the consortium, you can import the MSPs of other consortium members into your console and then add the members to new or existing channels.
 
 You can click on an MSP definition in the organizations tab to view all of the nodes in the console that belong to each organization. Because each node was deployed with the administrator certificate from the MSP definition inside, this panel allows you to keep track of which nodes are managed by which organization administrator.
+
 
 ## Creating an MSP for your organization
 {: #console-organizations-create-msp}

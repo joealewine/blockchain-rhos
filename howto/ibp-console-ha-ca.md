@@ -1,12 +1,13 @@
+
 ---
 
 copyright:
   years: 2019
-lastupdated: "2019-10-01"
+lastupdated: "2019-10-18"
 
 keywords: high availability, CA, PostgreSQL, replica sets
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 
@@ -31,7 +32,7 @@ Because redundancy is required to achieve high availability (HA) networks, you c
 ## Configuring CA replica sets
 {: #ibp-console-build-ha-ca-replica-sets}
 
-When a Kubernetes pod becomes unavailable, Kubernetes immediately attempts to restart it. However, if your SLA requires zero downtime for your CA, you can configure replica sets for your CA. A replica set is a Kubernetes mechanism that is used to guarantee the availability of the pod. The use of replica sets ensures that multiple replicas of the pod are running at all times. If one of the CA replicas becomes unavailable, Kubernetes immediately switches to another CA replica, therefore there is no downtime while you wait for the pod to restart. The replica uses data from the same shared database so that the CA can continue to seamlessly process requests. If CA replica sets are required for your business, the {{site.data.keyword.blockchainfull_notm}} Platform requires the CA to use an instance of a `PostgreSQL` database. Thus, before you can configure CA replica sets, you are responsible for configuring an instance of the `PostgreSQL` database.
+When a Kubernetes pod becomes unavailable, Kubernetes immediately attempts to restart it. However, if your SLA requires zero downtime, you can configure replica sets for your CA. A replica set is a Kubernetes mechanism that is used to guarantee the availability of the pod. The use of replica sets ensures that multiple replicas of the pod are running at all times. If one of the CA replicas becomes unavailable, Kubernetes immediately switches to another CA replica, therefore there is no downtime while you wait for the pod to restart. The replica uses data from the same shared database so that the CA can continue to seamlessly process requests. If CA replica sets are required for your business, the {{site.data.keyword.blockchainfull_notm}} Platform requires the CA to use an instance of a `PostgreSQL` database. Thus, before you can configure CA replica sets, you are responsible for configuring an instance of the `PostgreSQL` database.
 
 ### Deploying a PostgreSQL database
 {: #ibp-console-build-ha-ca-postgresql}
@@ -128,3 +129,4 @@ Create a new CA by using the {{site.data.keyword.blockchainfull_notm}} Platform 
 7. Choose the number of replica sets you need. Two replica sets ensure that if one CA replica becomes unavailable, the other is always immediately ready to process requests. Three replica sets provide even greater redundancy. If two of the three replica sets are unavailable, the third is ready to process request. Because each additional replica set requires additional CPU and memory, you need to ensure that you have adequate resources available to accommodate the number you choose.
 8. You have the opportunity to configure resource allocation for the node. The resources that you specify here are used for each replica set.  If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
 9. Review the Summary page, then click **Add certificate authority**.
+

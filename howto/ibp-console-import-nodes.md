@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

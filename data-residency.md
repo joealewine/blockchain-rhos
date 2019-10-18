@@ -2,11 +2,11 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: 2019-10-13
+lastupdated: 2019-10-18
 
 keywords: IBM Blockchain Platform, Data residency, world state, channels
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

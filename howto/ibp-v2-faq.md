@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: FAQs, can I, upgrade, what version, peer ledger database, supported languages, why do I, regions
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

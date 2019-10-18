@@ -6,7 +6,7 @@ lastupdated: "2019-09-30"
 
 keywords: best practices, develop applications, connectivity, availability, mutual TLS, CouchDB
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

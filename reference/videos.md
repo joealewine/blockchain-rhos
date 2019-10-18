@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: IBM Blockchain Platform, video series, videos, getting started videos, demo videos
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

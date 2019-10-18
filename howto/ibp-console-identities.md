@@ -106,6 +106,7 @@ Before enrolling an identity, you need to [Associating the identity of the CA ad
 
 You can also use the Fabric CA client or Fabric SDKs to enroll the identities you have created in the console. The console provides you with all of the information that will need to compete these steps. Ensure you have saved the **Enroll ID** and **Enroll secret** that you specified during registration.
 
+
 ## Using your TLS CA
 {: #ibp-console-identities-tlsca}
 

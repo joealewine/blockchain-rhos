@@ -7,7 +7,7 @@ lastupdated: "2019-09-24"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft, join a network, system channel
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

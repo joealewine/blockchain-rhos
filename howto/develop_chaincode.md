@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: update data, private data, smart contract, CouchDB indexes, cross chaincode transaction
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

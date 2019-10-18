@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: vs code extension, Visual Studio Code extension, smart contract, development tools
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

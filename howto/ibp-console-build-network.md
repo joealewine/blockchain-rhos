@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-17"
+lastupdated: "2019-10-18"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

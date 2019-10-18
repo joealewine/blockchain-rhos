@@ -6,7 +6,7 @@ lastupdated: "2019-10-02"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

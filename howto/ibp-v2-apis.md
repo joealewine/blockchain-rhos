@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: APIs, build a network, authentication, service credentials, API key, API endpoint, IAM access token, Fabric CA client, import a network, generate certificates
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

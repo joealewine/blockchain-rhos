@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: smart contract, private data, private data collection, anchor peer
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

@@ -2,11 +2,11 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-10-08"
 
 keywords: IBM Blockchain, IBM Blockchain Platform, terms, Fabric, Raft, CouchDB, consortium
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

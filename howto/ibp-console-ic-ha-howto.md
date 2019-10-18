@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-10-18"
 
 keywords: HA, highly availability, multiregion
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

@@ -6,7 +6,7 @@ lastupdated: "2019-10-01"
 
 keywords: IBM Blockchain Platform, administrate, add user, remove user, password, APIs, authentication, view logs
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

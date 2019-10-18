@@ -2,9 +2,9 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-10-10"
+lastupdated: "2019-10-18"
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

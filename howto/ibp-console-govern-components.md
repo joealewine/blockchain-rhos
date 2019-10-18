@@ -6,7 +6,7 @@ lastupdated: "2019-10-01"
 
 keywords: network components, Kubernetes, OpenShift, allocate resources, batch timeout, reallocate resources, LevelDB, CouchDB, ordering nodes, ordering, add and remove, governance
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

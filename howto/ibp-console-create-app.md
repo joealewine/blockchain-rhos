@@ -6,7 +6,7 @@ lastupdated: "2019-09-30"
 
 keywords: client application, Commercial Paper, SDK, wallet, generate a certificate, generate a private key, fabric gateway, APIs, smart contract
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

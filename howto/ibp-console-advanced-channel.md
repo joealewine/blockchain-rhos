@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

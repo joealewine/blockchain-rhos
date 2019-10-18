@@ -6,7 +6,7 @@ lastupdated: "2019-10-09"
 
 keywords: security, encryption, storage, tls, iam, roles, keys
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

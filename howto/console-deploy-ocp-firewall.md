@@ -6,7 +6,7 @@ lastupdated: "2019-09-26"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

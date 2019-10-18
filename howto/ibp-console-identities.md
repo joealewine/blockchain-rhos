@@ -57,6 +57,7 @@ To use a different identity as the CA admin, click the identity currently associ
 Only admin identities have the ability to register new users. You can create new admins with restrictions on the type of users they are allowed to create. As a result, you can let another user operate your CA using an admin that is not able to create admins or deploy nodes. This allows other members or departments of your organization to access your CA without compromising your network. For more information, see [Creating new CA admins](/docs/services/blockchain/howto?topic=blockchain-ibp-console-identities#ibp-console-identities-ca-admin).
 {: note}
 
+
 ## Registering identities
 {: #ibp-console-identities-register}
 

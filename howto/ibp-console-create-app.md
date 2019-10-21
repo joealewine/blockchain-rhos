@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-30"
+lastupdated: 2019-10-21
 
 keywords: client application, Commercial Paper, SDK, wallet, generate a certificate, generate a private key, fabric gateway, APIs, smart contract
 
@@ -96,7 +96,7 @@ In order to take advantage of the [Service Discovery](https://hyperledger-fabric
 
 Navigate to the **Smart contracts** tab in your platform console. Next to each instantiated smart contract, navigate to the overflow menu. Click on the button named **Connect with SDK**. This will open a side panel that will allow you to build and download your connection profile. First, you need to select the CA of your organization that you used to register your application identity. You will also need to select your organization MSP definition. You will then be able to download the connection profile that you can use to generate certificates and invoke the smart contract.
 
-You need to ensure that the ports used by the Certificate Authorities, Peers, and Orderers in the connection profile are externally exposed to your client applications.
+ You need to ensure that the ports used by the Certificate Authorities, Peers, and Orderers in the connection profile are externally exposed to your client applications.
 {: note}
 
 
@@ -235,7 +235,7 @@ After you have generated the application signing certificate and private key and
   ```
   Transaction has been submitted
   ```
-  {:codeblock}
+
   If you navigate to you channel using the console, you will be able to see another block added by the transaction.
 
 Your transaction may fail if you have not configured an anchor peer on your channel. Unless you have manually updated your connection profile, your application needs to use the [Service Discovery](https://hyperledger-fabric.readthedocs.io/en/release-1.4/discovery-overview.html){: external} feature to learn about the peers it needs to submit the transaction to. For more information, see [Configuring anchor peers](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-channels-anchor-peers).
@@ -246,7 +246,7 @@ Your transaction may fail if you have not configured an anchor peer on your chan
 
 The [commercial paper tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.4/tutorial/commercial_paper.html){: external} in the Hyperledger Fabric documentation takes developers through a use case in which multiple parties buy, sell and redeem commercial paper. It extends the [Developing applications topic](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/developing_applications.html){: external} by providing sample  smart contract and application code that allows you to create and trade assets on a local instance of Fabric.
 
-You can also deploy the commercial paper tutorial sample code onto an {{site.data.keyword.blockchainfull_notm}} Platform network. This will allow you to quickly get started interacting with your network and use the sample to download the necessary dependencies. The sample code also includes examples of how you can import certificates into a [wallet](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/wallet.html){: external} and use your connection profile to build a [Fabric gateway](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/gateway.html){: external}. The tutorial can be used by two different organizations to complete different transactions with a single asset. If you used the [Build a network tutorial](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network) to deploy two peer organizations connected to a channel, you can interact with the tutorial using both organizations.
+You can also deploy the commercial paper tutorial sample code onto an {{site.data.keyword.blockchainfull_notm}} Platform network. This will allow you to quickly get started interacting with your network and use the sample to download the necessary dependencies. The sample code also includes examples of how you can import certificates into a [wallet](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/wallet.html){: external} and use your connection profile to build a [Fabric gateway](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/gateway.html){: external}. The tutorial can be used by two different organizations to complete different transactions with a single asset. If you used the [Build a network tutorial](/docs/services/blockchain/howto?topic=blockchain-ibp-console-build-network#ibp-console-build-network) to deploy two peer organizations connected to a channel, you can interact with the tutorial using both organizations.
 
 Follow the steps below to deploy the sample on your network. You can review the tutorial in the Fabric Documentation [commercial paper tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.4/tutorial/commercial_paper.html){: external} for more details about the smart contracts and the application structure.
 
@@ -310,7 +310,7 @@ npm install
 
 You can find the commercial paper smart contract inside the `contract` folder of the `digibank` and `magnetocorp` directory. You need to install this smart contract on all the peers of the organizations using the tutorial. You will then need to instantiate the commercial paper contract on a channel. The smart contract needs to be packaged in [.cds format](https://hyperledger-fabric.readthedocs.io/en/release-1.4/chaincode4noah.html#packaging){: external} to be installed using the console.
 
-You can use the [{{site.data.keyword.blockchainfull_notm}} VS code extension](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode) to package the smart contract. After installing the extension, use Visual Studio Code to open the `contracts` folder in your workspace. Open the _{{site.data.keyword.blockchainfull_notm}} Platform_ tab. In the _{{site.data.keyword.blockchainfull_notm}} Platform_ pane, navigate to the smart contract packages section and click **Package a Smart Contract Project**. The VS code extension will use the files in the `contracts` folder to create a new package named `papernet-js@.0.0.1.cds`. Right-click this package to export it to your local file system. You can then use your console to [install the smart contracts on your peers](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-install) and then [instantiate the smart contract on a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-instantiate).
+You can use the [{{site.data.keyword.blockchainfull_notm}} VS code extension](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode) to package the smart contract. After installing the extension, use Visual Studio Code to open the `contracts` folder in your workspace. Open the _{{site.data.keyword.blockchainfull_notm}} Platform_ tab. In the _{{site.data.keyword.blockchainfull_notm}} Platform_ pane, navigate to the smart contract packages section and click **Package a Smart Contract Project**. The VS code extension will use the files in the `contracts` folder to create a new package named `papernet-js@.0.0.1.cds`. Right-click this package to export it to your local file system. You can then use your console to [install the smart contracts on your peers](/docs/services/blockchain/howto?topic=blockchain-ibp-console-smart-contracts#ibp-console-smart-contracts-install) and then [instantiate the smart contract on a channel](/docs/services/blockchain/howto?topic=blockchain-ibp-console-smart-contracts#ibp-console-smart-contracts-instantiate).
 
 ### Step three: Generate certificates for your wallet
 
@@ -416,7 +416,6 @@ When the command completes successfully, you should see the following output:
 ```
 Successfully enrolled client "user1" and imported it into the wallet
 ```
-{:codeblock}
 
 You can find the wallet that was created in the `identity` folder of the `magnetocorp` directory.
 
@@ -524,7 +523,7 @@ Issue program complete.
 
 ### Step six: Operate the sample as digibank
 
-After creating the commercial paper operating as magnetocorp, you can buy and redeem the commercial paper by operating the tutorial as digibank. You can use the digibank application code using the same organization as magnetocorp, or use the CA, peers and connection profile of a different organization. If you competed the [Build a network tutorial](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network), this is a good opportunity operate the tutorial as Org2.
+After creating the commercial paper operating as magnetocorp, you can buy and redeem the commercial paper by operating the tutorial as digibank. You can use the digibank application code using the same organization as magnetocorp, or use the CA, peers and connection profile of a different organization. If you competed the [Build a network tutorial](/docs/services/blockchain/howto?topic=blockchain-ibp-console-build-network#ibp-console-build-network), this is a good opportunity operate the tutorial as Org2.
 
 Navigate to the `digibank/application` directory. You can follow the directions provided in **Step three** to create to generate the certificates and wallet that will sign the transaction as digibank. You can then use the `buy.js` file to purchase the commercial paper from magnetocorp, and then use `redeem.js` to redeem the paper. You can follow **Step four** and **Step five** to edit those files so that they point to the correct connection profile, channel and smart contract.
 
@@ -553,3 +552,4 @@ If you are using low level SDK APIs to connect to your network, there are additi
 {: #console-app-couchdb}
 
 If you use CouchDB as your state database, you can perform JSON data queries from your smart contracts against the channel's state data. It is strongly recommended that you create indexes for your JSON queries and use them in your smart contracts. Indexes allow your applications to retrieve data efficiently when your network adds additional blocks of transactions and entries in the world state. To learn how to use indexes with your smart contracts and your applications, see [Best practices when using CouchDB](/docs/services/blockchain-rhos?topic=blockchain-rhos-best-practices-app#best-practices-app-couchdb-indices).
+

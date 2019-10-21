@@ -19,6 +19,7 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
+
 # Writing smart contracts
 {: #develop-smart-contracts}
 
@@ -49,7 +50,7 @@ A smart contract is typically able to validate requests, apply the business rule
 ## Installing Chaincode
 {: #develop-smart-contracts-install}
 
-Because chaincode provides the structure of transactions on a channel, a chaincode needs to be installed on all the peers joined to the channel that want use the chaincode to update or query the channel ledger. Then, one member of the channel can then instantiate the chaincode on a channel and set the chaincode's endorsement policy. Installation and instantiation of chaincode can be performed by using the {{site.data.keyword.blockchainfull_notm}} Platform UI, the Fabric Peer command-line interface, or from a client application by using the Fabric SDKs. To learn how to deploy a chaincode by using the {{site.data.keyword.blockchainfull_notm}} Platform console, see the [Deploy a smart contract on the network tutorial](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts).
+Because chaincode provides the structure of transactions on a channel, a chaincode needs to be installed on all the peers joined to the channel that want use the chaincode to update or query the channel ledger. Then, one member of the channel can then instantiate the chaincode on a channel and set the chaincode's endorsement policy. Installation and instantiation of chaincode can be performed by using the {{site.data.keyword.blockchainfull_notm}} Platform UI, the Fabric Peer command-line interface, or from a client application by using the Fabric SDKs.  To learn how to deploy a chaincode by using the {{site.data.keyword.blockchainfull_notm}} Platform console, see the [Deploy a smart contract on the network tutorial](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts).
 
 ## Chaincode and data
 {: #develop-smart-contracts-data}
@@ -143,4 +144,5 @@ Because `fabcar` is on the same channel as `newContract`, the `crossChaincodeCha
 
 If you use CouchDB as your state database, you can perform JSON data queries from your chaincode against the channel's state data. It is strongly recommended that you create indexes for your JSON queries and use them in your chaincode. Indexes allow your applications to retrieve data efficiently as your network adds additional blocks of transactions and entries in the world state.
 
-For more information about CouchDB and how to set up indexes, see [CouchDB as the State Database](https://hyperledger-fabric.readthedocs.io/en/release-1.2/couchdb_as_state_database.html){: external} in the Hyperledger Fabric documentation. You can also find an example that uses an index with chaincode in the [Fabric CouchDB tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.2/couchdb_tutorial.html){: external}. Visit [Best Practices when using CouchDB](/docs/services/blockchain-rhos?topic=blockchain-rhos-best-practices-app#best-practices-app-couchdb-indices) in the Developing applications tutorial for more information on how to query data from your applications.
+For more information about CouchDB and how to set up indexes, see [CouchDB as the State Database](https://hyperledger-fabric.readthedocs.io/en/release-1.2/couchdb_as_state_database.html){: external} in the Hyperledger Fabric documentation. You can also find an example that uses an index with chaincode in the [Fabric CouchDB tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.2/couchdb_tutorial.html){: external}. Visit [Best Practices when using CouchDB](/docs/services/blockchain?topic=blockchain-best-practices-app#best-practices-app-couchdb-indices) in the Developing applications tutorial for more information on how to query data from your applications.
+

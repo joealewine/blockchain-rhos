@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-10-08"
+lastupdated: 2019-10-22
 
 keywords: IBM Blockchain, IBM Blockchain Platform, terms, Fabric, Raft, CouchDB, consortium
 
@@ -58,6 +58,8 @@ The Connection profile is visible in the "Overview" screen of the Network Monito
 ## Consensus
 {: #glossary-consensus}
 A collaborative process to keep the ledger transactions synchronized across the network. Consensus ensures that ledgers are updated only when the appropriate participants approve transactions, and that ledgers are updated with the same transactions in the same order. There are many different algorithmic ways of achieving consensus.
+
+
 
 ## Console
 {: #glossary-console}
@@ -163,6 +165,10 @@ Any organization, individual, application, or device that interact with the bloc
 {: #glossary-peer}
 A blockchain network resource that provides the services to execute and validate transactions, and maintain ledgers. The peer runs chaincode and is the holder of transaction history and the current state of assets on the network’s channels, that is, the ledger. They are owned and managed by organizations and are joined to channels.
 
+## Quorum
+{: #glossary-quorum}
+In a Raft ordering service, a quorum represents the number of nodes that must be available for transactions to be processed. This number is a majority of the total number of nodes in the consenter set of the channel. In other words, if you have one node, you need that node available to have a quorum, because the majority of one is one. Similarly, if you have two nodes, you will need both available, since the majority of two is two (for this reason, a configuration of two nodes is discouraged; there is no advantage to a two node configuration). In a similar vein, the majority of three is two, the majority of four is three, the majority of five is three, and so on.
+
 ## Raft
 {: #glossary-raft}
 Raft is a crash fault tolerant (CFT) ordering service based on an implementation of [Raft protocol](https://raft.github.io/raft.pdf){: external} in `etcd`. Raft follows a “leader and follower” model, where a leader node is elected (per channel) and its decisions are replicated by the followers. Raft ordering services should be easier to set up and manage than Kafka-based ordering services and a cluster of these nodes can be created using the {{site.data.keyword.blockchainfull_notm}} Platform.
@@ -202,3 +208,4 @@ A user is a participant in a blockchain network that has indirect access to the 
 ## World state
 {: #glossary-world-state}
 See [Current state](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-current-state).
+

@@ -93,8 +93,8 @@ Your CA issues the certificates and private keys for your organization's admins,
 To create the CA that will issue certificates for your first organization, perform the following steps in your console:
 
 1. Navigate to the **Nodes** tab on the left and click **Add Certificate Authority**. The side panels will allow you to customize the CA that you want to create and the organization that this CA will issue keys for.
-2. In this tutorial, we're creating nodes, so make sure the option to **Create** a Certificate Authority is selected. Then click **Next**.
-3. Use the side panel to give your CA a **display name**. Our recommended value for this CA is `Org1 CA`. Then give your CA admin credentials by specifying a **CA administrator enroll ID** of `admin` and a secret of `adminpw`. Again, these are **recommended values**.
+2. In this tutorial, we're creating nodes, so make sure the option to **Create a Certificate Authority** is selected. Then click **Next**.
+3. Use the side panel to give your CA a **display name**. Our recommended value for this CA is `Org1 CA`. Then give your CA admin credentials by specifying a **CA administrator enroll ID** of `admin` and a secret of `adminpw`. Again, these are **recommended values**. The Advanced deployment options can be safely ignored for purposes of this tutorial. For more information on the advanced options see [Building a high availability Certificate Authority (CA)](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca).
 4.  You have the opportunity to configure resource allocation for the node. For purposes of this tutorial, accept all the defaults and click **Next**. If you want to learn more about how to allocate resources for your node, see this topic on [Allocating resources](/docs/services/blockchain?topic=blockchain-ibp-console-govern-components#ibp-console-govern-components-allocate-resources). 
 5. Review the Summary page, then click **Add Certificate Authority**.
 
@@ -121,7 +121,7 @@ Depending on your cluster type, deployment of the CA can take up to ten minutes.
 Once the CA is running, as indicated by the green box in the tile, complete the following steps:
 
 1. Click on the `Org1 CA` tile in the **Nodes** tab. Then click **Associate identity** on the CA overview panel.
-2. On the side panel, select **Enroll an identity**. Then provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org1 CA  admin`.
+2. On the side panel that opens, provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org1 CA  Identity`.
 3. Click **Associate identity** to add the identity into your console Wallet and associate the admin identity with your CA.
 
 After setting the CA admin identity, you will be able to see the table of registered users in the CA overview panel.
@@ -130,19 +130,22 @@ After setting the CA admin identity, you will be able to see the table of regist
 
   |  **Field** | **Display name** | **Enroll ID** | **Secret** |
   | ------------------------- |-----------|-----------|-----------|-----------|
-  | **Enroll ID** |  Org1 CA  admin | admin | adminpw |
+  | **Enroll ID** |  Org1 CA  Identity | admin | adminpw |
 
 *Figure 4. Associate the CA admin identity*
 
-You can view the CA admin identity in your console Wallet by clicking on the **Wallet** in the left navigation. Click on the identity to view the certificate and private key of the CA admin. The identity is not stored in your console or managed by {{site.data.keyword.IBM_notm}}. It is only stored in local browser storage. If you change browsers, you will need to import this identity into your Wallet to be able to operate the CA. Click **Export identity** to download the identity and keys.
+You can view the CA admin identity in your console Wallet by clicking on the **Wallet** in the left navigation. Click on the identity to view the certificate and private key of the CA admin.
 
 **Task: Check your Wallet**
 
   | **Field** |  **Display name** | **Description** |
   | ------------------------- |-----------|----------|
-  | **Identity** | Org1 CA  admin | Org1 CA admin identity |
+  | **Identity** | Org1 CA  Identity | Org1 CA admin identity |
 
 *Figure 5. Check your Wallet*
+
+The identity is not stored in your console or managed by {{site.data.keyword.IBM_notm}}. It is only stored in local browser storage. If you change browsers, you will need to import this identity into your Wallet to be able to operate the CA. Click **Export identity** to download the identity and keys.
+{: important}
 
 ### Using your CA to register identities
 {: #ibp-console-build-network-use-CA-org1}
@@ -201,7 +204,7 @@ After you have created the MSP, you should be able to see the peer organization 
 
   | **Field** |  **Display name** | **Description** |
   | ------------------------- |-----------|----------|
-  | **Identity** | Org1 CA  admin | Org1 admin identity |
+  | **Identity** | Org1 CA  Identity | Org1 admin identity |
   | **Identity** | Org1 MSP  admin  | Org1 MSP admin identity |
 
   *Figure 8. Check your Wallet*
@@ -229,7 +232,7 @@ From a resource allocation perspective, it is possible to join the same peers to
 Use your console to perform the following steps:
 
 1. On the **Nodes** page, click **Add peer**.
-2. Make sure the option to **Create** a peer is selected. Then click **Next**.
+2. Make sure the option to **Create a peer** is selected. Then click **Next**.
 3. Give your peer a **Display name** of `Peer Org1`.
 4. The **Advanced deployment options** can be safely ignored for purposes of this tutorial. For more information about these options, see the links below.
    * [Multizone high availability](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-ha#ibp-console-ha-multi-zone)
@@ -239,7 +242,7 @@ Use your console to perform the following steps:
 6. On the next screen, select `Org1 CA`, as this is the CA you used to register the peer identity. Select the **Enroll ID** for the peer identity that you created for your peer from the drop-down list, `peer1`, and enter its associated **secret**, `peer1pw`. Then, select `Org1 MSP` from the drop-down list and click **Next**.
 7. The next side panel asks for TLS CA information. When you created the CA, a TLSCA was created alongside it. This CA is used to create certificates for the secure communication layer for nodes. Therefore, select the **Enroll ID** for the peer identity that you created for your peer from the drop-down list, `peer1`, and enter the associated **secret**, `peer1pw`. The **TLS Certificate Signing Request (CSR) hostname** is an option available to advanced users who want specify a custom domain name that can be used to address the peer endpoint. Custom domain names are not a part of this tutorial, so leave the **TLS CSR hostname** blank for now.
 8.   On the next panel, you have the opportunity to configure resource allocation for the node. For purposes of this tutorial, you can accept all the defaults and click **Next**. If you want to learn more about how to allocate resources for your node, see this topic on [Allocating resources](/docs/services/blockchain?topic=blockchain-ibp-console-govern-components#ibp-console-govern-components-allocate-resources). 
-9. The last side panel asks you to **Associate an identity** to make it the admin of your peer. For the purpose of this tutorial, make your organization admin, `Org1 MSP  admin `, the admin of your peer as well. It is possible to register and enroll a different identity with the `Org1 CA` and make that identity the admin of your peer, but this tutorial uses the `Org1 MSP Admin` identity.
+9. The last side panel asks you to **Associate an identity** to make it the admin of your peer. For the purpose of this tutorial, make your organization admin, `Org1 MSP  admin `, the admin of your peer as well. It is possible to register and enroll a different identity with the `Org1 CA` and make that identity the admin of your peer, but this tutorial uses the `Org1 MSP  admin` identity.
 10. Review the summary and click **Add peer**.
 
 **Task: Deploying a peer**
@@ -297,8 +300,8 @@ In this tutorial, we will create a one  node ordering service.
 The process for creating a CA for an ordering service is identical to creating it for a peer.
 
 1. Navigate to the **Nodes** tab and click **Add Certificate Authority**.
-2. In this tutorial, we're creating nodes, so make sure the option to **Create** a Certificate Authority is selected. Then click **Next**
-3. Give this CA a unique display name, `Ordering Service CA`. You're free to reuse the **CA administrator enroll ID** of `admin` and a secret of `adminpw`. As this is a different CA, this identity is distinct from the CA admin identity for created for the `Org1 CA`, even though the ID and secret are identical.
+2. In this tutorial, we're creating nodes, so make sure the option to **Create a Certificate Authority** is selected. Then click **Next**
+3. Give this CA a unique display name, `Ordering Service CA`. You're free to reuse the **CA administrator enroll ID** of `admin` and a secret of `adminpw`. As this is a different CA, this identity is distinct from the CA admin identity for created for the `Org1 CA`, even though the ID and secret are identical. The Advanced deployment options can be safely ignored for purposes of this tutorial. For more information on the advanced options see [Building a high availability Certificate Authority (CA)](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca).
 4.  On the next panel, you have the opportunity to configure resource allocation for the CA. For purposes of this tutorial, accept all the defaults and click **Next**. If you want to learn more about how to allocate resources to {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain?topic=blockchain-ibp-console-govern-components#ibp-console-govern-components-allocate-resources). If you are using a free cluster, you will see the **Summary** page.
 5. Review the Summary page, then click **Add Certificate Authority**.
 
@@ -307,7 +310,7 @@ As with the peer, advanced users may already have their own CA and not want to c
 ### Associating the CA admin identity
 {: #ibp-console-build-network-orderer-ca-admin}
 
-As you did for your peer organization, you need to generate the CA admin identity of the ordering organization and import the identity into the console Wallet.
+As you did for your peer organization, you need to associate the CA admin identity of the ordering organization and import the identity into the console Wallet.
 
 Depending on your cluster type, deployment of the CA can take up to ten minutes. When the CA is first deployed (or when the CA is otherwise unavailable), the box in the tile for the CA will be grey box. When the CA has successfully deployed and is running, this box will be green, indicating that it is "Running" and can be operated from the console. Before proceeding with the steps below, you must wait until the CA status is "Running". If the grey box stops blinking, you can try reloading the page in your browser to refresh the status.
 {:important}
@@ -315,14 +318,14 @@ Depending on your cluster type, deployment of the CA can take up to ten minutes.
 Once the CA is running, as indicated by the green box in the tile, complete the following steps:
 
 1. Click on the `Ordering Service CA` tile in the **Nodes** tab. Then click **Associate identity** on the CA overview panel.
-2. On the side panel, select **Enroll an identity**. Then provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Ordering Service CA  admin`.
+2. On the side panel that opens,  provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Ordering Service CA  Identity `.
 3. Click **Associate identity** to add the identity into your console Wallet and associate the admin identity with your CA.
 
 **Task: Associate identity**
 
   |  **Field** | **Display name** | **Enroll ID** | **Secret** |
   | ------------------------- |-----------|-----------|-----------|-----------|
-  | **Enroll ID** |  Ordering Service CA  admin  | admin | adminpw |
+  | **Enroll ID** |  Ordering Service CA  Identity   | admin | adminpw |
 
 *Figure 10. Associate CA admin identity*
 
@@ -332,9 +335,9 @@ You should be able to see the CA admin in your **Wallet**. As we said above, the
 
   | **Field** |  **Display name** | **Description** |
   | ------------------------- |-----------|----------|
-  | **Identity** | Org1 CA  admin  | Org1 CA admin identity |
+  | **Identity** | Org1 CA  Identity   | Org1 CA admin identity |
   | **Identity** | Org1 MSP  admin  | Org1 admin identity |
-  | **Identity** | Ordering Service CA  admin  | Ordering Service CA admin identity |
+  | **Identity** | Ordering Service CA  Identity   | Ordering Service CA admin identity |
 
 *Figure 11. Check your Wallet*
 
@@ -346,7 +349,7 @@ As we did with the peer, we need to register two identities with our ordering se
 Once you have associated the CA admin, you can use the CA tile to create these identities by completing the following steps:
 
 1. Click on the `Ordering Service CA` in the **Nodes** tab and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
-2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `OSadmin` and a **secret** of `OSadminpw`. Then set the `Type` for this identity as  `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type). You can ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
+2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `OSadmin` and a **secret** of `OSadminpw`. Then set the `Type` for this identity as  `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type) . You can ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
 3. For the purpose of this tutorial, we do not need to use **Add Attribute**. If you want to learn more about identity attributes, see [Registering identities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register).
 4. After the organization admin has been registered, repeat this same process for the identity of the ordering service (also using the `Ordering Service CA`). For the ordering service node identities, give an enroll ID of `OS1` and a secret of `OS1pw`. This is a node identity, so select `peer`  as the **Type**. You can ignore the **Maximum enrollments** field and, on the next panel, do not assign any **Attributes**, as before.
 
@@ -369,7 +372,7 @@ Create your ordering service organization MSP definition and specify the admin i
 
 1. Navigate to the **Organizations** tab in the left navigation and click **Create MSP definition**.
 2. Enter `Ordering Service MSP` as the organization MSP display name and `osmsp` and as the MSP ID. If you want to specify your own MSP ID in this field, make sure to review the instructions in the tool tip.
-3. Under **Root Certificate Authority details**, select the `Ordering Service CA` we created.
+3. Under **Root Certificate Authority details**, select the `Ordering Service CA` that we created.
 4. The **Enroll ID** and **Enroll secret** fields below this will auto populate with the enroll ID of your CA admin identity, `admin`, which for security reasons is not recommended. Instead, select the enroll ID that you created for your organization admin from the drop-down list, `OSadmin`, and enter its associated secret, `OSadminpw`. Then, give this identity a display name, `Ordering Service MSP  admin`. Note: the default display name for this identity is the name of your MSP and the word "admin". If you select a different name for your MSP, that will be reflected in the default.
 5. Click the **Generate** button to enroll this identity as the admin of your organization and export the identity to the Wallet.
 6. Click **Export** to export the admin certificates to your file system. If you change browsers, you will need to import this identity into your console Wallet to be able to administer the ordering service.
@@ -392,9 +395,9 @@ After you have created the MSP, you should be able to see the ordering service o
 
   | **Field** |  **Display name** | **Description** |
   | ------------------------- |-----------|----------|
-  | **Identity** | Org1 CA  admin  | Org1 CA admin identity |
+  | **Identity** | Org1 CA  Identity  | Org1 CA admin identity |
   | **Identity** | Org1 MSP  admin  | Org1 admin identity |
-  | **Identity** | Ordering Service CA  admin  | Ordering Service CA admin identity |
+  | **Identity** | Ordering Service CA  Identity  | Ordering Service CA admin identity |
   | **Identity** | Ordering Service MSP  admin  | Ordering Service admin identity |
 
   *Figure 14. Create the ordering service organization MSP definition*

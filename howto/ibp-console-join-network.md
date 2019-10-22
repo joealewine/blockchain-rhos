@@ -23,7 +23,7 @@ subcollection: blockchain-rhos
 # Join a network tutorial
 {: #ibp-console-join-network}
 
-{{site.data.keyword.blockchainfull}} Platform is a blockchain-as-a-service offering that enables you to develop, deploy, and operate blockchain applications and networks. You can learn more about blockchain components and how they work together by visiting the [Blockchain component overview](/docs/services/blockchain?topic=blockchain-blockchain-component-overview#blockchain-component-overview). This tutorial is the second part in the [sample network tutorial series](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-sample-tutorial) and describes how to create nodes in the {{site.data.keyword.blockchainfull_notm}} Platform console and connect them a blockchain consortium hosted in another cluster.
+{{site.data.keyword.blockchainfull}} Platform is a blockchain-as-a-service offering that enables you to develop, deploy, and operate blockchain applications and networks. You can learn more about blockchain components and how they work together by visiting the [Blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-component-overview#blockchain-component-overview). This tutorial is the second part in the [sample network tutorial series](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-sample-tutorial) and describes how to create nodes in the {{site.data.keyword.blockchainfull_notm}} Platform console and connect them a blockchain consortium hosted in another cluster.
 {:shortdesc}
 
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network.  
@@ -42,7 +42,7 @@ You are currently on the second part of our three-part tutorial series. This tut
 
 * [Build a network tutorial](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network) guides you through the process of hosting a network by creating an ordering service and a peer.
 * **Join a network tutorial** (Current tutorial) Guides you through the process of joining an existing network by creating a peer and joining it to a channel.
-* [Deploy a smart contract on the network](/docs/services/blockchain/howto?topic=blockchain-ibp-console-smart-contracts#ibp-console-smart-contracts) provides information on how to write a smart contract and deploy it on your network.
+* [Deploy a smart contract on the network](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts) provides information on how to write a smart contract and deploy it on your network.
 
 You can use the steps in these tutorials to build a network with multiple organizations in one cluster for the purposes of development and testing. Use the **Build a network** tutorial if you want to form a blockchain consortium by creating an ordering service and adding organizations. Use the **Join a network** tutorial to connect a peer to the network. Following the tutorials with different consortium members allows you to create a truly **distributed** blockchain network.
 
@@ -80,8 +80,8 @@ Perform the following steps from your console:
 
 1. Navigate to the **Nodes** tab on the left and click **Add Certificate Authority**. The side panels will allow you to customize the CA that you want to create and the organization that this CA will issue keys for.
 2. In this tutorial, we're creating nodes, so make sure the option to **Create** a Certificate Authority is selected. Then click **Next**.
-3. Use the side panel to give your CA a **display name**. Our recommended value for this CA is `Org2 CA`. Then give your CA admin credentials by specifying a **CA administrator enroll ID** of `admin` and a secret of `adminpw`.
-4.  You have the opportunity to configure resource allocation for the node. For purposes of this tutorial, accept all the defaults and click **Next**. If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain?topic=blockchain-ibp-console-govern-components#ibp-console-govern-components-allocate-resources). If you are using a free cluster, you will see the **Summary** page.
+3. Use the side panel to give your CA a **display name**. Our recommended value for this CA is `Org2 CA`. Then give your CA admin credentials by specifying a **CA administrator enroll ID** of `admin` and a secret of `adminpw`. The Advanced deployment options can be safely ignored for purposes of this tutorial. For more information on the advanced options see [Building a high availability Certificate Authority (CA)](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca).
+4.  You have the opportunity to configure resource allocation for the node. For purposes of this tutorial, accept all the defaults and click **Next**. If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain?topic=blockchain-ibp-console-govern-components#ibp-console-govern-components-allocate-resources). 
 5. Review the Summary page, then click **Add Certificate Authority**.
 
 **Task: Creating the peer organization CA**
@@ -107,7 +107,7 @@ Depending on your cluster type, deployment of the CA can take up to ten minutes.
 Once the CA is running, as indicated by the green box in the tile, complete the following steps:
 
 1. Click on the `Org2 CA` tile in the **Nodes** tab. Then click **Associate identity** on the CA overview panel.
-2. On the side panel, select **Enroll an identity**. Then provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org2 CA  admin`.
+2. On the side panel that opens, provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org2 CA  admin`.
 3. Click **Associate identity** to add the identity into your console Wallet and associate the admin identity with your CA.
 
 After setting the CA admin identity, you will be able to see the table of registered users in the CA overview panel.
@@ -411,7 +411,7 @@ When you are ready, click **Create channel**. You are taken back to the Channels
 
 After you have joined your peer to a channel, use the following steps to deploy a smart contract and begin submitting transactions to the blockchain:
 
-- [Deploy a smart contract on your network](/docs/services/blockchain/howto?topic=blockchain-ibp-console-smart-contracts#ibp-console-smart-contracts) using the console.
-- After you have installed and instantiated your smart contract, you can [submit transactions using your client application](/docs/services/blockchain/howto?topic=blockchain-ibp-console-smart-contracts#ibp-console-smart-contracts-connect-to-SDK).
+- [Deploy a smart contract on your network](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts) using the console.
+- After you have installed and instantiated your smart contract, you can [submit transactions using your client application](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-connect-to-SDK).
 - Use [the commercial paper sample](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-app#ibp-console-app-commercial-paper) to deploy an example smart contract and submit transactions from sample application code.
 

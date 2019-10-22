@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-09"
+lastupdated: 2019-10-22
 
 keywords: security, encryption, storage, tls, iam, roles, keys
 
@@ -30,7 +30,7 @@ subcollection: blockchain-rhos
 
 **Audience:** Tasks in this section are typically performed by **blockchain network operators**.  
 
-Configuration of an {{site.data.keyword.blockchainfull_notm}} Platform network includes deploying the blockchain console that can then be used to create blockchain nodes which reside in the customer Kubernetes cluster.  
+ Configuration of an {{site.data.keyword.blockchainfull_notm}} Platform network includes deploying the blockchain console that can then be used to create blockchain nodes which reside in the customer Kubernetes cluster.  The blockchain console can then be used to create blockchain nodes that reside in the customer Kubernetes cluster.  
 
 Considerations include:
 - [IAM (Identity and Access Management)](#ibp-security-ibp-iam)
@@ -43,14 +43,21 @@ Considerations include:
 ### IAM (Identity and Access Management)
 {: #ibp-security-ibp-iam}
 
+
+
+
 Identity and access management allows the owner of a console to control which users have access to the console and their privileges within it. IAM is built into the blockchain console and includes local console authentication and role management. When the console is initially provisioned you need to specify the email address of the user who is designated as the console administrator, also known as the **Manager**. This administrator can then add and grant other users access to the console by using the **Users** tab. It is also possible to change the console administrator. Every user that accesses the console must be assigned an access policy with a user role defined. The policy determines what actions the user can perform within the console. Other users can be assigned with **Manager**, **Writer**, or **Reader** roles when a console manager adds them to the console. The definition of each role is provided in the [Role to permissions mapping table](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage--role-mapping). For the steps required to add new users, see [Managing users from the console](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-users).
 
 Note that users can also be managed with [APIs](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#console-icp-manage-users-apis).
 
+
 ### Ports
 {: #ibp-security-ibp-ports}
 
+
+
 If you are using a client application to send requests to the console, either via the blockchain APIs or the Fabric SDKs, the standard `HTTPS` (443) port needs to be exposed in your firewall.
+
 
 ### Key management
 {: #ibp-security-ibp-keys}
@@ -66,11 +73,11 @@ You also have the option to bring your own certificates from your own non-{{site
 ### Membership Service Providers (MSPs)
 {: #ibp-security-ibp-msp}
 
-Whereas Certificate Authorities generate the certificates that represent identities, turning these identities into roles in the {{site.data.keyword.blockchainfull_notm}} Platform is done through the creation of Membership Service Providers (MSPs) in the console. These MSPs, which structurally are comprised of folders containing certificates, are used to represent organizations on the network.  Every organization will have one and only one MSP and will always contain at least one **admincert** that identifies an administrator of the organization. When an MSP is associated with a peer, it denotes that the peer belongs to that organization. Later on in the flow for creating a peer (or any node), this same administrator identity can be used to serve as the administrator of the peer as well. In order to perform some actions on a node, an administrator role is required. For example, to be able to install a smart contract on a peer, your public key must exist in the 'admincerts' folder of the peer's organization MSP, which therefore makes you an administrator of the peer organization.
+Whereas Certificate Authorities generate the certificates that represent identities, turning these identities into roles in the {{site.data.keyword.blockchainfull_notm}} Platform is done through the creation of Membership Service Providers (MSPs) in the console. These MSPs, which structurally are comprised of folders containing certificates, are used to represent organizations on the network. Every organization will have one and only one MSP and will always contain at least one **admincert** that identifies an administrator of the organization. When an MSP is associated with a peer, for example, it denotes that the peer belongs to that organization. Later on in the flow for creating a peer (or any node), this same administrator identity can be used to serve as the administrator of the peer as well. In order to perform some actions on a node, an administrator role is required. For example, to be able to install a smart contract on a peer, your public key must exist in the 'admincerts' folder of the peer's organization MSP, which therefore makes you an administrator of the peer organization.
 
 MSPs also identify the root CA that generated the certificates for the organization and any other roles beyond administrator that are associated with the organization (for example, members of a sub-organizational group), as well as setting the basis for defining access privileges in the context of a network and channel (e.g., channel admins, readers, writers).
 
-MSP folders for organization members are based on a Fabric defined structure and are used by Fabric components.  For more information about Fabric MSPs and their structure, see the  [Membership](https://hyperledger-fabric.readthedocs.io/en/release-1.4/membership/membership.html){: external} and [Membership Service Provider Structure](https://hyperledger-fabric.readthedocs.io/en/release-1.4/membership/membership.html#msp-structure){: external} topics in the Hyperledger Fabric documentation. The Fabric CA establishes this structure by creating the following folders inside the MSP definition:
+MSP folders for organization members are based on a Fabric defined structure and are used by Fabric components. For more information about Fabric MSPs and their structure, see the  [Membership](https://hyperledger-fabric.readthedocs.io/en/release-1.4/membership/membership.html){: external} and [Membership Service Provider Structure](https://hyperledger-fabric.readthedocs.io/en/release-1.4/membership/membership.html#msp-structure){: external} topics in the Hyperledger Fabric documentation. The Fabric CA establishes this structure by creating the following folders inside the MSP definition:
 
 | MSP folder name | Description |
 |-------------------------|-------------|
@@ -90,12 +97,16 @@ Note that organization MSPs are stored in browser storage and must be exported t
 
 Hyperledger Fabric allows for finer grained control over user access to specified resources through the use of access control lists (ACLs). ACLs allow access to a channel resource to be restricted to an organization and a role within that organization. The available set of ACLs are from the underlying Fabric architecture and are selected during channel creation or update. Note that access control lists are restrictive, rather than additive. If access to a resource is specified to an organization, it means that **only that organization** will have access to the resource. For example, if the default access to a particular resource is the Readers of all organizations, and that access is changed to the Admin of Org1, then only the Admin of Org1 will have access to the resource. Because access to certain resources is fundamental to the smooth operation of a channel, it is highly recommended to make access control decisions carefully. If you decide to limit access to a resource, make sure that the access to that resource is added, as needed, for each organization.
 
-You can use the blockchain console to select which ACLs to apply to resources on a channel. See this information under [Creating a channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-channels-create) for instructions on how to configure access control for a channel.
+You can use the blockchain console to select which ACLs to apply to resources on a channel. See this information under [Creating a channel](https://cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-channels-create) for instructions on how to configure access control for a channel.
 
 ### API authentication
 {: #ibp-security-ibp-apis}
 
-In order to use the blockchain [APIs](https://cloud.ibm.com/apidocs/blockchain){: external} to create and manage network components, your application needs to be able to authenticate and connect to your network. See this topic on how to [Connect to your console using API keys](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#console-icp-manage-api-key) for more details.
+In order to use the blockchain [APIs](https://cloud.ibm.com/apidocs/blockchain){: external} to create and manage network components, your application needs to be able to authenticate and connect to your network. 
+
+
+See this topic on how to [Connect to your console using API keys](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#console-icp-manage-api-key) for more details.
+
 
 ## Best practices for security on the customer Kuberenetes cluster
 {: #ibp-security-Kubernetes}
@@ -106,7 +117,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console allows you to dep
 
 - [Kubernetes cluster security](#ibp-security-Kubernetes-security)
 - [Network security](#ibp-security-Kubernetes-network)
-- [Cluster and operating system security](#ibp-security-Kubernetes-container-os)
+- [Cluster and Operating System (OS)](#ibp-security-Kubernetes-container-os)
 - [Keys and cluster access information](#ibp-security-Kubernetes-keys)
 - [Membership Service Providers (MSPs)](#ibp-security-kubernetes-msp)
 - [Storage](#ibp-security-kubernetes-storage)
@@ -118,19 +129,33 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console allows you to dep
 
 The best place to start is to learn about the security features of the underlying Kubernetes infrastructure. The open source documentation provides a review of recommended practices for [securing a Kubernetes cluster](https://Kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/){: external}.
 
+
+
+
 For OpenShift Container Platform security considerations, you should review the [Red Hat Container Security Guide Service](https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/container_security_guide/index){: external}. You will need to use [security context constraints](https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/architecture/index#security-context-constraints){: external} (SCCs) to define a set of conditions that a pod must run with in order to be accepted into the system. Details are included in the {{site.data.keyword.blockchainfull_notm}} Platform deployment instructions.
+
 
 ### Network security
 {: #ibp-security-Kubernetes-network}
 
+
+
+
 The OpenShift Container Platform provides the underlying network, including the networks and routers, over which the customer's VLAN resides. The customer needs to configure their servers and use gateways and firewalls to route traffic between servers to protect workloads from network threats. Protecting your cloud network by using firewalls and intrusion prevention system devices is imperative for protecting your cloud-based workloads.
 
-### Cluster and operating system security
+
+
+
+### Cluster and Operating System security
 {: #ibp-security-Kubernetes-container-os}
 
 - **Sensitive data:** Cluster configuration data is stored in the `etcd` component of your Kubernetes master. Data in etcd is stored on the local disk of the Kubernetes master and is backed up to {{site.data.keyword.cos_full_notm}}. Data is encrypted during transit to {{site.data.keyword.cos_full_notm}}, but you can choose to enable encryption for your etcd data on the local disk of your Kubernetes master by [Encrypting Data at the datastore layer ](https://docs.openshift.com/container-platform/3.11/admin_guide/encrypting_data.html){: external} for your cluster.
 
+
+
+
 - **UBI Linux:** The Fabric Docker images use [Red Hat UBI images](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/building_running_and_managing_containers/index#how_are_ubi_images_different/){: external}, which is a smaller, lighter, and more secure version of Linux.
+
 
 ### Keys and cluster access information
 {: #ibp-security-Kubernetes-keys}
@@ -145,7 +170,7 @@ The OpenShift Container Platform provides the underlying network, including the 
 ### Membership Service Providers (MSPs)
 {: #ibp-security-kubernetes-msp}
 
-Organizations in a blockchain network are represented by [MSP](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-msp) definitions. You can use the blockchain console to add a new organization to the network by creating a new MSP definition in the **Organizations** tab. If you are the admin of an ordering service, you can use the console to add that organization MSP to a consortium using the **Ordering service** tab. Finally, if you are an administrator of a channel, you can add that organization to an existing channel so the organization can transact on the network using the **Channels** tab (this task might require the signature of other organizations). See the [Join the consortium hosted by the ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-add-org) for detailed steps.
+Organizations in a blockchain network are represented by [MSP](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-msp) definitions. You can use the blockchain console to add a new organization to the network by creating a new MSP definition in the **Organizations** tab. If you are the admin of an ordering service, you can use the console to add that organization MSP to a consortium using the **Ordering service** tab. Finally, if you are an administrator of a channel, you can add that organization to an existing channel so the organization can transact on the network using the **Channels** tab (this task might require the signature of other organizations). See the topic on [Join the consortium hosted by the ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-add-org) for detailed steps.
 
 ### Storage
 {: #ibp-security-kubernetes-storage}
@@ -155,7 +180,11 @@ When the blockchain console deploys a node, storage is dynamically provisioned f
 Customers are responsible for encrypting their own storage and the encryption must occur before any blockchain components are deployed to the cluster.
 {: important}
 
+
+
+
 For more information on securing your persistent storage, see this topic on [Volume Security](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/pod_security_context.html){: external}.
+
 
 ### Data privacy
 {: #ibp-security-kubernetes-privacy}
@@ -181,3 +210,4 @@ Because {{site.data.keyword.blockchainfull_notm}} Platform is based on Hyperledg
 - **Ledger data:** Implicit in the blockchain permissioned network is the notion that an agreed upon policy of multiple endorsers is required to sign (approve) a transaction before it can be committed to the ledger. Before any information can be added to the ledger, a clear and well established process for defining the ledger information must exist. Data on the ledger is immutable.
 
 - **Smart contracts:** All smart contracts should be reviewed by channel members before they are installed and executed on peers in their organization. Likewise, all updates to smart contract should be reviewed before the updates are applied to a peer. See this topic on [Upgrading a smart contract](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-upgrade) for the steps that are required.
+

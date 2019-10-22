@@ -267,6 +267,11 @@ In order to create nodes using the {{site.data.keyword.blockchainfull_notm}} API
 
 You can also use the APIs to import and then operate nodes that reside in other clusters. For more information, see [Import a network by using APIs](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-import-with-apis).
 
+## Limitations
+{: #ibp-v2-apis-limitations}
+
+You can only import CA, peer, and ordering nodes that have been exported from other {{site.data.keyword.blockchainfull_notm}} Platform consoles running on {{site.data.keyword.cloud_notm}}, {{site.data.keyword.cloud_notm}} Private, or the OpenShift Container Platform.
+
 ## Building a network by using APIs
 {: #ibp-v2-apis-build-with-apis}
 
@@ -309,7 +314,11 @@ The service credential that is used for API authentication must have the `Manage
 
 If you are using a multizone cluster, you can use the APIs to deploy a blockchain component to a specific zone of {{site.data.keyword.cloud_notm}}. This allows your network to maintain availability in the event of a zone failure. You can use the following steps to deploy a peer or ordering node to a specific zone.
 
+
+
+
 1. Find the zones that your worker nodes are located on using the OpenShift CLI. Once you have connected to your cluster using the CLI use the command `oc get nodes --show-labels` to get the full list of nodes and zones of your cluster. You will be to find the zone that each worker node is located after `failure-domain.beta.kubernetes.io/zone` field under the `LABELS` column.
+
 
 2. To create a node within a specific zone, provide the zone name to the [Create an ordering service](/apidocs/blockchain#create-an-ordering-service) or [Create a peer](/apidocs/blockchain#create-a-peer) API calls using using the zone field of the request body. The anti-affinity policy of the {{site.data.keyword.blockchainfull_notm}} Platform console will automatically deploy your component to different worker nodes within each zone based on the resources available.
 
@@ -335,7 +344,7 @@ You can also use the APIs to import {{site.data.keyword.blockchainfull_notm}} co
 
 6. After you deploy your network, you can use the Fabric SDKs, the Peer CLI, or the console UI to create channels and install or instantiate smart contracts. If you need to programmatically create a channel, you must provide the consortium name. For {{site.data.keyword.blockchainfull}} Platform, the consortium name must be set to `SampleConsortium`.
 
-The service credential that is used for API authentication must have the `Writer` role in IAM to be able to import components. See the table in this topic on [user roles](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-manage-console#ibp-console-manage-console-add-remove) for more information.
+The service credential that is used for API authentication must have the `Writer` role in IAM to be able to import components. See the table in this topic on [user roles](/docs/services/blockchain/howto?topic=blockchain-ibp-console-manage-console#ibp-console-manage-console-add-remove) for more information.
 {: note}
 
 ## Operating your CA using the Fabric CA client
@@ -854,7 +863,7 @@ Copy this entire file into a text editor where you can edit it and save it to yo
 ### Retrieve the CA connection information
 {: #ibp-v2-apis-config-connx-info}
 
-First, we need to provide the connection information of your {{site.data.keyword.blockchainfull_notm}} Platform. You can use the console UI or the APIs to get the necessary information about your CA.
+First, we need to provide the connection information of your CA on the {{site.data.keyword.blockchainfull_notm}} Platform. You can use the console UI or the APIs to get the necessary information about your CA.
 
 **If you are using the {{site.data.keyword.blockchainfull_notm}} Platform console:**
 Open the CA in your console and click **Settings**, then the **Export** button to export the CA information to a JSON file. You can use the values from this file to complete your configuration file.
@@ -1006,3 +1015,4 @@ If you want to use the {{site.data.keyword.blockchainfull_notm}} Platform consol
 - **Private Key:** Upload your admins private key. If you followed the instructions above, you can find this key in the `$HOME/fabric-ca-client/peer-admin/msp/keystore/` folder.
 
 After you import your admin identity, you can associate this identity with the components that you have created. You can then use the console to operate your network.
+

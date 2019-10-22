@@ -24,13 +24,17 @@ subcollection: blockchain-rhos
 # Administering your console
 {: #console-icp-manage}
 
+
+
+
 After you have installed the console on the OpenShift Container Platform, you can use the console to add or remove console users, as well as access APIs that allow you to operate your network and govern your console. You can also access and customize the logs of your console.
 {:shortdesc}
+
 
 ## Managing users from the console
 {: #console-icp-manage-users}
 
-The user who provisions the {{site.data.keyword.blockchainfull_notm}} Platform console is considered the console administrator. The administrator can then add and grant other users access to the console by using the **Users** tab in the console. Every user that accesses the console must be assigned an access policy with a user role defined. The policy determines what actions the user can perform within the console. By default, the console administrator is given the **Manager** role for the console. Other users can be assigned with **Manager**, **Writer**, or **Reader** roles when a console manager adds them to the console. Note that the users can also be managed with [APIs](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#console-icp-manage-users-apis).
+The user who provisions the {{site.data.keyword.blockchainfull_notm}} Platform console is considered the console administrator. The administrator can then add and grant other users access to the console by using the **Users** tab in the console. Every user that accesses the console must be assigned an access policy with a user role defined. The policy determines what actions the user can perform within the console. By default, the console administrator is given the **Manager** role for the console. Other users can be assigned with **Manager**, **Writer**, or **Reader** roles when a console manager adds them to the console. Note that the users can also be managed with  [APIs](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#console-icp-manage-users-apis).
 
 ### Role to permission mapping
 {: #console-icp-manage-role-mapping}
@@ -46,7 +50,11 @@ Permissions are cumulative. If you select a **Manager** role, the user will also
 ### Managing a user's password
 {: #console-icp-manage-user-pw}
 
+
+
+
 The password that you provided to the [console custom resource definition](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp-console) becomes the default password for the console. All users need to use this password when they login to the console for the first time. The console manager can also specify a new default password. In the **Users** tab of the console, click the **Update configuration** link under your authentication service tile name. In the right panel, you can view or update the default password for new users of the console.
+
 
 You need to share the default password, or the default password that you reset, with the users so that they can log into the console. They will be required to change the password upon their first login.
 {:note}
@@ -67,6 +75,7 @@ A user with a manager role can update the roles of other console users and provi
 If you are a user with a manager role, you can remove a user's access to the console. In the **Users** tab of the console, click the checkbox at the beginning of the specific user row. Then click the **Trash** can icon at the top of the table, next to the **Add new users** button. After removing the user from the table, the user cannot log into the console again.
 
 
+
 ## Viewing your logs
 {: #icp-console-manage-logs}
 
@@ -75,7 +84,7 @@ When you use the {{site.data.keyword.blockchainfull_notm}} Platform console, you
 ### Viewing your console logs
 {: #console-icp-manage-console-logs}
 
-You can easily access the console logs if you need to debug problems that you encounter when you use the console or operate your nodes. You can also set the logging level to increase or decrease the amount of logs that the console collects. The console logs are collected separately from the [node logs](#console-icp-manage-node-logs), which are collected by the OpenShift Container Platform.
+You can easily access the console logs if you need to debug problems that you encounter when you use the console or operate your nodes. You can also set the logging level to increase or decrease the amount of logs that the console collects. The console logs are collected separately from the [node logs](/docs/services/blockchain/howto?topic=blockchain-icp-console-manage#console-icp-manage-node-logs), which are collected by {{site.data.keyword.cloud_notm}} Private.
 
 Navigate to the **Settings** tab in the console browser to change the logging settings. The console logs are collected from two separate sources:
 
@@ -89,7 +98,11 @@ You can view only the console logs if you are logged in as a console administrat
 ### Viewing your node logs
 {: #console-icp-manage-node-logs}
 
-Component logs can be viewed from the command line by using the [kubectl CLI commands](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/manage_cluster/install_kubectl.html){: external} or through [Kibana](https://www.elastic.co/products/kibana){: external}, which is included in your OpenShift cluster.
+
+
+
+Component logs can be viewed from the command line by using the [kubectl CLI commands](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/manage_cluster/install_kubectl.html){: external} or through [Kibana](https://www.elastic.co/products/kibana){: external}, which is included in your OpenShift Container Platform.
+
 
 - Use the `kubectl logs` command to view the container logs inside the pod. Follow the instructions to [Install the kubectl cli](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/manage_cluster/install_kubectl.html){: external} if you have not already done so. If you are unsure of your pod name, run the following command to view your list of pods.
 
@@ -107,27 +120,40 @@ Component logs can be viewed from the command line by using the [kubectl CLI com
 
   Replace `<pod_name>` with the name of your pod from the command output above.  
   Replace `<node>` with `ca`, `peer`, or `orderer` to view the logs for your node.  
-  Replace `<node>` with `chaincode-logs` to view the logs for your smart contracts.
+  Replace `<node>` with  `chaincode-logs` to view the logs for your smart contracts.
 
+  
   You can also run the command `kubectl logs -f <pod_name>` to get a list of all of the containers that are running inside a pod. The response to the command will be an error message similar to the following:
   ```
   Error from server (BadRequest): a container name must be specified for pod peer1org1-7b4b6687dc-7n4fz, choose one of: [dind peer proxy chaincode-logs couchdb] or one of the init containers: [init]
   ```
+  
 
   For more information about the `kubectl logs` command, see [Kubernetes documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs){: external}.
+
+
+
 
 - Alternatively, you can access the logs from the OpenShift Web Browser.
 
   **Note:** When you view your logs in Kibana, you might receive the response `No results found`. This condition can occur if OpenShift uses your worker node IP address as its hostname. To resolve this problem, remove the filter that begins with `node.hostname.keyword` at the top of the panel and the logs will become visible.
+
 
 ### Viewing your smart contract container logs
 {: #console-icp-manage-container-logs}
 
 If you encounter issues with your smart contract, you can view the smart contract, or chaincode, container logs to debug an issue. You can run the following command to view the smart contract container logs:
 
+
+
+
 ```
 kubectl  logs -f <peer_ped> -c chaincode-logs
 ```
 {:codeblock}
 
+
 Replace `<peer_pod>` with the name of the peer pod where the chaincode is running. Use the command `kubectl get po` to get the list of running pods.
+
+
+

@@ -9,7 +9,7 @@ IBM Blockchain Platform v2.1.0
 	console-ocp-about.md
 	whats_new.md
 	howto/pricing-rhos.md
-	/blockchain/blockchain-blockchain-component-overview
+	blockchain_component_overview.md
 	security.md
 	ibp-console-ha.md
 	data-residency.md

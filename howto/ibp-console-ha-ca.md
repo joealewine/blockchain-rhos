@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-21"
+lastupdated: "2019-10-22"
 
 keywords: high availability, CA, PostgreSQL, replica sets
 
@@ -64,7 +64,7 @@ Use of a third-party PostgreSQL database is also supported.  If the third-party 
 
 For all three PostgreSQL database options, you need to provide a file that contains the connection information to the PostgreSQL database when you create the CA. The process to generate the file depends on whether the database resides in {{site.data.keyword.cloud_notm}} or is from third-party provider.
 
-- **{{site.data.keyword.cloud_notm}}** If you are using a PostgreSQL database from {{site.data.keyword.cloud_notm}}, you need to generate Service Credentials from the PostGreSQL resources page in your **{{site.data.keyword.cloud_notm}}** dashboard by completing the process in the clip below:
+- **{{site.data.keyword.cloud_notm}}** If you are using a PostgreSQL database from {{site.data.keyword.cloud_notm}}, you need to generate Service Credentials from the PostGreSQL resources page in your **{{site.data.keyword.cloud_notm}}** dashboard by completing the process in the following clip:
 
 ![Service credentials](../images/service_credentials_postgresql.gif "Service credentials"){: gif}
 

@@ -17,7 +17,7 @@ subcollection: blockchain-rhos
 {:note: .note}
 {:important: .important}
 {:tip: .tip}
-{:pre: .pre}_
+{:pre: .pre}
 
 # Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
 {: #deploy-ocp}

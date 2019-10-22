@@ -20,19 +20,24 @@ subcollection: blockchain-rhos
 {:faq: data-hd-content-type='faq'}
 {:pre: .pre}
 
+
 # FAQs
 {: #ibp-v2-faq}
 
 **General**   
 
 - [What is the value of using {{site.data.keyword.blockchainfull_notm}} Platform over native Hyperledger Fabric?](#ibp-v2-faq-v2-IBP-Overview-1-7)
+
 - [Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 run on OpenShift on {{site.data.keyword.cloud_notm}}?](#ibp-v2-faq-saas-ocp)
+
 - [What version of Hyperledger Fabric is being used with {{site.data.keyword.blockchainfull_notm}} Platform?](#ibp-v2-faq-v2-Hyperledger-Fabric-3-1)
 - [What database do the peers use for their ledger?](#ibp-v2-faq-v2-IBP-Overview-1-3)
 - [What languages are supported for smart contracts?](#ibp-v2-faq-v2-IBP-Overview-1-4)
 - [Do you support using certificates from non-IBM Certificate Authorities (CAs)?](#ibp-v2-faq-v2-external-certs)
 - [I am currently using Hyperledger Fabric v1.4 and want to move to {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} or Multicloud. Can I continue to use Raft?](#ibp-v2-faq-migrate-raft)
 - [How can I find the examples and tutorials within the VSCode extension](#ibp-v2-faq-vscode-tutorials)
+
+
 
 ## What is the value of using {{site.data.keyword.blockchainfull_notm}} Platform over native Hyperledger Fabric?
 {: #ibp-v2-faq-v2-IBP-Overview-1-7}
@@ -46,6 +51,7 @@ Hyperledger Fabric is a powerful, versatile, pluggable distributed ledger techno
 {: faq}
 
 Yes. The {{site.data.keyword.blockchainfull_notm}} Platform can be purchased and deployed in two ways. [{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](https://cloud.ibm.com/catalog/services/blockchain-platform){: external} is deployed and runs by using the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster){: external}. {{site.data.keyword.blockchainfull_notm}} Platform is also available as a software offering that can be deployed on Red Hat OpenShift and can run in all environments where OpenShift Container Platform  is supported. Read more about it [here](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about).
+
 
 ## What version of Hyperledger Fabric is being used with {{site.data.keyword.blockchainfull_notm}} Platform?
 {: #ibp-v2-faq-v2-Hyperledger-Fabric-3-1}
@@ -69,15 +75,19 @@ The {{site.data.keyword.blockchainfull_notm}} Platform supports smart contracts 
 {: #ibp-v2-faq-v2-external-certs}
 {: faq}
 
-Yes, you can bring your own certificates if they are issued by a CA that is X.509 compliant. The CA should sign using ECDSA and the defaults should be set to use P256 curve.
+Yes, you can bring your own certificates if they are issued by a CA that is X.509 compliant. The CA should sign by using ECDSA and the defaults should be set to use P256 curve.
 
 ## I am currently using Hyperledger Fabric v1.4 and want to move to {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} or Multicloud. Can I continue to use Raft?
 {: #ibp-v2-faq-migrate-raft}
 {: faq}
 
-Yes. The {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and Multicloud use Raft consensus. However, no mechanism exists to migrate your ledger data. Instead, you can reinstall your smart contract packages on your {{site.data.keyword.blockchainfull_notm}} Platform network.
+Yes. The {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and Multicloud use Raft consensus. All of the applications and smart contracts that you are using on Fabric 1.4 are able to work on your {{site.data.keyword.blockchainfull_notm}} Platform network. However, no mechanism exists to migrate your ledger data. Instead, you can reinstall your smart contract packages on your {{site.data.keyword.blockchainfull_notm}} Platform network.
 
 ## How can I find the examples and tutorials within the VSCode extension
 {: #ibp-v2-faq-vscode-tutorials}
 {: faq}
-The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. You can find these tutorials on the extension home page when the extension is first installed. However, you can return to the tutorials and the home page by going to the extensions tab. For more information, see [Guided tutorials in VS Code](docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#develop-vscode-guided-tutorials).
+
+The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. You can find these tutorials on the extension home page when the extension is first installed. However, you can return to the tutorials and the home page by going to the extensions tab. For more information, see [Guided tutorials in VS Code](docs/services/blockchain?topic=blockchain-develop-vscode#develop-vscode-guided-tutorials).
+
+
+

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-10-22"
 
 keywords: smart contract, private data, private data collection, anchor peer
 
@@ -22,7 +22,7 @@ subcollection: blockchain-rhos
 # Deploy a smart contract on the network tutorial
 {: #ibp-console-smart-contracts}
 
-A smart contract is the code, sometimes referred to as chaincode, that allows you to read and update data on the blockchain ledger. A smart contract can turn business logic into an executable program that is agreed to and verified by all members of a blockchain network. This tutorial is the third part in the [sample network tutorial series](#ibp-console-smart-contracts-structure) and describes how to deploy smart contracts to start transactions in the blockchain network.
+A smart contract is the code, sometimes referred to as chaincode, that allows you to read and update data on the blockchain ledger. A smart contract can turn business logic into an executable program that isa greed to and verified by all members of a blockchain network. This tutorial is the third part in the [sample network tutorial series](#ibp-console-smart-contracts-structure) and describes how to deploy smart contracts to start transactions in the blockchain network.
 {:shortdesc}
 
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network. Additionally, application developers may be interested in the sections that reference how to create a smart contract.
@@ -97,7 +97,7 @@ You can return to the **Smart contracts** tab later to install the smart contrac
 ## Step three: Instantiate a smart contract
 {: #ibp-console-smart-contracts-instantiate}
 
-Smart contracts are instantiated on a channel. Any console member with peers joined to a channel can instantiate a smart contract and specify the associated [endorsement policy](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-endorsement-policy).
+Smart contracts are instantiated on a channel. Any console member with peers joined to a channel can instantiate a smart contract and specify the associated [endorsement policy](/docs/services/blockchain?topic=blockchain-glossary#glossary-endorsement-policy).
 
 Use your console to perform these steps:
 
@@ -111,7 +111,7 @@ Use your console to perform these steps:
 
 You can view all of the smart contracts that have been instantiated on a channel by clicking the channel icon in the left navigation, selecting a channel from the table, and then clicking the **Channel details** tab.
 
-Depending on the number of peers you have deployed in your cluster, instantiation can take several minutes.
+Be aware that if you use a free {{site.data.keyword.cloud_notm}} Kubernetes service cluster, instantiation can take significantly longer than in a paid cluster. Depending on the number of peers you have deployed in your cluster, instantiation can take several minutes.
 
 The combination of **installation and instantiation** is a powerful feature because it allows for a peer to use a single smart contract across many channels. Peers may want to join multiple channels that use the same smart contract, but with different sets of network members able to access the data. A peer can install the smart contract once, and then use the same smart contract container on any channel where it has been instantiated. This lightweight approach saves compute and storage space, and helps you scale your network.
 
@@ -205,3 +205,4 @@ In order to use private data with {{site.data.keyword.blockchainfull_notm}} Plat
 3. **Configure anchor peers.** Because cross organizational [gossip](https://hyperledger-fabric.readthedocs.io/en/release-1.4/gossip.html){: external} must be enabled for private data to work, an anchor peer must exist for each organization in the collection definition. Refer to this information for [how to configure anchor peers](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-channels-anchor-peers) on your network.
 
 Your channel is now configured to use private data.
+

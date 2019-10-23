@@ -39,7 +39,7 @@ Because your instance of the {{site.data.keyword.blockchainfull_notm}} Platform 
 
   For a sense of how much storage and compute you will need in your cluster, refer to the chart after this list, which contains the current defaults for the peer, orderer, and CA.
 
-2. **Check whether you have enough resources in your Kubernetes cluster**. If you are using a Kubernetes cluster hosted in {{site.data.keyword.cloud_notm}}, we recommend using the [{{site.data.keyword.cloud_notm}} SysDig](https://www.ibm.com/cloud/sysdig){: external} tool in combination with your {{site.data.keyword.cloud_notm}} Kubernetes dashboard. If you do not have enough space in your cluster to deploy or resize resources, you need to increase the size of your {{site.data.keyword.cloud_notm}} Kubernetes Service cluster. For more information about how to increase the size of a cluster, see [Scaling clusters](/docs/containers?topic=containers-ca#ca){: external}. If you are using a cloud provider other than {{site.data.keyword.cloud_notm}}, you will have to consult their documentation to learn how to scale clusters. If you have enough space in your cluster, you can continue with step 3.
+2. **Check whether you have enough resources in your Kubernetes cluster**.  If you do not have enough space in your cluster to deploy or resize resources, you need to increase the size of your  cluster.  Check the documentation of your cloud provider to learn how to scale clusters. If you have enough space in your cluster, you can continue with step 3.
 3. **Use the console to deploy or resize your node**. If your Kubernetes pod is large enough to accommodate the new size of the node, the reallocation should proceed smoothly. If the worker node that the pod is running on is running out of resources, you can add a new larger worker node to your cluster and then delete the existing working node.
 
 | **Component** (all containers) | CPU**  | Memory (GB) | Storage (GB) |
@@ -66,7 +66,7 @@ The **Resource allocation** panel in the console provides default values for the
 
 All of the containers that are associated with a node have **CPU** and **memory**, while certain containers that are associated with the peer, ordering node, and CA also have **storage**. For more information about storage, see [storage](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-storage). .
 
-You are responsible for monitoring your CPU, memory and storage consumption in your cluster. If you do happen to request more resources for a blockchain node than are available, the node will not start. However, existing nodes will not be affected. . For information about how to increase the CPU, memory, and storage, consult the documentation of your cloud provider.
+You are responsible for monitoring your CPU, memory and storage consumption in your cluster. If you do happen to request more resources for a blockchain node than are available, the node will not start. However, existing nodes will not be affected.  For information about how to increase the CPU, memory, and storage, consult the documentation of your cloud provider.
 {:note}
 
 Every node has a gRPC web proxy container that bootstraps the communication layer between the console and a node. This container has fixed resource values and is included on the Resource allocation panel to provide an accurate estimate of how much space is required on your Kubernetes cluster in order for the node to deploy. Because the values for this container cannot be changed, we will not discuss the gRPC web proxy in the following sections.

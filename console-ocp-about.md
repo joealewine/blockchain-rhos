@@ -2,7 +2,7 @@
 
 copyright:
 years: 2018, 2019
-lastupdated: "2019-10-02"
+lastupdated: "2019-10-24"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -40,6 +40,12 @@ The {{site.data.keyword.blockchainfull}} Platform v2.1.0 enables a consortium of
 | Are APIs available for node management? | Yes | Yes|
 | Does the product integrate with the {{site.data.keyword.blockchainfull_notm}} Platform VSCode extension to develop and test my smart contracts?| Yes | Yes|
 | Where can I learn more? |See [About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-offers)  | See [About {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview#ibp-console-overview-capabilities) |
+
+### {{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric
+
+You can also purchase images for Hyperledger Fabric that are created and supported by {{site.data.keyword.blockchainfull_notm}}. The images are based on the open Fabric code base and contain a number of enhancements for stability and serviceability. The {{site.data.keyword.blockchainfull_notm}} images are bundled with support from {{site.data.keyword.IBM_notm}}.
+
+The {{site.data.keyword.blockchainfull_notm}} images offering does not include the {{site.data.keyword.blockchainfull_notm}} Console or operator. This offering is intended for experienced Fabric users with existing deployments. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-blockchain-images#blockchain-images).
 
 ## What {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 offers
 {: #console-ocp-about-offers}

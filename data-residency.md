@@ -36,15 +36,15 @@ Each approach provides an increased level of isolation and protection for your d
 
 The architecture of Hyperledger Fabric that underlies the {{site.data.keyword.blockchainfull_notm}} Platform is centered around three key components: an ordering service (made up of ordering nodes), Certificate Authorities (CA), and peers. Additionally, organizations send transactions to these nodes from client applications using the [Fabric SDKs](https://hyperledger-fabric.readthedocs.io/en/release-1.4/getting_started.html){: external}. When considering data residency, it is important to understand how these components interact with and store data.
 
-**Peers** are used by members of the consortium to store the blockchain [ledger](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html){: external}. The blockchain ledger consists of two parts. The first is the world state, which stores the latest value for all data in the ledger in key-value pairs. The second is the blockchain record of every transaction. Peers receive state updates in the form of new blocks from the ordering service. They then use the blocks and the world state to confirm  (or commit) transactions, update the world state and add the log of transactions on the blockchain. The ordering service establishes the order of transactions for all the peers on the [consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-consortium) and stores a copy of the blockchain portion of the ledger.
+**Peers** are used by members of the consortium to store the blockchain [ledger](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html){: external}. The blockchain ledger consists of two parts. The first is the world state, which stores the latest value for all data in the ledger in key-value pairs. The second is the blockchain record of every transaction. Peers receive state updates in the form of new blocks from the ordering service. They then use the blocks and the world state to confirm (or commit) transactions, update the world state and add the log of transactions on the blockchain. The ordering service establishes the order of transactions for all the peers on the [consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-consortium) and stores a copy of the blockchain portion of the ledger.
 
-**Channels** are a mechanism for transmitting data within a network. You cannot participate on a blockchain network without joining a channel. Channels can be used members of the network to create logical separation between business applications and even to boost performance by limiting traffic. They can also be used by subsets of organizations in the consortium to transact privately and segregate data.
+**Channels** are a mechanism for transmitting data within a network. You cannot participate in a blockchain network without joining a channel. Channels can be used members of the network to create logical separation between business applications and even to boost performance by limiting traffic. They can also be used by subsets of organizations in the consortium to transact privately and segregate data.
 
 Peers maintain a separate ledger for each channel that they join. Only organizations that are members of the channel can join their peers to the channel and receive ledger updates from the ordering service. As a result, each channel is bound to an ordering service, which stores the blockchain portion of every channel ledger that it maintains. Client applications submit transactions to the peers and ordering service of a given channel. These transactions are added to the transaction log within the blockchain and include a [read-write set](https://hyperledger-fabric.readthedocs.io/en/release-1.4/readwrite.html){: external}, which is added to the key-value pairs in the world state.
 
 If in-country data residency is a requirement, you need to consider the location of your peers, the ordering service, as well as your client applications. You also need to know the location of the peers that belong to other organizations on your channels.
 
-If you are using an OpenShift cluster that was deployed using the {{site.data.keyword.IBM_notm}} Kubernetes Service, you can find the list of [OpenShift regions and locations on {{site.data.keyword.cloud_notm}}](/docs/openshift?topic=openshift-regions-and-zones) where you and the members of your consortium can deploy your components.
+If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, you can find the list of [OpenShift regions and locations on {{site.data.keyword.cloud_notm}}](/docs/openshift?topic=openshift-regions-and-zones) where you and the members of your consortium can deploy your components.
 
 ## A use case for data residency
 {: #console-icp-about-data-residency-use-case}
@@ -53,16 +53,16 @@ We can use an example consortium to illustrate how data is distributed on the {{
 
 ![An example consortium](images/data_res_use_case.svg "An example consortium"){: caption="Figure 1. An example blockchain consortium with one ordering service and four organizations. The four organizations are all members of one channel. " caption-side="bottom"}
 
-Each peer joined to channel X stores a copy of the channel ledger, displayed in **Figure 1** as ledger X. Because peers from the United States and Germany are joined to the channel, the data on the channel ledger resides in both geographies. The blockchain portion of the ledger is also stored by the ordering service that is located in the United States.
+Each peer joined to channel X stores a copy of the channel ledger, which is displayed in **Figure 1** as ledger X. Because peers from the United States and Germany are joined to the channel, the data on the channel ledger resides in both geographies. The blockchain portion of the ledger is also stored by the ordering service that is located in the United States.
 
-If two organizations in the consortium create a second channel, Channel Y, a second ledger is created and stored on the peers of channel members. Only the organizations that joined the channel will have a copy of the channel data.
+If two organizations in the consortium create a second channel, Channel Y, a second ledger is created and stored on the peers of channel members. Only the organizations that joined the channel have a copy of the channel data.
 
 ![Adding a second channel](images/data_res_use_case_channel.svg "Adding a second channel"){: caption="Figure 2. Two organizations in the consortium have created and joined a second channel. A second channel ledger is created and stored on the peers of Org B and Org D and the ordering service." caption-side="bottom"}
 
 
 In **Figure 2**, Org B and Org D have joined channel Y. The peers of Org B and Org D now store a copy of ledger Y, in addition to ledger X. Because the same ordering service was used to create channel X and channel Y, the ordering service now has a copy of the blockchain portion of both channel ledgers. In both **Figure 1** and **Figure 2**, data being created by applications in Germany is stored in the United States, which is undesirable if data residency is required.
 
-We can use the example above to explore the options that organizations have to achieve data residency. Assume that a regulation in Germany requires some of the data that is created by Org C and Org D to remain within the country. The organizations in Germany can use all three options to prevent data from being stored in the United States.
+We can use the example above to explore the options that organizations can use to achieve data residency. Assume that a regulation in Germany requires some of the data that is created by Org C and Org D to remain within the country. The organizations in Germany can use all three options to prevent data from being stored in the United States.
 
 ## Option one: Private data collections on a shared channel
 {: #console-icp-about-data-residency-use-case-private-data}
@@ -77,29 +77,29 @@ When considering private data, it is important to understand the difference betw
 
 It is important to be aware with this option that while Orgs A and B cannot see the actual ledger data because it is hashed, they are still able to see that Orgs C and D are transacting and can see the volume of transactions that are occurring between them.
 
-Also consider that data inside a private data collection can be purged from the peers that store it. While data is stored on a channel forever, collections allow members to specify how many blocks are committed to a channel before the [private data is purged](https://hyperledger-fabric.readthedocs.io/en/release-1.4/private_data_tutorial.html#pd-purge){: external}. Once data is removed from the private data collection, the hash on the channel can no longer be used to verify the transaction that created it. In the example network in **Figure 3**, Org C and Org D can use a `block to live` policy to ensure that any data that does not need to persist forever is removed from the network entirely within a specified time period.
+Also, consider that data inside a private data collection can be purged from the peers that store it. While data is stored on a channel forever, collections allow members to specify how many blocks are committed to a channel before the [private data is purged](https://hyperledger-fabric.readthedocs.io/en/release-1.4/private_data_tutorial.html#pd-purge){: external}. Once data is removed from the private data collection, the hash on the channel can no longer be used to verify the transaction that created it. In the example network in **Figure 3**, Org C and Org D can use a `block to live` policy to ensure that any data that does not need to persist forever is removed from the network entirely within a specified time period.
 
 ## Option two: Private data collections on a separate channel
 {: #console-icp-about-data-residency-use-case-private-data-channel}
 
-Org C and Org D can also use private data collections in the context of a separate channel to provide additional isolation for their data. Creating a new channel, Channel Y in this case,  ensures that the hash of the private data is only shared with the ordering service, without being shared with other members of the consortium and stored on their peers.
+Org C and Org D can also use private data collections in the context of a separate channel to provide additional isolation for their data. Creating a new channel, Channel Y in this case, ensures that the hash of the private data is only shared with the ordering service, without being shared with other members of the consortium and stored on their peers.
 
 ![Using private data with a separate channel](images/data_res_private_data_channel.svg "Using private data with a separate channel"){: caption="Figure 4. Org C and Org D form a separate channel and use a private data collection. Hashes of data in the collection are stored on ledger Y, and is only stored by the peers in Germany in the United States by the ordering service." caption-side="bottom"}
 
 In **Figure 4**, Org C and Org D have formed a new channel, Channel Y, that does not contain any members in the United States. As a result, hashes of data in the OrgC-OrgD collection is stored on ledger Y instead of ledger X, and is not stored on the peers in the United States. Because the ordering service is located in the United States, a hash of the data created in Germany still leaves the country.
 
-Creating a separate channel can prevent transaction details from being shared with other organizations in the consortium. If the organizations in Germany used a shared channel, Org A and Org B would be able to see the number of transaction hashes that are committed to the channel ledger by the private data collection. This could provide those organizations visibility into the fact that Orgs C and D are transacting and the volume of transactions generated between them. Consider though that forming a new channel requires additional management overhead to create and update. Forming a new channel also makes it harder for Org C and Org D to share data with Org A and Org B.
+Creating a separate channel can prevent transaction details from being shared with other organizations in the consortium. If the organizations in Germany used a shared channel, Org A and Org B would be able to see the number of transaction hashes that are committed to the channel ledger by the private data collection. This might provide those organizations visibility into the fact that Orgs C and D are transacting and the volume of transactions that are generated between them. Consider though that forming a new channel requires additional management overhead to create and update. Forming a new channel also makes it harder for Org C and Org D to share data with Org A and Org B.
 
 ## Option three: A channel with all components in one country
 {: #console-icp-about-data-residency-use-case-channel}
 
-Org C and Org D can also create a channel with all of the infrastructure within the same country. This requires that the peers joined to the channel, the applications, and the ordering service all reside within the same region. In this scenario, none of the data stored on the channel ledger will leave the region and be stored outside the country.
+Org C and Org D can also create a channel with all of the infrastructure within the same country. This requires that the peers joined to the channel, the applications, and the ordering service all reside within the same region. In this scenario, none of the data that is stored on the channel ledger will leave the region and be stored outside the country.
 
 ![Creating a separate channel](images/data_res_separate_channel.svg "Creating a separate channel"){: caption="Figure 5. Org C and Org D create a new channel using an ordering service located in Germany. All data is stored in the country on ledger Y." caption-side="bottom"}
 
 In **Figure 5**, Org C and Org D have created a new channel for data that must not leave Germany. This requires the creation of a new ordering service located in Germany to ensure that the orderer's copy of the channel ledger is stored inside the country. Since in this case the ordering service, the OrgC-peer, and the OrgD-peer are located in Germany, Org C and Org D can now keep the data public on the channel if they choose, or they could still decide to use private data collections to prevent the full transaction data from being stored on the ordering service.
 
-Creating a channel with all of the components in one country ensures that all of the data resides within one region, including the key value pairs, the blockchain transaction log, and the hashes of any private data. However, this option requires the overhead to maintain a new channel and the costs associated with maintaining the ordering service.
+Creating a channel with all of the components in one country ensures that all of the data resides within one region, including the key value pairs, the blockchain transaction log, and the hashes of any private data. However, this option requires the overhead to maintain a new channel and the costs that are associated with maintaining the ordering service.
 
 ## Considerations around using the {{site.data.keyword.blockchainfull_notm}} Platform console
 {: #console-icp-about-data-residency-considerations}
@@ -110,7 +110,7 @@ When you deploy the {{site.data.keyword.blockchainfull_notm}} Platform, an insta
 
 When you use your console to view the channel details, ledger data is visible in your browser. The ledger data is transmitted directly from the Kubernetes cluster to your browser.
 
-Therefore, to preserve data residency, the end-user's browser and the Kubernetes cluster must reside in the same country.
+Therefore, to preserve data residency, the end user's browser and the Kubernetes cluster must reside in the same country.
 
 ## Reference material
 {: #console-icp-about-data-residency-reference}

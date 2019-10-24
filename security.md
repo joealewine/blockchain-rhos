@@ -2,7 +2,9 @@
 
 copyright:
   years: 2019
-lastupdated: 2019-10-22
+lastupdated: "2019-10-24"
+
+
 
 keywords: security, encryption, storage, tls, iam, roles, keys
 

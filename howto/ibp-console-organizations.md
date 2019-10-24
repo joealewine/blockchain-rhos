@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: 2019-10-18
+lastupdated: ""{LAST_UPDATED_DATE}]"
 
 keywords: organizations, MSPs, create an MSP, MSP JSON file, consortium, system channel
 
@@ -25,7 +25,7 @@ subcollection: blockchain-rhos
 
 You can use the {{site.data.keyword.blockchainfull}} Platform console to create a formal organization definition known as a Membership Services Provider (MSP). Your organization's MSP definition allows other members of the blockchain consortium to verify the identity of your nodes and applications. Your MSP definition also contains your organization's admin certificates.
 
-You can also use the console to manage which organizations are members of your network. The administrator of the ordering service can use the organizations tab to add members to the blockchain [consortium](/docs/services/blockchain?topic=blockchain-glossary#glossary-consortium). Members of the consortium can then use the console to add members to new or existing channels.
+You can also use the console to manage which organizations are members of your network. The administrator of the ordering service can use the organizations tab to add members to the blockchain [consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-consortium). Members of the consortium can then use the console to add members to new or existing channels.
 
 ![{{site.data.keyword.blockchainfull_notm}} Platform console organizations tab](../images/console_organizations_tab.png "{{site.data.keyword.blockchainfull_notm}} Platform console organizations tab"){: caption="Figure 1. You can use the organizations panel to create, import, and manage organization MSP definitions" caption-side="bottom"}
 
@@ -144,7 +144,7 @@ Replace `<certificate.pem>` with the name of the Certificate PEM file that you d
 
 Follow these instructions when you need to add a new admin certificate of another member from the same organization who can instantiate a smart contract on an existing channel and can submit and approve channel updates.  This task requires you to download and edit the existing MSP definition and add the new admin certificate and then update the MSP for the channel member.
 
-If you need to add a new organization as a channel admin, see this topic on [Updating a channel configuration](/docs/services/blockchain?topic=blockchain-ibp-console-govern#ibp-console-govern-update-channel).
+If you need to add a new organization as a channel admin, see this topic on [Updating a channel configuration](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-update-channel).
 {: note}
 
 As with all channel updates, this update needs to be performed by a channel operator and the change will follow the channel update approval process according to the policy that was configured when the channel was created.  
@@ -241,7 +241,7 @@ For example, your JSON file would look similar to:
 
 Save this definition as your MSP definition `JSON` file.  
 
-You have constructed an MSP definition, which defines the organization for your peer or ordering service nodes, and uses certificates from an external CA. You can now return to the instructions that describe [How to use certificates from an external CA with your peer or orderer](/docs/services/blockchain/howto?topic=blockchain-ibp-console-build-network#ibp-console-build-network-third-party-ca).
+You have constructed an MSP definition, which defines the organization for your peer or ordering service nodes, and uses certificates from an external CA. You can now return to the instructions that describe [How to use certificates from an external CA with your peer or orderer](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca).
 
 ## Importing an MSP
 {: #console-organizations-import-msp}
@@ -268,7 +268,7 @@ After your organization is added to a consortium, you can create a channel by us
 2. Import the MSPs of organizations that you want to add to the new channel into your console in the **Organizations** tab. **Note** that organizations need to be added to the consortium before they can be added to a channel.
 3. Navigate to the **Channels** tab and click **Create channel**. This will open a side panel that allows you to specify the channel name, membership, and channel policies. You can add any organizations that have been added to the consortium to the new channel.
 
-For more information about these steps, see [creating a channel](/docs/services/blockchain/howto?topic=blockchain-ibp-console-build-network#ibp-console-build-network-create-channel1) in the **Build a network** tutorial.
+For more information about these steps, see [creating a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel1) in the **Build a network** tutorial.
 
 ### Updating an MSP in a channel definition
 {: #console-organizations-update-channel}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-23"
+lastupdated: "2019-10-24"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -30,15 +30,21 @@ General problems may occur when using the console to manage nodes, channels, or 
 
 This topic describes common issues that can occur when using the {{site.data.keyword.blockchainfull_notm}} Platform console.
 
+
 **Issues during Deployment**
 - [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
 - [My deployment fails when I try apply the security and access policies to my namespace](#ibp-v2-troubleshooting-deployment-policies)
 - [My deployment fails when I try apply the custom resource definition of the console or operator](#ibp-v2-troubleshooting-deployment-cr)
 
+
 **Issues with the Console**
+- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
+
 - [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls)
+
 - [When I hover over my node, the status is `Status unavailable`, what does this mean?](#ibp-v2-troubleshooting-status-unavailable)
 - [When I hover over my node, the status is `Status undetectable`, what does this mean?](#ibp-v2-troubleshooting-status-undetectable)
+
 - [Why did my smart contract installation, instantiation or upgrade fail?](#ibp-console-smart-contracts-troubleshoot-entry1)
 - [Why is the smart contract that I installed on the peer not listed in the UI?](#ibp-console-build-network-troubleshoot-missing-sc)
 - [My channel, smart contracts, and identities have disappeared from the console. How can I get them back?](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-v2-troubleshooting#ibp-v2-troubleshooting-browser-storage)
@@ -46,13 +52,17 @@ This topic describes common issues that can occur when using the {{site.data.key
 - [Why am I getting the error `An error occurred when updating channel` when I try to add an organization to my channel?](#ibp-v2-troubleshooting-update-channel)
 - [When I log in to my console, why am I getting a 401 unauthorized error?](#ibp-v2-troubleshooting-console-401)
 
+
 **Issues with your Nodes**
+
 - [Why is my first invoke of a smart contract returning the following error: no suitable peers available to initialize from?](#ibp-v2-troubleshooting-smart-contract-anchor-peers)
 - [Why are my node operations failing after I create my peer or ordering service?](#ibp-console-build-network-troubleshoot-entry1)
 - [Why does my peer fail to start?](#ibp-console-build-network-troubleshoot-entry2)
 - [Why are my transactions returning an endorsement policy error: signature set did not satisfy policy?](#ibp-v2-troubleshooting-endorsement-sig-failure)
 - [How can I view my smart contract container logs?](#ibp-console-smart-contracts-troubleshoot-entry2)
 - [Why are the transactions I submit from VS Code failing?](#ibp-v2-troubleshooting-anchor-peer)
+
+
 
 ## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
 {: #ibp-v2-troubleshooting-chrome-v77}
@@ -66,6 +76,7 @@ This problem is caused by a bug introduced by the Chrome browser `Version 77.0.3
 
 To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can downgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser. If this solution does not resolve your problem see [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls).
 {: tsResolve}
+
 
 ## My deployment fails when I try apply the security and access policies to my namespace
 {: #ibp-v2-troubleshooting-deployment-policies}
@@ -122,19 +133,19 @@ This problem occurs when there is a problem with the indents in your file. Refer
 {: tsCauses}
 
 
-## When I hover over my node, the status is `Status unavailable`, what does this mean?
+## When I hover over my node, the status is `Status unavailable` or `Status unknown`, what does this mean?
 {: #ibp-v2-troubleshooting-status-unavailable}
 {: troubleshoot}
 
 The node status in the tile for the CA,  peer, or ordering node is grey, meaning the status of the node is not available. Ideally, when you hover over any node, the node status should be `Running`.
 {: tsSymptoms}
 
-This problem can occur if the node is newly created and the deployment process has not completed. If the node is a CA, then it is likely the node is not running.
+This problem can occur if the node is newly created and the deployment process has not completed. If the node is a CA, then it is likely that the node is not running.
 If the node is a peer or ordering node, this condition occurs when the health checker that runs against the peer or ordering nodes cannot contact the node.  The request for status can fail with a timeout error because the node did not respond within a specific time period, the node could be down, or network connectivity is down.
 {: tsCauses}
 
 If this is a new node, wait a few more minutes for the deployment to complete. You can try reloading the page in your browser to refresh the status. If the node is not new,
-[examine the associated node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-console-logs) for errors to determine the cause.
+ [examine the associated node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-console-logs) for errors to determine the cause.
 {: tsResolve}
 
 ## When I hover over my node, the status is `Status undetectable`, what does this mean?
@@ -161,6 +172,8 @@ You can resolve this problem by performing the following steps:
 The health checker can now run against the node and report the status of the node.
 {: tsResolve}
 
+
+
 ## Why did my smart contract installation, instantiation or upgrade fail?
 {: #ibp-console-smart-contracts-troubleshoot-entry1}
 {: troubleshoot}
@@ -173,7 +186,7 @@ You may receive this error if this version of the smart contract already exists 
 
 - Open your Kubernetes dashboard and ensure the peer status is `Running`.  
 - Open the peer node and ensure the smart contract version does not already exist on the peer and try again with the proper version.
-- If you are still experiencing problems after the node is up, [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.  
+- If you are still experiencing problems after the node is up,  [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.  
 {: tsResolve}
 
 ## Why is the smart contract that I installed on the peer not listed in the UI?
@@ -258,6 +271,7 @@ If your session has become inactive, you can try simply refreshing your browser.
 As a best practice, you should have already stored your certificates and identities on your file system. If you happen to be using an incognito window, all the certificates are deleted from the browser local storage when you close the browser. After you log in again you will need to re-import your identities and certificates.
 {: note}
 
+
 ## Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?
 {: #ibp-v2-troubleshooting-accept-tls}
 {: troubleshoot}
@@ -271,12 +285,13 @@ This problem occurs when the blockchain console is deployed without the advanced
 To resolve this problem, you need to accept the self-signed certificate in your browser.
 {: tsResolve}
 
-1. Copy your console URL, for example `https://<PROJECT-NAME>-ibpconsole-console.abc.xyz.com:443`.
+1. Copy your console URL, for example `https://<PROJECT-NAME>-ibpconsole-console.abc.xyz.com:443`, where the value of `abc.xyz.com` depends on your cloud provider.
 2. Replace `-console` with `-proxy`. The new URL looks similar to: `https://<PROJECT-NAME>-ibpconsole-proxy.abc.xyz.com:443`.
 3. Open a new tab in your browser and paste in the new URL.
 4. Accept the certificate.
 
 You need to accept the certificate from this url to communicate with your nodes from your console and then log in as usual. When you switch to a new machine or a new browser, you need to repeat these steps.
+
 
 ## Why is my first invoke of a smart contract returning the following error: no suitable peers available to initialize from?
 {: #ibp-v2-troubleshooting-smart-contract-anchor-peers}
@@ -307,8 +322,12 @@ For example, when you try to operate the node, the action might fail.
 After creating a new peer or ordering service, depending on your cluster storage configuration, it may take a few minutes for the nodes to be ready for operation.
 {: tsCauses}
 
+
+
+
 Check your Kubernetes dashboard and ensure the peer or node status is `Running`. Then try your action again. If you are still experiencing problems after the node is up, [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.  
 {: tsResolve}
+
 
 ## Why does my peer fail to start?
 {: #ibp-console-build-network-troubleshoot-entry2}
@@ -350,8 +369,12 @@ If you have recently joined a channel and installed the smart contract, this err
 You may need to view your smart contract, or chaincode, container logs to debug a smart contract issue.
 {: tsSymptoms}
 
+
 Follow these [instructions](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-container-logs) to view your smart contract container logs.
 {: tsResolve}
+
+
+
 
 ## Why are the transactions I submit from VS Code failing?
 {: #ibp-v2-troubleshooting-anchor-peer}
@@ -367,5 +390,8 @@ Error submitting transaction: No endorsement plan available for {"chaincodes":[{
 This error occurs if you are using the Fabric Service Discovery feature but did not configure any anchor peers on your channel.
 {: tsCauses}
 
-Follow these [instructions](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-channels-anchor-peers) to configure your anchor peers.
+Follow step three of the [private data topic](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-private-data) in the Deploy a smart contract tutorial to configure your anchor peers.
 {: tsResolve}
+
+
+

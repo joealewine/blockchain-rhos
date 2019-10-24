@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: 2019-10-18
+lastupdated: "2019-10-24"
 
 keywords: IBM Blockchain Platform, Data residency, world state, channels
 
@@ -36,7 +36,7 @@ Each approach provides an increased level of isolation and protection for your d
 
 The architecture of Hyperledger Fabric that underlies the {{site.data.keyword.blockchainfull_notm}} Platform is centered around three key components: an ordering service (made up of ordering nodes), Certificate Authorities (CA), and peers. Additionally, organizations send transactions to these nodes from client applications using the [Fabric SDKs](https://hyperledger-fabric.readthedocs.io/en/release-1.4/getting_started.html){: external}. When considering data residency, it is important to understand how these components interact with and store data.
 
-**Peers** are used by members of the consortium to store the blockchain [ledger](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html){: external}. The blockchain ledger consists of two parts. The first is the world state, which stores the latest value for all data in the ledger in key-value pairs. The second is the blockchain record of every transaction. Peers receive state updates in the form of new blocks from the ordering service. They then use the blocks and the world state to confirm  (or commit) transactions, update the world state and add the log of transactions on the blockchain. The ordering service establishes the order of transactions for all the peers on the [consortium](/docs/services/blockchain?topic=blockchain-glossary#glossary-consortium) and stores a copy of the blockchain portion of the ledger.
+**Peers** are used by members of the consortium to store the blockchain [ledger](https://hyperledger-fabric.readthedocs.io/en/release-1.4/ledger/ledger.html){: external}. The blockchain ledger consists of two parts. The first is the world state, which stores the latest value for all data in the ledger in key-value pairs. The second is the blockchain record of every transaction. Peers receive state updates in the form of new blocks from the ordering service. They then use the blocks and the world state to confirm  (or commit) transactions, update the world state and add the log of transactions on the blockchain. The ordering service establishes the order of transactions for all the peers on the [consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-glossary#glossary-consortium) and stores a copy of the blockchain portion of the ledger.
 
 **Channels** are a mechanism for transmitting data within a network. You cannot participate on a blockchain network without joining a channel. Channels can be used members of the network to create logical separation between business applications and even to boost performance by limiting traffic. They can also be used by subsets of organizations in the consortium to transact privately and segregate data.
 

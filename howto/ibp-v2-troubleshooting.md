@@ -38,7 +38,7 @@ This topic describes common issues that can occur when using the {{site.data.key
 
 
 **Issues with the Console**
-- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
+
 
 - [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls)
 
@@ -131,6 +131,28 @@ error: error parsing console.yaml: error converting YAML to JSON: yaml: line 11:
 
 This problem occurs when there is a problem with the indents in your file. Refer to the documentation for the correct format for the custom resource files of the console and operator.
 {: tsCauses}
+
+
+
+## Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?
+{: #ibp-v2-troubleshooting-accept-tls}
+{: troubleshoot}
+
+If you are not using your own TLS certificates to secure communications in your blockchain network, you need to accept the self-signed certificate that was generated for you. Otherwise, when you try to create a channel or add an organization to an ordering service the action fails. Channel creation fails with the error `An error occurred when creating channel. submit config update failed: grpc code ???= response contains no code or message`. Or, when you click on your ordering service, you see `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details`.
+{: tsSymptoms}
+
+This problem occurs when the blockchain console is deployed without the advanced deployment option to [use your own TLS certificates](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-).
+{: tsCauses}
+
+To resolve this problem, you need to accept the self-signed certificate in your browser.
+{: tsResolve}
+
+1. Copy your console URL, for example `https://<PROJECT-NAME>-ibpconsole-console.abc.xyz.com:443`, where the value of `abc.xyz.com` depends on your cloud provider.
+2. Replace `-console` with `-proxy`. The new URL looks similar to: `https://<PROJECT-NAME>-ibpconsole-proxy.abc.xyz.com:443`.
+3. Open a new tab in your browser and paste in the new URL.
+4. Accept the certificate.
+
+You need to accept the certificate from this url to communicate with your nodes from your console and then log in as usual. When you switch to a new machine or a new browser, you need to repeat these steps.
 
 
 ## When I hover over my node, the status is `Status unavailable` or `Status unknown`, what does this mean?
@@ -270,27 +292,6 @@ If your session has become inactive, you can try simply refreshing your browser.
 
 As a best practice, you should have already stored your certificates and identities on your file system. If you happen to be using an incognito window, all the certificates are deleted from the browser local storage when you close the browser. After you log in again you will need to re-import your identities and certificates.
 {: note}
-
-
-## Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?
-{: #ibp-v2-troubleshooting-accept-tls}
-{: troubleshoot}
-
-If you are not using your own TLS certificates to secure communications in your blockchain network, you need to accept the self-signed certificate that was generated for you. Otherwise, when you try to create a channel or add an organization to an ordering service the action fails. Channel creation fails with the error `An error occurred when creating channel. submit config update failed: grpc code ???= response contains no code or message`. Or, when you click on your ordering service, you see `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details`.
-{: tsSymptoms}
-
-This problem occurs when the blockchain console is deployed without the advanced deployment option to [use your own TLS certificates](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-).
-{: tsCauses}
-
-To resolve this problem, you need to accept the self-signed certificate in your browser.
-{: tsResolve}
-
-1. Copy your console URL, for example `https://<PROJECT-NAME>-ibpconsole-console.abc.xyz.com:443`, where the value of `abc.xyz.com` depends on your cloud provider.
-2. Replace `-console` with `-proxy`. The new URL looks similar to: `https://<PROJECT-NAME>-ibpconsole-proxy.abc.xyz.com:443`.
-3. Open a new tab in your browser and paste in the new URL.
-4. Accept the certificate.
-
-You need to accept the certificate from this url to communicate with your nodes from your console and then log in as usual. When you switch to a new machine or a new browser, you need to repeat these steps.
 
 
 ## Why is my first invoke of a smart contract returning the following error: no suitable peers available to initialize from?

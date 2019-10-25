@@ -41,11 +41,7 @@ The {{site.data.keyword.blockchainfull}} Platform v2.1.0 enables a consortium of
 | Does the product integrate with the {{site.data.keyword.blockchainfull_notm}} Platform VSCode extension to develop and test my smart contracts?| Yes | Yes|
 | Where can I learn more? |See [About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-offers)  | See [About {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview#ibp-console-overview-capabilities) |
 
-### {{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric
 
-Your purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 includes an entitlement to the Hyperledger Fabric images that are built and supported by {{site.data.keyword.blockchainfull_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}.
-
-The {{site.data.keyword.blockchainfull_notm}} images do not include the {{site.data.keyword.blockchainfull_notm}} console or operator. This offering is intended for experienced Fabric users with existing Fabric deployments. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-blockchain-images#blockchain-images).
 
 ## What {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 offers
 {: #console-ocp-about-offers}

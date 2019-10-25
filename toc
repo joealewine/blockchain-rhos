@@ -22,7 +22,6 @@ IBM Blockchain Platform v2.1.0
 	Install on the OpenShift Container Platform
 		howto/console-deploy-ocp.md
 		howto/console-deploy-ocp-firewall.md
-		howto/console-upgrade-ocp.md
 		howto/console-delete-ocp.md
 
 	{: .topicgroup}

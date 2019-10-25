@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-10-24"
+lastupdated: "2019-10-25"
 
 keywords: IBM Blockchain Platform, Data residency, world state, channels
 
@@ -51,13 +51,13 @@ If you are using an OpenShift cluster that was deployed with the {{site.data.key
 
 We can use an example consortium to illustrate how data is distributed on the {{site.data.keyword.blockchainfull_notm}} Platform, and explore how members could achieve data residency. The figure below contains a consortium with one ordering service and four organizations. Each organization has one peer node. Two organizations, Org A and Org B, and the ordering service are located in the United States. The other two organizations, Org C and Org D, are located in Germany. All four organizations are members of and have joined their peers to channel X.
 
-![An example consortium](images/data_res_use_case.svg "An example consortium"){: caption="Figure 1. An example blockchain consortium with one ordering service and four organizations. The four organizations are all members of one channel. " caption-side="bottom"}
+![An example consortium](images/data_res_use_case.svg "An example consortium"){: caption="Figure 1. An example blockchain consortium with one ordering service and four organizations. The four organizations are all members of one channel, Channel X. " caption-side="bottom"}
 
 Each peer joined to channel X stores a copy of the channel ledger, which is displayed in **Figure 1** as ledger X. Because peers from the United States and Germany are joined to the channel, the data on the channel ledger resides in both geographies. The blockchain portion of the ledger is also stored by the ordering service that is located in the United States.
 
 If two organizations in the consortium create a second channel, Channel Y, a second ledger is created and stored on the peers of channel members. Only the organizations that joined the channel have a copy of the channel data.
 
-![Adding a second channel](images/data_res_use_case_channel.svg "Adding a second channel"){: caption="Figure 2. Two organizations in the consortium have created and joined a second channel. A second channel ledger is created and stored on the peers of Org B and Org D and the ordering service." caption-side="bottom"}
+![Adding a second channel](images/data_res_use_case_channel.svg "Adding a second channel"){: caption="Figure 2. Two organizations in the consortium have created and joined a second channel, Channel Y. A second channel ledger is created and stored on the peers of Org B and Org D and the ordering service." caption-side="bottom"}
 
 
 In **Figure 2**, Org B and Org D have joined channel Y. The peers of Org B and Org D now store a copy of ledger Y, in addition to ledger X. Because the same ordering service was used to create channel X and channel Y, the ordering service now has a copy of the blockchain portion of both channel ledgers. In both **Figure 1** and **Figure 2**, data being created by applications in Germany is stored in the United States, which is undesirable if data residency is required.
@@ -84,7 +84,7 @@ Also, consider that data inside a private data collection can be purged from the
 
 Org C and Org D can also use private data collections in the context of a separate channel to provide additional isolation for their data. Creating a new channel, Channel Y in this case, ensures that the hash of the private data is only shared with the ordering service, without being shared with other members of the consortium and stored on their peers.
 
-![Using private data with a separate channel](images/data_res_private_data_channel.svg "Using private data with a separate channel"){: caption="Figure 4. Org C and Org D form a separate channel and use a private data collection. Hashes of data in the collection are stored on ledger Y, and is only stored by the peers in Germany in the United States by the ordering service." caption-side="bottom"}
+![Using private data with a separate channel](images/data_res_private_data_channel.svg "Using private data with a separate channel"){: caption="Figure 4. Org C and Org D form a separate channel, Channel Y, and use a private data collection. Hashes of data in the collection are stored on ledger Y, and is only stored by the peers in Germany in the United States by the ordering service." caption-side="bottom"}
 
 In **Figure 4**, Org C and Org D have formed a new channel, Channel Y, that does not contain any members in the United States. As a result, hashes of data in the OrgC-OrgD collection is stored on ledger Y instead of ledger X, and is not stored on the peers in the United States. Because the ordering service is located in the United States, a hash of the data created in Germany still leaves the country.
 

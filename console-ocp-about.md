@@ -43,9 +43,9 @@ The {{site.data.keyword.blockchainfull}} Platform v2.1.0 enables a consortium of
 
 ### {{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric
 
-You can also purchase Hyperledger Fabric images that are built and supported by {{site.data.keyword.blockchainfull_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}.
+Your purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 includes an entitlement to the Hyperledger Fabric images that are built and supported by {{site.data.keyword.blockchainfull_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}.
 
-The {{site.data.keyword.blockchainfull_notm}} images offering does not include the {{site.data.keyword.blockchainfull_notm}} console or operator. This offering is intended for experienced Fabric users with existing Fabric deployments. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-blockchain-images#blockchain-images).
+The {{site.data.keyword.blockchainfull_notm}} images do not include the {{site.data.keyword.blockchainfull_notm}} console or operator. This offering is intended for experienced Fabric users with existing Fabric deployments. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-blockchain-images#blockchain-images).
 
 ## What {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 offers
 {: #console-ocp-about-offers}

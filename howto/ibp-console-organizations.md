@@ -37,7 +37,7 @@ You can also use the console to manage which organizations are members of your n
 
 The {{site.data.keyword.blockchainfull_notm}} Platform is based on Hyperledger Fabric and builds permissioned blockchain networks. Participants need to be known to the network before they can submit transactions and interact with the assets on the ledger. Fabric recognizes identity through a group of invited organizations, known as the consortium. Organizations in the consortium are able to issue valid credentials to their members and let them become participants in the network. The participants can then operate blockchain nodes and submit transactions from client applications.
 
-Each organization in the consortium needs to operate its own Certificate Authority, known as the root CA. This Certificate Authority (or its intermediate CAs) creates all the identities belonging to your organization and issues each identity a signing certificate and private key. These keys are signed by the CA and used by the members of your organization to sign and verify their actions. Joining the consortium allows other organizations to recognize your CAs signature, and verify that your peers and applications are valid participants. For more information about membership in Hyperledger Fabric, see the [Membership concept topic](https://hyperledger-fabric.readthedocs.io/en/release-1.4/membership/membership.html){: external} in the Fabric documentation.
+Each organization in the consortium needs to operate its own Certificate Authority, known as the root CA. This Certificate Authority (or its intermediate CAs) creates all the identities belonging to your organization and issues each identity a signing certificate and private key. These keys are signed by the CA and used by the members of your organization to sign and verify their actions. Joining the consortium allows other organizations to recognize your CA's signature, and verify that your peers and applications are valid participants. For more information about membership in Hyperledger Fabric, see the [Membership concept topic](https://hyperledger-fabric.readthedocs.io/en/release-1.4/membership/membership.html){: external} in the Fabric documentation.
 
 Before your organization can join a consortium, it needs to create an organization definition known as a **Membership Services Provider (MSP)**. The MSP contains the following information:
 - A certificate signed by your **root Certificate Authority**. This certificate is used to verify the identity of your nodes, channels, and applications.
@@ -71,25 +71,25 @@ Use the **Organizations** tab to generate an MSP definition for your organizatio
 
   1. Create a signing certificate and private key for each admin identity.
   2. Provide the signing certificate of each admin identity in the MSP definition.
-  3. Add the identity to your console wallet. The nodes or channels created by the console uses the certificates from the MSP to check who is a valid administrator. As a result, the same signing certificate and private key pair that you used to add an admin cert to the MSP needs to be stored inside your console wallet.
+  3. Add the identity to your console wallet. The nodes or channels that are created by the console uses the certificates from the MSP to check who is a valid administrator. As a result, the same signing certificate and private key pair that you used to add an admin cert to the MSP needs to be stored inside your console wallet.
 
   You can use the **Create MSP definition** panel to complete these actions for one of your admin identities. After you select your root CA, complete the following steps in the **Generate organization admin certificate** section:
-  1. Enter the Enroll ID and Enroll secret of an admin identity registered with your root CA. After you enter the Enroll ID and Enroll secret, choose a name to display the identity in your console wallet.
-  2. Click **Generate**. This will generate a certificate and private key and automatically add the keys to your console wallet. You can then find your admin identity in your wallet by using the name you selected on this panel. These keys are only stored in your browser local storage, therefore if you change browsers, they will not be in your console wallet. You will need to export the identity from your original browser and import them into the console wallet of your new browser.
-  3. Then click **Export** to download the key pair to your file system and secure them.
+  1. Enter the Enroll ID and Enroll secret of an admin identity that is registered with your root CA. After you enter the Enroll ID and Enroll secret, choose a name to display the identity in your console wallet.
+  2. Click **Generate**. This generates a certificate and private key and automatically add the keys to your console wallet. You can then find your admin identity in your wallet by using the name that you selected on this panel. These keys are only stored in your browser local storage. Therefore, if you change browsers, they will not be in your console wallet. You will need to export the identity from your original browser and import them into the console wallet of your new browser.
+  3. Then, click **Export** to download the key pair to your file system and secure them.
 
-- The **Administrators (Optional)** section of the side panel contains the signing certificates keys of your admins. The certificate you generated by using the **Generate organization admin certificate** section can be found in the first row of the **admin certificate** field. If you want to use multiple admin identities to operate your network, you can paste the certificates of additional node or organization admins into **admin certificate** fields.
+- The **Administrators (Optional)** section of the side panel contains the signing certificates keys of your admins. The certificate that you generated by using the **Generate organization admin certificate** section can be found in the first row of the **admin certificate** field. If you want to use multiple admin identities to operate your network, you can paste the certificates of additional node or organization admins into **admin certificate** fields.
 
-Because your admin certs are passed to your nodes and channels by using the MSP definition, you need ensure that each of your node and org admin certificates are stored in the MSP. When you use the console to create an orderer, peer, or channel, you need to **Associate** one of the identities you exported in your console wallet with the admin certificates that were provided to the MSP definition. When you encounter an **Associate identity** section or panel, select an identity you generated and saved to the wallet when creating the MSP definition.
+Because your admin certs are passed to your nodes and channels by using the MSP definition, you need ensure that each of your node and org admin certificates are stored in the MSP. When you use the console to create an orderer, peer, or channel, you need to **Associate** one of the identities you exported in your console wallet with the admin certificates that were provided to the MSP definition. When you encounter an **Associate identity** section or panel, select an identity that you generated and saved to the wallet when creating the MSP definition.
 
 After you have selected your root CA, MSP ID, and created your admin certs, click **Create MSP definition** to create the MSP definition. It is now listed as an organization in the Organizations tab. You will use the MSP definition when you deploy your nodes and join a blockchain consortium.
 
 ## Updating an organization MSP definition
 {: #ibp-console-govern-update-msp}
 
-It is possible that you will need to update an organization MSP definition, such as the display name or the certificates that are included inside the MSP.  
+It is possible that you need to update an organization MSP definition, such as the display name or the certificates that are included inside the MSP.  
 
-It is recommended that you do not change the `msp_id` field as this could cause breaking changes to your network.
+It is recommended that you do not change the `msp_id` field as this might cause breaking changes to your network.
 {: important}
 
 - Simply export the existing MSP definition from the **Organizations** tab and edit the generated JSON file to modify the display name, the existing certificates, or add new certificates.
@@ -103,9 +103,9 @@ If you need to add a new admin certificate to an existing organization MSP defin
 ### Adding a new peer admin certificate
 {: #ibp-console-organizations-new-admins}
 
-Because peer administrators can change over time, you will need to update your peer admin certificates. You can add new peer administrators by updating the peer's organization MSP definition to include the admin certificates of additional admin identities. Recall that a peer admin identity is required to install a smart contract on a peer and list the smart contracts already installed on the peer.
+Because peer administrators can change over time, you will need to update your peer admin certificates. You can add new peer administrators by updating the peer's organization MSP definition to include the admin certificates of additional admin identities. Recall that a peer admin identity is required to install a smart contract on a peer and list the smart contracts that are already installed on the peer.
 
-When you update an MSP organization definition with a new admin cert, the associated peer nodes are also updated with the modified MSP definition. This update process includes an automatic restart of the associated peer nodes which means they will be unavailable for a brief period of time while they restart. If client applications are sending transactions to the peers during this period, the transactions may need to be resubmitted. Note that imported peer nodes, or peers that were not created by using your console, will not be updated.
+When you update an MSP organization definition with a new admin cert, the associated peer nodes are also updated with the modified MSP definition. This update process includes an automatic restart of the associated peer nodes which means they will be unavailable for a brief period of time while they restart. If client applications are sending transactions to the peers during this period, the transactions might need to be resubmitted. Note that imported peer nodes, or peers that were not created by using your console, will not be updated.
 {: important}
 
 #### Before you begin
@@ -133,7 +133,7 @@ Replace `<certificate.pem>` with the name of the Certificate PEM file that you d
 3. Open the **Organizations** tab.
 4. Locate the MSP tile for the peer and click the **Export** icon.
 5. Open the downloaded MSP JSON file in a text editor.
-6. Edit the `admins` element. Paste the new base64-encoded certificate string, that you generated in the previous section, to the end of the list of comma separated admin certificates.
+6. Edit the `admins` element. Paste the new base64-encoded certificate string, that you generated in the previous section, to the end of the list of comma-separated admin certificates.
 7. Save your changes.
 8. In the **Organizations** tab, open the MSP tile for the peer and click the **Settings** icon.
 9. In the side panel, click **Add file** and select the updated MSP JSON file.
@@ -149,7 +149,7 @@ If you need to add a new organization as a channel admin, see this topic on [Upd
 
 As with all channel updates, this update needs to be performed by a channel operator and the change will follow the channel update approval process according to the policy that was configured when the channel was created.  
 
-1. In the **Organizations** tab locate the existing organization MSP definition that you want to update and click it's tile to open it.
+1. In the **Organizations** tab, locate the existing organization MSP definition that you want to update and click its tile to open it.
 2. Click **Export** to save the definition to a JSON file on your file system and open file in a text editor.
 3. Edit the `admins` element. Paste the new admin certificate to the end of the list of comma-separated admin certificates.  
 4. Open the MSP definition in the console and click the **Settings** icon.  
@@ -207,16 +207,16 @@ Create a JSON file by using the following format:
 {:codeblock}
 
 - **organization_name**: Specify any name to be used to identify this MSP definition in the console.
-- **organization_id**: Specify an id that is used to represent this MSP internally in the console.
-- **root_certs**: (Optional) Paste in an array that contains one or more root certificates from the external CA in `base64` format. You must provide either a  CA root certificate or an intermediate CA certificate, you may also provide both.
-- **intermediate_certs**: (Optional) Paste in an array that contains one ore more certificates from the external intermediate CA in `base64` format. You must provide either a  CA root certificate or an intermediate CA certificate, you may also provide both.
+- **organization_id**: Specify an ID that is used to represent this MSP internally in the console.
+- **root_certs**: (Optional) Paste in an array that contains one or more root certificates from the external CA in `base64` format. You must provide either a CA root certificate or an intermediate CA certificate, you can also provide both.
+- **intermediate_certs**: (Optional) Paste in an array that contains one or more certificates from the external intermediate CA in `base64` format. You must provide either a CA root certificate or an intermediate CA certificate, you can also provide both.
 - **admins**: Paste in the signing certificate of the organization admin in `base64` format.
-- **tls_root_certs**: (Optional) Paste in an array that contains one or more root certificates from the TLS CA in `base64` format. You must provide either an external TLS CA root certificate or an external intermediate TLS CA certificate, you may also provide both.
-- **tls_intermediate_certs**: (Optional) Paste in an array that contains one or more certificates from the intermediate TLS CA in `base64` format. You must provide either an external TLS CA root certificate or an external intermediate TLS CA certificate, you may also provide both.  
+- **tls_root_certs**: (Optional) Paste in an array that contains one or more root certificates from the TLS CA in `base64` format. You must provide either an external TLS CA root certificate or an external intermediate TLS CA certificate, you can also provide both.
+- **tls_intermediate_certs**: (Optional) Paste in an array that contains one or more certificates from the intermediate TLS CA in `base64` format. You must provide either an external TLS CA root certificate or an external intermediate TLS CA certificate, you can also provide both.  
 
 The following additional fields are also available in your MSP definition but are not required:
 - **organizational_unit_identifiers**: A list of Organizational Units (OU) that valid members of this MSP should include in their X.509 certificate. This is an optional configuration parameter that is used when multiple organizations leverage the same root of trust and intermediate CAs, and they have reserved an OU field for their members. An organization is often divided up into multiple organizational units (OUs), each of which has a certain set of responsibilities. For example, the ORG1 organization might have both ORG1-MANUFACTURING and ORG1-DISTRIBUTION OUs to reflect these separate lines of business. When a CA issues X.509 certificates, the OU field in the certificate specifies the line of business to which the identity belongs. See this topic in the Fabric documentation on [Identity Classification](https://hyperledger-fabric.readthedocs.io/en/latest/msp.html#identity-classification){: external} for more information.  
-- **fabric_node_OUs**: Fabric-specific OUs that enable identity classification. `NodeOUs` contain information on how to distinguish clients, peers and orderers based on their OU. If the check is enforced, by setting Enabled to true, the MSP will consider an identity valid if it is an identity of a `client`, a `peer` or an `orderer`. An identity should have only one of these special OUs. See this topic for an example of [how to specify the `fabric_node_OU` in an MSP](https://hyperledger-fabric.readthedocs.io/en/latest/discovery-cli.html#configuration-query){: external} in the Fabric Service Discovery documentation.
+- **fabric_node_OUs**: Fabric-specific OUs that enable identity classification. `NodeOUs` contain information on how to distinguish clients, peers, and orderers based on their OU. If the check is enforced, by setting Enabled to true, the MSP considers an identity valid if it is an identity of a `client`, a `peer` or an `orderer`. An identity should have only one of these special OUs. See this topic for an example of [how to specify the `fabric_node_OU` in an MSP](https://hyperledger-fabric.readthedocs.io/en/latest/discovery-cli.html#configuration-query){: external} in the Fabric Service Discovery documentation.
 - **revocation_list**: A list of certificates that are no longer valid. For X.509-based identities, these identifiers are pairs of strings known as Subject Key Identifier (SKI) and Authority Access Identifier (AKI), and are checked whenever the X.509 certificate is being used to make sure that the certificate has not been revoked. See this topic in the Fabric documentation for more information about [Certificate Revocation Lists](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.4/users-guide.html?highlight=revocation%20list#revoking-a-certificate-or-identity){: external}.
 
 For example, your JSON file would look similar to:
@@ -248,14 +248,14 @@ You have constructed an MSP definition, which defines the organization for your 
 
 Only the orderer admin can add new organizations to the consortium. If you are the orderer admin, you will need to collect the MSP definitions of all the organizations who have been invited to the consortium and import the MSPs into the console. You can then add the MSPs to the ordering service, by using the orderer node.
 
-After an administrator creates an MSP definition, they can use the Organizations tab to download the MSP in JSON format to their local filesystem. They can then send you the MSP JSON file in an out of band operation. Navigate to the **Organizations** tab and use **Import MSP Definition** to import the MSP file into your console. Once an MSP definition is visible in the **Available organizations** section, you can then navigate to your orderer node to [add the organization to the consortium](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-add-consortium).
+After an administrator creates an MSP definition, they can use the Organizations tab to download the MSP in JSON format to their local file system. They can then send you the MSP JSON file in an out of band operation. Navigate to the **Organizations** tab and use **Import MSP Definition** to import the MSP file into your console. Once an MSP definition is visible in the **Available organizations** section, you can then navigate to your orderer node to [add the organization to the consortium](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-add-consortium).
 
 ## Adding an organization to a consortium
 {: #console-organizations-add-consortium}
 
 The consortium of organizations is hosted by the ordering service.
 
-If you are the administrator of the ordering service, you can use the console to add an organization to the consortium. Navigate to the **Nodes** tab and click on the ordering node. On the ordering node panel, under **Consortium members**, click **Add organization**. This will open a side panel that will allow you to select from the list of available MSP definitions that you have [imported into your organizations tab](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-import-msp). You can also use the **Upload JSON** option to import the MSP definition file created by another org directly.
+If you are the administrator of the ordering service, you can use the console to add an organization to the consortium. Navigate to the **Nodes** tab and click on the ordering node. On the ordering node panel, under **Consortium members**, click **Add organization**. This opens a side panel that allows you to select from the list of available MSP definitions that you have [imported into your organizations tab](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-import-msp). You can also use the **Upload JSON** option to import the MSP definition file created by another org directly.
 
 ## Creating and editing a channel
 {: #console-organizations-create-channel}
@@ -266,18 +266,18 @@ After your organization is added to a consortium, you can create a channel by us
 
 1. Import the ordering node that hosts the consortium into your console. You do not need to be an administrator of the ordering node; but you need to provide the orderer node name and endpoint information in your console.
 2. Import the MSPs of organizations that you want to add to the new channel into your console in the **Organizations** tab. **Note** that organizations need to be added to the consortium before they can be added to a channel.
-3. Navigate to the **Channels** tab and click **Create channel**. This will open a side panel that allows you to specify the channel name, membership, and channel policies. You can add any organizations that have been added to the consortium to the new channel.
+3. Navigate to the **Channels** tab and click **Create channel**. This opens a side panel that allows you to specify the channel name, membership, and channel policies. You can add any organizations that have been added to the consortium to the new channel.
 
 For more information about these steps, see [creating a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel1) in the **Build a network** tutorial.
 
 ### Updating an MSP in a channel definition
 {: #console-organizations-update-channel}
 
-Over time you may need to update the certificates in an MSP definition that is already associated with a channel. When that situation occurs follow these steps to update an organization's MSP definition in the channel:  
+Over time you might need to update the certificates in an MSP definition that is already associated with a channel. When that situation occurs follow these steps to update an organization's MSP definition in the channel:  
 
 1. Navigate to the **Channels** tab in your console.
-2. Click on the channel that contains the organization MSP that you want to update and open it.
-3. Click on the **Channel details** tab.
-4. Click on the associated channel member's tile that you want to update.
+2. Click the channel that contains the organization MSP that you want to update and open it.
+3. Click the **Channel details** tab.
+4. Click the associated channel member's tile that you want to update.
 5. If you have not already imported the updated MSP definition into the console, you can upload the file here. **Note:** This action will not update the associated MSP definition in the Organizations tab. If you have already updated the MSP definition in the Organizations tab of the console, you can select it from the drop-down list.
 

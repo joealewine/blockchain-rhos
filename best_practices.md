@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-30"
+lastupdated: "2019-10-25"
 
 keywords: best practices, develop applications, connectivity, availability, mutual TLS, CouchDB
 
@@ -24,7 +24,7 @@ subcollection: blockchain-rhos
 # Best practices for application development
 {: #best-practices-app}
 
-This guide is for users who have already learned the basics of application development and are ready to scale their solution. Follow these best practices to maximize the performance of your network, and avoid application downtime.
+This guide is for users who understand the basics of application development and are ready to scale their solution. Follow these best practices to maximize the performance of your network, and avoid application downtime.
 {:shortdesc}
 
 ## Application connectivity and availability
@@ -37,11 +37,11 @@ The Hyperledger Fabric [Transaction Flow](https://hyperledger-fabric.readthedocs
 
 Application clients must ensure that their transaction proposals are validated and that the proposals complete successfully. A proposal can be delayed or lost for multiple reasons, such as a network outage or a component failure. You should code your application for [high availability](/docs/services/blockchain-rhos?topic=blockchain-rhos-best-practices-app#best-practices-app-ha-app) to handle component failure. You can also [increase the timeout values](/docs/services/blockchain-rhos?topic=blockchain-rhos-best-practices-app#best-practices-app-set-timeout-in-sdk) in your application to prevent proposals from timing out before the network can respond.
 
-If a chaincode is not running, the first transaction proposal that is sent to this chaincode starts the chaincode. While the chaincode is starting, all other proposals are rejected with an error that indicates that the chaincode is currently starting. This is different from transaction invalidation. If any proposal is rejected while the chaincode is starting, application clients need to resend the rejected proposals after the chaincode starts. Application clients can use a message queue to avoid losing transaction proposals.
+If a chaincode is not running, the first transaction proposal that is sent to this chaincode starts the chaincode. While the chaincode is starting, all other proposals are rejected with an error that indicates that the chaincode is starting. This is different from transaction invalidation. If any proposal is rejected while the chaincode is starting, application clients need to resend the rejected proposals after the chaincode starts. Application clients can use a message queue to avoid losing transaction proposals.
 
 You can use a channel-based event service to monitor transactions and build message queues. The [channelEventHub](https://fabric-sdk-node.github.io/ChannelEventHub.html){: external} class can register listeners based on transaction, block, and chaincode events. Channel-based listeners from the channel eventhub can scale to multiple channels and distinguish between traffic on different channels.
 
-It is recommended that you use the channelEventHub rather than the old EventHub class. EventHub is single threaded and contains events from all channels that could slow down or even hang listeners across channels. The eventHub class also provides no guarantee that an event will be delivered, and provides no way of retrieving events from a certain point, such as a block number, to track events that were missed.
+It is recommended that you use the channelEventHub rather than the old EventHub class. EventHub is single threaded and contains events from all channels that might slow down or even hang listeners across channels. The eventHub class also provides no guarantee that an event will be delivered, and provides no way of retrieving events from a certain point, such as a block number, to track events that were missed.
 
 **Note:** The peer EventHub class will be deprecated in a future release of the Fabric SDK. If you have existing applications that use the peer EventHub class, update your applications to use the channel EventHub class instead. For more information, see [How to use the channel-based event service](https://fabric-sdk-node.github.io/tutorial-channel-events.html){: external} in the Node SDK Documentation.
 
@@ -73,14 +73,14 @@ When you manage the connections between your application and your network, you m
   ```
   {:codeblock}
 
-  You can also find these variables with the recommended settings in the `"peers"` section of your network connection profile. The recommended options will be imported into your application automatically if you use the connection profile with the SDK to connect to your network endpoints. You can find more information on how to use a Connection Profile in the [Node SDK documentation](https://fabric-sdk-node.github.io/tutorial-network-config.html){: external}.
+  You can also find these variables with the recommended settings in the `"peers"` section of your network connection profile. The recommended options are imported into your application automatically if you use the connection profile with the SDK to connect to your network endpoints. You can find more information on how to use a Connection Profile in the [Node SDK documentation](https://fabric-sdk-node.github.io/tutorial-network-config.html){: external}.
 
 - When a connection is no longer needed, use the `peer.close()` and `orderer.close()` commands to free up resources and prevent performance degradation. For more information, see the [peer close](https://fabric-sdk-node.github.io/Peer.html#close__anchor){: external} and [orderer close](https://fabric-sdk-node.github.io/Orderer.html#close__anchor){: external} classes in the Node SDK documentation. If you used a connection profile to add peers and orderers to a channel object, you can close all connections that are assigned to that channel by using a `channel.close()` command.
 
 ### Highly available applications
 {: #best-practices-app-ha-app}
 
-As a high availability best practice, it is strongly recommended that you deploy a minimum of two peers per organization for failover. You need to adapt your applications for high availability as well. Install chaincode on both peers and add them to your channels. Then be prepared to submit transaction proposals to both peer endpoints when setting up your network and building your peer target list. Enterprise Plan networks have multiple orderers for failover, which allows your client application to send endorsed transactions to a different orderer if one orderer is not available. If you use your connection profile instead to add network endpoints manually, ensure that your profile is up-to-date and that the additional peers and orderers have been added to the relevant channel in the `channels` section of the profile. The SDK can then add the components that are joined on the channel by using the connection profile.
+As a high availability best practice, it is strongly recommended that you deploy a minimum of two peers per organization for failover. You need to adapt your applications for high availability as well. Install chaincode on both peers and add them to your channels. Then, be prepared to submit transaction proposals to both peer endpoints when setting up your network and building your peer target list. Enterprise Plan networks have multiple orderers for failover, which allows your client application to send endorsed transactions to a different orderer if one orderer is not available. If you use your connection profile instead to add network endpoints manually, ensure that your profile is up-to-date and that the additional peers and orderers have been added to the relevant channel in the `channels` section of the profile. The SDK can then add the components that are joined on the channel by using the connection profile.
 
 
 
@@ -152,18 +152,18 @@ If you use CouchDB as your state database, you can perform JSON data queries fro
 
 For more information about CouchDB and how to set up indexes, see [CouchDB as the State Database](https://hyperledger-fabric.readthedocs.io/en/release-1.4/couchdb_as_state_database.html){: external} in the Hyperledger Fabric documentation. You can also find an example that uses an index with chaincode in the [Fabric CouchDB tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.4/couchdb_tutorial.html){: external}.
 
-Avoid using chaincode for queries that will result in a scan of the entire CouchDB database. Full length database scans will result in long response times and will degrade the performance of your network. You can take some of the following steps to avoid and manage large queries:
+Avoid using chaincode for queries that will result in a scan of the entire CouchDB database. Full length database scans result in long response times and will degrade the performance of your network. You can take some of the following steps to avoid and manage large queries:
 - Set up indexes with your chaincode.
 - All fields in the index must also be in the selector or sort sections of your query for the index to be used.
 - More complex queries will have a lower performance and will be less likely to use an index.
-- You should try to avoid operators that will result in a full table scan or a full index scan, such as `$or`, `$in` and `$regex`.
+- You should try to avoid operators that will result in a full table scan or a full index scan, such as `$or`, `$in` , and `$regex`.
 
 You can find examples that demonstrate how queries use indexes and what type of queries will have the best performance in the [Fabric CouchDB tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.4/couchdb_tutorial.html#use-best-practices-for-queries-and-indexes){: external}.
 
-Peers on the {{site.data.keyword.blockchainfull_notm}} Platform have a set queryLimit, and will only return 10,000 entries from the state database. If your query hits the queryLimit, you can use multiple queries to get the remaining results. If you need more results from a range query, start subsequent queries with the last key returned by the previous query. If you need more results from JSON queries, sort your query using one of the variables in your data, then use the last value from the previous query in a 'greater than' filter for the next query.
+Peers on the {{site.data.keyword.blockchainfull_notm}} Platform have a set queryLimit, and will only return 10,000 entries from the state database. If your query hits the queryLimit, you can use multiple queries to get the remaining results. If you need more results from a range query, start subsequent queries with the last key that is returned by the previous query. If you need more results from JSON queries, sort your query by using one of the variables in your data, then use the last value from the previous query in a 'greater than' filter for the next query.
 
-Do not query the entire database for the purpose of aggregation or reporting. If you want to build a dashboard or collect large amounts of data as part of your application, you can query an off chain database that replicates the data from your blockchain network. This will allow you to understand the data on the blockchain without degrading the performance of your network or disrupting transactions.
+Do not query the entire database for the purpose of aggregation or reporting. If you want to build a dashboard or collect large amounts of data as part of your application, you can query an off chain database that replicates the data from your blockchain network. This allows you to understand the data on the blockchain without degrading the performance of your network or disrupting transactions.
 
-You can use block or chaincode events from your application to write transaction data to an off-chain database or analytics engine. For each block received, the block listener application would iterate through the block transactions and build a data store using the key/value writes from each valid transaction's `rwset`. The [Peer channel-based event services](https://hyperledger-fabric.readthedocs.io/en/release-1.4/peer_event_services.html) provide replayable events to ensure the integrity of downstream data stores. For an example of how you can use an event listener to write
-data to an external database, visit the [Off chain data sample](https://github.com/hyperledger/fabric-samples/tree/release-1.4/off_chain_data) in the Fabric Samples.
+You can use block or chaincode events from your application to write transaction data to an off-chain database or analytics engine. For each block received, the block listener application would iterate through the block transactions and build a data store by using the key/value writes from each valid transaction's `rwset`. The [Peer channel-based event services](https://hyperledger-fabric.readthedocs.io/en/release-1.4/peer_event_services.html) provide replayable events to ensure the integrity of downstream data stores. For an example of how you can use an event listener to write
+data to an external database, see the [Off chain data sample](https://github.com/hyperledger/fabric-samples/tree/release-1.4/off_chain_data) in the Fabric Samples.
 

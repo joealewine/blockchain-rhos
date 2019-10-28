@@ -39,8 +39,6 @@ This support for rich queries is why **CouchDB is the default database** unless 
 Because the data is modeled differently in a Couch database than in a Level database, **the peers in a channel must all use the same database type**. If data written for a Level database is rejected by a Couch database (which can happen, as CouchDB keys have certain formatting restrictions as compared to LevelDB keys), a state fork would be created between the two ledgers. Therefore, **take extreme care when joining a channel to know the database type supported by the channel**. It might be necessary to create a new peer. Note that the database type cannot be changed after a peer has been deployed.
 {:important}
 
- #ibp-console-build-network-third-party-ca
-
 ## Using certificates from an external CA
 {: #ibp-console-govern-components-external-CA}
 

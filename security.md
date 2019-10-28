@@ -32,7 +32,7 @@ subcollection: blockchain-rhos
 
 **Audience:** Tasks in this section are typically performed by **blockchain network operators**.  
 
- Configuration of an {{site.data.keyword.blockchainfull_notm}} Platform network includes deploying the blockchain console that can then be used to create blockchain nodes which reside in the customer Kubernetes cluster.  
+ Configuration of an {{site.data.keyword.blockchainfull_notm}} Platform network includes deploying the blockchain console that can then be used to create blockchain nodes which reside in the customer Kubernetes cluster. 
 
 Considerations include:
 - [IAM (Identity and Access Management)](#ibp-security-ibp-iam)
@@ -99,7 +99,7 @@ Note that organization MSPs are stored in browser storage and must be exported t
 
 Hyperledger Fabric allows for finer grained control over user access to specified resources through the use of access control lists (ACLs). ACLs allow access to a channel resource to be restricted to an organization and a role within that organization. The available set of ACLs are from the underlying Fabric architecture and are selected during channel creation or update. Note that access control lists are restrictive, rather than additive. If access to a resource is specified to an organization, it means that **only that organization** will have access to the resource. For example, if the default access to a particular resource is the Readers of all organizations, and that access is changed to the Admin of Org1, then only the Admin of Org1 will have access to the resource. Because access to certain resources is fundamental to the smooth operation of a channel, it is highly recommended to make access control decisions carefully. If you decide to limit access to a resource, make sure that the access to that resource is added, as needed, for each organization.
 
-You can use the blockchain console to select which ACLs to apply to resources on a channel. See this information under [Creating a channel](https://cloud.ibm.com/docs/services/blockchain?topic=blockchain-ibp-console-build-network#ibp-console-build-network-channels-create) for instructions on how to configure access control for a channel.
+You can use the blockchain console to select which ACLs to apply to resources on a channel. See this information under [Creating a channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-channels-create) for instructions on how to configure access control for a channel.
 
 ### API authentication
 {: #ibp-security-ibp-apis}

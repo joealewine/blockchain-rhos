@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2017, 2019
-lastupdated: "2019-10-25"
+  years: 2019
+lastupdated: "2019-10-28"
 
 keywords: IBM Blockchain Platform, Data residency, world state, channels
 

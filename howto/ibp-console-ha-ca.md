@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-22"
+lastupdated: "2019-10-28"
 
 keywords: high availability, CA, PostgreSQL, replica sets
 
@@ -26,8 +26,6 @@ Because redundancy is required to achieve high availability (HA) networks, you c
 {:shortdesc}
 
 **Target audience:** This topic is designed for network operators who are responsible for creating, monitoring, and managing the blockchain network.
-
-
 
 ## Configuring CA replica sets
 {: #ibp-console-build-ha-ca-replica-sets}
@@ -125,10 +123,12 @@ Create a new CA by using the {{site.data.keyword.blockchainfull_notm}} Platform 
 1. Navigate to the **Nodes** tab on the left and click **Add Certificate Authority**.
 2. Make sure that the option to **Create** a Certificate Authority is selected. Then click **Next**.
 3. Give your CA a **display name** and enter your CA admin credentials by specifying a **CA administrator enroll ID and secret**.
-4. Click the checkbox for **Advanced CA configuration** and click **Next**. If your network is on {{site.data.keyword.cloud_notm}}, this option is only available on paid clusters.
+4. Click the checkbox for **Advanced CA configuration** and click **Next**.
 5. To use replica sets, select `PostgreSQL` as the CA database.
 6. Click **Add file** and browse to JSON file you created with the database connection information.
 7. Choose the number of replica sets you need. Two replica sets ensure that if one CA replica becomes unavailable, the other is always immediately ready to process requests. Three replica sets provide even greater redundancy. If two of the three replica sets are unavailable, the third is ready to process requests. Because each additional replica set requires additional CPU and memory, you need to ensure you have adequate resources available to accommodate the number you choose. This value can be updated later as well.
-8. You have the opportunity to configure resource allocation for the node. The resources that you specify here are used for each replica set.  If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain?topic=blockchain-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
+8. You have the opportunity to configure resource allocation for the node. The resources that you specify here are used for each replica set.  If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
 9. Review the Summary page, then click **Add certificate authority**.
+
+
 

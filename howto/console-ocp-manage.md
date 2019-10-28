@@ -27,7 +27,7 @@ subcollection: blockchain-rhos
 
 
 
-After you have installed the console on the OpenShift Container Platform, you can use the console to add or remove console users, as well as access APIs that allow you to operate your network and govern your console. You can also access and customize the logs of your console.
+After you install the console on the OpenShift Container Platform, you can use the console to add or remove console users and access APIs that allow you to operate your network and govern your console. You can also access and customize the logs of your console.
 {:shortdesc}
 
 
@@ -53,13 +53,13 @@ Permissions are cumulative. If you select a **Manager** role, the user will also
 
 
 
-The password that you provided to the [console custom resource definition](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp-console) becomes the default password for the console. All users need to use this password when they login to the console for the first time. The console manager can also specify a new default password. In the **Users** tab of the console, click the **Update configuration** link under your authentication service tile name. In the right panel, you can view or update the default password for new users of the console.
+The password that you provided to the [console custom resource definition](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp-console) becomes the default password for the console. All users need to use this password when they log in to the console for the first time. The console manager can also specify a new default password. In the **Users** tab of the console, click the **Update configuration** link under your authentication service tile name. In the right panel, you can view or update the default password for new users of the console.
 
 
-You need to share the default password, or the default password that you reset, with the users so that they can log into the console. They will be required to change the password upon their first login.
+You need to share the default password, or the default password that you reset, with the users so that they can log in to the console. They will be required to change the password upon their first login.
 {:note}
 
-Users with the manager role can reset passwords for other users. In the **Users** tab of the console, click the three vertical dots at the end of the row for a specific user, and then click **Reset password**. The console will reset that user's password to the default password, which you can check and confirm in the right panel. Users with any role can change their own password at any time. Click the avatar icon in the upper right corner, and then click **Change password**.
+Users with the manager role can reset passwords for other users. In the **Users** tab of the console, click the three vertical dots at the end of the row for a specific user, and then click **Reset password**. The console resets that user's password to the default password, which you can check and confirm in the right panel. Users with any role can change their own password at any time. Click the avatar icon in the upper right corner, and then click **Change password**.
 
 After you add new users to the console, the users might not be able to view all the nodes, channels, or chaincode, which other users deploy. To work with these components, each user needs to import the associated identities into their own console wallet. For more information, see [Storing identities in your console wallet](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-wallet).
 {:important}
@@ -72,7 +72,7 @@ A user with a manager role can update the roles of other console users and provi
 ### Deleting a user from the console
 {: #console-icp-manage-icp-remove-user}
 
-If you are a user with a manager role, you can remove a user's access to the console. In the **Users** tab of the console, click the checkbox at the beginning of the specific user row. Then click the **Trash** can icon at the top of the table, next to the **Add new users** button. After removing the user from the table, the user cannot log into the console again.
+If you are a user with a manager role, you can remove a user's access to the console. In the **Users** tab of the console, click the checkbox at the beginning of the specific user row. Then, click the **Trash** can icon at the top of the table, next to the **Add new users** button. After you remove the user from the table, the user cannot log in to the console again.
 
 
 
@@ -84,14 +84,14 @@ When you use the {{site.data.keyword.blockchainfull_notm}} Platform console, you
 ### Viewing your console logs
 {: #console-icp-manage-console-logs}
 
-You can easily access the console logs if you need to debug problems that you encounter when you use the console or operate your nodes. You can also set the logging level to increase or decrease the amount of logs that the console collects. The console logs are collected separately from the [node logs](#console-icp-manage-node-logs), which are collected by {{site.data.keyword.cloud_notm}} Private.
+You can easily access the console logs if you need to debug problems that you encounter when you use the console or operate your nodes. You can also set the logging level to increase or decrease the number of logs that the console collects. The console logs are collected separately from the [node logs](#console-icp-manage-node-logs), which are collected by {{site.data.keyword.cloud_notm}} Private.
 
 Navigate to the **Settings** tab in the console browser to change the logging settings. The console logs are collected from two separate sources:
 
   * **Client logging:** These logs are collected when commands are sent from your browser to the console.
   * **Server logging:** These logs are collected when the console sends commands to your nodes and from the console deployment. These logs include the Hyperledger Fabric logging output.
 
-Set the amount of collected logs by using the drop-down list under each log type. For example, **Error** and **Warning** collect the least amount of logs, while **Debug** and **All** collect the most.
+Set the number of collected logs by using the drop-down list under each log type. For example, **Error** and **Warning** collect the least amount of logs, while **Debug** and **All** collect the most.
 
 You can view only the console logs if you are logged in as a console administrator. To view the logs from the **Settings** tab, replace the word `settings` in the browser URL with `api/v1/logs`. For example, if your console url is `localhost:3001/settings`, you can view your logs by navigating to `localhost:3001/api/v1/logs`. Client and server logs are collected in separate files. The most recent logs are at the top of the page.
 
@@ -123,7 +123,7 @@ Component logs can be viewed from the command line by using the [kubectl CLI com
   Replace `<node>` with  `chaincode-logs` to view the logs for your smart contracts.
 
   
-  You can also run the command `kubectl logs -f <pod_name>` to get a list of all of the containers that are running inside a pod. The response to the command will be an error message similar to the following:
+  You can also run the command `kubectl logs -f <pod_name>` to get a list of all of the containers that are running inside a pod. The response to the command is an error message similar to the following:
   ```
   Error from server (BadRequest): a container name must be specified for pod peer1org1-7b4b6687dc-7n4fz, choose one of: [dind peer proxy chaincode-logs couchdb] or one of the init containers: [init]
   ```

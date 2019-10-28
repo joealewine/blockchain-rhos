@@ -35,7 +35,7 @@ At a physical level, a blockchain network is comprised primarily of peer nodes. 
 
 To learn more about peers specifically, check out [Peers](https://hyperledger-fabric.readthedocs.io/en/release-1.4/peers/peers.html){: external} from the Fabric community documentation.
 
-The {{site.data.keyword.blockchainfull_notm}} Platform console allows you to create peers, joined them to channels, create anchor peers, install smart contracts, and seamlessly upgrade your peers.
+The {{site.data.keyword.blockchainfull_notm}} Platform console allows you to create peers, join them to channels, create anchor peers, install smart contracts, and seamlessly upgrade your peers.
 
 ## Certificate Authorities (CAs)
 {: #blockchain-component-overview-ca}

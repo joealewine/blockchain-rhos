@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-24"
+lastupdated: "2019-10-28"
 
 
 keywords: vs code extension, Visual Studio Code extension, smart contract, development tools
@@ -57,7 +57,7 @@ If you are using Windows, you also must ensure the following:
   - Install the Win32 version into C:\OpenSSL-Win32 on 32-bit systems.
   - Install the Win64 version into C:\OpenSSL-Win64 on 64-bit systems.
 
-**If installing Node and npm using a manager such as 'nvm' or 'nodenv', you will need to set the default/global version and restart VS Code for the version to be detected by the Prerequisites page.**
+**If installing Node and npm using a manager such as 'nvm' or 'nodenv', you need to set the default/global version and restart VS Code for the version to be detected by the Prerequisites page.**
 
 ### Install the extension
 {: #develop-vscode-installing-the-extension}
@@ -75,11 +75,11 @@ The extension also adds new commands to the Visual Studio Code command palette. 
 ### Guided tutorials in VS Code
 {: #develop-vscode-guided-tutorials}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. The tutorials provide step by step instructions on how to develop and test your smart contract project, as well has how to deploy the smart contract to a network on {{site.data.keyword.cloud_notm}}. You also can find sample smart contracts that are available for you to download.
+The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. The tutorials provide step-by-step instructions on how to develop and test your smart contract project, as well has how to deploy the smart contract to a network on {{site.data.keyword.cloud_notm}}. You also can find sample smart contracts that are available for you to download.
 
-To navigate to the to the tutorials from within VS Code, open the extensions tab and click on the {{site.data.keyword.blockchainfull_notm}} Platform extension under **Enabled**. Then click on the {{site.data.keyword.blockchainfull_notm}} Platform icon at the upper right hand corner to view the extension homepage. On the homepage you can find a link to the tutorials gallery and the sample smart contracts.
+To navigate to the tutorials from within VS Code, open the extensions tab and click the {{site.data.keyword.blockchainfull_notm}} Platform extension under **Enabled**. Then, click the {{site.data.keyword.blockchainfull_notm}} Platform icon at the upper right corner to view the extension homepage. On the homepage, you can find a link to the tutorials gallery and the sample smart contracts.
 
-![{{site.data.keyword.blockchainfull_notm}} icon](images/vscode-tutorials.png "{{site.data.keyword.blockchainfull_notm}} icon"){: caption="Figure 3. Click on the {{site.data.keyword.blockchainfull_notm}} icon in the upper right hand corner to navigate to the tutorials and sample code" caption-side="bottom"}
+![{{site.data.keyword.blockchainfull_notm}} icon](images/vscode-tutorials.png "{{site.data.keyword.blockchainfull_notm}} icon"){: caption="Figure 3. Click on the {{site.data.keyword.blockchainfull_notm}} icon in the upper right corner to navigate to the tutorials and sample code" caption-side="bottom"}
 
 ## Step two: Create a smart contract project
 {: #develop-vscode-creating-a-project}
@@ -104,12 +104,12 @@ You need to package a smart contract in `.cds` format before you can install it 
 
 1. Open your smart contract project in VSCode by clicking **File** and then **Open ...**. You can also click **Open Workspace** if you saved your project as a workspace. Ensure that you have the smart contract project open in the file viewer.
 2. Click the **{{site.data.keyword.blockchainfull_notm}}** icon to open the **{{site.data.keyword.blockchainfull_notm}}** tab.
-3. In the **Smart Contracts** pane, click the overflow menu and select **Package Open Project**. You will be asked for the name of the package as well as the version.
+3. In the **Smart Contracts** pane, click the overflow menu and select **Package Open Project**. You are asked for the name of the package and the version.
   - If you have one smart contract project, it will be packaged automatically and be displayed in the **Smart Contracts** pane.
   - If you have multiple smart contract folders open, you will be asked which one to package.
   - If you have no smart contract folders open, you'll get an error message.
 
-If you wish to control which files in the project are packaged, you can create a `.fabricignore` file in the top level directory of your smart contract project. The file and pattern format for a `.fabricignore` file is the same as a [`.gitignore`](https://git-scm.com/docs/gitignore) file, for example:
+If you wish to control which files in the project are packaged, you can create a `.fabricignore` file in the top-level directory of your smart contract project. The file and pattern format for a `.fabricignore` file is the same as a [`.gitignore`](https://git-scm.com/docs/gitignore) file, for example:
 
 ```
 /.classpath

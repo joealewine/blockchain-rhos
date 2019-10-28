@@ -30,8 +30,6 @@ The console includes the option to import nodes that were created in another {{s
 ## Why import a node?
 {: #ibp-console-import-nodes-why}
 
-
-
 For cases when components have been deployed by one console and need to be operated from other, as well as for cases when certain actions are not possible unless nodes and MSPs and identities are "known" to a console (that is, unless those components have been created in the console or imported into it), the {{site.data.keyword.blockchainfull_notm}} Platform allows nodes, identities, and MSPs to be exported from one console and imported into another.
 
 There are two main reasons to import components:
@@ -60,7 +58,7 @@ After you import a node into the console, you can also modify its connection inf
 While importing nodes provides the ability to perform many of the actions that can be performed on the console where a node or identity was created, there are a few limitations on the ability to administer imported components:
 
 - You cannot import nodes from Starter plan or Enterprise plan networks.
-- All nodes to be imported must have been deployed by using the {{site.data.keyword.blockchainfull_notm}} Platform console.
+- All nodes to be imported must have been deployed by using the {{site.data.keyword.blockchainfull_notm}} Platform console or [{{site.data.keyword.blockchainfull_notm}} APIs](https://cloud.ibm.com/apidocs/blockchain){: external}.
 - You cannot patch nodes that have been imported into the console.
 - You cannot delete nodes that you imported into the console from the cluster where they were deployed. You can only remove the node from the console it was imported to.
 - If you are importing a node that is deployed on a network deployed locally, you must ensure that the gRPC web proxy port used by the component is externally exposed to the console. For more information, see [Importing nodes from a locally deployed network](#ibp-console-import-icp).
@@ -188,6 +186,8 @@ For information about how to add your organization to the list of ordering servi
 {: #ibp-console-import-orderer-process}
 
 
+
+Navigate to the **Nodes** tab.
 
 1. If you have not already done so, navigate to the **Organizations** tab and export the MSP of one or more peer organizations. Then, send this MSP, which represents your organization, to an administrator of the ordering service (which in this case is not necessarily an admin of any ordering nodes, but an organization with administrative control over the system channel). This ordering service administrator can make your organization one of the ordering service organizational admins or add your MSP to the consortium, giving your organization the ability to create channels, or both. Note that if your organization has been made one of the ordering service organizational admins, you have the ability to add your own organization to the consortium.
 2. After your MSP has been added as an ordering service administrator or to the consortium (or both), import the JSON representing the ordering service (as with the other nodes, this ordering service must be exported from the console where the ordering service was created). Then, navigate to the **Nodes** panel. Click **Add ordering service**, followed by **Import an existing ordering service**. Then click **Next**.

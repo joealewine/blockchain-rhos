@@ -98,7 +98,7 @@ While users of a free cluster **must use default sizes** for the containers asso
 
 The **Resource allocation** panel in the console provides default values for the various fields that are involved in creating a node. These values are chosen because they represent a good way to get started. However, every use case is different. While this topic will provide guidance for ways to think about these values, it ultimately falls to the user to monitor their nodes and find sizings that work for them. Therefore, barring situations in which users are certain that they will need values different from the defaults, a practical strategy is to use these defaults at first and adjust them later. For an overview of performance and scale of Hyperledger Fabric, which the {{site.data.keyword.blockchainfull_notm}} Platform is based on, see [Answering your questions on Hyperledger Fabric performance and scale](https://www.ibm.com/blogs/blockchain/2019/01/answering-your-questions-on-hyperledger-fabric-performance-and-scale/){: external}.
 
-All of the containers that are associated with a node have **CPU** and **memory**, while certain containers that are associated with the peer, ordering node, and CA also have **storage**. For more information about storage, see [storage](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-storage). .
+All of the containers that are associated with a node have **CPU** and **memory**, while certain containers that are associated with the peer, ordering node, and CA also have **storage**. For more information about storage, see [storage](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-storage). 
 
 You are responsible for monitoring your CPU, memory and storage consumption in your cluster. If you do happen to request more resources for a blockchain node than are available, the node will not start. However, existing nodes will not be affected.  For information about how to increase the CPU, memory, and storage, consult the documentation of your cloud provider.
 {:note}
@@ -128,7 +128,7 @@ The CA has only a single container with values that you need to worry about beca
 #### Creating highly available CAs
 {: #ibp-console-govern-components-CA-HA}
 
-For information about creating highly available CAs through the use of replica sets, see [how to configure CA replica sets](/docs/services/blockchain?topic=blockchain-ibp-console-build-ha-ca).
+For information about creating highly available CAs through the use of replica sets, see [how to configure CA replica sets](/docs/services/blockchain?topic=blockchain-ibp-console-ha-ca).
 
 
 ### Peers

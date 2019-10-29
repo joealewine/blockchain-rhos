@@ -2,11 +2,11 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-09-26"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 
@@ -31,7 +31,7 @@ You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 ont
 
 - If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using GO chaincode.
 
-- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-Kubernetes-ports) in the security guide.
+- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
 
 ## Resources required
 {: #deploy-ocp-resources-required-firewall}

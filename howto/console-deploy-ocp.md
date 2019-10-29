@@ -63,8 +63,6 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console has been successf
 
 Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster in OpenShift Container Platform, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
 
-If you are using the {{site.data.keyword.IBM_notm}} Kubernetes Service, every cluster comes with predefined `default` storage class that is used to provision persistent storage on {{site.data.keyword.cloud_notm}}. If you make no changes, the `default` storage class is the [Bronze-level File Storage](/docs/openshift?topic=openshift-file_storage#file_predefined_storageclass){: external} backed by [Endurance File Storage](/docs/infrastructure/FileStorage?topic=FileStorage-about#provisioning-with-endurance-tiers).
-
 If you prefer not to choose a persistent storage option, the default storage class of your OpenShift project is used. `Host-local` volume storage is not supported.
 {: note}
 

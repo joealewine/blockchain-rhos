@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: IBM Blockchain Platform, support case, Hyperledger Fabric Community, Cloud tickets, Rocket Chat, dWAnswers
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

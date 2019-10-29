@@ -2,11 +2,11 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-09-24"
+lastupdated: "2019-10-28"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 
@@ -32,13 +32,13 @@ To ensure channel security, the channel update policy is configured to define th
 ## Updating a channel configuration
 {: #ibp-console-govern-update-channel}
 
-While creating a channel and updating a channel have the same goal, giving users the ability to ensure that the configuration of their channel is as well suited as possible to their use case, the two processes are in fact very different **as tasks** in the console. Recall from our documentation on [Creating a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-channels-create) that this is a process undertaken by a **single organization**. As long as an organization is a member of the consortium of the ordering service that will become the ordering service of a channel, they can create the channel in any way they want. They can give it any name, add any organizations (as long as they are a member of the consortium), assign those organizations permissions, set access control lists, and so on.
+While creating a channel and updating a channel have the same goal, giving users the ability to ensure that the configuration of their channel is as well suited as possible to their use case, the two processes are in fact very different **as tasks** in the console. Recall from our documentation on [Creating a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel) that this is a process undertaken by a **single organization**. As long as an organization is a member of the consortium of the ordering service that will become the ordering service of a channel, they can create the channel in any way they want. They can give it any name, add any organizations (as long as they are a member of the consortium), assign those organizations permissions, set access control lists, and so on.
 
 The other organizations have the choice of whether to participate in this channel (for example, whether to join peers to it), but it is assumed that the collaborative process of choosing channel parameters will happen out of band, before an organization uses the console to create the channel.
 
 Updating a channel is different. It happens **within the console**, and follows the collaborative governance procedures that are fundamental to the way the {{site.data.keyword.blockchainfull_notm}} Platform functions. This collaborative process involves sending the channel configuration update requests to organizations that have an administrative role in the channel. These organizations are also known as channel **operators**.
 
-With the exception of [Anchor peers](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-channels-anchor-peers), which are updated through the **Channel details** panel inside a channel, you must click on the **Settings** button next to the channel name at the top of the page to initiate a channel configuration update transaction. A panel will appear that looks very similar to the panel you use to create a channel.
+With the exception of [Anchor peers](#ibp-console-govern-channels-anchor-peers) and [Joining a peer to a channel](#ibp-console-govern-channels-join peer), which are updated through the **Channel details** panel inside a channel, you must click on the **Settings** button next to the channel name at the top of the page to initiate a channel configuration update transaction. A panel will appear that looks very similar to the panel you use to create a channel.
 
 ### Channel configuration parameters you can update
 {: #ibp-console-govern-update-channel-available-parameters}
@@ -53,7 +53,7 @@ Because updating certain kinds of parameters are likely to appeal to advanced us
 
 Because the console gives a single user the ability to own and control several organizations, you must specify the organization you are using when you sign a channel update in the **Channel updater organization** section. If you own more than one organization in this channel, you may choose any of the organizations you own in the channel to sign with. Depending on the **channel update policy** you've selected, you may get a notification asking you to sign the request as one or more of the other organizations you own.
 
-Note that if you are attempting to change any parameter that requires the signature of ordering service admins (for example, the **Block cutting parameters** or **ordering service consenters**) and are one of the ordering service admins on this channel, you will see a field for the ordering service organization. Select the MSP of the relevant ordering service organization from the drop-down list. If you are not an admin of the ordering service organization, you can still make a request to change one of the block cutting parameters, but the request will be sent, and will need to be signed, by an ordering service admin.
+Note that if you are attempting to change any parameter that requires the signature of ordering service admins (for example, the **Block cutting parameters** ) and are one of the ordering service admins on this channel, you will see a field for the ordering service organization. Select the MSP of the relevant ordering service organization from the drop-down list. If you are not an admin of the ordering service organization, you can still make a request to change one of the block cutting parameters, but the request will need to be signed by an ordering service admin.
 
 #### General options
 {: #ibp-console-govern-update-channel-available-parameters-general}
@@ -73,7 +73,7 @@ The options visible when you navigate to this screen are more likely to be updat
 #### Advanced options
 {: #ibp-console-govern-update-channel-available-parameters-advanced}
 
-By clicking the box under advanced options, users can access parameters that users should take caution in updating. Note that if you are attempting to change any parameter that requires the signature of ordering service admins (for example, the **Block cutting parameters** or **ordering service consenters**) and are one of the ordering service admins on this channel, you will see a field for the ordering service organization. Select the MSP of the relevant ordering service organization from the drop-down list. If you are not an admin of the ordering service organization, you can still make a request to change one of the block cutting parameters, but the request will be sent, and will need to be signed, by an ordering service admin.
+By clicking the box under advanced options, users can access parameters that users should take caution in updating. Note that if you are attempting to change any parameter that requires the signature of ordering service admins (for example, the **Block cutting parameters**) and are one of the ordering service admins on this channel, you will see a field for the ordering service organization. Select the MSP of the relevant ordering service organization from the drop-down list. If you are not an admin of the ordering service organization, you can still make a request to change one of the block cutting parameters, but the request will be sent, and will need to be signed, by an ordering service admin.
 
 * **Access control lists**. To specify a finer grained control over resources, you can restrict access to a resource to an organization and a role within that organization. For example, setting access to the resource `ChaincodeExists` to `Application/Admins` would mean that only the admin of an application would be able to access the `ChaincodeExists` resource. For more information about Access Control, see [Access Control Lists (ACLs)](https://hyperledger-fabric.readthedocs.io/en/release-1.4/access_control.html){: external} in the Fabric documentation.
 
@@ -82,9 +82,11 @@ By clicking the box under advanced options, users can access parameters that use
 
 * **Channel and orderer capabilities**. As with the block cutting parameters, there are capability fields available during the channel update process that are hidden during channel creation because modifying them would require the signature of an ordering service admin before the channel could be created successfully. If you're unfamiliar with the **channel** and **orderer** capabilities, see [Channel capabilities](https://hyperledger-fabric.readthedocs.io/en/release-1.4/capabilities_concept.html){: external} in the Fabric documentation before attempting to change these capabilities. For information about how to update capabilities, check out the [Capabilities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-capabilities) section below.
 
-* **Ordering service consenters**. The ordering service nodes on a particular channel are known in a Raft consensus mechanism as a "consenter set". It is possible to add or remove particular nodes from this consenter set after a channel has been created. For information about updating the consenter set, see the [Adding and removing ordering service consenters](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-consenters) section below.
 
-* **Block cutting parameters**. (Advanced option) Because a change to the default block cutting parameters must be signed by an admin of the ordering service organization, these fields are not present in the channel creation panel. However, because this channel configuration will be sent to all of the relevant organizations in the channel, it is possible to send a channel configuration update request with changes to the block cutting parameters. These fields determine the conditions under which the ordering service cuts a new block. For information on how these fields affect when blocks are cut, see the [Block cutting parameters](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-orderer-tuning-batch-size) section below.
+
+* **Block cutting parameters**. Because a change to the default block cutting parameters must be signed by an admin of the ordering service organization, these fields are not present in the channel creation panel. However, because this channel configuration will be sent to all of the relevant organizations in the channel, it is possible to send a channel configuration update request with changes to the block cutting parameters. These fields determine the conditions under which the ordering service cuts a new block. For information on how these fields affect when blocks are cut, see the [Block cutting parameters](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-orderer-tuning-batch-size) section below.
+
+
 
 #### Anchor peers
 {: #ibp-console-govern-channels-anchor-peers}
@@ -97,6 +99,15 @@ To configure a peer to be an anchor peer, click the **Channels** tab and open th
  - Click the **Channel details** tab.
  - Scroll down to the Anchor peers table and click **Add anchor peer**.
  - Select at least one peer from each organization in collection definition that you want to serve as the anchor peer for the organization. For redundancy reasons, you can consider selecting more than one peer from each organization in the collection.
+
+#### Join a peer to a channel
+{: #ibp-console-govern-channels-join peer}
+
+The ordering service and the peers known to this console that are joined to this channel are listed in the **Nodes** field at the top of the channel page. It is possible to add peers to this channel by clicking the **Join peer** button. On the panel that opens, you can specify the peers you want to join this channel, as well as whether you want this peer to bootstrap gossip communication between your organization and other organizations by making this peer an anchor peer. If you already have specified an anchor peer for this channel, you do not need to make this peer an anchor peer (only one anchor peer is needed to bootstrap communication between organizations), though it is sensible to make anchor peers HA by making sure you have at least two anchor peers in each channel.
+
+As with the process for joining any peer to any channel, make sure that the [database type](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-level-couch) of this peer is compatible with the database type of the channel. Similarly, ensure that the Fabric level of this peer is at the [application and channel capability](#ibp-console-govern-update-channel-available-parameters-advanced) levels of the channel.
+
+Note that after a peer is removed from a channel, it might still show as being joined to the channel. This is because the ledger information of the channel up to the point the peer was removed is still available on the peer. Removing the peer from the channel means that the peer will receive no new channel updates, including the update that indicates that it is no longer a part of the channel. If you have any other peers joined to the channel, you can check the ledger height of those peers as compared to the peer that was removed to confirm that the removed peer is not receiving new blocks.
 
 ### Signature collection flow
 {: #ibp-console-govern-update-channel-signature-collection}
@@ -138,7 +149,7 @@ To ensure that you will always be able to see and propose updates to the latest 
 #### Capabilities in the system channel
 {: #ibp-console-govern-capabilities-system-channel}
 
-Because the ordering service is involed in the validation of the orderer and channel capabilities, these capability levels exist in the system channel maintained by the ordering service. By default, any channel that is created on this ordering service inherits these capability levels. Because these capability levels are not apparent when creating a channel, it is important to communicate the **channel** capability level to consortium members so they can ensure that the level of their peers is at the channel capability level or higher.
+Because the ordering service is involved in the validation of the orderer and channel capabilities, these capability levels exist in the system channel maintained by the ordering service. By default, any channel that is created on this ordering service inherits these capability levels. Because these capability levels are not apparent when creating a channel, it is important to communicate the **channel** capability level to consortium members so they can ensure that the level of their peers is at the channel capability level or higher.
 
 In order to edit the orderer or channel capabilities, you must be an ordering service admin. Note also that capabilities can only advanced in version. You cannot go back to a previous capability or downgrade from a default capability level to an lower version.
 
@@ -153,22 +164,6 @@ Like the orderer and channel capabilities, the application capability level can 
 
 If you are using the SDK to create channels, take caution to not submit a configuration update with an invalid application capability. Because application capabilities are not validated by the ordering service, an invalid application capability will not be flagged and the configuration update will be approved. Because the peers cannot process an application capability that does not exist, the peers will crash when attempting to read the configuration block containing the invalid capability. Because the peers will be unable to progress beyond this configuration block, it will not be possible to reverse this configuration block and submit another one to "fix" the problem. A channel in this state would be unrepairable.
 {: important}
-
-### Adding and removing ordering service consenters
-{: #ibp-console-govern-consenters}
-
-Currently it is not possible to form the consenter set of a channel using a subset of the available nodes. All nodes will be select by default. As a result, channel members might decide, to save compute and storage space, to reduce the number of consenters in a channel after the channel has been created. This can be done by selecting the "trash can" icon next to the name of a particular node in the channel configuration update panel.
-
-Note that **you can only add or remove one consenter during a configuration update**. If your consenter set is currently 15 nodes and you wish to reduce the consenter set to 10 nodes, you must perform five separate configuration update transactions.
-{:important}
-
-Because updating the consenter set requires the approval of ordering service admins, be aware this action will require the approval of the ordering service. Depending on the composition of the ordering service, this might require more than one ordering service admins to approve. Also, note that [deleting a node](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-add-remove-orderer) does not remove it as a consenter from any application channels where it is a consenter. You will need to reach out to the other organizations in your consortium to let them know that the consenter sets in their channels must be updated to remove the node.
-
-Because the consenter set of a channel will initially include all available nodes, adding nodes to a consenter set is likely to be less common than deleting one. However, in cases where a node has been added to the system channel, channel members might decide to add this node to the application channels as well.
-
-To add a consenter, select it from the drop down list. Note that the same rule for deleting a node applies to adding one. You will only be able to add one node at a time. Before a node can appear in the drop down list, it must be [created](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-add-remove-orderer) and then [added to the system channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-add-remove-orderer-consenter-system-channel).
-
-If you are attempting to remove a node from a consenter set of an ordering service that was imported before September 18, 2019, you will need to re-import the JSON representing the ordering service. This is because consenter set actions require submitting information that previously was not included in the JSON. Reach out to the user of the console where the ordering service was created and ask them to export the ordering service, then re-import it into your console. The console will then the merge the new information into the definition of the ordering service.
 
 ## Tuning your orderer
 {: #ibp-console-govern-orderer-tuning}
@@ -199,3 +194,4 @@ Set the **Timeout** value to the amount of time, in seconds, to wait after the f
 
 When you modify these parameters, you do not affect the behavior of existing channels on the orderer; rather, any changes you make to the orderer configuration apply only to new channels you create on this orderer.
 {:important}
+

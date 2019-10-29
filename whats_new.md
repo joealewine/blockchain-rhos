@@ -6,7 +6,7 @@ lastupdated: "2019-09-24"
 
 keywords: IBM Blockchain Platform, release, new features
 
-subcollection: blockchain
+subcollection: blockchain-rhos
 
 ---
 

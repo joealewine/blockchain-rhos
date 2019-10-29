@@ -38,4 +38,6 @@ The pricing of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 is base
 For more information about VPCs (CPUs) in Red Hat OpenShift, see this topic on [Allocating Node Resources](https://docs.openshift.com/container-platform/3.11/admin_guide/allocating_node_resources.html){: external}.
 Note that 1 `core` in OpenShift is equivalent to 1 vCPU in {{site.data.keyword.blockchainfull_notm}} Platform.
 
+
+
 Various licensing options are available. For more information, please [Contact us](https://www.ibm.com/account/reg/us-en/signup?formid=urx-37672){: external}.

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-29"
 
 keywords: high availability, HA, failures, zone failure, region failure, component failure, worker node failure
 
@@ -117,7 +117,7 @@ The following table contains a list of options to consider as you plan for incre
 
    **Ordering service** As mentioned above, the HA ordering service is based on Raft, and contains five ordering nodes by default. Because the system can sustain the loss of nodes, including leader nodes, as long as there is a majority of ordering nodes (what’s known as a “quorum”) remaining, Raft is said to be “crash fault tolerant” (CFT). In other words, if you have five nodes in a channel, you can lose two nodes (leaving three remaining nodes). When you deploy an ordering service from the console, choose the five node service for HA.    
 
-   **CA** You can configure replica sets, which are represented as shaded CA boxes in the diagram above, for your CA. Replica sets guarantee that if the CA node goes down, the CA replica immediately begins processing requests. You must provision an instance of a PostgreSQL database if you plan to use CA replica sets. See these instructions for more information about [how to configure CA replica sets](/docs/services/blockchain?topic=blockchain-ibp-console-build-ha-ca).
+   **CA** You can configure replica sets, which are represented as shaded CA boxes in the diagram above, for your CA. Replica sets guarantee that if the CA node goes down, the CA replica immediately begins processing requests. You must provision an instance of a PostgreSQL database if you plan to use CA replica sets. See these instructions for more information about [how to configure CA replica sets](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca).
 
    This scenario uses redundant peers, ordering nodes, and CAs on a single worker node, which protects against component failure, but cannot protect from node failure.   
      
@@ -198,7 +198,7 @@ In all cases, to protect against data corruption, it is recommended that you reg
 When you need to restore a backup, the backups would need to be restored on every component across your network.
 
 
-If you are using CA replica sets and your PostgreSQL database resides in {{site.data.keyword.cloud_notm}}, backups are included in the service. See the topic on [Managing Backups](docs/services/databases-for-postgresql?topic=cloud-databases-dashboard-backups){: external} for more information. Otherwise, you need to work with your third-party PostgreSQL database provider to manage the database backups according to your DR needs.
+If you are using CA replica sets and your PostgreSQL database resides in {{site.data.keyword.cloud_notm}}, backups are included in the service. See the topic on [Managing Backups](/docs/services/databases-for-postgresql?topic=cloud-databases-dashboard-backups){: external} for more information. Otherwise, you need to work with your third-party PostgreSQL database provider to manage the database backups according to your DR needs.
 
 
 ### Stopping nodes to prepare for a backup

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "{LAST_UPDATED_DATE}]"
+lastupdated: "2019-10-29"
 
 keywords: organizations, MSPs, create an MSP, MSP JSON file, consortium, system channel
 
@@ -280,4 +280,3 @@ Over time you might need to update the certificates in an MSP definition that is
 3. Click the **Channel details** tab.
 4. Click the associated channel member's tile that you want to update.
 5. If you have not already imported the updated MSP definition into the console, you can upload the file here. **Note:** This action will not update the associated MSP definition in the Organizations tab. If you have already updated the MSP definition in the Organizations tab of the console, you can select it from the drop-down list.
-

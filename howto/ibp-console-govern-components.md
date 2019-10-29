@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-29"
 
 keywords: network components, Kubernetes, OpenShift, allocate resources, batch timeout, reallocate resources, LevelDB, CouchDB, ordering nodes, ordering, add and remove, governance
 
@@ -166,7 +166,7 @@ Similar to the CA, an ordering node has only one associated container that we ca
 
 * **The ordering node itself**: Encapsulates the internal orderer processes (such as validating transactions) and the blockchain for all of the channels it hosts.
 
-#### Sizing an orderer during creation
+#### Sizing an ordering node during creation
 {: #ibp-console-govern-components-orderer-sizing-creation}
 
 As we noted in our section on [How the console interacts with your Kubernetes cluster](#ibp-console-govern-components-iks-console-interaction), it is recommended to use the defaults for these orderer containers and adjust them later as it becomes apparent how they are being utilized.

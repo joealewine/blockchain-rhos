@@ -294,7 +294,7 @@ With five nodes, you can lose two nodes and still maintain a quorum, meaning tha
 In this tutorial, we will create a one node ordering service.
 
 ### Creating your ordering service organization CA
-{: #ibp-console-build-network-create-orderer-ca}_
+{: #ibp-console-build-network-create-orderer-ca}
 
 The process for creating a CA for an ordering service is identical to creating it for a peer.
 

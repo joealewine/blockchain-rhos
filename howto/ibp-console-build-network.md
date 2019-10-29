@@ -294,15 +294,14 @@ With five nodes, you can lose two nodes and still maintain a quorum, meaning tha
 In this tutorial, we will create a one node ordering service.
 
 ### Creating your ordering service organization CA
-{: #ibp-console-build-network-create-orderer-ca}
+{: #ibp-console-build-network-create-orderer-ca}_
 
 The process for creating a CA for an ordering service is identical to creating it for a peer.
 
 1. Navigate to the **Nodes** tab and click **Add Certificate Authority**.
 2. In this tutorial, we're creating nodes, so make sure the option to **Create a Certificate Authority** is selected. Then click **Next**
 3. Give this CA a unique display name, `Ordering Service CA`. You're free to reuse the **CA administrator enroll ID** of `admin` and a secret of `adminpw`. As this is a different CA, this identity is distinct from the CA admin identity for created for the `Org1 CA`, even though the ID and secret are identical.
-4.
-5. Review the Summary page, then click **Add Certificate Authority**.
+4. Review the Summary page, then click **Add Certificate Authority**.
 
 As with the peer, advanced users may already have their own CA and not want to create a new CA using the console. If your existing CA can issue certificates in `X.509` format, you can use your own external CA instead of creating a new one here. See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
 

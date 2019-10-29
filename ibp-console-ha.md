@@ -117,10 +117,10 @@ The following table contains a list of options to consider as you plan for incre
 
    **Ordering service** As mentioned above, the HA ordering service is based on Raft, and contains five ordering nodes by default. Because the system can sustain the loss of nodes, including leader nodes, as long as there is a majority of ordering nodes (what’s known as a “quorum”) remaining, Raft is said to be “crash fault tolerant” (CFT). In other words, if you have five nodes in a channel, you can lose two nodes (leaving three remaining nodes). When you deploy an ordering service from the console, choose the five node service for HA.    
 
-   **CA** You can configure replica sets, which are represented as shaded CA boxes in the diagram above, for your CA. Replica sets guarantee that if the CA node goes down, the CA replica immediately begins processing requests. You must provision an instance of a PostgreSQL database if you plan to use CA replica sets. See these instructions for more information about [how to configure CA replica sets](/docs/services/blockchain?topic=blockchain-ibp-console-build-ha-ca).
+   **CA** You can configure replica sets, which are represented as shaded CA boxes in the diagram above, for your CA. Replica sets guarantee that if the CA node goes down, the CA replica immediately begins processing requests. You must provision an instance of a PostgreSQL database if you plan to use CA replica sets. See these instructions for more information about [how to configure CA replica sets](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca).
 
    This scenario uses redundant peers, ordering nodes, and CAs on a single worker node, which protects against component failure, but cannot protect from node failure.   
-     
+
    Therefore, it is only suitable for development and testing purposes.
 
 2. **Worker node failure.**  
@@ -137,7 +137,7 @@ The following table contains a list of options to consider as you plan for incre
 
    This scenario uses redundant peers, ordering nodes, and CA replica sets, across multiple worker nodes in a single cluster or zone, which protects against node failure, but cannot protect from a cluster or zone failure.   Therefore, it is not recommended for Production.
 
-### Multizone HA 
+### Multizone HA
 {: #ibp-console-ha-multi-zone}
 
 
@@ -148,13 +148,13 @@ The following table contains a list of options to consider as you plan for incre
 
    **Multizone clusters with multiple work nodes and anti-affinity**:
 
-   Think of a zone as a data center. A zone failure affects all physical compute hosts and NFS storage. Failures include power, cooling, networking, or storage outages, and natural disasters, like flooding, earthquakes, and hurricanes. To protect against a zone failure, you must have clusters in at least two different zones that are load balanced by an external load balancer. 
+   Think of a zone as a data center. A zone failure affects all physical compute hosts and NFS storage. Failures include power, cooling, networking, or storage outages, and natural disasters, like flooding, earthquakes, and hurricanes. To protect against a zone failure, you must have clusters in at least two different zones that are load balanced by an external load balancer.
 
    A single zone is sufficient for a development and test environment if you can tolerate an zone outage. Therefore, to leverage the HA benefits of multiple zones,  when you provision your cluster, ensure that multiple zones are selected. Two zones are better than one, but three are recommended for HA to increase the likelihood that the two additional zones can absorb the workload of any single zone failure.  When redundant peers from the same organization and channel, and ordering nodes, are spread across multiple zones, a failure in any one zone should not affect the ability of the network to process transactions because the workload will shift to the blockchain nodes in the other zones.
 
    You can use the {{site.data.keyword.blockchainfull_notm}} Platform console to specify the zone where a peer or ordering node is created. When you deploy a peer or ordering service (or a single ordering node), look under the **Advanced deployment options** to see the list of zones that are currently configured for your Kubernetes cluster.
 
-   If you're deploying a peer or ordering service, you have the option to select the zone from the zones you have available or let your Kubernetes cluster decide for you by leaving the default selected. For a five node ordering service, these nodes will be distributed into multiple zones by default, depending on the relative space available in each zone. You also have the ability to distribute a five node ordering service yourself by unselecting the default option to have the zones chosen for you and distributing these nodes into the zones you have available. If you are deploying a redundant node (that is, another peer when you already have one), it is a best practice to deploy this node into a different zone. You you can check which zone the other node was deployed to by opening the tile of the node and looking under the **Node location**. Alternatively, you can use the APIs to deploy a peer or orderer to a specific zone. For more information on how to do this with the APIs, see [Creating a node within a specific zone](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-zone). 
+   If you're deploying a peer or ordering service, you have the option to select the zone from the zones you have available or let your Kubernetes cluster decide for you by leaving the default selected. For a five node ordering service, these nodes will be distributed into multiple zones by default, depending on the relative space available in each zone. You also have the ability to distribute a five node ordering service yourself by unselecting the default option to have the zones chosen for you and distributing these nodes into the zones you have available. If you are deploying a redundant node (that is, another peer when you already have one), it is a best practice to deploy this node into a different zone. You you can check which zone the other node was deployed to by opening the tile of the node and looking under the **Node location**. Alternatively, you can use the APIs to deploy a peer or orderer to a specific zone. For more information on how to do this with the APIs, see [Creating a node within a specific zone](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-zone).
 
    If you have multiple zones configured for your Kubernetes cluster, when you create a new CA with replica sets, an anti-affinity policy ensures that the CA replica sets are automatically configured across the zones. Replica sets are represented as shaded CA boxes in the diagram above. Adequate resources must exist in the other zones in order for the anti-affinity policy to be used.  
 
@@ -178,7 +178,7 @@ This scenario offers the highest level of HA possible.
 
    This scenario uses redundant peers across multiple worker nodes in multiple regions, which provide the highest degree of HA. This approach is also a recommended scenario for a production network when your resiliency requirements merit the investment.  
 
-   See this topic on [Setting up multi-region HA deployments](/docs/services/blockchain?topic=blockchain-ibp-console-hadr-mr) for steps to configure your {{site.data.keyword.blockchainfull_notm}} Platform peers across multiple regions.
+   See this topic on [Setting up multi-region HA deployments](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-hadr-mr) for steps to configure your {{site.data.keyword.blockchainfull_notm}} Platform peers across multiple regions.
 
 ## Disaster recovery (DR)
 {: #ibp-console-ha-dr}
@@ -218,4 +218,3 @@ If you are not using Portworx as your storage solution, you can use the followin
    kubectl scale deployment my-deployment --replicas=1
    ```
    {:codeblock}
-

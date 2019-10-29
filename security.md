@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-29"
 
 
 
@@ -191,7 +191,7 @@ For more information on securing your persistent storage, see this topic on [Vol
 ### Data privacy
 {: #ibp-security-kubernetes-privacy}
 
-When you have data privacy requirements, [Private Data collections](https://hyperledger-fabric.readthedocs.io/en/release-1.4/private-data/private-data.html#what-is-private-data){: External} provide a way to further isolate specific data from the rest of the channel members. The combination of the use of channels and private data offer various solutions for achieving [Data Residency](/docs/services/blockchain?topic=blockchain-console-icp-about-data-residency).
+When you have data privacy requirements, [Private Data collections](https://hyperledger-fabric.readthedocs.io/en/release-1.4/private-data/private-data.html#what-is-private-data){: external} provide a way to further isolate specific data from the rest of the channel members. The combination of the use of channels and private data offer various solutions for achieving .[Data Residency](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-about-data-residency).
 
 ### GDPR
 {: #ibp-security-kubernetes-gdpr}

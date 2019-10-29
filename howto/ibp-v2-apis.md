@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-29"
 
 keywords: APIs, build a network, authentication, service credentials, API key, API endpoint, IAM access token, Fabric CA client, import a network, generate certificates
 
@@ -291,7 +291,10 @@ You can use APIs to create blockchain components in your instance of the {{site.
   - You also need to [register an organization administrator](#ibp-v2-apis-config-register-admin) and then [generate certificates for the admin](#ibp-v2-apis-config-enroll-admin) inside an MSP folder. You do not have to complete this step if you have already registered your admin identity.
   - [Register the new component with your TLS CA](#ibp-v2-apis-config-register-component-tls).
 
-  You can also complete these steps by using your {{site.data.keyword.blockchainfull_notm}} Platform console. For more information, see [Creating and managing identities](/docs/services/blockchain/?topic=blockchain-ibp-console-identities).
+
+
+  
+  You can also complete these steps by using your {{site.data.keyword.blockchainfull_notm}} Platform console. For more information, see [Creating and managing identities](/docs/services/blockchain-rhos/?topic=blockchain-rhos-ibp-console-identities).
 
 3. [Create an MSP definition for your organization](#ibp-v2-apis-msp) by calling [`POST /ak/api/v1/components/msp`](/apidocs/blockchain?#import-a-membership-service-provide-msp).
 
@@ -343,8 +346,11 @@ You can also use the APIs to import {{site.data.keyword.blockchainfull_notm}} co
 
 6. After you deploy your network, you can use the Fabric SDKs, the Peer CLI, or the console UI to create channels and install or instantiate smart contracts. If you need to programmatically create a channel, you must provide the consortium name. For {{site.data.keyword.blockchainfull}} Platform, the consortium name must be set to `SampleConsortium`.
 
-The service credential that is used for API authentication must have the `Writer` role in IAM to be able to import components. See the table in this topic on [user roles](/docs/services/blockchain/?topic=blockchain-ibp-console-manage-console#console-icp-manage-users) for more information.
+
+
+The service credential that is used for API authentication must have the `Writer` role in IAM to be able to import components. See the table in this topic on [user roles](/docs/services/blockchain-rhos/?topic=blockchain-rhos-ibp-console-manage-console#console-icp-manage-users) for more information.
 {: note}
+
 
 ## Operating your CA using the Fabric CA client
 {: #ibp-v2-apis-config-fabric-ca-client}

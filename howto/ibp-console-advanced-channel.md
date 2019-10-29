@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-29"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
@@ -126,7 +126,7 @@ When you click on the **Notifications** button, you may have one or more actions
 * **Closed**: requests that have been submitted. No actions to be taken on these items. They can only be viewed.
 * **All**: includes both open and closed requests.
 
-If a channel configuration update request has been made, you will have the ability to click on `Review and update channel configuration` and see the changes to the channel configuration update that are being proposed or have been made (if the new channel configuration has been approved). If you are an operator on the channel, and not enough signatures have been gathered to approve the channel configuration update request, you will have the ability to sign the update request.
+If a channel configuration update request has been made, you will have the ability to click on **Review and update channel configuration** and see the changes to the channel configuration update that are being proposed or have been made (if the new channel configuration has been approved). If you are an operator on the channel, and not enough signatures have been gathered to approve the channel configuration update request, you will have the ability to sign the update request.
 
 You are not required to sign a channel configuration update, however note that there is no way to sign **against** a channel update. If you do not approve of a channel configuration update, you can simply close the panel and reach out to other channel operators out of band to voice your concerns. However, if enough operators in the channel approve of the update to satisfy the channel update policy, the new configuration will take effect.
 {:note}
@@ -151,7 +151,7 @@ To ensure that you will always be able to see and propose updates to the latest 
 
 Because the ordering service is involved in the validation of the orderer and channel capabilities, these capability levels exist in the system channel maintained by the ordering service. By default, any channel that is created on this ordering service inherits these capability levels. Because these capability levels are not apparent when creating a channel, it is important to communicate the **channel** capability level to consortium members so they can ensure that the level of their peers is at the channel capability level or higher.
 
-In order to edit the orderer or channel capabilities, you must be an ordering service admin. Note also that capabilities can only advanced in version. You cannot go back to a previous capability or downgrade from a default capability level to an lower version.
+In order to edit the orderer or channel capabilities, you must be an ordering service admin. Note also that capability versions can only advance. You cannot go back to a previous capability or downgrade from a default capability level to an lower version.
 
 To edit these capabilities, click on the **Settings** button inside the ordering service. Then click **Capabilities**. Note that the channel and orderer capabilities, as well as the application capabilities, can also be edited through a channel configuration update. However, an ordering service admin will have to sign any configuration update that edits the orderer or channel capabilities.
 

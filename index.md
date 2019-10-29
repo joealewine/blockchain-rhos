@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-24"
+lastupdated: "2019-10-29"
 
 subcollection: blockchain-rhos
 
@@ -39,7 +39,7 @@ Running the {{site.data.keyword.blockchainfull_notm}} Platform on the OpenShift 
 ### Developer Tools
 {: ##get-started-console-ocp-dev-tools}
 
-[**{{site.data.keyword.blockchainfull_notm}} Platform Extension for VS Code**](/docs/services/blockchain?topic=blockchain-develop-vscode#develop-vscode)  
+[**{{site.data.keyword.blockchainfull_notm}} Platform Extension for VS Code**](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#develop-vscode)  
 
 Developers can start with a free IDE that provides an explorer and commands accessible from the command palette for developing smart contracts quickly.
 

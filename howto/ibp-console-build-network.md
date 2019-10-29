@@ -4,6 +4,7 @@ copyright:
   years: 2019
 lastupdated: "2019-10-28"
 
+
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
 subcollection: blockchain-rhos
@@ -290,7 +291,7 @@ Currently, the only crash fault tolerant configuration of ordering nodes current
 
 With five nodes, you can lose two nodes and still maintain a quorum, meaning that you can undergo a maintenance cycle while maintaining high availability. As a result,  you  will only have the choice between one node and five nodes. Production networks should choose the five node option, as a one node ordering service is, by definition, not crash fault tolerant.
 
-In this tutorial, we will create a one  node ordering service.
+In this tutorial, we will create a one node ordering service.
 
 ### Creating your ordering service organization CA
 {: #ibp-console-build-network-create-orderer-ca}

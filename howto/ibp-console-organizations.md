@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2017, 2019
-lastupdated: ""{LAST_UPDATED_DATE}]"
+  years: 2019
+lastupdated: "{LAST_UPDATED_DATE}]"
 
 keywords: organizations, MSPs, create an MSP, MSP JSON file, consortium, system channel
 

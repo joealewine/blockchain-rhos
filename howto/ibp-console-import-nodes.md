@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-30"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 
@@ -37,7 +37,7 @@ There are two main reasons to import components:
   1. A node will be deployed in one console and operated from another. **This will be most common for CAs and peers**. In these cases, **the relevant admin identity must be exported and imported, or a new admin identity for the node must be created**.
   2. A node or MSP simply has to be known by a console so that it can be selected from a drop down list. **This will be most common for ordering services**, though in the case of the MSP it will also be important when adding organizations to a channel. It will not typically be necessary to import an admin identity in this case, though in the case of the ordering service, it can be useful to export an MSP to the console where the ordering service was created. More on this later.
 
-Among the functionalities that become available after components have been imported include (note: additional steps might be required after import to be able to execute some of these tasks):
+Among the functionalities that become available after components have been imported include:
 
 - Add new organizations to the consortium
 - Create new channels
@@ -45,6 +45,9 @@ Among the functionalities that become available after components have been impor
 - Install smart contracts on peers regardless of where they were deployed
 - Instantiate smart contracts on channels
 - Upgrade smart contracts on channels
+
+Additional steps might be required after a node has been imported before some of these tasks can be performed.
+{: note}
 
 Note that when you import a component, you do not actually import the physical component into your cloud provider. Instead, the console uses the information in the JSON to build a representation of the component that can be operated from the console. Likewise, when you delete an imported node from the console, the node itself, which is still running at the location where it was deployed, is not deleted. It is simply removed from the console where it was imported.
 

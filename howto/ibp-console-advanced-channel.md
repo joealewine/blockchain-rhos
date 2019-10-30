@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-29"
+lastupdated: "2019-10-30"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
@@ -38,7 +38,7 @@ The other organizations have the choice of whether to participate in this channe
 
 Updating a channel is different. It happens **within the console**, and follows the collaborative governance procedures that are fundamental to the way the {{site.data.keyword.blockchainfull_notm}} Platform functions. This collaborative process involves sending the channel configuration update requests to organizations that have an administrative role in the channel. These organizations are also known as channel **operators**.
 
-With the exception of [Anchor peers](#ibp-console-govern-channels-anchor-peers) and [Joining a peer to a channel](#ibp-console-govern-channels-join peer), which are updated through the **Channel details** panel inside a channel, you must click on the **Settings** button next to the channel name at the top of the page to initiate a channel configuration update transaction. A panel will appear that looks very similar to the panel you use to create a channel.
+With the exception of [Anchor peers](#ibp-console-govern-channels-anchor-peers) and [Joining a peer to a channel](#ibp-console-govern-channels-join-peer), which are updated through the **Channel details** panel inside a channel, you must click on the **Settings** button next to the channel name at the top of the page to initiate a channel configuration update transaction. A panel will appear that looks very similar to the panel you use to create a channel.
 
 ### Channel configuration parameters you can update
 {: #ibp-console-govern-update-channel-available-parameters}
@@ -80,7 +80,7 @@ By clicking the box under advanced options, users can access parameters that use
   If you restrict access to a resource to a particular organization, be aware that only that organization will be able to access the resource. If you want other organizations to be able to access the resource, you will have to add them one by one using fields below. As a result, consider your access control decisions carefully. Restricting access to certain resources in certain ways can have a highly negative effect on how your channel functions.
   {:important}
 
-* **Channel and orderer capabilities**. As with the block cutting parameters, there are capability fields available during the channel update process that are hidden during channel creation because modifying them would require the signature of an ordering service admin before the channel could be created successfully. If you're unfamiliar with the **channel** and **orderer** capabilities, see [Channel capabilities](https://hyperledger-fabric.readthedocs.io/en/release-1.4/capabilities_concept.html){: external} in the Fabric documentation before attempting to change these capabilities. For information about how to update capabilities, check out the [Capabilities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-capabilities) section below.
+* **Channel and orderer capabilities**. As with the block cutting parameters, there are capability fields available during the channel update process that are hidden during channel creation because modifying them would require the signature of an ordering service admin before the channel could be created successfully. If you're unfamiliar with the **channel** and **orderer** capabilities, see [Channel capabilities](https://hyperledger-fabric.readthedocs.io/en/release-1.4/capabilities_concept.html){: external} in the Fabric documentation before attempting to change these capabilities. For information about how to update capabilities, check out the [Capabilities](#ibp-console-govern-capabilities) section below.
 
 
 
@@ -121,7 +121,7 @@ This process of knowing when you have an update to sign, as well as signing it, 
 
 When you click on the **Notifications** button, you may have one or more actions you have the ability to take:
 
-* **Needs attention**: the current user needs to sign the request (as a peer or ordering service organization) or needs to submit the request (if all required signature have already been collected).
+* **Needs attention**: a request needs to be signed or submitted (if all required signature have already been collected). The request might be to either your peers or ordering service, depending on the organizations in your console.
 * **Open**: includes everything that **needs attention** as well as requests that have been signed by the user but still need to be signed by one or more other channel members.
 * **Closed**: requests that have been submitted. No actions to be taken on these items. They can only be viewed.
 * **All**: includes both open and closed requests.
@@ -165,7 +165,7 @@ Like the orderer and channel capabilities, the application capability level can 
 If you are using the SDK to create channels, take caution to not submit a configuration update with an invalid application capability. Because application capabilities are not validated by the ordering service, an invalid application capability will not be flagged and the configuration update will be approved. Because the peers cannot process an application capability that does not exist, the peers will crash when attempting to read the configuration block containing the invalid capability. Because the peers will be unable to progress beyond this configuration block, it will not be possible to reverse this configuration block and submit another one to "fix" the problem. A channel in this state would be unrepairable.
 {: important}
 
-## Tuning your orderer
+## Tuning your ordering service
 {: #ibp-console-govern-orderer-tuning}
 
 Performance of a blockchain platform can be affected by many variables such as transaction size, block size, network size, as well as limits of the hardware. The orderer node includes a set of tuning parameters that together can be used to control orderer throughput and performance.  You can use these parameters to customize how your orderer processes transactions depending on whether you have many small frequent transactions, or fewer but large transactions that arrive less frequently. Essentially, you have the control to decide when the blocks are cut based on your transaction size, quantity, and arrival rate.

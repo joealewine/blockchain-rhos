@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-29"
+lastupdated: "2019-10-30"
 
 keywords: network components, Kubernetes, OpenShift, allocate resources, batch timeout, reallocate resources, LevelDB, CouchDB, ordering nodes, ordering, add and remove, governance
 
@@ -196,7 +196,7 @@ While it takes less effort to deploy enough resources to your Kubernetes cluster
 
 
 
-You can scale your cluster manually by monitoring your nodes and either adding more nodes or larger nodes by following the instructions available from your cloud provider. The method you will use to increase storage will depend on the storage class you chose for your cluster. Note that if you are about to exhaust the storage on your peer or ordering node, you will need to deploy a new peer or ordering node with more storage and let it sync via your other components on the same channels.
+You can scale your cluster by monitoring your nodes and following the instructions available from your cloud provider to add more nodes, larger nodes, or increasing the size of the nodes, depending on the options available in your cloud provider. The method you will use to increase storage will depend on the storage class you chose for your cluster. Note that if you are about to exhaust the storage on your peer or ordering node, you might need to deploy a new peer or ordering node with more storage and let it sync via your other components on the same channels.
 
 
 

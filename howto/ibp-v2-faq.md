@@ -93,6 +93,3 @@ The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided
 {: faq}
 
 Yes, if you have the endorsement policy set to “Any”. However, you do have the opportunity to bind the policy directly to an organization's peers. The service discovery information provided by the peer supplies two pieces of information, `Layouts` and `EndorsersByGroup`. With these two pieces of data the SDK has the ability to send requests to peers in different organizations that meet the endorsement policy requirements. The node.js SDK provides default code that uses the `Layouts` and `EndoresersByGroup`s and sends the requests to the appropriate peers to meet the endorsement policy requirements. This existing logic can be customized to meet the business needs.
-
-
-

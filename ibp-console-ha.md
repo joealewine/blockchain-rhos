@@ -179,7 +179,7 @@ This scenario offers the highest level of HA possible.
 
    This scenario uses redundant peers across multiple worker nodes in multiple regions, which provide the highest degree of HA. This approach is also a recommended scenario for a production network when your resiliency requirements merit the investment.  
 
-   See this topic on [Setting up multi-region HA deployments](/docs/services/blockchain?topic=blockchain-ibp-console-hadr-mr) for steps to configure your {{site.data.keyword.blockchainfull_notm}} Platform peers across multiple regions.
+   See this topic on [Setting up multi-region HA deployments](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-hadr-mr) for steps to configure your {{site.data.keyword.blockchainfull_notm}} Platform peers across multiple regions.
 
 ## Disaster recovery (DR)
 {: #ibp-console-ha-dr}

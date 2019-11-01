@@ -106,7 +106,7 @@ Depending on your cluster type, deployment of the CA can take up to ten minutes.
 
 Once the CA is running, as indicated by the green box in the tile, complete the following steps:
 
-1. Click on the `Org2 CA` tile in the **Nodes** tab. Then click **Associate identity** on the CA overview panel.
+1. Click the `Org2 CA` tile in the **Nodes** tab. Then click **Associate identity** on the CA overview panel.
 2. On the side panel that opens, provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org2 CA  Identity`.
 3. Click **Associate identity** to add the identity into your console Wallet and associate the admin identity with your CA.
 
@@ -120,7 +120,7 @@ After setting the CA admin identity, you will be able to see the table of regist
 
 *Figure 3. Associate the CA admin identity*
 
-You can view the CA admin identity in your console wallet by clicking on the **Wallet** in the left navigation. Click on the identity to view the certificate and private key of the CA admin. The identity is not stored in your console or managed by {{site.data.keyword.IBM_notm}}. It is only stored in local browser storage. If you change browsers, you will need to import this identity into your Wallet to be able to operate the CA. Click **Export identity** to download the identity and keys.
+You can view the CA admin identity in your console wallet by clicking on the **Wallet** in the left navigation. Click the identity to view the certificate and private key of the CA admin. The identity is not stored in your console or managed by {{site.data.keyword.IBM_notm}}. It is only stored in local browser storage. If you change browsers, you will need to import this identity into your Wallet to be able to operate the CA. Click **Export identity** to download the identity and keys.
 
 **Task: Check your Wallet**
 
@@ -140,7 +140,7 @@ Each node or application that you want to create needs certificates and private 
 
 Once you have associated the CA admin, you can use the CA tile to create these identities by completing the following steps:
 
-1. Click on the `Org2 CA` and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
+1. Click the `Org2 CA` tile and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
 2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `org2admin` and a **secret** of `org2adminpw`. Then set the `Type` for this identity as  `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type). Ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
 4. For the purpose of this tutorial, we do not need to use **Add Attribute**. If you want to learn more about identity attributes, see [Registering identities](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register).
 5. After the organization admin has been registered, repeat this same process for the identity of the peer (also using the `Org2 CA`). For the peer identity, give an enroll ID of `peer2` and a secret of `peer2pw`. This is a node identity, so select `peer` as the **Type**. Click the box that says **Use root affiliation** and ignore **Maximum enrollments**. Then, on the next panel, do not assign any **Attributes**, as before.
@@ -287,7 +287,7 @@ This step needs to be completed by an ordering service admin.
 After the MSP representing Org2 has been imported, use these steps to add the peer organization to the consortium hosted by the ordering service. Only ordering service admins, those who are listed under **Ordering service administrators** in the **Details** tab of the ordering service, can add peer organizations to the consortium. You must have the ordering service organization admin identity in your Wallet to perform this task.
 
 1. Navigate to the **Nodes** tab.
-2. Scroll down to the ordering service you want to use and click on it to open it.
+2. Scroll down to the ordering service you want to use and click the tile to open it.
 3. Under **Consortium Members**, click **Add organization**.
 4. From the drop-down list, select `Org2 MSP`, as this is the MSP that represents `Org2`.
 5. Click **Add organization**.
@@ -324,7 +324,7 @@ This step needs to be completed by an admin of Org1.
 {:tip}
 
 Now the orderer admin can add the peer organization to the channel:
-1. Navigate to the **Channels** tab, click on `channel1`.
+1. Navigate to the **Channels** tab, click `channel1`.
 2. Click the  **Settings** icon to update the channel and add the peer organization to the channel.
 3. In the **Organizations** section, open the `Select a channel member` drop-down list and select the peer organization MSP, `Org2 MSP`.
 4. Click **Add** and then assign permissions for that organization. We recommend you make them an `Operator` so they can update the channel.

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-30"
+lastupdated: "2019-11-01"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
@@ -34,9 +34,9 @@ To ensure channel security, the channel update policy is configured to define th
 
 While creating a channel and updating a channel have the same goal, giving users the ability to ensure that the configuration of their channel is as well suited as possible to their use case, the two processes are in fact very different **as tasks** in the console. Recall from our documentation on [Creating a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel) that this is a process undertaken by a **single organization**. As long as an organization is a member of the consortium of the ordering service that will become the ordering service of a channel, they can create the channel in any way they want. They can give it any name, add any organizations (as long as they are a member of the consortium), assign those organizations permissions, set access control lists, and so on.
 
-The other organizations have the choice of whether to participate in this channel (for example, whether to join peers to it), but it is assumed that the collaborative process of choosing channel parameters will happen out of band, before an organization uses the console to create the channel.
+The other organizations have the choice of whether to participate in this channel (for example, whether to join peers to it), but it is assumed that the collaborative process of choosing channel parameters will happen out of band, before an organization creates the channel.
 
-Updating a channel is different. It happens **within the console**, and follows the collaborative governance procedures that are fundamental to the way the {{site.data.keyword.blockchainfull_notm}} Platform functions. This collaborative process involves sending the channel configuration update requests to organizations that have an administrative role in the channel. These organizations are also known as channel **operators**.
+Updating a channel is different. Rather than an organization acting alone, channel updates follow the collaborative governance procedures that are fundamental to the way the {{site.data.keyword.blockchainfull_notm}} Platform functions. This collaborative process involves sending the channel configuration update requests to organizations that have an administrative role in the channel. These organizations are also known as channel **operators**.
 
 With the exception of [Anchor peers](#ibp-console-govern-channels-anchor-peers) and [Joining a peer to a channel](#ibp-console-govern-channels-join-peer), which are updated through the **Channel details** panel inside a channel, you must click on the **Settings** button next to the channel name at the top of the page to initiate a channel configuration update transaction. A panel will appear that looks very similar to the panel you use to create a channel.
 
@@ -45,15 +45,11 @@ With the exception of [Anchor peers](#ibp-console-govern-channels-anchor-peers) 
 
 For a look at the channel creation process, see [Creating the channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-channels-create) from the "Build a network" tutorial.
 
-It's possible to change some, but not all, of the configuration parameters of a channel after the channel has been created. And there is only one parameter that is possible to update and is not available during channel creation.
-
-You will see that the **Channel name** is greyed out and cannot be edited. This reflects the fact that a channel name cannot be changed after it has been created. Also, observe that the ordering service display name is not present, as the ordering service of a channel also cannot be changed after the channel has been created.
-
-Because updating certain kinds of parameters are likely to appeal to advanced users and not to newer users, the channel configuration update panel includes a section dedicated to these advanced options.
+It's possible to change some, but not all, of the configuration parameters of a channel after the channel has been created. You will see that the **Channel name** is greyed out and cannot be edited, for examples. This reflects the fact that a channel name cannot be changed after it has been created. Also, observe that the ordering service display name is not present, as the ordering service of a channel also cannot be changed after the channel has been created.
 
 Because the console gives a single user the ability to own and control several organizations, you must specify the organization you are using when you sign a channel update in the **Channel updater organization** section. If you own more than one organization in this channel, you may choose any of the organizations you own in the channel to sign with. Depending on the **channel update policy** you've selected, you may get a notification asking you to sign the request as one or more of the other organizations you own.
 
-Note that if you are attempting to change any parameter that requires the signature of ordering service admins (for example, the **Block cutting parameters** ) and are one of the ordering service admins on this channel, you will see a field for the ordering service organization. Select the MSP of the relevant ordering service organization from the drop-down list. If you are not an admin of the ordering service organization, you can still make a request to change one of the block cutting parameters, but the request will need to be signed by an ordering service admin.
+Note that if you are attempting to change any parameter that requires the signature of ordering service admins (for example, the **Block cutting parameters** ) and are one of the ordering service admins on this channel, you will see a field for the ordering service organization. Select the MSP of the relevant ordering service organization from the drop-down list. If you are not an admin of the ordering service organization, you can still make a request to change these fields, but the request will need to be signed by an ordering service admin.
 
 #### General options
 {: #ibp-console-govern-update-channel-available-parameters-general}
@@ -65,8 +61,8 @@ The options visible when you navigate to this screen are more likely to be updat
   You can also update an organization's level of permission on the channel:
 
    - A channel **operator** has permission to create and sign channel configuration updates. There must be at least one operator in each a channel.
-   - A channel **writer** can update the channel ledger by invoking a smart contract. A channel writer can also instantiate a smart contract on a channel.
-   - A channel **reader** can only query the channel ledger, by invoking a read only function in smart contract for example.
+   - A channel **writer** can update the ledger by invoking a smart contract. A channel writer can also instantiate a smart contract on a channel.
+   - A channel **reader** can only query the ledger, by invoking a read only function in smart contract for example.
 
 * **Channel update policy**. The update policy of a channel specifies how many organizations (out of the total number of operators in the channel), who must approve of an update to the channel configuration. To ensure a good balance between collaborative administration and efficient processing of channel configuration updates, consider setting this policy to a majority of admins. For example, if there are five admins in a channel, choose `3 out of 5`.
 
@@ -77,7 +73,7 @@ By clicking the box under advanced options, users can access parameters that use
 
 * **Access control lists**. To specify a finer grained control over resources, you can restrict access to a resource to an organization and a role within that organization. For example, setting access to the resource `ChaincodeExists` to `Application/Admins` would mean that only the admin of an application would be able to access the `ChaincodeExists` resource. For more information about Access Control, see [Access Control Lists (ACLs)](https://hyperledger-fabric.readthedocs.io/en/release-1.4/access_control.html){: external} in the Fabric documentation.
 
-  If you restrict access to a resource to a particular organization, be aware that only that organization will be able to access the resource. If you want other organizations to be able to access the resource, you will have to add them one by one using fields below. As a result, consider your access control decisions carefully. Restricting access to certain resources in certain ways can have a highly negative effect on how your channel functions.
+  If you restrict access to a resource to a particular organization, be aware that only that organization will be able to access the resource. If you want other organizations to be able to access the resource, you will have to add them one by one. As a result, consider your access control decisions carefully. Restricting access to certain resources in certain ways can have a highly negative effect on how your channel functions.
   {:important}
 
 * **Channel and orderer capabilities**. As with the block cutting parameters, there are capability fields available during the channel update process that are hidden during channel creation because modifying them would require the signature of an ordering service admin before the channel could be created successfully. If you're unfamiliar with the **channel** and **orderer** capabilities, see [Channel capabilities](https://hyperledger-fabric.readthedocs.io/en/release-1.4/capabilities_concept.html){: external} in the Fabric documentation before attempting to change these capabilities. For information about how to update capabilities, check out the [Capabilities](#ibp-console-govern-capabilities) section below.
@@ -91,7 +87,7 @@ By clicking the box under advanced options, users can access parameters that use
 #### Anchor peers
 {: #ibp-console-govern-channels-anchor-peers}
 
-Because cross organizational [gossip](https://hyperledger-fabric.readthedocs.io/en/release-1.4/gossip.html){: external} must be enabled for service discovery and private data to work, an anchor peer must exist for each organization. This anchor peer is not a special **type** of peer, but is just the peer that the organization makes known to other organizations and bootstraps cross organizational gossip. Therefore, at least one [anchor peer](https://hyperledger-fabric.readthedocs.io/en/release-1.4/gossip.html#anchor-peers){: external} must be defined for each organization in the collection definition.
+Because cross organizational [gossip](https://hyperledger-fabric.readthedocs.io/en/release-1.4/gossip.html){: external} must be enabled for service discovery and private data to work, each organization should specify at least one [anchor peer](https://hyperledger-fabric.readthedocs.io/en/release-1.4/gossip.html#anchor-peers){: external} on each channel. This anchor peer is not a special **type** of peer. It is just the peer that bootstraps cross organizational gossip.
 
 Note that while anchor peers are a channel configuration parameter, they are not set through the normal process of creating and editing a channel configuration.
 
@@ -126,7 +122,7 @@ When you click on the **Notifications** button, you may have one or more actions
 * **Closed**: requests that have been submitted. No actions to be taken on these items. They can only be viewed.
 * **All**: includes both open and closed requests.
 
-If a channel configuration update request has been made, you will have the ability to click on **Review and update channel configuration** and see the changes to the channel configuration update that are being proposed or have been made (if the new channel configuration has been approved). If you are an operator on the channel, and not enough signatures have been gathered to approve the channel configuration update request, you will have the ability to sign the update request.
+If a channel configuration update request has been made, you have the ability to click on **Review and update channel configuration** and see the changes to the channel configuration update that are being proposed or have been made (if the new channel configuration has been approved). If you are an operator on the channel, and not enough signatures have been gathered to approve the channel configuration update request, you will have the ability to sign the update request.
 
 You are not required to sign a channel configuration update, however note that there is no way to sign **against** a channel update. If you do not approve of a channel configuration update, you can simply close the panel and reach out to other channel operators out of band to voice your concerns. However, if enough operators in the channel approve of the update to satisfy the channel update policy, the new configuration will take effect.
 {:note}
@@ -144,14 +140,14 @@ While all capabilities can be edited as part of a channel configuration update (
 Note that what you see in this section will depend on the configuration of your channel and the Fabric level of your peers and ordering nodes, as **only valid and possible capability upgrades will appear**. For example, if your channel, orderer, and application capabilities are already at the most recent level, the capabilities section in the channel update will be hidden. Similarly, you will not see potential capability updates if your nodes in the channel are not at a sufficient Fabric level to process the capability.
 
 To ensure that you will always be able to see and propose updates to the latest capabilities, **it is a best practice to upgrade your peers and ordering nodes to the latest Fabric version as soon as it is available in the console**. From a channel management perspective, it is also a best practice to discuss capability updates with other organizations before proposing a change. This will allow organizations to update nodes, as necessary, before the channel update request is submitted.
-{: important}
+{:important}
 
 #### Capabilities in the system channel
 {: #ibp-console-govern-capabilities-system-channel}
 
 Because the ordering service is involved in the validation of the orderer and channel capabilities, these capability levels exist in the system channel maintained by the ordering service. By default, any channel that is created on this ordering service inherits these capability levels. Because these capability levels are not apparent when creating a channel, it is important to communicate the **channel** capability level to consortium members so they can ensure that the level of their peers is at the channel capability level or higher.
 
-In order to edit the orderer or channel capabilities, you must be an ordering service admin. Note also that capability versions can only advance. You cannot go back to a previous capability or downgrade from a default capability level to an lower version.
+In order to edit the orderer or channel capabilities in the system, you must be an ordering service admin (your MSP can be added as an ordering service admin through the tile representing the ordering service on the **Nodes** tab). Note that capability versions can only advance. **You cannot go back to a previous capability or downgrade from a default capability level to an lower version**.
 
 To edit these capabilities, click on the **Settings** button inside the ordering service. Then click **Capabilities**. Note that the channel and orderer capabilities, as well as the application capabilities, can also be edited through a channel configuration update. However, an ordering service admin will have to sign any configuration update that edits the orderer or channel capabilities.
 
@@ -162,8 +158,8 @@ Application capabilities define the way transactions are handled by the peers. A
 
 Like the orderer and channel capabilities, the application capability level can be edited through a channel configuration update.
 
-If you are using the SDK to create channels, take caution to not submit a configuration update with an invalid application capability. Because application capabilities are not validated by the ordering service, an invalid application capability will not be flagged and the configuration update will be approved. Because the peers cannot process an application capability that does not exist, the peers will crash when attempting to read the configuration block containing the invalid capability. Because the peers will be unable to progress beyond this configuration block, it will not be possible to reverse this configuration block and submit another one to "fix" the problem. A channel in this state would be unrepairable.
-{: important}
+If you are using the SDK to create or edit a channel, take caution to not submit a configuration update with an invalid application capability. Because application capabilities are not validated by the ordering service, an invalid application capability will not be flagged and the configuration update will be approved. Because the peers cannot process an application capability that does not exist, the peers will crash when attempting to read the configuration block containing the invalid capability. Because the peers will be unable to progress beyond this configuration block, it will not be possible to reverse this configuration block and submit another one to "fix" the problem. A channel in this state would be unrepairable.
+{:important}
 
 ## Tuning your ordering service
 {: #ibp-console-govern-orderer-tuning}

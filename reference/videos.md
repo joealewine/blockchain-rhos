@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-10-24"
+lastupdated: "2019-10-30"
 
 keywords: IBM Blockchain Platform, video series, videos, getting started videos, demo videos
 
@@ -17,6 +17,7 @@ subcollection: blockchain-rhos
 {:table: .aria-labeledby="caption"}
 {:codeblock: .codeblock}
 {:tip: .tip}
+{:note: .note}
 {:download: .download}
 
 # {{site.data.keyword.blockchainfull_notm}} Platform getting started videos
@@ -25,9 +26,6 @@ subcollection: blockchain-rhos
 You can watch the getting started video series to learn more about how to use {{site.data.keyword.blockchainfull}} Platform.
 {:shortdesc}
 
-The video series are in a playlist and play continuously in the video frame below. You can also click the menu icon in the upper left corner of the video to open the playlist and switch to another video.
-{:note}
-
 
 
 ## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
@@ -35,6 +33,9 @@ The video series are in a playlist and play continuously in the video frame belo
 {: #ibp-videos-ibp-v2}
 
 Watch the following [video series]( http://ibm.biz/BlockchainPlatformSeries) to learn more about the {{site.data.keyword.blockchainfull_notm}} Platform and how you can get started to build your own network.
+
+The video series are in a playlist and play continuously in the video frame below. You can also click the menu icon in the upper left corner of the video to open the playlist and switch to another video.
+{:note}
 
 
 

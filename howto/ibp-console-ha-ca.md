@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-10-30"
 
 keywords: high availability, CA, PostgreSQL, replica sets
 
@@ -43,7 +43,7 @@ When a Kubernetes pod becomes unavailable, Kubernetes immediately attempts to re
 - CA replica sets are only possible when the PostgreSQL database is selected for the CA. The SQLite database is not supported for use with CA replica sets.
 - Because you cannot switch a CA database from SQLite to PostgreSQL, only new CAs that use PostgreSQL can be configured to be HA. Likewise, after a CA is deployed and configured to use a PostgreSQL database, it cannot be reconfigured to use a different PostgreSQL instance or later configured to use SQLite.
 - CA replica sets are automatically spread across your worker nodes in a _single zone_ according to available resources. Replica sets are not available across zones.
-- Because creating a CA replica set results in a new CA pod, when you configure an additional replica set, the CPU and memory requirements for CA are doubled. If three replica sets are required, then the total CPU and memory requirements triple, and so on. However, the storage allocation does not change because all of the replica sets use the same PostgreSQL database. When you configure your CA, you can specify how many replica sets to create.
+- Because creating a CA replica set results in a new CA pod, when you configure an additional replica set, the CPU and memory requirements for the CA are doubled. If three replica sets are required, then the total CPU and memory requirements triple, and so on. However, the storage allocation does not change because all of the replica sets use the same PostgreSQL database. When you configure your CA, you can specify how many replica sets to create.
 - The number of replica sets can be scaled up or down over time according to your availability needs.
 - Replica sets are only available when PostGreSQL is selected as the CA database.
 - The ability to deploy a CA to a specific Kubernetes cluster zone is only available when SQLite is selected as the CA database.

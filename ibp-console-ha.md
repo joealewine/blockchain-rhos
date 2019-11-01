@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-29"
+lastupdated: "2019-10-31"
 
 keywords: high availability, HA, failures, zone failure, region failure, component failure, worker node failure
 

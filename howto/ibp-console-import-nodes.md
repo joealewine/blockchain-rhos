@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-11-01"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 
@@ -34,10 +34,10 @@ For cases when components have been deployed by one console and need to be opera
 
 There are two main reasons to import components:
 
-  1. A node will be deployed in one console and operated from another. **This will be most common for CAs and peers**. In these cases, **the relevant admin identity must be exported and imported, or a new admin identity for the node must be created**.
+  1. A node will be deployed in one console and operated from another. **This is most common for CAs and peers**. In these cases, **the relevant admin identity must be exported and imported, or a new admin identity for the node must be created**.
   2. A node or MSP simply has to be known by a console so that it can be selected from a drop down list. **This will be most common for ordering services**, though in the case of the MSP it will also be important when adding organizations to a channel. It will not typically be necessary to import an admin identity in this case, though in the case of the ordering service, it can be useful to export an MSP to the console where the ordering service was created. More on this later.
 
-Among the functionalities that become available after components have been imported include (note: additional steps might be required after import to be able to execute some of these tasks):
+Among the functionalities that become available after components have been imported include:
 
 - Add new organizations to the consortium
 - Create new channels
@@ -46,9 +46,13 @@ Among the functionalities that become available after components have been impor
 - Instantiate smart contracts on channels
 - Upgrade smart contracts on channels
 
+Additional steps might be required after a node has been imported before some of these tasks can be performed.
+{: note}
+
 Note that when you import a component, you do not actually import the physical component into your cloud provider. Instead, the console uses the information in the JSON to build a representation of the component that can be operated from the console. Likewise, when you delete an imported node from the console, the node itself, which is still running at the location where it was deployed, is not deleted. It is simply removed from the console where it was imported.
 
 After you import a node into the console, you can also modify its connection information by using the node's **Settings** tab.
+
 
 
 
@@ -82,20 +86,20 @@ If you intend to operate an imported node, you have two options:
      * The other option has five steps:
        1. The admin of the CA that was used to create the relevant identities for the peer and peer organization can register a new identity.
        2. Then, they can send the enroll ID and secret of that identity to the importing console, as well as exporting the CA.
-       3. The importing console can then take the imported CA and use the enroll ID and secret to create a new CA admin identity.
-       4. This new CA admin can then create a new admin identity for the peer. This new peer admin identity would be sent back to the console where the peer was created and added as an admin of the peer.
+       3. The importing console can then take the imported CA and use the enroll ID and secret to create a new identity.
+       4. This new identity would be sent back to the console where the peer was created and added as an admin of the peer.
        5. Then the peer could be exported to the console where the new identity was created, allowing the new identity to operate the imported peer.
 
 In either case, because this new admin identity would only be an admin of the peer and not the organization that owns the peer, it preserves a separation of roles between the organization admin (the sign cert listed in the MSP, which might also be the peer admin in the console where the peer was created), and the new admin of the peer which was just created and associated. This peer admin would not be an organization admin by default. However, if it fits a use case to make an identity the admin of both the organization and an imported peer, this is achievable, see [Updating an organization MSP definition](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#ibp-console-govern-update-msp).
 
 Note that this flow would be most practical for a peer, since the admins of ordering nodes do not have many responsibilities in the {{site.data.keyword.blockchainfull_notm}} Platform.
 
-If you don't intend to operate the node (or in the case of a multi-node ordering service, the nodes), you do not have to import and associate an admin identity. Note that you will still be required to associate **some** identity with the node during the import process. In this case, choose any identity that you have in your wallet. If this associated identity is not an admin of the node, you will not be able to perform privileged actions on the node. However, because there is little that can be achieved with the node without admin status, importing peers and CAs without associating a relevant admin identity would be a waste of time. The same is not true of ordering nodes and the ordering service, as we will discuss later.
+If you don't intend to operate the node (or in the case of a multi-node ordering service, the nodes), you do not have to import and associate an admin identity. Note that you will still be required to associate **some** identity with the node during the import process. In this case, choose any identity that you have in your wallet. If this associated identity is not an admin of the node, you will not be able to perform privileged actions on the node. However, because there is little that can be achieved with the node without admin status, importing peers and CAs without associating a relevant admin identity is a waste of time. The same is not true of ordering nodes and the ordering service, as we will discuss later.
 
 ### Exporting and importing admin identities into the wallet
 {: #ibp-console-import-nodes-admin-identities}
 
-To export an identity, open the **Wallet** tab and click on the identity you want to export. In the **Identity details** panel that pops up, you have two options. You can click the **Export identity** button, which will bundle your signing certificate and private key into a JSON file and download it to your local filesystem (note that you should always keep a copy of all your identities locally) or you can download `.pem` certificates for both your signing certificate and private keys.
+To export an identity, open the **Wallet** tab and click on the identity you want to export. In the **Identity details** panel that pops up, you have two options. You can click the **Export identity** button, which will bundle your signing certificate and private key into a JSON file, and download it to your local filesystem (note that you should always keep a copy of all your identities locally). Alternatively, you can download `.pem` certificates for both your signing certificate and private keys.
 
 To import a new identity, open the **Wallet** tab and click **Add identity**. If you want to upload `.pem` certificates manually, click **New identity** and use the fields under **Manual entry** to give the identity a name and to upload the signing certificate and private key of the identity. If you have a JSON that was exported from another console, click **Upload JSON** and then **Add files**, then select the appropriate JSON from your local file system and click **Add identity**. While you will have this option between entering certificates manually or using a JSON for each node, in this topic it is assumed that you have the relevant JSON handy.
 
@@ -106,9 +110,9 @@ After you complete the **Add identity** panel, you can view the new admin identi
 
 Because MSPs define an organization, they are used when creating channels, creating nodes (to identify which organization the node will belong to), and validating signatures. For the latter reason, your MSP must be known (in other words, exported and then imported) to every member of every channel you belong to unless your organization will not be involved in validation or endorsement.
 
-To act as an administrator for an organization, you must have an identity in your wallet listed in the MSP as an admin of the organization. This means either importing the identity listed in the MSP or by following the process listed in [Updating an organization MSP definition](docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#ibp-console-govern-update-msp). This MSP can then be exported to the console where the added identity was created, making the exported identity able to act as an admin of the organization.
+To act as an administrator for an organization, you must have an identity in your wallet listed in the MSP as an admin of the organization. This means either importing the identity listed in the MSP or by following the process listed in [Updating an organization MSP definition](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#ibp-console-govern-update-msp). This MSP can then be exported to the console where the added identity was created, making the exported identity able to act as an admin of the organization.
 
-The exports and imports of MSPs are performed in the **Organizations** tab. To export an MSP, click on it, then click on the export button. To import an MSP, click **Import MSP definition**. If you have a certificate of the MSP admin in your wallet, check the checkbox `I have an administrator identity for the MSP definition`. If you do not check this box and subsequently try to create a peer or ordering service, this organization MSP definition will not be listed in the MSP drop-down list, even if you have an admin certificate in your wallet.
+The exports and imports of MSPs are performed in the **Organizations** tab. To export an MSP, click on it, then click on the download button. To import an MSP, click **Import MSP definition**. If you have a certificate of the MSP admin in your wallet, check the checkbox `I have an administrator identity for the MSP definition`. If you do not check this box and subsequently try to create a peer or ordering service, this organization MSP definition will not be listed in the MSP drop-down list, even if you have an admin certificate in your wallet.
 
 ## Importing a peer
 {: #ibp-console-import-peer}
@@ -174,13 +178,11 @@ Importing an ordering service into the console allows you to create new channels
 ### Before you begin
 {: #ibp-console-import-orderer-before-you-begin}
 
-Even in the world of Hyperledger Fabric, ordering node admins do not have many responsibilities. In the {{site.data.keyword.blockchainfull_notm}} Platform, these responsibilities are reduced, and because of the [Limitations](#ibp-console-import-limitations) imposed on imported nodes, these responsibilities are reduced to nothing. As a result, there is not much point in becoming an additional admin of an ordering node. Despite this, the console will ask you to associate an identity. Feel free to associate any identity in your wallet.
+Even in the world of Hyperledger Fabric, ordering node admins do not have many responsibilities. In the {{site.data.keyword.blockchainfull_notm}} Platform, these responsibilities are reduced even further, and because of the [Limitations](#ibp-console-import-limitations) imposed on imported nodes, these responsibilities are reduced to nothing. As a result, there is not much point in becoming an additional admin of an ordering node. Despite this, the console will ask you to associate an identity. Feel free to associate any identity in your wallet.
 
-Far more useful than becoming the admin of an ordering node is becoming an admin of the ordering organization itself. This role gives you administrative rights over the ordering service (allowing you to add organizations to the consortium or nodes to the ordering service) as well as over the system channel, giving you the permission to modify system channel [capabilities](docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-update-channel-available-parameters-advanced).
+Far more useful than becoming the admin of an ordering node is becoming an admin of the ordering organization itself. This role gives you administrative rights over the ordering service (allowing you to add organizations to the consortium or nodes to the ordering service) as well as over the system channel, giving you the permission to modify system channel [capabilities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-update-channel-available-parameters-advanced).
 
 Note that it is not necessary for your organization to become an ordering service administrator. You will still need to import the ordering service if you want to create or edit a channel (your organization must be added to the consortium by an ordering service administrator first), as your console must know about the ordering service before you can select it from the drop down list.
-
-For information about how to add your organization to the list of ordering service administrator organizations, proceed to the next section.
 
 ### How to import an ordering service
 {: #ibp-console-import-orderer-process}
@@ -189,10 +191,10 @@ For information about how to add your organization to the list of ordering servi
 
 Navigate to the **Nodes** tab.
 
-1. If you have not already done so, navigate to the **Organizations** tab and export the MSP of one or more peer organizations. Then, send this MSP, which represents your organization, to an administrator of the ordering service (which in this case is not necessarily an admin of any ordering nodes, but an organization with administrative control over the system channel). This ordering service administrator can make your organization one of the ordering service organizational admins or add your MSP to the consortium, giving your organization the ability to create channels, or both. Note that if your organization has been made one of the ordering service organizational admins, you have the ability to add your own organization to the consortium.
+1. If you have not already done so, navigate to the **Organizations** tab and export the MSP of one or more peer organizations. Then, send this MSP, which represents your organization, to an administrator of the ordering service (which in this case is not necessarily an admin of any ordering nodes, but an organization with administrative control over the system channel). This ordering service administrator can make your organization one of the ordering service organizational admins or add your MSP to the consortium (giving your organization the ability to create channels), or both. Note that if your organization has been made one of the ordering service organizational admins, you have the ability to add your own organization to the consortium.
 2. After your MSP has been added as an ordering service administrator or to the consortium (or both), import the JSON representing the ordering service (as with the other nodes, this ordering service must be exported from the console where the ordering service was created). Then, navigate to the **Nodes** panel. Click **Add ordering service**, followed by **Import an existing ordering service**. Then click **Next**.
 3. Click **Add file** to upload the ordering service JSON. Note that regardless of how many nodes are in this ordering service, the JSON representing this ordering service will be one file.
-4. Set the admin identity for the ordering nodes by clicking **Existing identity**. Recall from the [Before you begin section](#ibp-console-import-orderer-before-you-begin) that you can effectively skip this step if you want by selecting any identity in your wallet. However, if you want to have the correct node admin identity exported from the console where it was created and imported into your console and select it in this step, you have the ability to do that.
+4. Set the admin identity for the ordering nodes by clicking **Existing identity**. Recall from the [Before you begin section](#ibp-console-import-orderer-before-you-begin) that you can effectively skip this step if you want by selecting any identity in your wallet. However, if you want to have the correct node admin identity exported from the console where it was created and imported into your console and select it in this step, you can choose to do that.
 
 
 
@@ -216,3 +218,4 @@ As an example, you can find the JSON file of a peer below. To communicate with t
     "pem": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNGekNDQWI2Z0F3SUJBZ0lVUi9zMGxGTG5ZNmdWRmV1Mlg5ajkrY3JDZFBrd0NnWUlLb1pJemowRUF3SXcKWFRFTE1Ba0dBMVVFQmhNQ1ZWTXhGekFWQmdOVkJBZ1REazV2Y25Sb0lFTmhjbTlzYVc1aE1SUXdFZ1lEVlFRSwpFd3RJZVhCbGNteGxaR2RsY2pFUE1BMEdBMVVFQ3hNR1JtRmljbWxqTVE0d0RBWURWUVFERXdWMGJITmpZVEFlCkZ3MHhPVEEyTVRBeE9USXhNREJhRncwek5EQTJNRFl4T1RJeE1EQmFNRjB4Q3pBSkJnTlZCQVlUQWxWVE1SY3cKRlFZRFZRUUlFdzVPYjNKMGFDQkRZWEp2YkdsdVlURVVNQklHQTFVRUNoTUxTSGx3WlhKc1pXUm5aWEl4RHpBTgpCZ05WQkFzVEJrWmhZbkpwWXpFT01Bd0dBMVVFQXhNRmRHeHpZMkV3V1RBVEJnY3Foa2pPUFFJQkJnZ3Foa2pPClBRTUJCd05DQUFUYUtyN2srUHNYeXFkWkdXUHlJUXlGMGQxUkFFdmdCYlpkVnlsc3hReWZOcUdZS0FZV3A0SFUKVUVaVHVVNmtiRXN5Qi9aOVJQWEY0WVNGbW8reTVmSkhvMXd3V2pBT0JnTlZIUThCQWY4RUJBTUNBUVl3RWdZRApWUjBUQVFIL0JBZ3dCZ0VCL3dJQkFUQWRCZ05WSFE0RUZnUVUrcnBNb2dRc3dDTnZMQzJKNmp2cElQOExwaE13CkZRWURWUjBSQkE0d0RJY0VDUjc4YTRjRXJCRE5DakFLQmdncWhrak9QUVFEQWdOSEFEQkVBaUJGWmpMWU9XZUMKLy92L2RNMHdYNUxZT3NCaHFFNnNQZ1BSWWppOTZqT093QUlnZEppZDU0WmxjR2h0R3dEY3ZoZE02RVlBVFpQNwpmS29IMDZ3ZFhpK3VzVXM9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
 }
 ```
+

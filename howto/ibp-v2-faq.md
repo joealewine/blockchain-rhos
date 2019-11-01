@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-29"
+lastupdated: "2019-10-31"
 
 keywords: FAQs, can I, upgrade, what version, peer ledger database, supported languages, why do I, regions
 
@@ -86,7 +86,7 @@ Yes. The {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyw
 {: #ibp-v2-faq-vscode-tutorials}
 {: faq}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. You can find these tutorials on the extension home page when the extension is first installed. However, you can return to the tutorials and the home page by going to the extensions tab.  For more information, see [Guided tutorials in VS Code](docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#develop-vscode-guided-tutorials).
+The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. You can find these tutorials on the extension home page when the extension is first installed. However, you can return to the tutorials and the home page by going to the extensions tab.  For more information, see [Guided tutorials in VS Code](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#develop-vscode-guided-tutorials).
 
 ## If service discovery is on, will an endorsement request be routed to any peer on the network?
 {: #ibp-v2-faq-service-discovery}

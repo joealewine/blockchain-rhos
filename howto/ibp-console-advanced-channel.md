@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-01"
+lastupdated: "2019-11-04"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
@@ -147,7 +147,7 @@ To ensure that you will always be able to see and propose updates to the latest 
 
 Because the ordering service is involved in the validation of the orderer and channel capabilities, these capability levels exist in the system channel maintained by the ordering service. By default, any channel that is created on this ordering service inherits these capability levels. Because these capability levels are not apparent when creating a channel, it is important to communicate the **channel** capability level to consortium members so they can ensure that the level of their peers is at the channel capability level or higher.
 
-In order to edit the orderer or channel capabilities in the system, you must be an ordering service admin (your MSP can be added as an ordering service admin through the tile representing the ordering service on the **Nodes** tab). Note that capability versions can only advance. **You cannot go back to a previous capability or downgrade from a default capability level to an lower version**.
+In order to edit the orderer or channel capabilities in the system channel, you must be an ordering service admin (your MSP can be added as an ordering service admin through the tile representing the ordering service on the **Nodes** tab). Note that capability versions can only advance. **You cannot go back to a previous capability or downgrade from a default capability level to an lower version**.
 
 To edit these capabilities, click on the **Settings** button inside the ordering service. Then click **Capabilities**. Note that the channel and orderer capabilities, as well as the application capabilities, can also be edited through a channel configuration update. However, an ordering service admin will have to sign any configuration update that edits the orderer or channel capabilities.
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-01"
+lastupdated: "2019-11-04"
 
 keywords: network components, Kubernetes, OpenShift, allocate resources, batch timeout, reallocate resources, LevelDB, CouchDB, ordering nodes, ordering, add and remove, governance
 
@@ -139,7 +139,7 @@ For information about creating highly available CAs through the use of replica s
 ### Peers
 {: #ibp-console-govern-components-peers}
 
-The peer has only associated containers that can be adjusted:
+The peer has only three associated containers that can be adjusted:
 
 - **Peer container**: Encapsulates the internal peer processes (such as validating transactions) and the blockchain (in other words, the transaction history) for all of the channels it belongs to. Note that the storage of the peer also includes the smart contracts installed on the peer.
 - **CouchDB container**: Where the state databases of the peer are stored. Recall that each channel has a distinct state database.
@@ -185,7 +185,7 @@ If an ordering service is overstressed, it might hit timeouts and start dropping
 ## Reallocating resources
 {: #ibp-console-govern-components-reallocate-resources}
 
-Resizing a node requires the containers to be rebuilt, which might cause a delay in the functioning of the node.
+Resizing a node requires the containers to be rebuilt, which can cause a delay in the functioning of the node.
 {:important}
 
 

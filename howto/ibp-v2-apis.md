@@ -32,7 +32,7 @@ This tutorial introduces the generic flow to build a blockchain network with {{s
 ## Prerequisites
 {: #ibp-v2-apis-prereq}
 
-The APIs target your {{site.data.keyword.blockchainfull_notm}} Platform console to authenticate calls and communicate with your nodes. Therefore you must deploy the {{site.data.keyword.blockchainfull_notm}} Platform console before you can start using the {{site.data.keyword.blockchainfull_notm}} Platform console APIs. If you have not yet deployed the console on your cluster, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos/reference?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
+The APIs target your {{site.data.keyword.blockchainfull_notm}} Platform console to authenticate calls and communicate with your nodes. Therefore you must deploy the {{site.data.keyword.blockchainfull_notm}} Platform console before you can start using the {{site.data.keyword.blockchainfull_notm}} Platform console APIs. If you have not yet deployed the console on your cluster, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos/reference?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
 
 To use the APIs, you will need to gather the following information:
 

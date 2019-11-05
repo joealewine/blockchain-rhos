@@ -28,7 +28,7 @@ You can watch the getting started video series to learn more about how to use {{
 
 
 
-## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
+## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
 
 {: #ibp-videos-ibp-v2}
 

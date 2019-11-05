@@ -19,7 +19,7 @@ lastupdated: "2019-10-08"
 
 By leveraging the industry standard Red Hat OpenShift Container Platform, the IBM Blockchain Platform continues to grow its presence in multicloud. Using OpenShift, customers can now build a consortium of organizations to easily transact on the same network, regardless of each client's cloud preference. Clients can build, operate, and grow their blockchain networks with an offering that can be used from development to production.
 
-## IBM Blockchain Platform v2.1.1
+## IBM Blockchain Platform v2.1.0
 
 This version of IBM Blockchain Platform provides a new flexible blockchain management platform on Red Hat OpenShift Container Platform 3.11, an open source platform that allows customers to manage Linux containerized services and applications in a cloud environment. For more information about OpenShift and its advantages, see [OpenShift](https://www.openshift.com/). This enterprise-grade platform includes improved performance, availability, and integration options for rapid development and production workloads. This solution is designed for clients who want to build, operate, and grow their blockchain network across public and private cloud instances.
 

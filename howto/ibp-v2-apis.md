@@ -262,9 +262,9 @@ https://openshiftcluster.us-south.containers.appdomain.cloud:443/ak/api/v1/compo
   -k
 ```
 
-In order to create nodes using the {{site.data.keyword.blockchainfull_notm}} APIs, you need to use the use the APIs in a certain sequence in conjunction with Fabric CA client. To learn how to create nodes, see [Build a network by using APIs](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-build-with-apis).
+In order to create nodes using the {{site.data.keyword.blockchainfull_notm}} APIs, you need to use the use the APIs in a certain sequence in conjunction with Fabric CA client. To learn how to create nodes, see [Build a network by using APIs](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-build-with-apis).
 
-You can also use the APIs to import and then operate nodes that reside in other clusters. For more information, see [Import a network by using APIs](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-import-with-apis).
+You can also use the APIs to import and then operate nodes that reside in other clusters. For more information, see [Import a network by using APIs](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#ibp-v2-apis-import-with-apis).
 
 ## Limitations
 {: #ibp-v2-apis-limitations}

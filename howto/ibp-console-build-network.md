@@ -578,7 +578,7 @@ Now that you have gathered all the necessary certificates, you are ready to crea
 
 1. On the **Nodes** tab click **Add peer**  or **Add ordering service**.
 2. After entering a display name for the node, select the option to use an external CA.
-3. Step through the panels and upload the files corresponding to the certificate information you gathered.
+3. Step through the panels and upload the files corresponding to the certificate and private key you gathered.
 4. Ensure you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list.
 5. On the last step when you are asked to associate an identity with your peer or ordering service, you need to click **New identity**.
 6. Specify any value as the **Display name** for this identity. The display name will be visible in the Wallet after you create the node.
@@ -712,9 +712,8 @@ Now that you have created a JSON file with all of the certificates for the order
 
 1. On the **Nodes** tab click **Add ordering service**.
 2. Enter a single **Display name** for the five ordering nodes. The display name that you provide will be the prefix for each ordering node name and a number will be appended to it.
-3. In **Number of ordering nodes**, select **Five ordering nodes**.
-4. Select **I want to use certificates from an external Certificate Authority** and click **Next**.
-5. Click **Add file** to Upload the JSON file that contains all of the certificates.
+3. In **Number of ordering nodes**, select **Five ordering nodes**. Then select **External Certificate Authority configuration** and click **Next**.
+5. Click **Add file** to upload the JSON file that contains all of the certificates.
 6. Select the **Organization MSP** definition that you imported.
 7.  On the next panel, you have the opportunity to configure resource allocation for the nodes. The selections you make here are applied to all five ordering nodes.  If you want to learn more about how to allocate resources to your node, see this topic on [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
 8. Review the summary and click **Add ordering service**.
@@ -723,7 +722,7 @@ Now that you have created a JSON file with all of the certificates for the order
 {: #ibp-console-build-network-third-party-ca-next}
 
 You have gathered all of your peer or ordering service certificates from your third-party CA, created their corresponding organization MSP definition and created a peer or ordering service. If you are following along in the tutorials, you can return to the next step.
-- If you created the peer node, the next step is to [Create the node that orders transactions](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-orderer).
-- If you created the node to join an existing network, the next step is to [Add your organization to list of organizations that can transact](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-join-network#ibp-console-join-network-add-org2).
-- If you created an ordering service, the next step is to [Create a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel).
+- If you created the peer node, the next step is to [Create the node that orders transactions](#ibp-console-build-network-create-orderer).
+- If you created the node to join an existing network, the next step is to [Add your organization to list of organizations that can transact](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-join-network#ibp-console-join-network-add-org2).
+- If you created an ordering service, the next step is to [Create a channel](#ibp-console-build-network-create-channel).
 

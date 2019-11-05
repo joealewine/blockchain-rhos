@@ -19,16 +19,16 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
-# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
+# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #deploy-ocp}
 
 
-You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.0 onto a Kubernetes cluster that is running on OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.1 onto a Kubernetes cluster that is running on OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 {:shortdesc}
 
 The following diagram shows the steps that a cluster administrator needs to take on the OpenShift Container Platform to deploy the {{site.data.keyword.blockchainfull_notm}} Platform.
 
-![{{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 deployment overview](../images/OCP_deploy_flow.svg "{{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 deployment overview"){: caption="Figure 1. Deployment process on OpenShift"  caption-side="bottom"}
+![{{site.data.keyword.blockchainfull_notm}} Platform 2.1.1 deployment overview](../images/OCP_deploy_flow.svg "{{site.data.keyword.blockchainfull_notm}} Platform 2.1.1 deployment overview"){: caption="Figure 1. Deployment process on OpenShift"  caption-side="bottom"}
 
 ## Resources required
 {: #deploy-ocp-resources-required}
@@ -394,7 +394,7 @@ spec:
       annotations:
         productName: "IBM Blockchain Platform"
         productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.0"
+        productVersion: "2.1.1"
     spec:
       hostIPC: false
       hostNetwork: false
@@ -413,7 +413,7 @@ spec:
         - name: docker-key-secret
       containers:
         - name: ibp-operator
-          image: cp.icr.io/cp/ibp-operator:2.1.0-20190924-amd64
+          image: cp.icr.io/cp/ibp-operator:2.1.1-20191104-amd64
           command:
           - ibp-operator
           imagePullPolicy: Always

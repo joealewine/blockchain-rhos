@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-10-30"
+lastupdated: "2019-11-05"
 
 keywords: IBM Blockchain Platform, video series, videos, getting started videos, demo videos
 
@@ -28,7 +28,7 @@ You can watch the getting started video series to learn more about how to use {{
 
 
 
-## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
+## Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 
 {: #ibp-videos-ibp-v2}
 

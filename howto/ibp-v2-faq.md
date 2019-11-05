@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-31"
+lastupdated: "2019-11-05"
 
 keywords: FAQs, can I, upgrade, what version, peer ledger database, supported languages, why do I, regions
 
@@ -27,7 +27,7 @@ subcollection: blockchain-rhos
 **General**   
 
 - [What is the value of using {{site.data.keyword.blockchainfull_notm}} Platform over native Hyperledger Fabric?](#ibp-v2-faq-v2-IBP-Overview-1-7)
-- [Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 run on OpenShift on {{site.data.keyword.cloud_notm}}?](#ibp-v2-faq-saas-ocp)
+- [Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 run on OpenShift on {{site.data.keyword.cloud_notm}}?](#ibp-v2-faq-saas-ocp)
 - [What version of Hyperledger Fabric is being used with {{site.data.keyword.blockchainfull_notm}} Platform?](#ibp-v2-faq-v2-Hyperledger-Fabric-3-1)
 - [What database do the peers use for their ledger?](#ibp-v2-faq-v2-IBP-Overview-1-3)
 - [What languages are supported for smart contracts?](#ibp-v2-faq-v2-IBP-Overview-1-4)
@@ -45,7 +45,7 @@ subcollection: blockchain-rhos
 Hyperledger Fabric is a powerful, versatile, pluggable distributed ledger technology capable of addressing a wide variety of use cases across many industries. {{site.data.keyword.blockchainfull_notm}} Platform is built on top of Fabric and includes integrated tools that provide end to end features for developers and network operators to develop, test, operate, monitor, and govern Hyperledger Fabric components by using an intuitive console UI. Quickly deploy an instance and use the streamlined console UI to [build a network](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network), easily [install and instantiate smart contracts](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts), [govern your components](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components), and [govern your channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern). Interested in APIs? See the [{{site.data.keyword.blockchainfull_notm}} Platform API reference](https://cloud.ibm.com/apidocs/blockchain){: external}. With the {{site.data.keyword.blockchainfull_notm}} Platform, it is easy to extend a basic network, work with multicloud solutions, and receive {{site.data.keyword.IBM_notm}} worldwide support when needed. Finally, the {{site.data.keyword.blockchainfull_notm}} Platform provides additional security benefits that are essential for running an enterprise-grade production network.
 
 
-## Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 run on OpenShift on {{site.data.keyword.cloud_notm}}?
+## Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 run on OpenShift on {{site.data.keyword.cloud_notm}}?
 {: #ibp-v2-faq-saas-ocp}
 {: faq}
 
@@ -93,3 +93,6 @@ The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided
 {: faq}
 
 Yes, if you have the endorsement policy set to “Any”. However, you do have the opportunity to bind the policy directly to an organization's peers. The service discovery information provided by the peer supplies two pieces of information, `Layouts` and `EndorsersByGroup`. With these two pieces of data the SDK has the ability to send requests to peers in different organizations that meet the endorsement policy requirements. The node.js SDK provides default code that uses the `Layouts` and `EndoresersByGroup`s and sends the requests to the appropriate peers to meet the endorsement policy requirements. This existing logic can be customized to meet the business needs.
+
+
+

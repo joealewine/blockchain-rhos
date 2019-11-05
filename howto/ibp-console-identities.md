@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-29"
+lastupdated: "2019-11-05"
 
 keywords: create identities, manage identities, Certificate Authorities, register, enroll, TLS CA, wallet, certificate expiration
 
@@ -208,6 +208,8 @@ cat $HOME/<path-to-certificate>/cert.pem | base64 $FLAG
 From the **Wallet** tab, click a tile to view, update, or remove an identity from the wallet. It might be necessary to update your identities if their certificates have expired, and they need to be issued new keys from the CA. You can also use this tab to delete keys from your console and your local system.
 
 Clicking an identity opens a side panel that displays its certificates and private keys in base64 format. Click **Export** to download the identity's certificates to your local file system. Click **Update** to change the identity name in the wallet or paste a new set of keys into the panel. Click **Remove** when you no longer need to use this identity and want to delete its keys.
+
+
 
 ## Associating identities
 {: #ibp-console-identities-associate-admin}

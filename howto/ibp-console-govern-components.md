@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-04"
+lastupdated: "2019-11-05"
 
 keywords: network components, Kubernetes, OpenShift, allocate resources, batch timeout, reallocate resources, LevelDB, CouchDB, ordering nodes, ordering, add and remove, governance
 
@@ -44,7 +44,7 @@ Because the data is modeled differently in a Couch database than in a Level data
 
 Instead of using an {{site.data.keyword.blockchainfull_notm}} Platform Certificate Authority as your peer or ordering service's CA, you can use certificates from an external CA, one that is not hosted by {{site.data.keyword.IBM_notm}}, as long as the CA issues certificates in [X.509](https://hyperledger-fabric.readthedocs.io/en/release-1.4/identity/identity.html#digital-certificates){: external} format.
 
-For more information about this process, including a look at the certificates you will need, see [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca).
+For more information about this process, including a look at the certificates you will need, see [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca).
 
 ## Ordering node configurations
 {: #ibp-console-govern-components-suggested-ordering-node-configurations}

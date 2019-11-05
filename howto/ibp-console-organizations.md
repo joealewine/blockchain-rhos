@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-29"
+lastupdated: "2019-11-05"
 
 keywords: organizations, MSPs, create an MSP, MSP JSON file, consortium, system channel
 
@@ -48,11 +48,11 @@ Before your organization can join a consortium, it needs to create an organizati
 ## Managing MSPs in the console
 {: #ibp-console-organizations-manage}
 
-Navigate to the **Organizations** tab. You can use this tab to [create an MSP definition](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-create-msp) by using a Certificate Authority that exists in your console. You can also use this tab to [import an MSP](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-import-msp) that was created by another organization.
+Navigate to the **Organizations** tab. You can use this tab to [create an MSP definition](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-create-msp) by using a Certificate Authority that exists in your console. You can also use this tab to [import an MSP](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-import-msp) that was created by another organization.
 
 You can view all of the MSPs that you have created or imported under **Available Organizations**. You can use the MSP definitions in the organizations tab for important functions within your console:
 - If you are creating peer or orderer nodes, the MSP of your organization is used to provide admin certificates to the new node.
-- If you are the admin of an ordering node, you can use the MSPs to [add new organizations to the consortium](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-add-consortium).
+- If you are the admin of an ordering node, you can use the MSPs to [add new organizations to the consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-add-consortium).
 - If you are a member of the consortium, you can import the MSPs of other consortium members into your console and then add the members to new or existing channels.
 
 You can click on an MSP definition in the organizations tab to view all of the nodes in the console that belong to each organization. Because each node was deployed with the administrator certificate from the MSP definition inside, this panel allows you to keep track of which nodes are managed by which organization administrator.
@@ -241,21 +241,21 @@ For example, your JSON file would look similar to:
 
 Save this definition as your MSP definition `JSON` file.  
 
-You have constructed an MSP definition, which defines the organization for your peer or ordering service nodes, and uses certificates from an external CA. You can now return to the instructions that describe [How to use certificates from an external CA with your peer or orderer](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca).
+You have constructed an MSP definition, which defines the organization for your peer or ordering service nodes, and uses certificates from an external CA. You can now return to the instructions that describe [How to use certificates from an external CA with your peer or orderer](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca).
 
 ## Importing an MSP
 {: #console-organizations-import-msp}
 
 Only the orderer admin can add new organizations to the consortium. If you are the orderer admin, you will need to collect the MSP definitions of all the organizations who have been invited to the consortium and import the MSPs into the console. You can then add the MSPs to the ordering service, by using the orderer node.
 
-After an administrator creates an MSP definition, they can use the Organizations tab to download the MSP in JSON format to their local file system. They can then send you the MSP JSON file in an out of band operation. Navigate to the **Organizations** tab and use **Import MSP Definition** to import the MSP file into your console. Once an MSP definition is visible in the **Available organizations** section, you can then navigate to your orderer node to [add the organization to the consortium](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-add-consortium).
+After an administrator creates an MSP definition, they can use the Organizations tab to download the MSP in JSON format to their local file system. They can then send you the MSP JSON file in an out of band operation. Navigate to the **Organizations** tab and use **Import MSP Definition** to import the MSP file into your console. Once an MSP definition is visible in the **Available organizations** section, you can then navigate to your orderer node to [add the organization to the consortium](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-add-consortium).
 
 ## Adding an organization to a consortium
 {: #console-organizations-add-consortium}
 
 The consortium of organizations is hosted by the ordering service.
 
-If you are the administrator of the ordering service, you can use the console to add an organization to the consortium. Navigate to the **Nodes** tab and click on the ordering node. On the ordering node panel, under **Consortium members**, click **Add organization**. This opens a side panel that allows you to select from the list of available MSP definitions that you have [imported into your organizations tab](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-organizations#console-organizations-import-msp). You can also use the **Upload JSON** option to import the MSP definition file created by another org directly.
+If you are the administrator of the ordering service, you can use the console to add an organization to the consortium. Navigate to the **Nodes** tab and click on the ordering node. On the ordering node panel, under **Consortium members**, click **Add organization**. This opens a side panel that allows you to select from the list of available MSP definitions that you have [imported into your organizations tab](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-import-msp). You can also use the **Upload JSON** option to import the MSP definition file created by another org directly.
 
 ## Creating and editing a channel
 {: #console-organizations-create-channel}
@@ -268,7 +268,7 @@ After your organization is added to a consortium, you can create a channel by us
 2. Import the MSPs of organizations that you want to add to the new channel into your console in the **Organizations** tab. **Note** that organizations need to be added to the consortium before they can be added to a channel.
 3. Navigate to the **Channels** tab and click **Create channel**. This opens a side panel that allows you to specify the channel name, membership, and channel policies. You can add any organizations that have been added to the consortium to the new channel.
 
-For more information about these steps, see [creating a channel](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel1) in the **Build a network** tutorial.
+For more information about these steps, see [creating a channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-channel1) in the **Build a network** tutorial.
 
 ### Updating an MSP in a channel definition
 {: #console-organizations-update-channel}
@@ -280,3 +280,4 @@ Over time you might need to update the certificates in an MSP definition that is
 3. Click the **Channel details** tab.
 4. Click the associated channel member's tile that you want to update.
 5. If you have not already imported the updated MSP definition into the console, you can upload the file here. **Note:** This action will not update the associated MSP definition in the Organizations tab. If you have already updated the MSP definition in the Organizations tab of the console, you can select it from the drop-down list.
+

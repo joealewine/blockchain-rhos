@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-10-31"
+lastupdated: "2019-11-05"
 
 
 keywords: vs code extension, Visual Studio Code extension, smart contract, development tools
@@ -279,7 +279,7 @@ You can also use the extension to interact with your network on the {{site.data.
 
 You can download your connection profile from the {{site.data.keyword.blockchainfull_notm}} Platform console to build a gateway in the **Fabric Gateways** pane. You can then use the gateway to invoke the smart contracts that were installed and instantiated on your network.
 
-Open the {{site.data.keyword.blockchainfull_notm}} Platform console that is associated with your instance of the {{site.data.keyword.blockchainfull_notm}} Platform. Navigate to the **Smart Contracts** tab. Use the **Instantiated Smart Contracts** table on the smart contracts tab to download your [connection profile](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-app#ibp-console-app-profile) to your local file system. Then, [create an application identity](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-ibp-console-app#ibp-console-app-identities) by using your CA and save the enrollID and secret. Follow the steps below to connect to the {{site.data.keyword.blockchainfull_notm}} Platform from VS Code.
+Open the {{site.data.keyword.blockchainfull_notm}} Platform console that is associated with your instance of the {{site.data.keyword.blockchainfull_notm}} Platform. Navigate to the **Smart Contracts** tab. Use the **Instantiated Smart Contracts** table on the smart contracts tab to download your [connection profile](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-app#ibp-console-app-profile) to your local file system. Then, [create an application identity](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-app#ibp-console-app-identities) by using your CA and save the enrollID and secret. Follow the steps below to connect to the {{site.data.keyword.blockchainfull_notm}} Platform from VS Code.
 
 1. Open the **{{site.data.keyword.blockchainfull_notm}} Platform** tab.
 2. Hover your mouse over the **Fabric Gateways** pane and click **+**.

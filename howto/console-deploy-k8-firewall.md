@@ -4,7 +4,7 @@ copyright:
   years: 2018, 2019
 lastupdated: "2019-11-06"
 
-keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
+keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
 subcollection: blockchain-rhos
 
@@ -104,6 +104,9 @@ docker pull cp.icr.io/cp/ibp-deployer:2.1.1-20191104-amd64
 docker pull cp.icr.io/cp/ibp-fluentd:2.1.1-20191104-amd64
 ```
 {:codeblock}
+
+If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the image tag with `s390x`
+{: important}
 
 After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
 ```

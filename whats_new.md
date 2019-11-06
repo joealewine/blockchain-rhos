@@ -22,6 +22,9 @@ subcollection: blockchain-rhos
 # What's new
 {: #whats-new}
 
+
+
+
 ## September 24, 2019
 {: #whats-new-9-24-2019}
 

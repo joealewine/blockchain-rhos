@@ -1,8 +1,8 @@
 ---
 
 copyright:
-years: 2018, 2019
-lastupdated: "2019-10-24"
+  years: 2019
+lastupdated: "2019-11-06"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -98,7 +98,8 @@ Users of this offering must manage their own security and infrastructure. The {{
 {: #console-ocp-about-prerequisites}
 
 The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 can be deployed on any x86_64 architecture that is supported by the Red Hat OpenShift Container Platform 3.11 and meets the [system and environment requirements](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. See this article on [OpenShift Container Platform 3.x Tested Integrations](https://access.redhat.com/articles/2176281){: external}. Scroll down to the bottom of the article to the section titled 'Tested Platforms' to view the list of cloud providers tested on OpenShift Container Platform 3.11.
-The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 is not supported on Linux on Power (ppc64le) POWER8 systems, LinuxONE, or {{site.data.keyword.IBM_notm}} Z.
+
+
 
 ## License and pricing
 {: #console-ocp-about-license}

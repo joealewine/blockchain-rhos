@@ -577,7 +577,7 @@ You can skip to **Option 2** if you want to create a new five node ordering serv
 Now that you have gathered all the necessary certificates, you are ready to create a peer or ordering service which uses those certificates. Follow these instructions to create the peer or single-node ordering service with certificates from an external CA.
 
 1. On the **Nodes** tab click **Add peer** or **Add ordering service**.
-2. Make sure the option to **Create** the peer or ordering service is select. Then click **Next**.
+2. Make sure the option to **Create** the peer or ordering service is selected. Then click **Next**.
 3. After entering a display name for the node, select the option to use an external CA.
 4. Step through the panels and upload the files corresponding to the certificate and private key you gathered.
 5. Ensure you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list.
@@ -712,7 +712,7 @@ Save this definition as a `JSON` file.
 Now that you have created a JSON file with all of the certificates for the ordering nodes, you are ready to create the ordering service.
 
 1. On the **Nodes** tab click **Add ordering service**.
-2. Make sure the option to **Create** an ordering service is elect. Then click **Next**.
+2. Make sure the option to **Create** an ordering service is selected. Then click **Next**.
 3. Enter a single **Display name** for the five ordering nodes. The display name that you provide will be the prefix for each ordering node name and a number will be appended to it.
 4. In **Number of ordering nodes**, select **Five ordering nodes**. Then select **External Certificate Authority configuration** and click **Next**.
 5. Click **Add file** to upload the JSON file that contains all of the certificates.

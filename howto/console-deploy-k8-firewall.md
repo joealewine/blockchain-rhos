@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-09-26"
+lastupdated: "2019-11-06"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -20,12 +20,12 @@ subcollection: blockchain-rhos
 {:pre: .pre}
 
 # Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 behind a firewall
-{: #deploy-ocp-firewall}
+{: #deploy-k8-firewall}
 
 You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.1 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
 {:shortdesc}
 
-You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 onto a Kubernetes cluster that is running on Red Hat OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 onto a Kubernetes cluster that is running on Red Hat OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 
 ## Need to Know
 
@@ -34,7 +34,7 @@ You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 ont
 - After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
 
 ## Resources required
-{: #deploy-ocp-resources-required-firewall}
+{: #deploy-k8-resources-required-firewall}
 
 Ensure that your OpenShift cluster has sufficient resources for the {{site.data.keyword.blockchainfull_notm}} console and for the blockchain nodes that you create. The amount of resources that are required can vary depending on your infrastructure, network design, and performance requirements. To help you deploy a cluster of the appropriate size, the default CPU, memory, and storage requirements for each component type are provided in this table. Your actual resource allocations are visible in your blockchain console when you deploy a node and can be adjusted at deployment time or after deployment according to your business needs.
 
@@ -48,7 +48,7 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 ** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
 
 ## Storage
-{: #deploy-ocp-storage-firewall}
+{: #deploy-k8-storage-firewall}
 
 {{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
 
@@ -58,7 +58,7 @@ If you prefer not to choose a persistent storage option, the default storage cla
 {: note}
 
 ## Get your entitlement key
-{: #deploy-ocp-entitlement-key}
+{: #deploy-k8-entitlement-key}
 
 When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PPA, you receive an entitlement key for the software is associated with your MyIBM account. You need to access and save this key to deploy the platform.
 
@@ -67,7 +67,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 2. In the Entitlement keys section, select Copy key to copy the entitlement key to the clipboard.
 
 ## Before you begin
-{: #deploy-ocp-prerequisites-firewall}
+{: #deploy-k8-prerequisites-firewall}
 
 1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
 
@@ -188,7 +188,7 @@ kubectl get pods
 {:codeblock}
 
 ## Create a new project
-{: #deploy-ocp-project-firewall}
+{: #deploy-k8-project-firewall}
 
 After you connect to your cluster, create a new project for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a new project by using the OpenShift web console or OpenShift CLI. The new project needs to be created by a cluster administrator.
 
@@ -217,7 +217,7 @@ oc get storageclasses
 {:codeblock}
 
 ## Add security and access policies
-{: #deploy-ocp-scc-firewall}
+{: #deploy-k8-scc-firewall}
 
 The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your project. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies for your project. You must save these files to your local system and then add them your project by using the OpenShift CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
@@ -413,7 +413,7 @@ cluster role "blockchain-project" added: "system:serviceaccounts:blockchain-proj
 ```
 
 ## Create a secret for your entitlement key
-{: #deploy-ocp-docker-registry-secret-firewall}
+{: #deploy-k8-docker-registry-secret-firewall}
 
 After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
 
@@ -432,7 +432,7 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 {: note}
 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform operator
-{: #deploy-ocp-operator}
+{: #deploy-k8-operator}
 
 The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your project by using the OpenShift CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
@@ -551,7 +551,7 @@ ibp-operator   1         1         1            1           1m
 ```
 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console
-{: #deploy-ocp-console}
+{: #deploy-k8-console}
 
 When the operator is running on your namespace, you can apply a custom resource to start the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster. You can then access the console from your browser. Note that you can deploy only one console per OpenShift project.
 
@@ -650,7 +650,7 @@ kubectl apply -f ibp-console.yaml -n <PROJECT_NAME>
 Replace `<PROJECT_NAME>` with the name of your project. Before you install the console, you might want to review the advanced deployment options in the next section. The console can take a few minutes to deploy.
 
 ### Advanced deployment options
-{: #console-deploy-ocp-advanced}
+{: #console-deploy-k8-advanced}
 
 You can add fields to the `ibp-console.yaml` file to customize the deployment of your console. You can use the additional deployment options to allocate more resources to your cluster, use zones for high availability in a multizone cluster, or provide your own TLS certificates to the console. The new fields must be added to the `spec:` section of `ibp-console.yaml` with one indent added. For example, if you wanted to add the field `newField: newValue` to `ibp-console.yaml`, your file would resemble the following example:
 ```
@@ -830,7 +830,7 @@ In your browser, you can see the console log in screen:
 The administrator who provisions the console can grant access to other users and restrict the actions they can perform. For more information, see [Managing users from the console](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-users).
 
 ## Next steps
-{: #console-deploy-ocp-next-steps}
+{: #console-deploy-k8-next-steps}
 
 When you access your console, you can view the **nodes** tab of your console UI. You can use this screen to deploy components on the cluster where you deployed the console. See the [Build a network tutorial](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network) to get started with the console. You can also use this tab to operate nodes that are created on other clouds. For more information, see [Importing nodes](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-import-nodes#ibp-console-import-nodes).
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-06"
 
 subcollection: blockchain-rhos
 
@@ -17,22 +17,22 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
-# Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
+# Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #get-started-console-ocp}
 
-{{site.data.keyword.blockchainfull}} Platform provides a managed and full stack blockchain-as-a-service (BaaS) offering that allows you to deploy blockchain components on any x86_64 architecture [supported by the Red Hat OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. For a list of platforms that are tested with OpenShift Container Platform 3.11, see [Tested Integrations](https://access.redhat.com/articles/2176281){: external}. Users can create components in their clusters and connect them to components deployed on other clusters, forming a distributed, multi-organizational blockchain network, by installing the {{site.data.keyword.blockchainfull_notm}} Platform console.
+{{site.data.keyword.blockchainfull}} Platform provides a managed and full stack blockchain-as-a-service (BaaS) offering that allows you to deploy blockchain components on any Kubernetes cluster. For more information on where you can run {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1, see [Supported Platforms](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites). Users can create components in their clusters and connect them to components deployed on other clusters, forming a distributed, multi-organizational blockchain network, by installing the {{site.data.keyword.blockchainfull_notm}} Platform console.
 {:shortdesc}
 
-**{{site.data.keyword.blockchainfull_notm}} Platform v2.1.0** is purchased as a stand-alone entitlement. After purchasing, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. This key is required to deploy the release.
+**{{site.data.keyword.blockchainfull_notm}} Platform v2.1.1** is purchased as a stand-alone entitlement. After purchasing, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. This key is required to deploy the release.
 
-With this option, you are responsible for provisioning your own Kubernetes cluster compatible with the OpenShift Container Platform 3.11.
+With this option, you are responsible for provisioning your own Kubernetes cluster.
 {: important}
 
-## Is {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 suitable for you?
+## Is {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1 suitable for you?
 {: #get-started-console-ocp-suitable}
 
-Running the {{site.data.keyword.blockchainfull_notm}} Platform on the OpenShift Container Platform provides you with greater flexibility to grow or join a blockchain network. It helps network initiators grow their networks by allowing new members to join while using the cloud platform of their choice. It allows organizations that are interested in joining blockchain networks to colocate their peers with their existing applications or to integrate with their systems of record.
-- To learn more about what the product offers, see [About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about).
+Running the {{site.data.keyword.blockchainfull_notm}} Platform on Kubernetes provides you with greater flexibility to grow or join a blockchain network. It helps network initiators grow their networks by allowing new members to join while using the cloud platform of their choice. It allows organizations that are interested in joining blockchain networks to colocate their peers with their existing applications or to integrate with their systems of record.
+- To learn more about what the product offers, see [About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about).
 - To learn more about how this product differs from other {{site.data.keyword.blockchainfull_notm}} Platform offerings, see [Which {{site.data.keyword.blockchainfull_notm}} Platform offering is right for your business?](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#get-started-console-ocp-which-ibp).
 - For pricing information, see [Pricing](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing).
 
@@ -46,7 +46,7 @@ Developers can start with a free IDE that provides an explorer and commands acce
 ## Before you begin
 {: #get-started-console-ocp-set-up-ocp}
 
-1. The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html). For more information on the cloud platforms that you can use, see [System prerequisites](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites).
+1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [Supported Platforms](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites).
 
 2. You need to install and connect to your cluster by using the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
 
@@ -55,15 +55,11 @@ Developers can start with a free IDE that provides an explorer and commands acce
 ## Step one: Install the {{site.data.keyword.blockchainfull_notm}} Platform
 {: #get-started-console-ocp-step-two-deploy-console}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. A cluster administrator can use your entitlement key to deploy the platform by following the steps described in the [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp) topic:
+The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. A cluster administrator can use your entitlement key to deploy the platform on any Kubernetes Cluster
 
-  1. [Log in to your OpenShift cluster](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-login).
-  2. [Create a new project](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-project).
-  3. [Add security and access policies](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-scc).
-  4. [Create a secret for your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret).
-  5. [Deploy the {{site.data.keyword.blockchainfull_notm}} Platform operator](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-operator).
-  6. [Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-console).
-  7. [Log in to the console](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-log-in).
+-  If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform on the OpenShift Container Platform, you can deploy the platform by using the steps in the [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 on the OpenShift Container Platform](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
+
+- If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform on another Kubernetes distribution, such as Rancher or {{site.data.keyword.cloud_notm}} Private, use the steps below described in the [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 on Kubernetes](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-k8#deploy-k8).
 
 ## Step two: Grant console access to other users
 {: #get-started-console-ocp-step-four-add-console-admin}

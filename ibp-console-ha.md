@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-06"
 
 keywords: high availability, HA, failures, zone failure, region failure, component failure, worker node failure
 
@@ -25,7 +25,7 @@ subcollection: blockchain-rhos
 Use the built-in Kubernetes features along with {{site.data.keyword.blockchainfull}} Platform component deployment strategies to make your blockchain networks more highly available and to protect your network from downtime when a failure occurs in your cluster.
 {:shortdesc}
 
-**Target audience:** This topic is designed for architects and system administrators who are responsible for planning and configuring {{site.data.keyword.blockchainfull_notm}}  v2.1.0 on Red Hat OpenShift Container Platform.
+**Target audience:** This topic is designed for architects and system administrators who are responsible for planning and configuring {{site.data.keyword.blockchainfull_notm}}  v2.1.1 on Red Hat OpenShift Container Platform.
 
 High availability is a core discipline in an IT infrastructure to keep your apps up and running, even after a partial or full site failure. The main purpose of high availability is to eliminate potential points of failures in an IT infrastructure. For example, you can prepare for the failure of one system by adding redundancy and setting up failover mechanisms.
 

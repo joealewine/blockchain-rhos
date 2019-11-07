@@ -24,6 +24,13 @@ IBM Blockchain Platform v2.1.1
 		howto/console-deploy-ocp-firewall.md
 		howto/console-delete-ocp.md
 
+	Install on Kubernetes
+		howto/console-deploy-k8.md
+		howto/console-deploy-k8-firewall.md
+		howto/console-delete-k8.md
+
+	internal/blockchain_images.md
+
 	{: .topicgroup}
 	Using the IBM Blockchain Platform console
 		howto/ibp-console-build-network.md

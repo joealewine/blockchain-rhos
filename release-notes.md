@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-07"
 
 
 keywords: release note, latest changes, Hyperledger Fabric
@@ -31,7 +31,7 @@ Use these release notes that are grouped by date to learn about the latest chang
 
 **{{site.data.keyword.blockchainfull_notn}} Platform images**
 
-A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 now includes an entitlement to Hyperledger Fabric images that are built and supported by {{site.data.keyword.blockchainfull_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability.
+A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 now includes an entitlement to images for peer, CA, ordering service, and smart contract containers that are signed and supported by {{site.data.keyword.IBM_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability.
 
 ## 24 September 2019
 {: #09-24-2019}

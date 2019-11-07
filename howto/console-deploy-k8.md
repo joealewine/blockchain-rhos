@@ -16,7 +16,7 @@ subcollection: blockchain-rhos
 {:codeblock: .codeblock}
 {:note: .note}
 {:important: .important}
-{:javascript: data-hd-programlang="Fuzzy Bunny"}
+{:javascript: data-hd-programlang="javascript"}
 {:java: data-hd-programlang="java"}
 {:tip: .tip}
 {:pre: .pre}
@@ -296,8 +296,8 @@ The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to insta
 
 Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will apply a different resource file depending on whether you are using open source Kubernetes and Rancher, or whether you are using {{site.data.keyword.cloud_notm}} Private.
 
-<details><summary>Operator file for Kubernetes v1.11 or higher</summary>
 
+**Operator file for Kubernetes v1.11 or higher**
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -396,11 +396,8 @@ spec:
               cpu: 100m
               memory: 200Mi
 ```
-{:codeblock}
 
-</details>
-
-<details><summary>Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1</summary>
+**Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1**
 
 ```
 apiVersion: apps/v1
@@ -502,9 +499,6 @@ spec:
               cpu: 100m
               memory: 200Mi
 ```
-{:codeblock}
-
-</details>
 
 If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 

@@ -45,6 +45,6 @@ It is recommended to start with [free digital support resources](/docs/services/
 ## Submitting support cases
 {: #blockchain-support-cases}
 
-For issues that are related to {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v210){: external} page. When you open a case you will need to select your product, {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1.  
+For issues that are related to {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v210){: external} page.  
 
 If you need help with Hyperledger Fabric, or your applications, ensure you make use of the community resources above or engage [{{site.data.keyword.blockchainfull_notm}} Services](https://www.ibm.com/blockchain/services){: external}.

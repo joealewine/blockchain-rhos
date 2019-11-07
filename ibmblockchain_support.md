@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-07"
 
 keywords: IBM Blockchain Platform, support case, Hyperledger Fabric Community, Cloud tickets, Rocket Chat, dWAnswers
 
@@ -31,7 +31,7 @@ It is recommended to start with [free digital support resources](/docs/services/
 {: #blockchain-support-resources}
 
 **{{site.data.keyword.blockchainfull_notm}} Resources**
-  This [{{site.data.keyword.blockchainfull_notm}} Platform documentation ](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp), provides guidance on how to get started with {{site.data.keyword.blockchainfull_notm}} Platform on Red Hat OpenShift Container Platform. You can find corresponding topics from the left navigator or search any term with the search function on the top.
+  This [{{site.data.keyword.blockchainfull_notm}} Platform documentation ](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp), provides guidance on how to get started with {{site.data.keyword.blockchainfull_notm}} Platform. You can find corresponding topics from the left navigator or search any term with the search function on the top.
 
   You can find blockchain tutorials and code patterns on [{{site.data.keyword.IBM_notm}} Developer](https://developer.ibm.com/technologies/blockchain/){: external} that provide guidance for building your own smart contracts and applications.
 

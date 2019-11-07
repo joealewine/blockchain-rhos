@@ -31,7 +31,7 @@ Use these release notes that are grouped by date to learn about the latest chang
 
 **{{site.data.keyword.blockchainfull_notn}} Platform images**
 
-A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 now includes an entitlement to images for peer, CA, ordering service, and smart contract containers that are signed and supported by {{site.data.keyword.IBM_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability.
+A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 now includes an entitlement to peer, CA, ordering service, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability.
 
 ## 24 September 2019
 {: #09-24-2019}

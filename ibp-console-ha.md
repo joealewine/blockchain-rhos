@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-07"
 
 keywords: high availability, HA, failures, zone failure, region failure, component failure, worker node failure
 
@@ -25,7 +25,7 @@ subcollection: blockchain-rhos
 Use the built-in Kubernetes features along with {{site.data.keyword.blockchainfull}} Platform component deployment strategies to make your blockchain networks more highly available and to protect your network from downtime when a failure occurs in your cluster.
 {:shortdesc}
 
-**Target audience:** This topic is designed for architects and system administrators who are responsible for planning and configuring {{site.data.keyword.blockchainfull_notm}}  v2.1.1 on Red Hat OpenShift Container Platform.
+**Target audience:** This topic is designed for architects and system administrators who are responsible for planning and configuring {{site.data.keyword.blockchainfull_notm}}  v2.1.1 on a Kubernetes cluster.
 
 High availability is a core discipline in an IT infrastructure to keep your apps up and running, even after a partial or full site failure. The main purpose of high availability is to eliminate potential points of failures in an IT infrastructure. For example, you can prepare for the failure of one system by adding redundancy and setting up failover mechanisms.
 
@@ -34,9 +34,9 @@ You can achieve high availability on different levels in your IT infrastructure 
 
 
 
-Before proceeding, you should review the platform-specific guidance for
-[HA on OpenShift Container Platform](https://docs.openshift.com/container-platform/3.11/admin_guide/high_availability.html){: external}.
-You can use this topic for details on blockchain specific HA guidance along with the recommendations from the platform specific topics above.
+- If you are running on OpenShift Container Platform, you should review the platform-specific guidance for
+[HA on OpenShift Container Platform](https://docs.openshift.com/container-platform/3.11/admin_guide/high_availability.html){: external}. You can use this topic for details on blockchain specific HA guidance along with the recommendations from the platform specific topics above.
+- If you are using {{site.data.keyword.cloud_notm}} Private, review the content about [Implementing HA on {{site.data.keyword.cloud_notm}} Private](https://www.ibm.com/cloud/garage/practices/manage/high-availability-ibm-cloud-private){: external}.  
 
 
 Then you can use this topic for details on blockchain-specific HA guidance along with the recommendations from the platform-specific topic above.

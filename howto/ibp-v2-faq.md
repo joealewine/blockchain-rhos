@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-07"
 
 keywords: FAQs, can I, upgrade, what version, peer ledger database, supported languages, why do I, regions
 
@@ -27,7 +27,7 @@ subcollection: blockchain-rhos
 **General**   
 
 - [What is the value of using {{site.data.keyword.blockchainfull_notm}} Platform over native Hyperledger Fabric?](#ibp-v2-faq-v2-IBP-Overview-1-7)
-- [Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 run on OpenShift on {{site.data.keyword.cloud_notm}}?](#ibp-v2-faq-saas-ocp)
+- [Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.x run on OpenShift on {{site.data.keyword.cloud_notm}}?](#ibp-v2-faq-saas-ocp)
 - [What version of Hyperledger Fabric is being used with {{site.data.keyword.blockchainfull_notm}} Platform?](#ibp-v2-faq-v2-Hyperledger-Fabric-3-1)
 - [What database do the peers use for their ledger?](#ibp-v2-faq-v2-IBP-Overview-1-3)
 - [What languages are supported for smart contracts?](#ibp-v2-faq-v2-IBP-Overview-1-4)
@@ -45,11 +45,11 @@ subcollection: blockchain-rhos
 Hyperledger Fabric is a powerful, versatile, pluggable distributed ledger technology capable of addressing a wide variety of use cases across many industries. {{site.data.keyword.blockchainfull_notm}} Platform is built on top of Fabric and includes integrated tools that provide end to end features for developers and network operators to develop, test, operate, monitor, and govern Hyperledger Fabric components by using an intuitive console UI. Quickly deploy an instance and use the streamlined console UI to [build a network](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network), easily [install and instantiate smart contracts](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts), [govern your components](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components), and [govern your channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern). Interested in APIs? See the [{{site.data.keyword.blockchainfull_notm}} Platform API reference](https://cloud.ibm.com/apidocs/blockchain){: external}. With the {{site.data.keyword.blockchainfull_notm}} Platform, it is easy to extend a basic network, work with multicloud solutions, and receive {{site.data.keyword.IBM_notm}} worldwide support when needed. Finally, the {{site.data.keyword.blockchainfull_notm}} Platform provides additional security benefits that are essential for running an enterprise-grade production network.
 
 
-## Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 run on OpenShift on {{site.data.keyword.cloud_notm}}?
+## Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.x run on OpenShift on {{site.data.keyword.cloud_notm}}?
 {: #ibp-v2-faq-saas-ocp}
 {: faq}
 
-Yes. The {{site.data.keyword.blockchainfull_notm}} Platform can be purchased and deployed in two ways. [{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](https://cloud.ibm.com/catalog/services/blockchain-platform){: external} is deployed and runs by using the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster){: external}. {{site.data.keyword.blockchainfull_notm}} Platform is also available as a software offering that can be deployed on Red Hat OpenShift and can run in all environments where OpenShift Container Platform  is supported. Read more about it [here](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about).
+Yes. The {{site.data.keyword.blockchainfull_notm}} Platform can be purchased and deployed in three ways on OpenShift. [{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](https://cloud.ibm.com/catalog/services/blockchain-platform){: external} is deployed and runs by using the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster){: external}. {{site.data.keyword.blockchainfull_notm}} Platform is also available as a software offering that can be deployed on Red Hat OpenShift and can run in all environments where OpenShift Container Platform  is supported. Read more about it [here](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about). Finally, experienced Hyperledger Fabric customers can download and use the peer, CA, orderer, and smart contract container [images](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images).
 
 
 ## What version of Hyperledger Fabric is being used with {{site.data.keyword.blockchainfull_notm}} Platform?

@@ -2,9 +2,9 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-07"
 
-keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
+keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters, firewall, on-premises
 
 subcollection: blockchain-rhos
 
@@ -22,10 +22,10 @@ subcollection: blockchain-rhos
 # Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 behind a firewall
 {: #deploy-k8-firewall}
 
-You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.1 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
+You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.1 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
 {:shortdesc}
 
-You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 onto a Kubernetes cluster that is running on Red Hat OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 onto an x86_64 Kubernetes v1.11 or higher cluster. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 
 ## Need to Know
 
@@ -36,7 +36,7 @@ You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 ont
 ## Resources required
 {: #deploy-k8-resources-required-firewall}
 
-Ensure that your OpenShift cluster has sufficient resources for the {{site.data.keyword.blockchainfull_notm}} console and for the blockchain nodes that you create. The amount of resources that are required can vary depending on your infrastructure, network design, and performance requirements. To help you deploy a cluster of the appropriate size, the default CPU, memory, and storage requirements for each component type are provided in this table. Your actual resource allocations are visible in your blockchain console when you deploy a node and can be adjusted at deployment time or after deployment according to your business needs.
+Ensure that your Kubernetes cluster has sufficient resources for the {{site.data.keyword.blockchainfull_notm}} console and for the blockchain nodes that you create. The amount of resources that are required can vary depending on your infrastructure, network design, and performance requirements. To help you deploy a cluster of the appropriate size, the default CPU, memory, and storage requirements for each component type are provided in this table. Your actual resource allocations are visible in your blockchain console when you deploy a node and can be adjusted at deployment time or after deployment according to your business needs.
 
 | **Component** (all containers) | CPU**  | Memory (GB) | Storage (GB) |
 |--------------------------------|---------------|-----------------------|------------------------|
@@ -50,11 +50,11 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 ## Storage
 {: #deploy-k8-storage-firewall}
 
-{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
+{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class.
 
-Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster in OpenShift Container Platform, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
+Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
 
-If you prefer not to choose a persistent storage option, the default storage class of your OpenShift project is used.
+If you prefer not to choose a persistent storage option, the default storage class of your Kubernetes cluster is used.
 {: note}
 
 ## Get your entitlement key
@@ -69,9 +69,9 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 ## Before you begin
 {: #deploy-k8-prerequisites-firewall}
 
-1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
-
-2. You need to install and connect to your cluster by using [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform.
+1. Create a Kubernetes cluster on the x86_64 Kubernetes v1.11 or higher container platform of your choice.
+2. Ensure the default storage class is configured.
+3. Ensure you can connect to your cluster and login from the command line.
 
 ## Pull the {{site.data.keyword.blockchainfull_notm}} Platform images
 
@@ -156,22 +156,20 @@ docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191104-amd64
 
 After you complete these steps, you can use the following instructions to deploy the {{site.data.keyword.blockchainfull_notm}} Platform with the images in your registry.
 
-## Log in to your OpenShift cluster
-{: #deploy-ocp-login-firewall}
+## Log in to your Kubernetes cluster
+{: #deploy-k8s-login-firewall}
 
-Before you can complete the next steps, you need to log in to your cluster by using the OpenShift CLI. You can log in to your cluster by using the OpenShift web console.
-
-1. Open the OpenShift web console. In the upper right corner of the cluster overview page, click **OpenShift web console**.
-
-2. From the web console, click the dropdown menu in the upper right corner and then click **Copy Login Command**. Paste the copied command in your terminal window.
-
-The command looks similar to the following example:
+Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI.
+If you are using {{site.data.keyword.cloud_notm} Private, you can log in to your cluster by using the following command:
 ```
-oc login https://c100-e.us-south.containers.cloud.ibm.com:31394 --token=<TOKEN>
+cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
 ```
-If the command is successful, you can see the list of the projects in your cluster in your terminal by running the following command:
+{: codeblock}
+
 ```
-oc get pods
+If the command is successful, you can see the list of the namespaces in your cluster from your terminal by running the following command:
+```
+kubectl get pods
 ```
 {:codeblock}
 
@@ -183,101 +181,78 @@ registry-console-6c74fc45f9-nl5nw   1/1       Running   0          7d
 router-6cc88df47c-hqjmk             1/1       Running   0          7d
 router-6cc88df47c-mwzbq             1/1       Running   0          7d
 ```
+## Create a new namespace
+{: #deploy-k8-namespace}
 
-When you connect to your cluster by using the OpenShift CLI, you also connect by using the `kubectl` CLI. You can find the same pods by running the equivalent `kubectl` command:
-```
-kubectl get pods
-```
-{:codeblock}
-
-## Create a new project
-{: #deploy-k8-project-firewall}
-
-After you connect to your cluster, create a new project for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a new project by using the OpenShift web console or OpenShift CLI. The new project needs to be created by a cluster administrator.
+After you connect to your cluster, create a new namespace for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
 
 If you are using the CLI, create a new project by the following command:
 ```
-oc new-project <PROJECT_NAME>
+kubectl create namespace <NAMESPACE>
 ```
 {:codeblock}
 
-Replace `<PROJECT_NAME>` with the name of your project.
+Replace `<NAMESPACE>` with the name of your project.
 
-It is required that you create a new OpenShift project for each blockchain network that you deploy with the {{site.data.keyword.blockchainfull_notm}} Platform. For example, if you plan to create different networks for development, staging, and production, then you need to create a unique project for each environment. Each project creates a new Kubernetes namespace. Using a separate namespace provides each network with separate resources and allows you to set unique access policies for each network. You need to follow these deployment instructions to deploy a separate operator and console for each project.
+It is required that you create a namespace for each blockchain network that you deploy with the {{site.data.keyword.blockchainfull_notm}} Platform. For example, if you plan to create different networks for development, staging, and production, then you need to create a unique project for each environment. Each project creates a new Kubernetes namespace. Using a separate namespace provides each network with separate resources and allows you to set unique access policies for each network. You need to follow these deployment instructions to deploy a separate operator and console for each project.
 {: important}
-
-When you create a new project, a new namespace is created with the same name as your project. You can verify that the existence of the new namespace by using the `oc get namespace` command:
-```
-$ oc get namespace
-NAME                                STATUS    AGE
-blockchain-project                  Active    2m
-```
 
 You can also use the CLI to find the available storage classes for your namespace. If you created a new storage class for your deployment, that storage class must be visible in the output in the following command:
 ```
-oc get storageclasses
+kubectl get storageclasses
 ```
 {:codeblock}
+
 
 ## Add security and access policies
 {: #deploy-k8-scc-firewall}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your project. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies for your project. You must save these files to your local system and then add them your project by using the OpenShift CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
+The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your project. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies for your project. You must save these files to your local system and then add them your project by using the kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
-### Apply the Security Context Constraint
+### Apply the Pod Security Policy
 
-Copy the security context constraint object below and save it to your local system as `ibp-scc.yaml`. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
+Copy the PodSecurityPolicy object below and save it to your local system as `ibp-psp.yaml`.
 
 ```
-allowHostDirVolumePlugin: true
-allowHostIPC: true
-allowHostNetwork: true
-allowHostPID: true
-allowHostPorts: true
-allowPrivilegeEscalation: true
-allowPrivilegedContainer: true
-allowedCapabilities:
-- NET_BIND_SERVICE
-- CHOWN
-- DAC_OVERRIDE
-- SETGID
-- SETUID
-- FOWNER
-apiVersion: security.openshift.io/v1
-defaultAddCapabilities: null
-fsGroup:
-  type: RunAsAny
-groups:
-- system:cluster-admins
-- system:authenticated
-kind: SecurityContextConstraints
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
 metadata:
-  name: <PROJECT_NAME>
-readOnlyRootFilesystem: false
-requiredDropCapabilities: null
-runAsUser:
-  type: RunAsAny
-seLinuxContext:
-  type: RunAsAny
-supplementalGroups:
-  type: RunAsAny
-volumes:
-- "*"
+  name: ibm-blockchain-platform-psp
+spec:
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
+  privileged: true
+  allowPrivilegeEscalation: true
+  readOnlyRootFilesystem: false
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  requiredDropCapabilities:
+  - ALL
+  allowedCapabilities:
+  - NET_BIND_SERVICE
+  - CHOWN
+  - DAC_OVERRIDE
+  - SETGID
+  - SETUID
+  - FOWNER
+  volumes:
+  - '*'
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your project. Replace `<PROJECT_NAME>` with your project.
+After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your project. Replace `<NAMESPACE>` with your project.
 ```
-oc apply -f ibp-scc.yaml -n <PROJECT_NAME>
-oc adm policy add-scc-to-user <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
+kubectl apply -f ibp-psp.yaml -n <NAMESPACE>
 ```
 {:codeblock}
 
-If the command is successful, you can see a response that is similar to the following example:
-```
-securitycontextconstraints.security.openshift.io/blockchain-project created
-scc "blockchain-project" added to: ["system:serviceaccounts:blockchain-project"]
-```
 
 ### Apply the ClusterRole
 
@@ -420,7 +395,7 @@ cluster role "blockchain-project" added: "system:serviceaccounts:blockchain-proj
 
 After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
 
-Run the following command to create the secret and add it to your OpenShift Project:
+Run the following command to create the secret and add it to your Kubernetes namespace:
 ```
 kubectl create secret docker-registry docker-key-secret --docker-server=<LOCAL_REGISTRY> --docker-username=<USER> --docker-password=<LOCAL_REGISTRY_PASSWORD> --docker-email=<EMAIL> -n <PROJECT_NAME>
 ```
@@ -437,7 +412,7 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform operator
 {: #deploy-k8-operator}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your project by using the OpenShift CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
+The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your project by using the kubectl CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
 Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. Replace `<LOCAL_REGISTRY>` with the url of your local registry. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 ```
@@ -556,7 +531,7 @@ ibp-operator   1         1         1            1           1m
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console
 {: #deploy-k8-console}
 
-When the operator is running on your namespace, you can apply a custom resource to start the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster. You can then access the console from your browser. Note that you can deploy only one console per OpenShift project.
+When the operator is running on your namespace, you can apply a custom resource to start the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster. You can then access the console from your browser. Note that you can deploy only one console per Kubeernetes namespace.
 
 Save the custom resource definition below as `ibp-console.yaml` on your local system. If you changed the name of the entitlement key secret, then you need to edit the field of `name: docker-key-secret`.
 
@@ -747,7 +722,7 @@ You can use a Certificate Authority or tool to create the TLS certificates for t
 - Replace `<PROJECT_NAME>` with the name of the OpenShift project that you created.
 - Replace `<DOMAIN>` with the name of your cluster domain. You can find this value by using the OpenShift web console. Use the dropdown menu next to **OpenShift Container Platform** at the top of the page to switch from **Service Catalog** to **Cluster Console**. Examine the url for that page. It will be similar to `console.xyz.abc.com/k8s/cluster/projects`. The value of the domain then would be `xyz.abc.com`, after removing `console` and `/k8s/cluster/projects`.
 
-Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your OpenShift project. The TLS certificate and key need to be in PEM format.
+Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your Kubernetes namespace. The TLS certificate and key need to be in PEM format.
 ```
 kubectl create secret generic console-tls-secret --from-file=tls.crt=./tlscert.pem --from-file=tls.key=./tlskey.pem -n <PROJECT_NAME>
 ```
@@ -798,7 +773,7 @@ kubectl logs -f ibpconsole-55cf9db6cc-856nz console -n blockchain-project
 {:codeblock}
 
 ## Log in to the console
-{: #deploy-ocp-log-in}
+{: #deploy-k8s-log-in}
 
 You can use your browser to access the console by browsing to the console URL:
 

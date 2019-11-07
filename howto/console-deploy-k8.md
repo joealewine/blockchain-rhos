@@ -82,33 +82,13 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 Before you can complete the next steps, you need to log in to your cluster by using the Kubectl CLI.
 
-If you are using {{site.data.keyword.cloud_notm}} Private, you can kog in to your cluster by using the following command:
+If you are using {{site.data.keyword.cloud_notm}} Private, you can log in to your cluster by using the following command:
 
   ```
   cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
   ```
 
-## Create a new namespace
-{: #deploy-k8-namespace}
-
-After you connect to your cluster, create a new namespace for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
-
-If you are using the CLI, create a new project by the following command:
-```
-kubectl create namespace <NAMESPACE>
-```
-{:codeblock}
-
-Replace `<NAMESPACE>` with the name of your project.
-
-It is required that you create a namespace for each blockchain network that you deploy with the {{site.data.keyword.blockchainfull_notm}} Platform. For example, if you plan to create different networks for development, staging, and production, then you need to create a unique project for each environment. Each project creates a new Kubernetes namespace. Using a separate namespace provides each network with separate resources and allows you to set unique access policies for each network. You need to follow these deployment instructions to deploy a separate operator and console for each project.
-{: important}
-
-You can also use the CLI to find the available storage classes for your namespace. If you created a new storage class for your deployment, that storage class must be visible in the output in the following command:
-```
-kubectl get storageclasses
-```
-{:codeblock}
+{{pg-k8s-namespace.md}}
 
 ## Add security and access policies
 {: #deploy-k8-scc}
@@ -158,6 +138,7 @@ After you save and edit the file, run the following commands to add the file to 
 kubectl apply -f ibp-psp.yaml -n <NAMESPACE>
 ```
 {:codeblock}
+
 
 ### Apply the ClusterRole
 
@@ -670,10 +651,10 @@ You can use a Certificate Authority or tool to create the TLS certificates for t
 **Console hostname:** ``<NAMESPACE>-ibpconsole-console.<DOMAIN>``  
 **Proxy hostname:** ``<NAMESPACE>-ibpconsole-proxy.<DOMAIN>``
 
-- Replace `<NAMESPACE>` with the name of the OpenShift project that you created.
+- Replace `<NAMESPACE>` with the name of the Kubernetse namespace that you created.
 - Replace `<DOMAIN>` with the name of your cluster domain.
 
-Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your OpenShift project. The TLS certificate and key need to be in PEM format.
+Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your Kubernetes namespace. The TLS certificate and key need to be in PEM format.
 ```
 kubectl create secret generic console-tls-secret --from-file=tls.crt=./tlscert.pem --from-file=tls.key=./tlskey.pem -n <NAMESPACE>
 ```

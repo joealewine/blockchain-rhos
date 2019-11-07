@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-07"
 
 keywords: IBM Blockchain Platform, administrate, add user, remove user, password, APIs, authentication, view logs
 
@@ -101,7 +101,7 @@ You can view only the console logs if you are logged in as a console administrat
 
 
 
-Component logs can be viewed from the command line by using the [kubectl CLI commands](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/manage_cluster/install_kubectl.html){: external} or through [Kibana](https://www.elastic.co/products/kibana){: external}, which is included in your OpenShift Container Platform.
+Component logs can be viewed from the command line by using the [kubectl CLI commands](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/manage_cluster/install_kubectl.html){: external} or through [Kibana](https://www.elastic.co/products/kibana){: external}.
 
 
 - Use the `kubectl logs` command to view the container logs inside the pod. Follow the instructions to [Install the kubectl cli](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/manage_cluster/install_kubectl.html){: external} if you have not already done so. If you are unsure of your pod name, run the following command to view your list of pods.
@@ -134,9 +134,9 @@ Component logs can be viewed from the command line by using the [kubectl CLI com
 
 
 
-- Alternatively, you can access the logs from the OpenShift Web Browser.
+- Alternatively, if you are running on OpenShift Container Platform, you can access the logs from the OpenShift Web Browser.
 
-  **Note:** When you view your logs in Kibana, you might receive the response `No results found`. This condition can occur if OpenShift uses your worker node IP address as its hostname. To resolve this problem, remove the filter that begins with `node.hostname.keyword` at the top of the panel and the logs will become visible.
+  **Note:** When you view your logs in Kibana, you might receive the response `No results found`. This condition can occur if your cluster uses your worker node IP address as its hostname. To resolve this problem, remove the filter that begins with `node.hostname.keyword` at the top of the panel and the logs will become visible.
 
 
 ### Viewing your smart contract container logs

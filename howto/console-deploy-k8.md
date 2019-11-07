@@ -24,7 +24,7 @@ subcollection: blockchain-rhos
 # Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #deploy-k8}
 
-You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.1 onto a Kubernetes cluster that was deployed using a number of Kubernetes distributions. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.1 on any x86_64 Kubernetes cluster running at v1.11 or higher. Use these instructions if you are using distrbutions such as Rancher or {{site.data.keyword.cloud_notm}} Private. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 {:shortdesc}
 
 ## Resources required
@@ -76,6 +76,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the Kubectl CLI.
 
+3. If you are not running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private then you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.
 
 ## Log in to your cluster
 {: #deploy-k8-login}
@@ -84,22 +85,43 @@ Before you can complete the next steps, you need to log in to your cluster by us
 
 If you are using {{site.data.keyword.cloud_notm}} Private, you can log in to your cluster by using the following command:
 
-  ```
-  cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
-  ```
+```
+cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
+```
 
-{{pg-k8s-namespace.md}}
+## Create a new namespace
+{: #deploy-k8-namespace}
+
+After you connect to your cluster, create a new namespace for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
+
+If you are using the CLI, create a new namespace by the following command:
+```
+kubectl create namespace <NAMESPACE>
+```
+{:codeblock}
+
+Replace `<NAMESPACE>` with the name of your namespace.
+
+It is required that you create a namespace for each blockchain network that you deploy with the {{site.data.keyword.blockchainfull_notm}} Platform. For example, if you plan to create different networks for development, staging, and production, then you need to create a unique namespace for each environment. Using a separate namespace provides each network with separate resources and allows you to set unique access policies for each network. You need to follow these deployment instructions to deploy a separate operator and console for each namespace.
+{: important}
+
+You can also use the CLI to find the available storage classes for your namespace. If you created a new storage class for your deployment, that storage class must be visible in the output in the following command:
+```
+kubectl get storageclasses
+```
+{:codeblock}
+
 
 ## Add security and access policies
 {: #deploy-k8-scc}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your project. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies for your project. You must save these files to your local system and then add them your project by using the Kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
+The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the Kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
 ### Apply the Pod Security Policy
 
 Copy the PodSecurityPolicy object below and save it to your local system as `ibp-psp.yaml`.
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -133,18 +155,17 @@ spec:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your project. Replace `<NAMESPACE>` with your project.
+After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your namespace. Replace `<NAMESPACE>` with your namespace.
 ```
 kubectl apply -f ibp-psp.yaml -n <NAMESPACE>
 ```
 {:codeblock}
 
-
 ### Apply the ClusterRole
 
 Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. This file defines the required ClusterRole for the PodSecurityPolicy.
 
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -214,17 +235,17 @@ rules:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your project.
+After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your namespace.
 ```
-oc apply -f ibp-clusterrole.yaml -n <NAMESPACE>
+kubectl apply -f ibp-clusterrole.yaml -n <NAMESPACE>
 ```
 {:codeblock}
 
 ### Apply the ClusterRoleBinding
 
-Copy the following text to a file on your local system and save the file as `ibp-clusterrolebinding.yaml`. This file defines the ClusterRoleBinding. Edit the file and replace `<NAMESPACE>` with the name of your project.
+Copy the following text to a file on your local system and save the file as `ibp-clusterrolebinding.yaml`. This file defines the ClusterRoleBinding. Edit the file and replace `<NAMESPACE>` with the name of your namespace.
 
-```
+```yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -240,18 +261,20 @@ roleRef:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your project.
+After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your namespace.
 ```
-oc apply -f ibp-clusterrolebinding.yaml -n <NAMESPACE>
+kubectl apply -f ibp-clusterrolebinding.yaml -n <NAMESPACE>
 ```
 {:codeblock}
 
-## Create the role binding
+### Create the role binding
 
 After applying the policies, your must grant your service account the required level of permissions to deploy your console. Run the following command with the name of your target namespace:
 ```
 kubectl -n <NAMESPACE> create rolebinding ibp-operator-rolebinding --clusterrole=ibp-operator --group=system:serviceaccounts:<NAMESPACE>
 ```
+{:codeblock}
+
 
 ## Create a secret for your entitlement key
 {: #deploy-k8-docker-registry-secret}
@@ -273,114 +296,14 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform operator
 {: #deploy-k8-operator}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your project by using the kubectl CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
+The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your namespace by using the kubectl CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
 Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will apply a different resource file depending on whether you are using open source Kubernetes and Rancher, or whether you are using {{site.data.keyword.cloud_notm}} Private.
 
 
-**Operator file for Kubernetes v1.11 or higher**
-```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ibp-operator
-  labels:
-    release: "operator"
-    helm.sh/chart: "ibm-ibp"
-    app.kubernetes.io/name: "ibp"
-    app.kubernetes.io/instance: "ibpoperator"
-    app.kubernetes.io/managed-by: "ibp-operator"
-spec:
-  replicas: 1
-  strategy:
-    type: "Recreate"
-  selector:
-    matchLabels:
-      name: ibp-operator
-  template:
-    metadata:
-      labels:
-        name: ibp-operator
-        release: "operator"
-        helm.sh/chart: "ibm-ibp"
-        app.kubernetes.io/name: "ibp"
-        app.kubernetes.io/instance: "ibpoperator"
-        app.kubernetes.io/managed-by: "ibp-operator"
-      annotations:
-        productName: "IBM Blockchain Platform"
-        productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.1"
-    spec:
-      hostIPC: false
-      hostNetwork: false
-      hostPID: false
-      serviceAccountName: default
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: beta.kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-      imagePullSecrets:
-        - name: docker-key-secret
-      containers:
-        - name: ibp-operator
-          image: cp.icr.io/cp/ibp-operator:2.1.1-20191104-amd64
-          command:
-          - ibp-operator
-          imagePullPolicy: Always
-          securityContext:
-            privileged: false
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-            runAsUser: 1001
-            capabilities:
-              drop:
-              - ALL
-              add:
-              - CHOWN
-              - FOWNER
-          livenessProbe:
-            tcpSocket:
-              port: 8383
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-          readinessProbe:
-            tcpSocket:
-              port: 8383
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            periodSeconds: 5
-          env:
-            - name: WATCH_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: OPERATOR_NAME
-              value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "false"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 200Mi
-            limits:
-              cpu: 100m
-              memory: 200Mi
-```
+- **Operator file for Kubernetes v1.11 or higher:**
 
-**Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1**
-
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -481,9 +404,110 @@ spec:
               memory: 200Mi
 ```
 
+- **Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1:**  
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ibp-operator
+  labels:
+    release: "operator"
+    helm.sh/chart: "ibm-ibp"
+    app.kubernetes.io/name: "ibp"
+    app.kubernetes.io/instance: "ibpoperator"
+    app.kubernetes.io/managed-by: "ibp-operator"
+spec:
+  replicas: 1
+  strategy:
+    type: "Recreate"
+  selector:
+    matchLabels:
+      name: ibp-operator
+  template:
+    metadata:
+      labels:
+        name: ibp-operator
+        release: "operator"
+        helm.sh/chart: "ibm-ibp"
+        app.kubernetes.io/name: "ibp"
+        app.kubernetes.io/instance: "ibpoperator"
+        app.kubernetes.io/managed-by: "ibp-operator"
+      annotations:
+        productName: "IBM Blockchain Platform"
+        productID: "54283fa24f1a4e8589964e6e92626ec4"
+        productVersion: "2.1.1"
+    spec:
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      imagePullSecrets:
+        - name: docker-key-secret
+      containers:
+        - name: ibp-operator
+          image: cp.icr.io/cp/ibp-operator:2.1.1-20191104-amd64
+          command:
+          - ibp-operator
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 1001
+            capabilities:
+              drop:
+              - ALL
+              add:
+              - CHOWN
+              - FOWNER
+          livenessProbe:
+            tcpSocket:
+              port: 8383
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          readinessProbe:
+            tcpSocket:
+              port: 8383
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 5
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "ibp-operator"
+            - name: ISOPENSHIFT
+              value: "false"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+```
+
 If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
-Then, use the `kubectl` CLI to add the custom resource to your project.
+Then, use the `kubectl` CLI to add the custom resource to your namespace.
 
 ```
 kubectl apply -f ibp-operator.yaml -n <NAMESPACE>
@@ -503,7 +527,7 @@ When the operator is running on your namespace, you can apply a custom resource 
 
 Save the custom resource definition below as `ibp-console.yaml` on your local system. If you changed the name of the entitlement key secret, then you need to edit the field of `name: docker-key-secret`.
 
-```
+```yaml
 apiVersion: ibp.com/v1alpha1
 kind: IBPConsole
 metadata:
@@ -516,9 +540,9 @@ spec:
   image:
     imagePullSecret: "docker-key-secret"
   networkinfo:
+    domain: <DOMAIN>
     consolePort: <CONSOLE_PORT>
     proxyPort: <PROXY_PORT>
-    domain: <DOMAIN>
   storage:
     console:
       class: default
@@ -553,7 +577,7 @@ kubectl apply -f ibp-console.yaml -n <NAMESPACE>
 ```
 {:codeblock}
 
-Replace `<NAMESPACE>` with the name of your project. Before you install the console, you might want to review the advanced deployment options in the next section. The console can take a few minutes to deploy.
+Replace `<NAMESPACE>` with the name of your namespace. Before you install the console, you might want to review the advanced deployment options in the next section. The console can take a few minutes to deploy.
 
 ### Advanced deployment options
 {: #console-deploy-k8-advanced}
@@ -573,9 +597,9 @@ metadata:
     image:
       imagePullSecret: "docker-key-secret"
     networkinfo:
+      domain: <DOMAIN>
       consolePort: <CONSOLE_PORT>
       proxyPort: <PROXY_PORT>
-      domain: <DOMAIN>
     storage:
       console:
         class: default

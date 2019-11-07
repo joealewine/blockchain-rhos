@@ -225,7 +225,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform requires specific securit
 
 Copy the security context constraint object below and save it to your local system as `ibp-scc.yaml`. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
 
-```
+```yaml
 allowHostDirVolumePlugin: true
 allowHostIPC: true
 allowHostNetwork: true
@@ -280,7 +280,7 @@ scc "blockchain-project" added to: ["system:serviceaccounts:blockchain-project"]
 
 Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. This file defines the required ClusterRole for the PodSecurityPolicy. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
 
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -383,7 +383,7 @@ scc "blockchain-project" added to groups: ["system:serviceaccounts:blockchain-pr
 
 Copy the following text to a file on your local system and save the file as `ibp-clusterrolebinding.yaml`. This file defines the ClusterRoleBinding. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
 
-```
+```yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -437,7 +437,7 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your project by using the OpenShift CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
 Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. Replace `<LOCAL_REGISTRY>` with the url of your local registry. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -557,7 +557,7 @@ When the operator is running on your namespace, you can apply a custom resource 
 
 Save the custom resource definition below as `ibp-console.yaml` on your local system. If you changed the name of the entitlement key secret, then you need to edit the field of `name: docker-key-secret`.
 
-```
+```yaml
 apiVersion: ibp.com/v1alpha1
 kind: IBPConsole
 metadata:
@@ -638,7 +638,7 @@ You also need to make additional edits to the file depending on your choices in 
 - If you changed the name of your Docker key secret, change corresponding value of the `imagePullSecret:` field.
 - If you created a new storage class for your network, provide the storage class that you created to the `class:` field.
 
-If you are deploying your console on a multizone cluster, go to the [advanced deployment options](#console-deploy-ocp-advanced) before you deploy the console.
+If you are deploying your console on a multizone cluster, go to the [advanced deployment options](#console-deploy-ocp-advanced-firewall) before you deploy the console.
 {: important}
 
 After you update the file, you can use the CLI to install the console.
@@ -650,10 +650,10 @@ kubectl apply -f ibp-console.yaml -n <PROJECT_NAME>
 Replace `<PROJECT_NAME>` with the name of your project. Before you install the console, you might want to review the advanced deployment options in the next section. The console can take a few minutes to deploy.
 
 ### Advanced deployment options
-{: #console-deploy-ocp-advanced}
+{: #console-deploy-ocp-advanced-firewall}
 
 You can add fields to the `ibp-console.yaml` file to customize the deployment of your console. You can use the additional deployment options to allocate more resources to your cluster, use zones for high availability in a multizone cluster, or provide your own TLS certificates to the console. The new fields must be added to the `spec:` section of `ibp-console.yaml` with one indent added. For example, if you wanted to add the field `newField: newValue` to `ibp-console.yaml`, your file would resemble the following example:
-```
+```yaml
 apiVersion: ibp.com/v1alpha1
 kind: IBPConsole
 metadata:
@@ -674,7 +674,7 @@ metadata:
 ```
 
 - You need to add the following fields to `ibp-console.yaml` to allocate more resources to your console. Allocating more resources to your console allows you to operate a larger number of nodes or channels.
-  ```
+  ```yaml
   resources:
     console:
       requests:
@@ -714,7 +714,7 @@ metadata:
   {:codeblock}
 
 - If you have labeled the different worker nodes of your cluster with zones, you need to add the zones to the `ibp-console.yaml` file. When zones are provided to the deployment, you can select the zone that a node is deployed to using the console or the APIs. For example, if you are deploying a cluster across the zones of dal10, dal12, and dal13, you would add the following to fields to `ibp-console.yaml`.
-  ```
+  ```yaml
   clusterdata:
     zones:
       - dal10

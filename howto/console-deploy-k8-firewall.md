@@ -531,7 +531,7 @@ ibp-operator   1         1         1            1           1m
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console
 {: #deploy-k8-console}
 
-When the operator is running on your namespace, you can apply a custom resource to start the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster. You can then access the console from your browser. Note that you can deploy only one console per Kubeernetes namespace.
+When the operator is running on your namespace, you can apply a custom resource to start the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster. You can then access the console from your browser. Note that you can deploy only one console per Kubernetes namespace.
 
 Save the custom resource definition below as `ibp-console.yaml` on your local system. If you changed the name of the entitlement key secret, then you need to edit the field of `name: docker-key-secret`.
 

@@ -324,7 +324,7 @@ If you are using a multizone cluster, you can use the APIs to deploy a blockchai
 
 
 
-1. Find the zones where your worker nodes are located on using your Kunbernetes cluster CLI. If you are using OpenShift Container Platform, after you have connected to your cluster using the CLI, use the command `oc get nodes --show-labels` to get the full list of nodes and zones of your cluster. You will be to find the zone that each worker node is located after `failure-domain.beta.kubernetes.io/zone` field under the `LABELS` column.
+1. Find the zones where your worker nodes are located on using your Kubernetes cluster CLI. If you are using OpenShift Container Platform, after you have connected to your cluster using the CLI, use the command `oc get nodes --show-labels` to get the full list of nodes and zones of your cluster. You will be to find the zone that each worker node is located after `failure-domain.beta.kubernetes.io/zone` field under the `LABELS` column.
 
 
 2. To create a node within a specific zone, provide the zone name to the [Create an ordering service](/apidocs/blockchain#create-an-ordering-service) or [Create a peer](/apidocs/blockchain#create-a-peer) API calls using the zone field of the request body. The anti-affinity policy of the {{site.data.keyword.blockchainfull_notm}} Platform console will automatically deploy your component to different worker nodes within each zone based on the resources available.

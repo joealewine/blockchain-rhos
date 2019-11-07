@@ -22,37 +22,19 @@ subcollection: blockchain-rhos
 # About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #console-ocp-about}
 
-The {{site.data.keyword.blockchainfull}} Platform v2.1.1 enables a consortium of organizations to easily build and join a blockchain network on-premises, or on any private, public, or hybrid multicloud using Kubernetes. Customers can deploy their nodes on the cloud platform of their choice and connect to any {{site.data.keyword.blockchainfull_notm}} Platform network, whether it is deployed on your own Kubernetes cluster or with the {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 utilizes Hyperledger Fabric v1.4.3.and supports deployment on multiple Kubernetes distributions.
+The {{site.data.keyword.blockchainfull}} Platform v2.1.1 enables a consortium of organizations to easily build and join a blockchain network on-premises, or on any private, public, or hybrid multicloud using Kubernetes. Customers can deploy their nodes on the cloud platform of their choice and connect to any {{site.data.keyword.blockchainfull_notm}} Platform network, whether it is deployed on your own Kubernetes cluster or with the {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 utilizes Hyperledger Fabric v1.4.3 and supports deployment on multiple Kubernetes distributions.
 {:shortdesc}
-
-## Which {{site.data.keyword.blockchainfull_notm}} Platform offering is right for your business?
-{: #get-started-console-ocp-which-ibp}
-
-{{site.data.keyword.blockchainfull_notm}} Platform provides different offerings that allow you to deploy your network in the environment of your choice. You need to decide if you want to deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 or if you want to use the {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}.
-
-| |{{site.data.keyword.blockchainfull_notm}} Platform for anywhere (v2.1.1) | {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} |
-|----|---|----|
-| Where do you want to deploy the platform?|  Multiple Kubernetes distrubtions on a private, public or hybrid multicloud | An {{site.data.keyword.IBM_notm}} Kubernetes Service cluster on {{site.data.keyword.cloud_notm}} |  
-| How is it billed? |Contact us for pricing |[$0.29 USD per allocated CPU hour](/docs/services/blockchain?topic=blockchain-ibp-saas-pricing)  |
-| Can I connect with Peers in other clouds? |  Yes| Yes |
-| Can my data center be on-premises and behind a firewall? | Yes| No |
-| Can I use a console UI to deploy and manage my blockchain components? | Yes | Yes|
-| Are APIs available for node management? | Yes | Yes|
-| Does the product integrate with the {{site.data.keyword.blockchainfull_notm}} Platform VSCode extension to develop and test my smart contracts?| Yes | Yes|
-| Where can I learn more? |See [About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-offers)  | See [About {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview#ibp-console-overview-capabilities) |
-
-### {{site.data.keyword.blockchainfull_notm}} images for peer, CA, orderer and smart contract containers
-
-Your purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 includes an entitlement to images for peer, CA, ordering service, and smart contract containers that are signed and supported by {{site.data.keyword.IBM_notm}}. The images are based on the open source Hyperledger Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}.
-
-The {{site.data.keyword.blockchainfull_notm}} images do not include the {{site.data.keyword.blockchainfull_notm}} console or operator. This offering is intended for experienced Fabric users with existing Fabric deployments. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images).
 
 ## What {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 offers
 {: #console-ocp-about-offers}
 
-The {{site.data.keyword.blockchainfull}} Platform provides a flexible management platform that runs on Kubernetes. The offering includes an award-winning user interface that allows you to easily deploy blockchain components, build a multicloud blockchain network, and perform network management and maintenance.
+The {{site.data.keyword.blockchainfull}} Platform provides a flexible management platform that runs on Kubernetes. The offering includes an award-winning management console that allows you to easily deploy blockchain components, build a multicloud blockchain network, and perform network management and maintenance.
 
-The {{site.data.keyword.blockchainfull}} Platform console UI can be used to create all of the fundamental components of a Hyperledger Fabric blockchain: a Certificate Authority, an ordering service, and peers, on your local cluster. You can also use your console to operate a distributed multicloud network by importing nodes deployed by other consoles. For more information about the building blocks of Hyperledger Fabric networks, see the [blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-blockchain-component-overview#blockchain-component-overview).
+The {{site.data.keyword.blockchainfull}} Platform console UI can be used to create all of the fundamental components of a Hyperledger Fabric blockchain: a Certificate Authority (CA), an ordering service, and peers, on your local cluster. You can also use your console to operate a distributed multicloud network by importing nodes deployed by other consoles. For more information about the building blocks of Hyperledger Fabric networks, see the [blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-blockchain-component-overview#blockchain-component-overview).
+
+For experienced Hyperledger Fabric customers, a purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 includes an entitlement to the peer, CA, orderer, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. These images are based on the open source Hyperledger Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}.
+
+The {{site.data.keyword.blockchainfull_notm}} images do not include the {{site.data.keyword.blockchainfull_notm}} Platform console or operator. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images).
 
 This {{site.data.keyword.blockchainfull_notm}} Platform release includes the following key features:
 
@@ -79,7 +61,7 @@ This {{site.data.keyword.blockchainfull_notm}} Platform release includes the fol
 **GROW --- Scalability and flexibility**
 - **Choose your compute**. You have the flexibility to decide the amount of CPU, memory, and storage you want to provision in your Kubernetes cluster. For more information, see [How the console interacts with your Kubernetes cluster](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-iks-console-interaction).
 - **Scale** up and down the resources in your Kubernetes cluster, paying for only what you need. For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing).
-- **Disaster recovery and multizone high availability.** This ability duplicates your Kubernetes deployment across zones, enabling high availability (HA) of your components and disaster recovery (DR).
+- **Disaster recovery and multizone high availability (HA).** This ability duplicates your node deployment across zones, enabling zero down time of your components and disaster recovery (DR).
 - **Run Anywhere**. Thanks to the **unified codebase** of the {{site.data.keyword.blockchainfull_notm}} Platform console, it is possible to run your components on any x86_64 Kubernetes v1.11 or higher container platform.
 
 ## Considerations and limitations
@@ -90,8 +72,8 @@ Users of this offering must manage their own security and infrastructure. The {{
 - Persistent storage is required, host-local storage volumes are not supported.  
 - You must have the cluster admin role in order to deploy the product.
 - The console creates nodes based on the Hyperledger Fabric v1.4.3 node images.
-- You can deploy only one {{site.data.keyword.blockchainfull_notm}} Platform console per Kubernetes namespace. If you plan to create multiple blockchain networks, for example to create different environments for development, staging, and production, you should create a unique project for each environment.
-- You can only import nodes that are exported from other {{site.data.keyword.blockchainfull_notm}} Platform consoles. In order to be able to operate an imported peer or ordering node from the console, you also need to import the associated node's organization MSP definition and administrator identity into your console.
+- You can deploy only one {{site.data.keyword.blockchainfull_notm}} Platform console per Kubernetes namespace. If you plan to create multiple blockchain networks, for example to create different environments for development, staging, and production, you should create a unique project or namespace for each environment.
+- You can only import nodes that are exported from another {{site.data.keyword.blockchainfull_notm}} Platform console. In order to be able to operate an imported peer or ordering node from the console, you also need to import the associated node's organization MSP definition and administrator identity into your console.
 - You cannot upgrade a deployed network from {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud to {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
 - {{site.data.keyword.blockchainfull_notm}} Platform is not supported on OpenShift Online.
 - This offering does not include an entitlement to Red Hat OpenShift.
@@ -135,3 +117,8 @@ Because these components are deployed on your own infrastructure, you are respon
 {: #console-ocp-about-support}
 
 For more information about how to get support on {{site.data.keyword.blockchainfull_notm}} Platform, in addition to free blockchain developer resources and support forums that you can use to troubleshoot problems, see [Getting support](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-support#blockchain-support).
+
+## Next steps
+{: #console-ocp-about-next-steps}
+
+When you are ready to learn how to deploy an instance of the {{site.data.keyword.blockchainfull_notm}} Platform to your Kubernetes cluster see [Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp).

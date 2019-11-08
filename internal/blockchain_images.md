@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-07"
+lastupdated: "2019-11-08"
 
 keywords: IBM Blockchain Platform, images
 
@@ -28,11 +28,16 @@ For experienced Hyperledger fabric customers, {{site.data.keyword.blockchainfull
 
 ## Supported Platforms
 
-The {{site.data.keyword.blockchainfull_notm}} images must be deployed using a container environment on x86 Hardware. The images have been tested on the following deployment platforms:
+The IBM Blockchain images must be deployed using a container environment on x86_64 Hardware. The images have been tested on the following deployment platforms:
 
 - Ubuntu Linux version 18.04.2
+- Red Hat OpenShift 3.11
+- OKD 3.11
+- {{site.data.keyword.cloud_notm}} Private 3.2.1
+- Azure Kubernetes Service
+- Rancher 2.x
 
-The {{site.data.keyword.blockchainfull_notm}} images cannot be deployed on Mac OS or Windows for testing purposes.
+Although you can deploy the {{site.data.keyword.blockchainfull_notm}} images on Mac OS for testing purposes, the permissions on Mac OS might prevent you from instantiating a chaincode.
 
 ## Supported Fabric versions
 

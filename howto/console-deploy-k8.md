@@ -94,7 +94,7 @@ cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
 
 After you connect to your cluster, create a new namespace for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
 
-If you are using the CLI, create a new namespace by the following command:
+If you are using the CLI, create a new namespace by running the following command:
 ```
 kubectl create namespace <NAMESPACE>
 ```
@@ -403,6 +403,7 @@ spec:
               cpu: 100m
               memory: 200Mi
 ```
+{:codeblock}
 
 - **Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1:**  
 
@@ -504,6 +505,7 @@ spec:
               cpu: 100m
               memory: 200Mi
 ```
+{:codeblock}
 
 If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
@@ -553,7 +555,7 @@ spec:
 You need to specify the external endpoint information of the console in the `ibp-console.yaml` file:
 - Replace `<DOMAIN>` with the name of your cluster domain. You need to make sure that this domain is pointed to the load balancer of your cluster.
 
-  If you are using {{site.data.keyword.cloud_notm}} Private, you need replace `<DOMAIN>` to Proxy IP address your cluster. You  can retrieve the value your Proxy IP address from the {{site.data.keyword.cloud_notm}} Private console. **Note:** You will need to be a [Cluster administrator](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/user_management/assign_role.html){: external} to access your proxy IP. Log in to the {{site.data.keyword.cloud_notm}} Private cluster. In the left navigation panel, click **Platform** and then **Nodes** to view the nodes that are defined in the cluster. Click the node with the role `proxy` and then copy the value of the `Host IP` from the table.
+  If you are using {{site.data.keyword.cloud_notm}} Private, you need replace `<DOMAIN>` with the Proxy IP address your cluster. You  can retrieve the value your Proxy IP address from the {{site.data.keyword.cloud_notm}} Private console. **Note:** You need to be a [Cluster administrator](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/user_management/assign_role.html){: external} to access your proxy IP. Log in to the {{site.data.keyword.cloud_notm}} Private cluster. In the left navigation panel, click **Platform** and then **Nodes** to view the nodes that are defined in the cluster. Click the node with the role `proxy` and then copy the value of the `Host IP` from the table.
 
 - Replace: `<CONSOLE_PORT>` with a number between 30000 and 32767.
 - Replace: `<PROXY_PORT>` with a number between 30000 and 32767. Select a different than the port you used for your console port.
@@ -583,7 +585,7 @@ Replace `<NAMESPACE>` with the name of your namespace. Before you install the co
 {: #console-deploy-k8-advanced}
 
 You can add fields to the `ibp-console.yaml` file to customize the deployment of your console. You can use the additional deployment options to allocate more resources to your cluster, use zones for high availability in a multizone cluster, or provide your own TLS certificates to the console. The new fields must be added to the `spec:` section of `ibp-console.yaml` with one indent added. For example, if you wanted to add the field `newField: newValue` to `ibp-console.yaml`, your file would resemble the following example:
-```
+```yaml
 apiVersion: ibp.com/v1alpha1
 kind: IBPConsole
 metadata:
@@ -606,9 +608,10 @@ metadata:
         size: 10Gi
     newField: newValue
 ```
+{:codeblock}
 
 - You need to add the following fields to `ibp-console.yaml` to allocate more resources to your console. Allocating more resources to your console allows you to operate a larger number of nodes or channels.
-  ```
+  ```yaml
   resources:
     console:
       requests:

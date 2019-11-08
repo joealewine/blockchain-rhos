@@ -651,7 +651,7 @@ metadata:
   {:codeblock}
 
 - If you plan to use the console with a multizone Kubernetes cluster, you need to add the zones to the `ibp-console.yaml` file. When zones are provided to the deployment, you can select the zone that a node is deployed to using the console or the APIs. For example, if you are deploying a cluster across the zones of dal10, dal12, and dal13, you would add the following to fields to `ibp-console.yaml`.
-  ```
+  ```yaml
   clusterdata:
     zones:
       - dal10

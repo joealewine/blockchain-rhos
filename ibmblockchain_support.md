@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-11-07"
+lastupdated: "2019-11-08"
 
 keywords: IBM Blockchain Platform, support case, Hyperledger Fabric Community, Cloud tickets, Rocket Chat, dWAnswers
 
@@ -45,6 +45,6 @@ It is recommended to start with [free digital support resources](/docs/services/
 ## Submitting support cases
 {: #blockchain-support-cases}
 
-For issues that are related to {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v210){: external} page.  
+For issues that are related to {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page.  
 
 If you need help with Hyperledger Fabric, or your applications, ensure you make use of the community resources above or engage [{{site.data.keyword.blockchainfull_notm}} Services](https://www.ibm.com/blockchain/services){: external}.

@@ -290,7 +290,7 @@ Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} i
 
 ## Getting support
 
-If you encounter issues that are related to Hyperledger Fabric or the underlying images, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v210){: external} page. When you open a case you will need to select your product, {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1.
+If you encounter issues that are related to Hyperledger Fabric or the underlying images, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page. When you open a case you will need to select your product, {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1.
 
 {{site.data.keyword.IBM_notm}} provides support for issues related to the Hyperledger Fabric code or the steps to download and deploy the images that you can find in this documentation. {{site.data.keyword.IBM_notm}} does not provide support for support for issues that relate to the operation of the images or your underlying infrastructure. Deployment issues due to the specific circumstances of the customer environment will be the customer's responsibility to investigate. If you need assistance with the deployment and management of a Fabric network, use the [{{site.data.keyword.blockchainfull_notm}} Platform 2.1.1](/docs/services/blockchain?topic=blockchain-console-ocp-about#console-ocp-about) offering.
 

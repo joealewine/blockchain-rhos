@@ -34,11 +34,11 @@ This offering includes two deployment options:
 
 **Full platform**
 
-Includes the operator, management console, peer, CA, orderer, and smart contract container images.  The {{site.data.keyword.blockchainfull}} Platform management console can be used to create all of the fundamental components of a Hyperledger Fabric blockchain: a Certificate Authority (CA), an ordering service, and peers, on your local cluster. You can also use your console to operate a distributed multicloud network by importing nodes deployed by other consoles. For more information about the building blocks of Hyperledger Fabric networks, see the [blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-blockchain-component-overview#blockchain-component-overview).
+Includes the operator, management console, peer, CA, orderer, and smart contract container images. The {{site.data.keyword.blockchainfull}} Platform management console can be used to create all of the fundamental components of a Hyperledger Fabric network: a Certificate Authority (CA), an ordering service, and peers, on your local cluster. You can also use your console to operate a distributed multicloud network by importing nodes deployed by other consoles. For more information about the building blocks of Hyperledger Fabric networks, see the [blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-blockchain-component-overview#blockchain-component-overview).
 
 **{{site.data.keyword.blockchainfull_notm}} images**  
 
-For experienced Hyperledger Fabric customers, a purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 includes an entitlement to the peer, CA, orderer, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. These images are based on the open source Hyperledger Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}. The {{site.data.keyword.blockchainfull_notm}} images do not include the {{site.data.keyword.blockchainfull_notm}} Platform management console or operator. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images).
+For experienced Hyperledger Fabric customers, a purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 includes an entitlement to the peer, CA, orderer, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. These images are based on the open source Hyperledger Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}. The {{site.data.keyword.blockchainfull_notm}} Platform management console or operator are not among the images included in this entitlement. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images).
 
 The {{site.data.keyword.blockchainfull_notm}} Platform includes the following key features:
 
@@ -88,7 +88,7 @@ If you are not running the platform on Red Hat OpenShift Container Platform, Red
 
 Your {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 entitlement includes both the full platform and the {{site.data.keyword.blockchainfull_notm}} images.
 
-The entitlement does not include a Kubernetes distribution, you need to procure that separately. And if you plan to use {{site.data.keyword.cloud_notm}} Private, you need to purchase a separate entitlement.
+The entitlement does not include a Kubernetes distribution. You must procure that separately. And if you plan to use {{site.data.keyword.cloud_notm}} Private, you need to purchase a separate entitlement.
 {: note}
 
 After purchasing an entitlement, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. This key is required to deploy the release. Note that if you choose this option you are responsible for provisioning your own Kubernetes cluster.
@@ -98,13 +98,12 @@ For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockch
 ## Considerations and limitations
 {: #console-ocp-about-considerations}
 
-Users of this offering must manage their own security and infrastructure. The {{site.data.keyword.blockchainfull_notm}} Platform does not provision or provide those services. Review these Considerations and limitations before you begin:
-
-- Persistent storage is required, host-local storage volumes are not supported.  
+- Users of this offering must manage their own security and infrastructure. The {{site.data.keyword.blockchainfull_notm}} Platform does not provision or provide those services.
+- Persistent storage is required. Host-local storage volumes are not supported.
 - You must have the cluster admin role in order to deploy the product.
 - The console creates nodes based on the Hyperledger Fabric v1.4.3 node images.
 - You can deploy only one {{site.data.keyword.blockchainfull_notm}} Platform console per Kubernetes namespace. If you plan to create multiple blockchain networks, for example to create different environments for development, staging, and production, you should create a unique project or namespace for each environment.
-- You can only import nodes that are exported from another {{site.data.keyword.blockchainfull_notm}} Platform console. In order to be able to operate an imported peer or ordering node from the console, you also need to import the associated node's organization MSP definition and administrator identity into your console.
+- You can only import nodes that are exported from another {{site.data.keyword.blockchainfull_notm}} Platform console. In order to be able to operate an imported peer or ordering node from the console, you also need to import the associated node's organization MSP definition and administrator identity into your console. Note that while Hyperledger Fabric peers can join channel hosted on an ordering service deployed by an {{site.data.keyword.blockchainfull_notm}} Platform console, the peers cannot be imported and administered using the console.
 - You cannot upgrade a deployed network from {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud to {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
 - {{site.data.keyword.blockchainfull_notm}} Platform is not supported on OpenShift Online.
 - This offering does not include an entitlement to Red Hat OpenShift.

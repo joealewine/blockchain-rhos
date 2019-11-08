@@ -1,8 +1,8 @@
 ---
 
 copyright:
-years: 2018, 2019
-lastupdated: "2019-10-24"
+  years: 2019
+lastupdated: "2019-11-08"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -19,38 +19,28 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
-# About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
+# About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #console-ocp-about}
 
-The {{site.data.keyword.blockchainfull}} Platform v2.1.0 enables a consortium of organizations to easily build and join a blockchain network on-premises, or on any private, public, or hybrid multicloud using Red Hat OpenShift. Customers can deploy their nodes on the cloud platform of their choice and connect to any {{site.data.keyword.blockchainfull_notm}} Platform network, whether it is deployed on OpenShift or with the {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 utilizes Hyperledger Fabric v1.4.3 and supports deployment on the OpenShift Container Platform 3.11.
+The {{site.data.keyword.blockchainfull}} Platform v2.1.1 enables a consortium of organizations to easily build and join a blockchain network on-premises, or on any private, public, or hybrid multicloud using Kubernetes. Customers can deploy their nodes on the cloud platform of their choice and connect to any {{site.data.keyword.blockchainfull_notm}} Platform network, whether it is deployed on your own Kubernetes cluster or with the {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 utilizes Hyperledger Fabric v1.4.3 and supports deployment on multiple Kubernetes distributions.
 {:shortdesc}
 
-## Which {{site.data.keyword.blockchainfull_notm}} Platform offering is right for your business?
-{: #get-started-console-ocp-which-ibp}
-
-{{site.data.keyword.blockchainfull_notm}} Platform provides different offerings that allow you to deploy your network in the environment of your choice. You need to decide if you want to deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or if you want to use the {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}.
-
-| |{{site.data.keyword.blockchainfull_notm}} Platform for anywhere (v2.1.0) | {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} |
-|----|---|----|
-| Where do you want to deploy the platform?|  Any x86_64 Red Hat OpenShift Container Platform 3.11 Kubernetes cluster -– private, public or hybrid multicloud | An {{site.data.keyword.IBM_notm}} Kubernetes Service cluster on {{site.data.keyword.cloud_notm}} |  
-| How is it billed? |Contact us for pricing |[$0.29 USD per allocated CPU hour](/docs/services/blockchain?topic=blockchain-ibp-saas-pricing)  |
-| Can I connect with Peers in other clouds? |  Yes| Yes |
-| Can my data center be on-premises and behind a firewall? | Yes| No |
-| Can I use a console UI to deploy and manage my blockchain components? | Yes | Yes|
-| Are APIs available for node management? | Yes | Yes|
-| Does the product integrate with the {{site.data.keyword.blockchainfull_notm}} Platform VSCode extension to develop and test my smart contracts?| Yes | Yes|
-| Where can I learn more? |See [About {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-offers)  | See [About {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview#ibp-console-overview-capabilities) |
-
-
-
-## What {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 offers
+## What {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 offers
 {: #console-ocp-about-offers}
 
-The {{site.data.keyword.blockchainfull}} Platform provides a flexible management platform that runs on Red Hat OpenShift Container Platform 3.11 clusters. The offering includes an award-winning user interface that allows you to easily deploy blockchain components, build a multicloud blockchain network, and perform network management and maintenance. For more information about the OpenShift Container Platform, see the documentation for [OpenShift 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
+The {{site.data.keyword.blockchainfull}} Platform provides a flexible management platform that runs on Kubernetes. The offering includes an award-winning management console that allows you to easily deploy blockchain components, build a multicloud blockchain network, and perform network management and maintenance.
 
-The {{site.data.keyword.blockchainfull}} Platform console UI can be used to create all of the fundamental components of a Hyperledger Fabric blockchain: a Certificate Authority, an ordering service, and peers, on your local cluster. You can also use your console to operate a distributed multicloud network by importing nodes deployed by other consoles. For more information about the building blocks of Hyperledger Fabric networks, see the [blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-blockchain-component-overview#blockchain-component-overview).
+This offering includes two deployment options:  
 
-This {{site.data.keyword.blockchainfull_notm}} Platform release includes the following key features:
+**Full platform**
+
+Includes the operator, management console, peer, CA, orderer, and smart contract container images. The {{site.data.keyword.blockchainfull}} Platform management console can be used to create all of the fundamental components of a Hyperledger Fabric network: a Certificate Authority (CA), an ordering service, and peers, on your local cluster. You can also use your console to operate a distributed multicloud network by importing nodes deployed by other consoles. For more information about the building blocks of Hyperledger Fabric networks, see the [blockchain component overview](/docs/services/blockchain-rhos?topic=blockchain-blockchain-component-overview#blockchain-component-overview).
+
+**{{site.data.keyword.blockchainfull_notm}} images**  
+
+For experienced Hyperledger Fabric customers, a purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 includes an entitlement to the peer, CA, orderer, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. These images are based on the open source Hyperledger Fabric code base and contain a number of enhancements for stability and serviceability. The images are bundled with support from {{site.data.keyword.IBM_notm}}. The {{site.data.keyword.blockchainfull_notm}} Platform management console or operator are not among the images included in this entitlement. For more information, see [{{site.data.keyword.blockchainfull_notm}} images for Hyperledger Fabric](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images).
+
+The {{site.data.keyword.blockchainfull_notm}} Platform includes the following key features:
 
 **BUILD ---- Integrated developer experience**
 - **Easily code** your smart contracts in Node.js, Golang, or Java, write client applications using the new {{site.data.keyword.blockchainfull_notm}} VS Code extension, leverage **SDK integration** with the user interface console, and learn from our rich tutorials and samples.
@@ -75,44 +65,57 @@ This {{site.data.keyword.blockchainfull_notm}} Platform release includes the fol
 **GROW --- Scalability and flexibility**
 - **Choose your compute**. You have the flexibility to decide the amount of CPU, memory, and storage you want to provision in your Kubernetes cluster. For more information, see [How the console interacts with your Kubernetes cluster](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-iks-console-interaction).
 - **Scale** up and down the resources in your Kubernetes cluster, paying for only what you need. For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing).
-- **Disaster recovery and multizone high availability.** This ability duplicates your Kubernetes deployment across zones, enabling high availability (HA) of your components and disaster recovery (DR).
-- **Run Anywhere**. Thanks to the **unified codebase** of the {{site.data.keyword.blockchainfull_notm}} Platform console, it is possible to run your components on any environment supported by the OpenShift Container Platform.
+- **Disaster recovery and multizone high availability (HA).** This ability duplicates your node deployment across zones, enabling zero down time of your components and disaster recovery (DR).
+- **Run Anywhere**. Thanks to the **unified codebase** of the {{site.data.keyword.blockchainfull_notm}} Platform console, it is possible to run your components on any Kubernetes v1.11 or higher container platform on x86_64.
+- **Connect to other Fabric networks**: Join {{site.data.keyword.blockchainfull_notm}} Platform peers to any network running Hyperledger Fabric components. Similarly, you can invite Fabric peers to join channels hosted on an ordering service deployed on the {{site.data.keyword.blockchainfull_notm}} Platform. Note that you will need to use Hyperledger Fabric APIs or the CLI.
 
-## Considerations and limitations
-{: #console-ocp-about-considerations}
-
-Users of this offering must manage their own security and infrastructure. The {{site.data.keyword.blockchainfull_notm}} Platform does not provision or provide those services. Review these Considerations and limitations before you begin:
-
-- This offering does not include an entitlement to Red Hat OpenShift.
-- {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 is only supported on OpenShift Container Platform 3.11, including OpenShift Dedicated. OpenShift version 4.1 and versions before 3.11 are not supported. Also, Red Hat OpenShift Online is not supported.
-- Persistent storage is required, host-local storage volumes are not supported.  
-- You must have the cluster admin role in order to deploy the product.
-- The console creates nodes based on the Hyperledger Fabric v1.4.3 node images.
-- You can deploy only one {{site.data.keyword.blockchainfull_notm}} Platform console per OpenShift project and Kubernetes namespace. If you plan to create multiple blockchain networks, for example to create different environments for development, staging, and production, you should create a unique project for each environment.
-- You can only import nodes that are exported from other {{site.data.keyword.blockchainfull_notm}} Platform consoles. In order to be able to operate an imported peer or ordering node from the console, you also need to import the associated node's organization MSP definition and administrator identity into your console.
-- {{site.data.keyword.blockchainfull_notm}} Platform is not supported on OpenShift Online.
-- There is no free trial at this time. Customers who are interesting in exploring the functionality should try the offering on [{{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview){: external}.
-- You are responsible for the management of health monitoring, security, logging, and resource usage of your blockchain components.
-
-## System prerequisites
+## Supported Platforms
 {: #console-ocp-about-prerequisites}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 can be deployed on any x86_64 architecture that is supported by the Red Hat OpenShift Container Platform 3.11 and meets the [system and environment requirements](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. See this article on [OpenShift Container Platform 3.x Tested Integrations](https://access.redhat.com/articles/2176281){: external}. Scroll down to the bottom of the article to the section titled 'Tested Platforms' to view the list of cloud providers tested on OpenShift Container Platform 3.11.
-The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 is not supported on Linux on Power (ppc64le) POWER8 systems, LinuxONE, or {{site.data.keyword.IBM_notm}} Z.
+The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 can be deployed using the following Kubernetes distributions on the following Platforms:
+
+| Kubernetes distribution | Supported hardware Platforms | Tested Platforms |
+|----|----|----|
+| **Red Hat OpenShift Container Platform (OCP) 3.11 and OpenShift Kubernetes Distribution (OKD) 3.11:** | <ul><li>Any x86_64 hardware platforms that meet the [system and environment requirements](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. </li></ul> | <ul> <li> Red Hat OpenShift Cluster on {{site.data.keyword.cloud_notm}} </li> <li> Azure Kubernetes Service (AKS) <br><br> See this article on [OpenShift Container Platform 3.x Tested Integrations](https://access.redhat.com/articles/2176281){: external}. Scroll down to the bottom of the article to the section titled 'Tested Platforms' to view the list of cloud providers tested on OpenShift Container Platform 3.11. </li></ul>
+| **{{site.data.keyword.cloud_notm}} Private 3.2.1** | <ul><li>x86_64</li><li>LinuxOne on s390x</li></ul>| <ul><li>Intel (x86)</li><li>LinuxOne (s390z)</ul>|
+| **Kubernetes v1.11 and higher** | <ul><li>x86_64 </li></ul> | <ul><li>Kubernetes</li> <br>The platform has also been tested on Rancher v2.3.2 and Azure Kubernetes Service (AKS).</ul>|
+
+If you are not running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private then you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.
+{: note}
 
 ## License and pricing
 {: #console-ocp-about-license}
 
-{{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 is purchased as a stand-alone entitlement. After purchasing, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. This key is required to deploy the release. Note that if you choose this option you are responsible for provisioning your own Kubernetes cluster compatible with the OpenShift Container Platform 3.11.
+Your {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 entitlement includes both the full platform and the {{site.data.keyword.blockchainfull_notm}} images.
+
+The entitlement does not include a Kubernetes distribution. You must procure that separately. And if you plan to use {{site.data.keyword.cloud_notm}} Private, you need to purchase a separate entitlement.
+{: note}
+
+After purchasing an entitlement, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. This key is required to deploy the release. Note that if you choose this option you are responsible for provisioning your own Kubernetes cluster.
 
 For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing).
 
-## Installing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0
+## Considerations and limitations
+{: #console-ocp-about-considerations}
+
+- Users of this offering must manage their own security and infrastructure. The {{site.data.keyword.blockchainfull_notm}} Platform does not provision or provide those services.
+- Persistent storage is required. Host-local storage volumes are not supported.
+- You must have the cluster admin role in order to deploy the product.
+- The console creates nodes based on the Hyperledger Fabric v1.4.3 node images.
+- You can deploy only one {{site.data.keyword.blockchainfull_notm}} Platform console per Kubernetes namespace. If you plan to create multiple blockchain networks, for example to create different environments for development, staging, and production, you should create a unique project or namespace for each environment.
+- You can only import nodes that are exported from another {{site.data.keyword.blockchainfull_notm}} Platform console. In order to be able to operate an imported peer or ordering node from the console, you also need to import the associated node's organization MSP definition and administrator identity into your console. Note that while Hyperledger Fabric peers can join channel hosted on an ordering service deployed by an {{site.data.keyword.blockchainfull_notm}} Platform console, the peers cannot be imported and administered using the console.
+- You cannot upgrade a deployed network from {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud to {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
+- {{site.data.keyword.blockchainfull_notm}} Platform is not supported on OpenShift Online.
+- This offering does not include an entitlement to Red Hat OpenShift.
+- There is no free trial at this time. Customers who are interesting in exploring the functionality should try the offering on [{{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview){: external}.
+- You are responsible for the management of health monitoring, security, logging, and resource usage of your blockchain components.
+
+## Installing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #console-ocp-about-install}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment of your nodes. When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform license from Passport Advantage Online, you receive a token that provides you access to {{site.data.keyword.IBM_notm}} Entitlement registry. You can use your token with the commands and files that are provided in the installation guide to automatically download the Docker images and start the operator and console on your cluster. When you are ready to get started, got to [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp).
+The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment of your nodes. When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform license from Passport Advantage Online, you receive a token that provides access to {{site.data.keyword.IBM_notm}} Entitlement registry. You can use your token with the commands and files that are provided in the installation guide to automatically download the Docker images and start the operator and console on your cluster. When you are ready to get started, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp) if you are deploying the Platform on the OpenShift Container Platform, or if you are deploying on other Kubernetes distributions, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
 
-You can also deploy the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without having access to the public internet.
+It is also possible to deploy the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without having access to the public internet. If you are running on OpenShift Container Platform, see [Deploying IBM Blockchain Platform v2.1.1 behind a firewall](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp-firewall). Otherwise, for other Kubernetes distributions see [Deploying IBM Blockchain Platform v2.1.1 behind a firewall](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8-firewall).
 
 ## Security Considerations
 {: #console-ocp-about-security}
@@ -123,3 +126,8 @@ Because these components are deployed on your own infrastructure, you are respon
 {: #console-ocp-about-support}
 
 For more information about how to get support on {{site.data.keyword.blockchainfull_notm}} Platform, in addition to free blockchain developer resources and support forums that you can use to troubleshoot problems, see [Getting support](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-support#blockchain-support).
+
+## Next steps
+{: #console-ocp-about-next-steps}
+
+When you are ready to learn how to deploy an instance of the {{site.data.keyword.blockchainfull_notm}} Platform to your Kubernetes cluster see [Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp).

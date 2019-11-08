@@ -3,7 +3,7 @@
 copyright:
   years: 2019
 
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-08"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft, join a network, system channel
 
@@ -31,7 +31,7 @@ subcollection: blockchain-rhos
 
 
 
-If you have not already deployed your {{site.data.keyword.blockchainfull_notm}} Platform console to a Red Hat OpenShift Container Platform , see [Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp).  
+If you have not already deployed your {{site.data.keyword.blockchainfull_notm}} Platform console to a Kubernetes cluster, see [Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp).  
 
 You need to pay close attention to the resources at your disposal when you choose to deploy nodes and create channels. It is your responsibility to manage your Kubernetes cluster and deploy additional resources if necessary. For more information about component sizings and how the console interacts with your Kubernetes Service cluster, see [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-iks-console-interaction).
 
@@ -47,7 +47,7 @@ You are currently on the second part of our three-part tutorial series. This tut
 
 You can use the steps in these tutorials to build a network with multiple organizations in one cluster for the purposes of development and testing. Use the **Build a network** tutorial if you want to form a blockchain consortium by creating an ordering service and adding organizations. Use the **Join a network** tutorial to connect a peer to the network. Following the tutorials with different consortium members allows you to create a truly **distributed** blockchain network.
 
-This tutorial is meant to show how to join a peer to an **existing** network. It presumes that an ordering service has already been created in your or on another {{site.data.keyword.blockchainfull_notm}} Platform cluster. If you don't have an existing network to join, visit the [Build a network tutorial](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network) to learn how to create one. The **Join a network** tutorial takes you through the steps to create the following `Org2` blockchain components, highlighted in the blue box:
+This tutorial is meant to show how to join a peer to an **existing** network. It presumes that an ordering service has already been created using another {{site.data.keyword.blockchainfull_notm}} Platform console (it is possible to join peers created in the {{site.data.keyword.blockchainfull_notm}} Platform to any network running Hyperledger Fabric based components using the Fabric APIs or the CLI, but we will not show that process here). If you don't have an existing network to join, visit the [Build a network tutorial](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network) to learn how to create one. The **Join a network** tutorial takes you through the steps to create the following `Org2` blockchain components, highlighted in the blue box:
 ![Join network structure](../images/ibp2-join-network.svg "Join network structure"){: caption="Figure 1. Join network structure" caption-side="bottom"}  
 
 Perform the steps in the **Join a network** tutorial to create the following components and complete the following actions:
@@ -142,8 +142,8 @@ Once you have associated the CA admin, you can use the CA tile to create these i
 
 1. Click the `Org2 CA` tile and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
 2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `org2admin` and a **secret** of `org2adminpw`. Then set the `Type` for this identity as  `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type). Ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
-4. For the purpose of this tutorial, we do not need to use **Add Attribute**. If you want to learn more about identity attributes, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register).
-5. After the organization admin has been registered, repeat this same process for the identity of the peer (also using the `Org2 CA`). For the peer identity, give an enroll ID of `peer2` and a secret of `peer2pw`. This is a node identity, so select `peer` as the **Type**. Click the box that says **Use root affiliation** and ignore **Maximum enrollments**. Then, on the next panel, do not assign any **Attributes**, as before.
+3. For the purpose of this tutorial, we do not need to use **Add Attribute**. If you want to learn more about identity attributes, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register).
+4. After the organization admin has been registered, repeat this same process for the identity of the peer (also using the `Org2 CA`). For the peer identity, give an enroll ID of `peer2` and a secret of `peer2pw`. This is a node identity, so select `peer` as the **Type**. Click the box that says **Use root affiliation** and ignore **Maximum enrollments**. Then, on the next panel, do not assign any **Attributes**, as before.
 
 Registering these identities with the CA is only the first step in **creating** an identity. You will not be able to use these identities until they have been **enrolled**. For the `org2admin` identity, this will happen during the creation of the MSP, which we will see in the next step. In the case of the peer, it happens during the creation of the peer.
 {:note}
@@ -165,7 +165,7 @@ Now that we have created the peer's CA and used it to **register** our organizat
 1. Navigate to the **Organizations** tab in the left navigation and click **Create MSP definition**.
 2. Enter `Org2 MSP` as the organization MSP display name and `org2msp` and as the MSP ID. If you want to specify your own MSP ID in this field, make sure to review the instructions in the tool tip.
 3. Under **Root Certificate Authority details**, specify the CA you used to register the identities in the previous step. If this is your first time through this tutorial, you should only see one: `Org2 CA`.
-4. The **Enroll ID** and **Enroll secret** fields below this will auto populate with the enroll ID and secret for the first user that you created with your CA: `admin` and `adminpw`. However, using this identity would make your organization the same identity as your CA identity, which for security reasons is not recommended. Instead, select the enroll ID you created for your organization admin from the drop-down list, `org2admin`, and enter its associated secret, `org2adminpw`. Then, give this identity a display name, `Org2 MSP  admin`. Note: the default display name for this identity is the name of your MSP and the word " admin".  that will be reflected in the default.
+4. The **Enroll ID** and **Enroll secret** fields below this will auto populate with the enroll ID and secret for the first user that you created with your CA: `admin` and `adminpw`. However, using this identity would make your organization the same identity as your CA identity, which for security reasons is not recommended. Instead, select the enroll ID you created for your organization admin from the drop-down list, `org2admin`, and enter its associated secret, `org2adminpw`. Then, give this identity a display name, `Org2 MSP  admin`. Note: the default display name for this identity is the name of your MSP and the word "admin".  that will be reflected in the default.
 5. Click the **Generate** button to enroll this identity as the admin of your organization and export the identity to the Wallet, where it will be used when creating the peer and creating channels.
 6. Click **Export** to export the admin certificates to your file system. As we said above, this identity is not stored in your cluster or managed by {{site.data.keyword.IBM_notm}}. It is only stored in local browser storage. If you change browsers, you will need to import this identity into your Wallet to be able to administer the peer.
 7. Click **Create MSP definition**.
@@ -177,7 +177,7 @@ Now that we have created the peer's CA and used it to **register** our organizat
   | **Create Organization** | Org2 MSP | org2msp |||
   | **Root CA** | Org2 CA ||||
   | **Org Admin Cert** | |  | org2admin | org2adminpw |
-  | **Identity** | Org2 MSP  admin |||||
+  | **Identity** | Org2 MSP admin |||||
 
   *Figure 6. Create the peer organization MSP definition*  
 
@@ -219,12 +219,12 @@ Use your console to perform the following steps:
 4. The **Advanced deployment options** can be safely ignored for purposes of this tutorial. For more information about these options, see the links below.
    * [LevelDB vs CouchDB](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-level-couch)
    * [Multizone high availability](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-ha#ibp-console-ha-multi-zone)
-   * [Using certificates from an external CA](#ibp-console-build-network-third-party-ca)
+   * [Using certificates from an external CA](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca)
 5. Click **Next**.
 6. On the next screen, select `Org2 CA`, as this is the CA you used to register the peer identity. Select the **Enroll ID** for the peer identity that you created for your peer from the drop-down list, `peer2`, and enter its associated **secret**, `peer2pw`. Then, select `Org2 MSP` from the drop-down list and click **Next**.
 7. The next side panel asks for TLS CA information. When you created the CA, a TLSCA was created alongside it. This CA is used to create certificates for the secure communication layer for nodes. Therefore, select the **Enroll ID** for the peer identity that you created for your peer from the drop-down list, `peer2`, and enter the associated **secret**, `peer2pw`. The **TLS Certificate Signing Request (CSR) hostname** is an option available to advanced users who want specify a custom domain name that can be used to address the peer endpoint. Custom domain names are not a part of this tutorial, so leave the **TLS CSR hostname** blank for now.
-9. The last side panel asks you to **Associate an identity** to make it the admin of your peer. For the purpose of this tutorial, make your organization admin, `Org2 MSP Admin`, the admin of your peer as well. It is possible to register and enroll a different identity with the `Org2 CA` and make that identity the admin of your peer, but this tutorial uses the `Org2 MSP Admin` identity.
-10. Review the summary and click **Add peer**.
+8. The last side panel asks you to **Associate an identity** to make it the admin of your peer. For the purpose of this tutorial, make your organization admin, `Org2 MSP Admin`, the admin of your peer as well. It is possible to register and enroll a different identity with the `Org2 CA` and make that identity the admin of your peer, but this tutorial uses the `Org2 MSP Admin` identity.
+9. Review the summary and click **Add peer**.
 
 **Task: Deploying a peer**
 

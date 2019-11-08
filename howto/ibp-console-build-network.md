@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-07"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
@@ -30,7 +30,7 @@ subcollection: blockchain-rhos
 
 
 
-If you have not already deployed your {{site.data.keyword.blockchainfull_notm}} Platform console to a Red Hat OpenShift Container Platform , see [Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp).
+If you have not already deployed your {{site.data.keyword.blockchainfull_notm}} Platform console to a Kubernetes cluster, see [Getting started with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-get-started-console-ocp).
 
 You need to pay close attention to the resources at your disposal when you choose to deploy nodes and create channels. It is your responsibility to manage your Kubernetes cluster and deploy additional resources if necessary. For more information about component sizings and how the console interacts with your Kubernetes  cluster, see [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
 
@@ -158,7 +158,7 @@ Each node or application that you want to create needs a certificate and private
 Once you have associated the CA admin, you can use the CA tile to create these identities by completing the following steps:
 
 1. Click the `Org1 CA` tile and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
-2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `org1admin` and a **secret** of `org1adminpw`. Then set the `Type` for this identity as  `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type).  You can ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
+2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `org1admin` and a **secret** of `org1adminpw`. Then set the `Type` for this identity as `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type).  You can ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
 3. For the purpose of this tutorial, we do not need to use **Add Attribute**. If you want to learn more about identity attributes, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register).
 4. After the organization admin has been registered, repeat this same process for the identity of the peer (also using the `Org1 CA`). For the peer identity, give an enroll ID of `peer1` and a secret of `peer1pw`. This is a node identity, so select `peer` as the **Type**. You can ignore the **Maximum enrollments** field and, on the next panel, do not assign any **Attributes**, as before.
 
@@ -237,12 +237,12 @@ Use your console to perform the following steps:
 4. The **Advanced deployment options** can be safely ignored for purposes of this tutorial. For more information about these options, see the links below.
    * [LevelDB vs CouchDB](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-level-couch)
    * [Multizone high availability](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-ha#ibp-console-ha-multi-zone)
-   * [Using certificates from an external CA](#ibp-console-build-network-third-party-ca)
+   * [Using certificates from an external CA](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca)
 5. Click **Next**.
 6. On the next screen, select `Org1 CA`, as this is the CA you used to register the peer identity. Select the **Enroll ID** for the peer identity that you created for your peer from the drop-down list, `peer1`, and enter its associated **secret**, `peer1pw`. Then, select `Org1 MSP` from the drop-down list and click **Next**.
 7. The next side panel asks for TLS CA information. When you created the CA, a TLSCA was created alongside it. This CA is used to create certificates for the secure communication layer for nodes. Therefore, select the **Enroll ID** for the peer identity that you created for your peer from the drop-down list, `peer1`, and enter the associated **secret**, `peer1pw`. The **TLS Certificate Signing Request (CSR) hostname** is an option available to advanced users who want specify a custom domain name that can be used to address the peer endpoint. Custom domain names are not a part of this tutorial, so leave the **TLS CSR hostname** blank for now.
-9. The last side panel asks you to **Associate an identity** to make it the admin of your peer. For the purpose of this tutorial, make your organization admin, `Org1 MSP Admin  `, the admin of your peer as well. It is possible to register and enroll a different identity with the `Org1 CA` and make that identity the admin of your peer, but this tutorial uses the `Org1 MSP Admin` identity.
-10. Review the summary and click **Add peer**.
+8. The last side panel asks you to **Associate an identity** to make it the admin of your peer. For the purpose of this tutorial, make your organization admin, `Org1 MSP Admin`, the admin of your peer as well. It is possible to register and enroll a different identity with the `Org1 CA` and make that identity the admin of your peer, but this tutorial uses the `Org1 MSP Admin` identity.
+9. Review the summary and click **Add peer**.
 
 **Task: Deploying a peer**
 
@@ -285,13 +285,13 @@ Watch the following [video](http://ibm.biz/BlockchainPlatformSeries3){: external
 
 In this release, distributed ordering services, in which multiple organizations contribute nodes to an ordering service, are not supported. Every ordering node in the ordering service will be administered by a single organization.
 
-The production level ordering service available is a crash fault tolerant (CFT) ordering service based on an implementation of Raft protocol in `etcd`. Raft follows a “leader and follower” model, where a leader node is elected (per channel) and its decisions are replicated by the followers. Raft ordering services should be easier to set up and manage than Kafka-based ordering services, and their design allows different organizations to contribute nodes to a distributed ordering service. For more information about Raft, see [The Ordering Service](https://hyperledger-fabric.readthedocs.io/en/release-1.4/orderer/ordering_service.html#raft){: external}.
+The production level ordering service available is a crash fault tolerant (CFT) ordering service based on an implementation of Raft protocol in `etcd`. Raft follows a “leader and follower” model, where a leader node is selected (per channel) and its decisions are replicated by the followers. Raft ordering services should be easier to set up and manage than Kafka-based ordering services. For more information about Raft, see [The Ordering Service](https://hyperledger-fabric.readthedocs.io/en/release-1.4/orderer/ordering_service.html#raft){: external}.
 
 Currently, the only crash fault tolerant configuration of ordering nodes currently available is **five** nodes. While it is possible to create a crash fault tolerant ordering service with as little as three nodes, this configuration incurs risk. If a node goes down, for example during a maintenance cycle, only two nodes would be left. If another node was lost during this cycle **for any reason**, only one node would left. In that state, a one node ordering service when you started with three, you would no longer have a majority of nodes available, also known as a "quorum". Without a quorum, no transactions can be pushed. The channel would cease to function.
 
 With five nodes, you can lose two nodes and still maintain a quorum, meaning that you can undergo a maintenance cycle while maintaining high availability. As a result,  you  will only have the choice between one node and five nodes. Production networks should choose the five node option, as a one node ordering service is, by definition, not crash fault tolerant.
 
-In this tutorial, we will create a one  node ordering service.
+In this tutorial, we will create a one node ordering service.
 
 ### Creating your ordering service organization CA
 {: #ibp-console-build-network-create-orderer-ca}
@@ -347,9 +347,9 @@ As we did with the peer, we need to register two identities with our ordering se
 Once you have associated the CA admin, you can use the CA tile to create these identities by completing the following steps:
 
 1. Click the `Ordering Service CA` tile in the **Nodes** tab and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
-2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `OSadmin` and a **secret** of `OSadminpw`. Then set the `Type` for this identity as  `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type) .  You can ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
+2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `OSadmin` and a **secret** of `OSadminpw`. Then set the `Type` for this identity as `client` (admin identities should always be registered as `client`, while node identities should always be registered using the `peer` type). You can ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
 3. For the purpose of this tutorial, we do not need to use **Add Attribute**. If you want to learn more about identity attributes, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register).
-4. After the organization admin has been registered, repeat this same process for the identity of the ordering service (also using the `Ordering Service CA`). For the ordering service node identities, give an enroll ID of `OS1` and a secret of `OS1pw`. This is a node identity, so select `peer`  as the **Type**. You can ignore the **Maximum enrollments** field and, on the next panel, do not assign any **Attributes**, as before.
+4. After the organization admin has been registered, repeat this same process for the identity of the ordering service (also using the `Ordering Service CA`). For the ordering service node identities, give an enroll ID of `OS1` and a secret of `OS1pw`. This is a node identity, so select `peer` as the **Type**. You can ignore the **Maximum enrollments** field and, on the next panel, do not assign any **Attributes**, as before.
 
 **Task: Create a CA and register users**
 
@@ -371,7 +371,7 @@ Create your ordering service organization MSP definition and specify the admin i
 1. Navigate to the **Organizations** tab in the left navigation and click **Create MSP definition**.
 2. Enter `Ordering Service MSP` as the organization MSP display name and `osmsp` and as the MSP ID. If you want to specify your own MSP ID in this field, make sure to review the instructions in the tool tip.
 3. Under **Root Certificate Authority details**, select the `Ordering Service CA` that we created.
-4. The **Enroll ID** and **Enroll secret** fields below this might auto populate with the enroll ID of your CA admin identity, `admin`, which for security reasons is not recommended. Instead, select the enroll ID that you created for your organization admin from the drop-down list, `OSadmin`, and enter its associated secret, `OSadminpw`. Then, give this identity a display name, `Ordering Service MSP  admin`. Note: the default display name for this identity is the name of your MSP and the word "Admin". If you select a different name for your MSP, that will be reflected in the default.
+4. The **Enroll ID** and **Enroll secret** fields below this might auto populate with the enroll ID of your CA admin identity, `admin`, which for security reasons is not recommended. Instead, select the enroll ID that you created for your organization admin from the drop-down list, `OSadmin`, and enter its associated secret, `OSadminpw`. Then, give this identity a display name, `Ordering Service MSP admin`. Note: the default display name for this identity is the name of your MSP and the word "Admin". If you select a different name for your MSP, that will be reflected in the default.
 5. Click the **Generate** button to enroll this identity as the admin of your organization and export the identity to the Wallet.
 6. Click **Export** to export the admin certificates to your file system. If you change browsers, you will need to import this identity into your console Wallet to be able to administer the ordering service.
 7. Click **Create MSP definition**.
@@ -383,7 +383,7 @@ Create your ordering service organization MSP definition and specify the admin i
   | **Create Organization** | Ordering Service MSP | osmsp |||
   | **Root CA** | Ordering Service CA ||||
   | **Org Admin Cert** | |  | OSadmin | OSadminpw |
-  | **Identity** | Ordering Service MSP  admin |||||
+  | **Identity** | Ordering Service MSP admin |||||
 
   *Figure 13. Create the ordering service organization MSP definition*
 
@@ -412,11 +412,11 @@ Perform the following steps from your console:
 
 1. On the **Nodes** page, click **Add ordering service**.
 2. Make sure the option to **Create an ordering service** is selected. Then click **Next**.
-3. Give your ordering service a **Display name** of `Ordering Service` and, choose whether you want your ordering service to have one node (sufficient for testing) or five nodes (good for production). Choose **one node**. For the purpose of this tutorial, do not choose the Advanced option to use an external CA for your ordering service, though if you want more information, see [Using certificates from an external CA](#ibp-console-build-network-third-party-ca). Click **Next**.
+3. Give your ordering service a **Display name** of `Ordering Service` and choose whether you want your ordering service to have one node (sufficient for testing) or five nodes (good for production). Choose **one node**. For the purpose of this tutorial, do not choose the Advanced option to use an external CA for your ordering service, though if you want more information, see [Using certificates from an external CA](#ibp-console-build-network-third-party-ca). Click **Next**.
 4. On the next panel, select `Ordering Service CA` as your CA. Then, select the **enroll ID** for the node identity that you created for your ordering service from the drop-down list, `OS1`, and enter the associated **secret**, `OS1pw`. Then, select your MSP, `Ordering Service MSP` from the drop-down list.
 5. The next side panel asks for TLS CA information. When you created the CA, a TLS CA was created alongside it. This CA is used to create certificates for the secure communication layer for nodes. Therefore, select the **enroll ID** for the ordering service identity that you created from the drop-down list, `OS1`, and enter its associated **secret**, `OS1pw`. The **TLS Certificate Signing Request (CSR) hostname** is an option available to advanced users who want specify a custom domain name that can be used to address the ordering service endpoint. Custom domain names are not a part of this tutorial, so leave the **TLS CSR hostname** blank for now.
-6.  On the next panel, you have the opportunity to configure resource allocation for the node. For purposes of this tutorial, you can accept all the defaults and click **Next**. The selections you make here are applied to all five ordering nodes. If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
-7. The **Associate identity** step allows you to choose an admin for your ordering service. Select `Ordering Service MSP  admin` as before and click **Next**.
+6. On the next panel, you have the opportunity to configure resource allocation for the node. For purposes of this tutorial, you can accept all the defaults and click **Next**. The selections you make here are applied to all five ordering nodes. If you want to learn more about how to allocate resources in {{site.data.keyword.cloud_notm}} for your node, see this topic on [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
+7. The **Associate identity** step allows you to choose an admin for your ordering service. Select `Ordering Service MSP admin` as before and click **Next**.
 8. Review the Summary page and click **Add ordering service**.
 
 **Task: Create an ordering service**
@@ -444,7 +444,7 @@ Because only ordering service admins can add peer organizations to the consortiu
 
 Watch the following [video](http://ibm.biz/BlockchainPlatformSeries4){: external} to learn about the process to add the organization to the consortium, create the channel, and join your peer to the channel.
 
- Before attempting these steps, you may experience an error when you click on your ordering service. If so, review the troubleshooting topic [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-troubleshooting#ibp-v2-troubleshooting-accept-tls).
+ Before attempting these steps, you may experience an error when you click your ordering service tile. If so, review the troubleshooting topic [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-troubleshooting#ibp-v2-troubleshooting-accept-tls).
 {: tip}
 
 
@@ -576,15 +576,16 @@ You can skip to **Option 2** if you want to create a new five node ordering serv
 
 Now that you have gathered all the necessary certificates, you are ready to create a peer or ordering service which uses those certificates. Follow these instructions to create the peer or single-node ordering service with certificates from an external CA.
 
-1. On the **Nodes** tab click **Add peer**  or **Add ordering service**.
-2. After entering a display name for the node, select the option to use an external CA.
-3. Step through the panels and upload the files corresponding to the certificate and private key you gathered.
-4. Ensure you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list.
-5. On the last step when you are asked to associate an identity with your peer or ordering service, you need to click **New identity**.
-6. Specify any value as the **Display name** for this identity. The display name will be visible in the Wallet after you create the node.
-7. In the **Certificate** field, upload the file that contains  the **Peer or ordering service admin identity certificate**.
-8. In the **Private key** field, upload the file that contains  the **Peer or ordering service admin identity private key**.
-9. Review the information on the Summary page and click **Add peer** or **Add ordering service**.
+1. On the **Nodes** tab click **Add peer** or **Add ordering service**.
+2. Make sure the option to **Create** the peer or ordering service is selected. Then click **Next**.
+3. After entering a display name for the node, select the option to use an external CA.
+4. Step through the panels and upload the files corresponding to the certificate and private key you gathered.
+5. Ensure you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list.
+6. On the last step when you are asked to associate an identity with your peer or ordering service, you need to click **New identity**.
+7. Specify any value as the **Display name** for this identity. The display name will be visible in the Wallet after you create the node.
+8. In the **Certificate** field, upload the file that contains  the **Peer or ordering service admin identity certificate**.
+9. In the **Private key** field, upload the file that contains  the **Peer or ordering service admin identity private key**.
+10. Review the information on the Summary page and click **Add peer** or **Add ordering service**.
 
 ### Option 2: Create a five node ordering service using certificates from an external CA
 {: #ibp-console-build-network-create-five-node}
@@ -711,8 +712,9 @@ Save this definition as a `JSON` file.
 Now that you have created a JSON file with all of the certificates for the ordering nodes, you are ready to create the ordering service.
 
 1. On the **Nodes** tab click **Add ordering service**.
-2. Enter a single **Display name** for the five ordering nodes. The display name that you provide will be the prefix for each ordering node name and a number will be appended to it.
-3. In **Number of ordering nodes**, select **Five ordering nodes**. Then select **External Certificate Authority configuration** and click **Next**.
+2. Make sure the option to **Create** an ordering service is selected. Then click **Next**.
+3. Enter a single **Display name** for the five ordering nodes. The display name that you provide will be the prefix for each ordering node name and a number will be appended to it.
+4. In **Number of ordering nodes**, select **Five ordering nodes**. Then select **External Certificate Authority configuration** and click **Next**.
 5. Click **Add file** to upload the JSON file that contains all of the certificates.
 6. Select the **Organization MSP** definition that you imported.
 7.  On the next panel, you have the opportunity to configure resource allocation for the nodes. The selections you make here are applied to all five ordering nodes.  If you want to learn more about how to allocate resources to your node, see this topic on [Allocating resources](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).

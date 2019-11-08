@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-08"
 
 keywords: APIs, build a network, authentication, service credentials, API key, API endpoint, IAM access token, Fabric CA client, import a network, generate certificates
 
@@ -32,7 +32,7 @@ This tutorial introduces the generic flow to build a blockchain network with {{s
 ## Prerequisites
 {: #ibp-v2-apis-prereq}
 
-The APIs target your {{site.data.keyword.blockchainfull_notm}} Platform console to authenticate calls and communicate with your nodes. Therefore you must deploy the {{site.data.keyword.blockchainfull_notm}} Platform console before you can start using the {{site.data.keyword.blockchainfull_notm}} Platform console APIs. If you have not yet deployed the console on your cluster, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos/reference?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
+The APIs target your {{site.data.keyword.blockchainfull_notm}} Platform console to authenticate calls and communicate with your nodes. Therefore you must deploy the {{site.data.keyword.blockchainfull_notm}} Platform console before you can start using the {{site.data.keyword.blockchainfull_notm}} Platform console APIs. If you have not yet deployed the console on your cluster, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos/reference?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
 
 To use the APIs, you will need to gather the following information:
 
@@ -241,7 +241,7 @@ curl -X DELETE \
 
 You can also use the API's to create, delete, or edit your blockchain nodes. You can view the complete set of APIs that manage your nodes and console settings in the [{{site.data.keyword.blockchainfull_notm}} Platform API reference](https://cloud.ibm.com/apidocs/blockchain).
 
-Because you are using the APIs to communicate with your console on an OpenShift cluster, you need to substitute the authentication provided by {{site.data.keyword.cloud_notm}} with the API Key provided by your console. Replace the `Bearer Auth` in the API reference with  `-u <api_key>:<api_secret>`. You also need to add a `-k` or ``--insecure`` flag to the command, or download the console TLS certificate using your browser. You can not use the **Try it out** tab to test the APIs for networks deployed on OpenShift.
+Because you are using the APIs to communicate with your console on your Kubernetes, you need to substitute the authentication provided by {{site.data.keyword.cloud_notm}} with the API Key provided by your console. Replace the `Bearer Auth` in the API reference with  `-u <api_key>:<api_secret>`. You also need to add a `-k` or ``--insecure`` flag to the command, or download the console TLS certificate using your browser. You can not use the **Try it out** tab to test the APIs for networks deployed with {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
 
 As an example, the API call below will return information about all of the components that are managed by your console.
 
@@ -252,7 +252,7 @@ curl -X GET \
   -H 'Authorization: Bearer eyJraWQ.....zJPsw
 ```
 
-The same API call would resemble the request below for a console deployed on OpenShift.
+The same API call would resemble the request below for a console deployed with {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
 
 ```
 curl -X GET \
@@ -269,7 +269,7 @@ You can also use the APIs to import and then operate nodes that reside in other 
 ## Limitations
 {: #ibp-v2-apis-limitations}
 
-You can only import CA, peer, and ordering nodes that have been exported from other {{site.data.keyword.blockchainfull_notm}} Platform consoles running on {{site.data.keyword.cloud_notm}}, {{site.data.keyword.cloud_notm}} Private, or the OpenShift Container Platform.
+You can only import CA, peer, and ordering nodes that have been exported from other {{site.data.keyword.blockchainfull_notm}} Platform consoles running on {{site.data.keyword.cloud_notm}}, {{site.data.keyword.cloud_notm}} Private, OpenShift Container Platform, Red Hat Open Kubernetes Distrubution, or any Kubernetes v1.11 or higher container platform on x86_64.
 
 ## Building a network by using APIs
 {: #ibp-v2-apis-build-with-apis}
@@ -324,7 +324,7 @@ If you are using a multizone cluster, you can use the APIs to deploy a blockchai
 
 
 
-1. Find the zones where your worker nodes are located on using the OpenShift CLI. Once you have connected to your cluster using the CLI use the command `oc get nodes --show-labels` to get the full list of nodes and zones of your cluster. You will be to find the zone that each worker node is located after `failure-domain.beta.kubernetes.io/zone` field under the `LABELS` column.
+1. Find the zones where your worker nodes are located on using your Kubernetes cluster CLI. If you are using OpenShift Container Platform, after you have connected to your cluster using the CLI, use the command `oc get nodes --show-labels` to get the full list of nodes and zones of your cluster. You will be to find the zone that each worker node is located after `failure-domain.beta.kubernetes.io/zone` field under the `LABELS` column.
 
 
 2. To create a node within a specific zone, provide the zone name to the [Create an ordering service](/apidocs/blockchain#create-an-ordering-service) or [Create a peer](/apidocs/blockchain#create-a-peer) API calls using the zone field of the request body. The anti-affinity policy of the {{site.data.keyword.blockchainfull_notm}} Platform console will automatically deploy your component to different worker nodes within each zone based on the resources available.

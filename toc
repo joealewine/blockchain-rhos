@@ -66,6 +66,7 @@ IBM Blockchain Platform v2.1.1
 	{: .navgroup-end}
 
 	{: .navgroup id="help"}
+	release-notes.md
 	howto/ibp-v2-troubleshooting.md
 	ibmblockchain_support.md
 	{: .navgroup-end}

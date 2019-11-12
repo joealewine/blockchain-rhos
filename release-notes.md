@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-11"
+lastupdated: "2019-11-12"
 
 
 keywords: release note, latest changes, Hyperledger Fabric
@@ -38,4 +38,4 @@ A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 now incl
 
 **Release of {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0**  
 
-{{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 allows you to deploy the platform on the Red Hat OpenShift Container Platform. {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 can be installed on any x86_64 architecture where Red Hat OpenShift Container Platform 3.11 and includes the console UI.
+{{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 allows you to deploy the platform on the Red Hat OpenShift Container Platform. {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 can be installed on any x86_64 architecture where Red Hat OpenShift Container Platform 3.11 runs and includes the console UI.

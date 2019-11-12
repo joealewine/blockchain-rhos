@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-07"
+lastupdated: "2019-11-12"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
@@ -608,7 +608,7 @@ Using the certificates you gathered above, paste in the corresponding certificat
 You can convert the contents of your certificate file, `<cert.pem>` from `PEM` format into a base64 string by running the following command on your local machine:
 
 ```
-export FLAG=$(if [ "$(uname -s)" == "Linux" ]; then echo "-w 0"; else echo "-b 0"; fi)
+export FLAG=$(if [ "$(uname -s)" == "Linux" ]; then echo "-d 0"; else echo "-b 0"; fi)
 cat <cert.pem> | base64 $FLAG
 ```
 {:codeblock}

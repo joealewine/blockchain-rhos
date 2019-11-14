@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-11-14"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -300,6 +300,7 @@ This error occurs if you have not configured an anchor peer on your channel. Unl
 {: tsCauses}
 
 Use the following steps to [configure anchor peers on your channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-channels-anchor-peers).
+Also, you should verify that you are submitting the transactions against the correct channel and organization msp id.
 {: tsResolve}
 
 ## Why are my node operations failing after I create my peer or ordering service?

@@ -45,6 +45,8 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 | **Ordering node**              | 0.35          | 0.7                   | 100                    |
 | **Console**                    | 1.2           | 2.4                   | 10                     |
 | **Operator**                   | 0.1           | 0.2                   | 0                      |
+{: caption="Table 1. Default resource allocations" caption-side="bottom"}
+
 ** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
 
 ## Storage

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-08"
+lastupdated: "2019-11-14"
 
 keywords: APIs, build a network, authentication, service credentials, API key, API endpoint, IAM access token, Fabric CA client, import a network, generate certificates
 
@@ -372,7 +372,7 @@ You can use the Fabric CA client to operate your CAs. Run the following Fabric C
   The easiest way to get the Fabric CA client is to download all of the Fabric tool binaries directly. Navigate to a directory where you would like to download the binaries with your command line, and fetch them by running the following [Curl](https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html#install-curl){: external} command.
 
   ```
-  curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0 1.4.0 -d -s
+  curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.3 1.4.3 -d -s
   ```
   {:codeblock}
 

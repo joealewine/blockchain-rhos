@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-11"
+lastupdated: "2019-11-14"
 
 keywords: FAQs, can I, upgrade, what version, peer ledger database, supported languages, why do I, regions
 
@@ -57,7 +57,7 @@ Yes. The {{site.data.keyword.blockchainfull_notm}} Platform can be purchased and
 {: #ibp-v2-faq-v2-Hyperledger-Fabric-3-1}
 {: faq}
 
-{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud use Hyperledger Fabric v1.4.3
+{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud use Hyperledger Fabric v1.4.3.
 
 ## What database do the peers use for their ledger?
 {: #ibp-v2-faq-v2-IBP-Overview-1-3}

@@ -267,7 +267,7 @@ git clone https://github.com/hyperledger/fabric-samples.git
 ```
 {:codeblock}
 
-After you download the Fabric Samples, run the following commands to ensure that you are using the version of the samples compatible with Fabric v1.4.3
+After you download the Fabric Samples, run the following commands to ensure that you are using the version of the samples compatible with Fabric v1.4.3.
 
 ```
 cd fabric-samples

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-15"
 
 
 keywords: vs code extension, Visual Studio Code extension, smart contract, development tools
@@ -57,7 +57,7 @@ If you are using Windows, you also must ensure the following:
   - Install the Win32 version into C:\OpenSSL-Win32 on 32-bit systems.
   - Install the Win64 version into C:\OpenSSL-Win64 on 64-bit systems.
 
-**If you installed Node and npm by using a manager such as 'nvm' or 'nodenv', you need to set the default or global version and restart VS Code for the version to be detected by the Prerequisites page.**
+**If you installed Node and npm by using a manager such as 'nvm' or 'nodenv', you need to set the default or global version. You can then restart VS Code for the version to be detected by the Prerequisites page.**
 
 ### Install the extension
 {: #develop-vscode-installing-the-extension}

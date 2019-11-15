@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-14"
+lastupdated: "2019-11-15"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -76,8 +76,8 @@ The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 can be deployed us
 
 | Kubernetes distribution | Supported hardware Platforms | Tested Platforms |
 |----|----|----|
-| **Red Hat OpenShift Container Platform (OCP) 3.11 and OpenShift Kubernetes Distribution (OKD) 3.11:** | <ul><li>Any x86_64 hardware platforms that meet the [system and environment requirements](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. </li></ul> | <ul> <li> Red Hat OpenShift Cluster on {{site.data.keyword.cloud_notm}} </li> <li> Azure Kubernetes Service (AKS) <br><br> See this article on [OpenShift Container Platform 3.x Tested Integrations](https://access.redhat.com/articles/2176281){: external}. Scroll down to the bottom of the article to the section titled 'Tested Platforms' to view the list of cloud providers tested on OpenShift Container Platform 3.11. </li></ul>
-| **{{site.data.keyword.cloud_notm}} Private 3.2.1** | <ul><li>x86_64</li><li>LinuxOne on s390x</li></ul>| <ul><li>Intel (x86)</li><li>LinuxOne (s390z)</ul>|
+| **Red Hat OpenShift Container Platform (OCP) 3.11 and OpenShift Kubernetes Distribution (OKD) 3.11:** | <ul><li>Any x86_64 hardware platforms that meet the [system and environment requirements](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. </li></ul> | <ul> <li> Red Hat OpenShift Cluster on {{site.data.keyword.cloud_notm}} </li> <li> Red Hat OpenShift Cluster on Microsoft Azure  <br><br> See this article on [OpenShift Container Platform 3.x Tested Integrations](https://access.redhat.com/articles/2176281){: external}. Scroll down to the bottom of the article to the section titled 'Tested Platforms' to view the list of cloud providers tested on OpenShift Container Platform 3.11. </li></ul>
+| **{{site.data.keyword.cloud_notm}} Private 3.2.1** | <ul><li>x86_64</li><li>LinuxOne on s390x</li></ul>| <ul><li>Intel (x86)</li><li>LinuxOne (s390x)</ul>|
 | **Kubernetes v1.11 and higher** | <ul><li>x86_64 </li></ul> | <ul><li>Kubernetes</li> <br>The platform has also been tested on Rancher v2.3.2 and Azure Kubernetes Service (AKS).</ul>|
 {: caption="Table 1. Supported Platforms" caption-side="bottom"}
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-14"
+lastupdated: "2019-11-15"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters, firewall, on-premises
 
@@ -92,19 +92,19 @@ docker login --username cp --password <KEY> cp.icr.io
 
 After you log in, use the following command to pull all of the component images of the {{site.data.keyword.blockchainfull_notm}} Platform:
 ```
-docker pull cp.icr.io/cp/ibp-operator:2.1.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-ca-init:2.1.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-init:2.1.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-peer:1.4.3-20191104-amd64
-docker pull cp.icr.io/cp/ibp-orderer:1.4.3-20191104-amd64
-docker pull cp.icr.io/cp/ibp-ca:1.4.3-20191104-amd64
-docker pull cp.icr.io/cp/ibp-dind:1.4.3-20191104-amd64
-docker pull cp.icr.io/cp/ibp-console:2.1.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-grpcweb:2.1.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-utilities:1.4.3-20191104-amd64
-docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-deployer:2.1.1-20191104-amd64
-docker pull cp.icr.io/cp/ibp-fluentd:2.1.1-20191104-amd64
+docker pull cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-ca-init:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-init:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-peer:1.4.3-20191108-amd64
+docker pull cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64
+docker pull cp.icr.io/cp/ibp-ca:1.4.3-20191108-amd64
+docker pull cp.icr.io/cp/ibp-dind:1.4.3-20191108-amd64
+docker pull cp.icr.io/cp/ibp-console:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-grpcweb:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-utilities:1.4.3-20191108-amd64
+docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-deployer:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-fluentd:2.1.1-20191108-amd64
 ```
 {:codeblock}
 
@@ -113,19 +113,19 @@ If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the i
 
 After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
 ```
-docker tag cp.icr.io/cp/ibp-operator:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-ca-init:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-init:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-peer:1.4.3-20191104-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191104-amd64
-docker tag cp.icr.io/cp/ibp-orderer:1.4.3-20191104-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191104-amd64
-docker tag cp.icr.io/cp/ibp-ca:1.4.3-20191104-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191104-amd64
-docker tag cp.icr.io/cp/ibp-dind:1.4.3-20191104-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191104-amd64
-docker tag cp.icr.io/cp/ibp-console:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-grpcweb:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-utilities:1.4.3-20191104-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191104-amd64
-docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-deployer:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191104-amd64
-docker tag cp.icr.io/cp/ibp-fluentd:2.1.1-20191104-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191104-amd64
+docker tag cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-ca-init:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-init:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-peer:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191108-amd64
+docker tag cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191108-amd64
+docker tag cp.icr.io/cp/ibp-ca:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191108-amd64
+docker tag cp.icr.io/cp/ibp-dind:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191108-amd64
+docker tag cp.icr.io/cp/ibp-console:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-grpcweb:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-utilities:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191108-amd64
+docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-deployer:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-fluentd:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191108-amd64
 ```
 {:codeblock}
 
@@ -141,19 +141,19 @@ docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGIS
 
 Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` with the url of your local registry.
 ```
-docker push <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-init:2.1.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-console:2.1.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191104-amd64
-docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191104-amd64
+docker push <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-init:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-console:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191108-amd64
 ```
 {:codeblock}
 
@@ -448,7 +448,7 @@ spec:
         - name: docker-key-secret
       containers:
         - name: ibp-operator
-          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191104-amd64
+          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
           command:
           - ibp-operator
           imagePullPolicy: Always
@@ -553,7 +553,7 @@ spec:
         - name: docker-key-secret
       containers:
         - name: ibp-operator
-          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191104-amd64
+          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
           command:
           - ibp-operator
           imagePullPolicy: Always
@@ -637,15 +637,15 @@ spec:
   image:
       imagePullSecret: docker-key-secret
       consoleInitImage: <LOCAL_REGISTRY>/ibp-init
-      consoleInitTag: 2.1.1-20191104-amd64
+      consoleInitTag: 2.1.1-20191108-amd64
       consoleImage: <LOCAL_REGISTRY>/ibp-console
-      consoleTag: 2.1.1-20191104-amd64
+      consoleTag: 2.1.1-20191108-amd64
       configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
-      configtxlatorTag: 1.4.3-20191104-amd64
+      configtxlatorTag: 1.4.3-20191108-amd64
       couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-      couchdbTag: 2.3.1-20191104-amd64
+      couchdbTag: 2.3.1-20191108-amd64
       deployerImage: <LOCAL_REGISTRY>/ibp-deployer
-      deployerTag: 2.1.1-20191104-amd64
+      deployerTag: 2.1.1-20191108-amd64
   versions:
       ca:
         1.4.3-0:
@@ -653,37 +653,37 @@ spec:
           version: 1.4.3-0
           image:
             caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
-            caInitTag: 2.1.1-20191104-amd64
+            caInitTag: 2.1.1-20191108-amd64
             caImage: <LOCAL_REGISTRY>/ibp-ca
-            caTag: 1.4.3-20191104-amd64
+            caTag: 1.4.3-20191108-amd64
       peer:
         1.4.3-0:
           default: true
           version: 1.4.3-0
           image:
             peerInitImage: <LOCAL_REGISTRY>/ibp-init
-            peerInitTag: 2.1.1-20191104-amd64
+            peerInitTag: 2.1.1-20191108-amd64
             peerImage: <LOCAL_REGISTRY>/ibp-peer
-            peerTag: 1.4.3-20191104-amd64
+            peerTag: 1.4.3-20191108-amd64
             dindImage: <LOCAL_REGISTRY>/ibp-dind
-            dindTag: 1.4.3-20191104-amd64
+            dindTag: 1.4.3-20191108-amd64
             fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
-            fluentdTag: 2.1.1-20191104-amd64
+            fluentdTag: 2.1.1-20191108-amd64
             grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191104-amd64
+            grpcwebTag: 2.1.1-20191108-amd64
             couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-            couchdbTag: 2.3.1-20191104-amd64
+            couchdbTag: 2.3.1-20191108-amd64
       orderer:
         1.4.3-0:
           default: true
           version: 1.4.3-0
           image:
             ordererInitImage: <LOCAL_REGISTRY>/ibp-init
-            ordererInitTag: 2.1.1-20191104-amd64
+            ordererInitTag: 2.1.1-20191108-amd64
             ordererImage: <LOCAL_REGISTRY>/ibp-orderer
-            ordererTag: 1.4.3-20191104-amd64
+            ordererTag: 1.4.3-20191108-amd64
             grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191104-amd64
+            grpcwebTag: 2.1.1-20191108-amd64
   networkinfo:
     domain: <DOMAIN>
     consolePort: <CONSOLE_PORT>

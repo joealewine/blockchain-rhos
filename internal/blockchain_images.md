@@ -99,7 +99,7 @@ To deploy and operate the {{site.data.keyword.blockchainfull_notm}} images, you 
 
 After you download the Fabric Samples repository, you can find the configuration files and binaries that you need to set up a network in the `fabric-samples\config` and `fabric-samples\bin` folders. You can also find example artifacts and scripts for how to set up a network by using Docker Compose in the `fabric-samples\first-network` directory. You learn more about these artifacts and the steps that are involved by reading the accompanying [Build Your First Network](http://hyperledger-fabric.readthedocs.io/en/release-1.4/build_network.html){: external} tutorial.
 
-If you are using the open source configuration files, you need to make the following changes deploy the {{site.data.keyword.blockchainfull_notm}} images:
+If you are using the open source configuration files, you need to make the following changes to deploy the {{site.data.keyword.blockchainfull_notm}} images:
 
 1. For each component, you need to alter the `image` field to use the {{site.data.keyword.blockchainfull_notm}} image instead of the open source image.
 
@@ -171,7 +171,7 @@ orderer-base:
   command: orderer
 ```
 
-To use deploy an ordering node by using the {{site.data.keyword.blockchainfull_notm}} image, change the `image` field to the tag of the {{site.data.keyword.blockchainfull_notm}} image, `cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64`. Accept the license by adding the field of `LICENSE=accept`. You then need to add the `FABRIC_CFG_PATH` environment variable and set the path to the folder where you mount the configuration files. Set the `working_dir` variable to the same path. After your changes, the orderer section would look like the example below:
+To deploy an ordering node by using the {{site.data.keyword.blockchainfull_notm}} image, change the `image` field to the tag of the {{site.data.keyword.blockchainfull_notm}} image, `cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64`. Accept the license by adding the field of `LICENSE=accept`. You then need to add the `FABRIC_CFG_PATH` environment variable and set the path to the folder where you mount the configuration files. Set the `working_dir` variable to the same path. After your changes, the orderer section would look like the example below:
 
 ```yaml
 orderer-base:
@@ -199,7 +199,7 @@ orderer-base:
   command: orderer
 ```
 
-If you are deploying a peer, you can make the same changes to the peer section of the `peer-base.yaml` file. However, you need add the core chaincode variables and specify the builder and runtime environment to the images that you downloaded from {{site.data.keyword.IBM_notm}}. You also need to set `DYNAMICLINK=true` After your changes, the peer section would look like the example below:
+If you are deploying a peer, you can make the same changes to the peer section of the `peer-base.yaml` file. However, you need add the core chaincode variables and specify images that you downloaded from {{site.data.keyword.IBM_notm}} as the chaincode builder and the runtime environment. You also need to set `DYNAMICLINK=true` After your changes, the peer section would look like the example below:
 
 ```yaml
 services:
@@ -231,7 +231,7 @@ services:
     command: peer node start
 ```
 
-The files that are mounted into the peer and orderer containers are specified in the `docker-compose-base.yaml` file. In the `volumes:` section, you can add the following line ``../../config:/etc/hyperledger/fabric`` to mount the peer and orderer configuration files that are located in the `fabric-samples` directory. You need to remove the `PKCS#11` section of the `fabric-samples/config/core.yaml` file. The ledger data folder is mounted in the `/var/hyperledger/production`. We need to change the path to an existing folder to change the permissions. After your changes, `docker-compose-base.yaml` would look like the example below for an ordering node and one of your peers:
+The files that are mounted into the peer and orderer containers are specified in the `docker-compose-base.yaml` file. In the `volumes:` section, you can add the following line ``../../config:/etc/hyperledger/fabric`` to mount the peer and orderer configuration files that are located in the `fabric-samples` directory. You need to remove the `PKCS#11` section of the `fabric-samples/config/core.yaml` file. The ledger data folder is mounted in the `/var/hyperledger/production`. We need to change this path to an existing folder to change the permissions of that folder. After your changes, `docker-compose-base.yaml` would look like the example below for an ordering node and one of your peers:
 
 ```yaml
 orderer.example.com:
@@ -272,13 +272,13 @@ peer0.org1.example.com:
     - 7051:7051
 ```
 
-After you edit the file, you need to change the security permissions of the folders that are mounted to store your certificates and ledger data. Your peer MSP folder and TLS certificates are both stored in the `crypto-config` folder that is created when you run `./byfn.sh generate`. To simplify the deployment, the example also mounts a folder in this directory to store our ledger data. You can run the following commands to generate the crypto material, folders, and then provide those folders the required permissions:
+After you edit the file, you need to change the security permissions of the folders that are mounted to store your certificates and ledger data. Your peer MSP folder and TLS certificates are both stored in the `crypto-config` folder that is created when you run `./byfn.sh generate`. To simplify the deployment, the example also mounts a folder in this directory to store our ledger data. You can run the following commands to generate the crypto material and folders, and then provide those folders the required permissions:
 ```
 ./byfn.sh generate
 chmod -R 777 crypto-config
 ```
 
-If you want to deploy a raft ordering service, you need to make the same edits to the `docker-compose-etcdraft2.yaml` file that you made to the order section of `docker-compose-base.yaml`. You also need to create and change the permissions of their ledger folders.
+If you want to deploy a raft ordering service, you need to make the same edits to the `docker-compose-etcdraft2.yaml` file that you made to the order section of `docker-compose-base.yaml`. You need to create ledger folders for each ordering node and change the permissions of each folder.
 
 After you update the relevant files, you can test that you can deploy your images by running the following command:
 ```

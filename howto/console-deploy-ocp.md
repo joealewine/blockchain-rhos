@@ -42,6 +42,7 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 | **Ordering node**              | 0.35          | 0.7                   | 100                    |
 | **Console**                    | 1.2           | 2.4                   | 10                     |
 | **Operator**                   | 0.1           | 0.2                   | 0                      |
+{: caption="Table 1. Default resource allocations" caption-side="bottom"}
 ** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
 
 If you are deploying the OpenShift platform on {{site.data.keyword.cloud_notm}}, you must create a 4x16 cluster with multiple nodes. This cluster provides sufficient resources to get started by deploying a basic network. Note that one core in OpenShift is equivalent to one CPU (or vCPU) in {{site.data.keyword.blockchainfull_notm}} Platform.

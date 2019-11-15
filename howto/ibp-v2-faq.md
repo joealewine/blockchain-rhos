@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-14"
+lastupdated: "2019-11-15"
 
 keywords: FAQs, can I, upgrade, what version, peer ledger database, supported languages, why do I, regions
 
@@ -36,6 +36,7 @@ subcollection: blockchain-rhos
 - [How can I find the examples and tutorials within the VSCode extension](#ibp-v2-faq-vscode-tutorials)
 - [If service discovery is on, will an endorsement request be routed to any peer on the network?](#ibp-v2-faq-service-discovery)
 - [Do ordering service Raft nodes use Transport Layer Security (TLS) for communication?](#ibp-v2-faq-raft-tls)
+- [Can IBM Blockchain Platform components interoperate with Hyperledger Fabric components on the same network? And vice versa? And what is the support policy for networks that include both {{site.data.keyword.blockchainfull_notm}} Platform components and open source components?](#ibp-v2-faq-interoperability)
 
 
 
@@ -43,21 +44,21 @@ subcollection: blockchain-rhos
 {: #ibp-v2-faq-v2-IBP-Overview-1-7}
 {: faq}
 
-Hyperledger Fabric is a powerful, versatile, pluggable distributed ledger technology capable of addressing a wide variety of use cases across many industries. {{site.data.keyword.blockchainfull_notm}} Platform is built on top of Fabric and includes integrated tools that provide end to end features for developers and network operators to develop, test, operate, monitor, and govern Hyperledger Fabric components by using an intuitive console UI. Quickly deploy an instance and use the streamlined console UI to [build a network](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network), easily [install and instantiate smart contracts](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts), [govern your components](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components), and [govern your channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern). Interested in APIs? See the [{{site.data.keyword.blockchainfull_notm}} Platform API reference](https://cloud.ibm.com/apidocs/blockchain){: external}. With the {{site.data.keyword.blockchainfull_notm}} Platform, it is easy to extend a basic network, work with multicloud solutions, and receive {{site.data.keyword.IBM_notm}} worldwide support when needed. Finally, the {{site.data.keyword.blockchainfull_notm}} Platform provides additional security benefits that are essential for running an enterprise-grade production network.
+Hyperledger Fabric is a powerful, versatile, pluggable, open source, distributed ledger technology capable of addressing a wide variety of use cases across many industries. {{site.data.keyword.blockchainfull_notm}} Platform is built on top of Fabric and includes integrated tools that provide end to end features for developers and network operators to develop, test, operate, monitor, and govern Hyperledger Fabric components by using an intuitive console UI. Quickly deploy an instance and use the streamlined console UI to [build a network](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network), easily [install and instantiate smart contracts](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts), [govern your components](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components), and [govern your channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern). Interested in APIs? See the [{{site.data.keyword.blockchainfull_notm}} Platform API reference](https://cloud.ibm.com/apidocs/blockchain){: external}. With the {{site.data.keyword.blockchainfull_notm}} Platform, it is easy to extend a basic network, work with multicloud solutions, and receive {{site.data.keyword.IBM_notm}} worldwide support when needed. Finally, the {{site.data.keyword.blockchainfull_notm}} Platform provides additional security benefits that are essential for running an enterprise-grade production network.
 
 
 ## Does {{site.data.keyword.blockchainfull_notm}} Platform v2.1.x run on OpenShift on {{site.data.keyword.cloud_notm}}?
 {: #ibp-v2-faq-saas-ocp}
 {: faq}
 
-Yes. The {{site.data.keyword.blockchainfull_notm}} Platform can be purchased and deployed in three ways on OpenShift. [{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](https://cloud.ibm.com/catalog/services/blockchain-platform){: external} is deployed and runs by using the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster){: external}. {{site.data.keyword.blockchainfull_notm}} Platform is also available as a software offering that can be deployed on Red Hat OpenShift and can run in all environments where OpenShift Container Platform  is supported. Read more about it [here](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about). Finally, experienced Hyperledger Fabric customers can download and use the peer, CA, orderer, and smart contract container [images](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images).
+Yes. The {{site.data.keyword.blockchainfull_notm}} Platform can be purchased and deployed in three ways on OpenShift. [{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}](https://cloud.ibm.com/catalog/services/blockchain-platform){: external} is deployed and runs by using the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster){: external}. {{site.data.keyword.blockchainfull_notm}} Platform is also available as a software offering that can be deployed on Red Hat OpenShift and can run in all environments where OpenShift Container Platform (OCP) is supported. Read more about OCP [here](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about). Experienced Hyperledger Fabric customers also have the option to download and use the peer, CA, orderer, and smart contract container [images](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images).
 
 
 ## What version of Hyperledger Fabric is being used with {{site.data.keyword.blockchainfull_notm}} Platform?
 {: #ibp-v2-faq-v2-Hyperledger-Fabric-3-1}
 {: faq}
 
-{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud use Hyperledger Fabric v1.4.3.
+{{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and {{site.data.keyword.blockchainfull_notm}} Platform for Multicloud use Hyperledger Fabric v1.4.3
 
 ## What database do the peers use for their ledger?
 {: #ibp-v2-faq-v2-IBP-Overview-1-3}
@@ -77,29 +78,34 @@ The {{site.data.keyword.blockchainfull_notm}} Platform supports smart contracts 
 
 Yes, you can bring your own certificates if they are issued by a CA that is X.509 compliant. The CA should sign by using ECDSA and the defaults should be set to use P256 curve.
 
-## I am currently using Hyperledger Fabric v1.4 and want to move to {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} or Multicloud. Can I continue to use Raft?
+## I am currently using Hyperledger Fabric v1.4.x and want to move to {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} or Multicloud. Can I continue to use Raft?
 {: #ibp-v2-faq-migrate-raft}
 {: faq}
 
-Yes. The {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and Multicloud use Raft consensus. All of the applications and smart contracts that you are using on Fabric 1.4 are able to work on your {{site.data.keyword.blockchainfull_notm}} Platform network. However, no mechanism exists to migrate your ledger data. Instead, you can reinstall your smart contract packages on your {{site.data.keyword.blockchainfull_notm}} Platform network.
+Yes. The {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}} and Multicloud uses Raft consensus. All of the applications and smart contracts that you are using on Fabric 1.4.x are able to work on your {{site.data.keyword.blockchainfull_notm}} Platform network. However, no mechanism exists to migrate your ledger data from one network to another. Instead, you can reinstall your smart contract packages on your {{site.data.keyword.blockchainfull_notm}} Platform network.
 
 ## How can I find the examples and tutorials within the VSCode extension
 {: #ibp-v2-faq-vscode-tutorials}
 {: faq}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. You can find these tutorials on the extension home page when the extension is first installed. However, you can return to the tutorials and the home page by going to the extensions tab.  For more information, see [Guided tutorials in VS Code](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#develop-vscode-guided-tutorials).
+The {{site.data.keyword.blockchainfull_notm}} Platform extension provides guided tutorials within VS Code to help you get started. You can find these tutorials on the extension home page when the extension is first installed. However, you can return to the tutorials and the home page by going to the extensions tab. For more information, see [Guided tutorials in VS Code](/docs/services/blockchain-rhos?topic=blockchain-rhos-develop-vscode#develop-vscode-guided-tutorials).
 
 ## If service discovery is on, will an endorsement request be routed to any peer on the network?
 {: #ibp-v2-faq-service-discovery}
 {: faq}
 
-Yes, if you have the endorsement policy set to “Any”. However, you do have the opportunity to bind the policy directly to an organization's peers. The service discovery information provided by the peer supplies two pieces of information, `Layouts` and `EndorsersByGroup`. With these two pieces of data the SDK has the ability to send requests to peers in different organizations that meet the endorsement policy requirements. The node.js SDK provides default code that uses the `Layouts` and `EndoresersByGroup`s and sends the requests to the appropriate peers to meet the endorsement policy requirements. This existing logic can be customized to meet the business needs.
+Yes, if you have the endorsement policy set to “Any”. However, you do have the opportunity to bind the policy directly to an organization's peers. The service discovery information provided by the peer supplies two pieces of information, `Layouts` and `EndorsersByGroup`. With these two pieces of data the SDK has the ability to send requests to peers in different organizations that meet the endorsement policy requirements. The node.js SDK provides default code that uses the `Layouts` and `EndoresersByGroup` and sends the requests to the appropriate peers to meet the endorsement policy requirements. This existing logic can be customized to meet the business needs.
 
 ## Do ordering service Raft nodes use Transport Layer Security (TLS) for communication?
 {: #ibp-v2-faq-raft-tls}
 {: faq}
 
 Yes. The Raft ordering service nodes are configured to use TLS communication. TLS is embedded in the trust model of Hyperledger Fabric. By default, server-side TLS is enabled for all communications using TLS certificates. TLS is used to encrypt the communication between your nodes and as well as between your nodes and your applications. TLS prevents man-in-the-middle and session hijacking attacks. All {{site.data.keyword.blockchainfull_notm}} Platform components use TLS to communicate with each other.
+
+## Can IBM Blockchain Platform components interoperate with Hyperledger Fabric components on the same network? And vice versa? And what is the support policy for networks that include both {{site.data.keyword.blockchainfull_notm}} Platform components and open source components?
+{: #ibp-v2-faq-interoperability}
+
+See [Support for IBM Blockchain Platform v2.1.x](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x).
 
 
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-14"
+lastupdated: "2019-11-15"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -62,7 +62,7 @@ This topic describes common issues that can occur when using the {{site.data.key
 The console has been working successfully, but requests have started to fail. For example, after I create an ordering service and open it I see the error: `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details.`
 {: tsSymptoms}
 
-This problem is caused by a bug introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
+This problem can be caused by a bug introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
 {: tsCauses}
 
 To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can upgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser. If this solution does not resolve your problem see [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls).
@@ -82,7 +82,7 @@ When I apply the file, I receive a user forbidden error:
 securitycontextconstraints.security.openshift.io "e-block2" is forbidden: User cannot get securitycontextconstraints.security.openshift.io at the cluster scope: no RBAC policy matched
 ```
 
-This problem occurs when you are not a cluster administrator. You must have a cluster administrator role in apply the security and access policies to your namespace.
+This problem occurs when you are not a cluster administrator. You must have a cluster administrator role and apply the security and access policies to your namespace.
 {: tsCauses}
 
 When I try to apply resource file, I receive a parsing error:
@@ -110,7 +110,7 @@ NAME                            READY     STATUS             RESTARTS   AGE
 ibp-operator-769d94ffbc-w52n6   0/1       ImagePullBackOff   0          32s
 ```
 
-This problem occurs when your deployment cannot pull the {{site.data.keyword.blockchainfull_notm}} Platform images from the IBM Entitlement registry. This can happen because you provided an incorrect name of your secret to the `imagePullSecrets:` field, or if there was a problem with the url or the key that you provided to the entitlement key secret. This error can also occur if you supplied the wrong image tag to the file.
+This problem occurs when your deployment cannot pull the {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement registry. This can happen because you provided an incorrect name of your secret to the `imagePullSecrets:` field, or if there was a problem with the url or the key that you provided to the entitlement key secret. This error can also occur if you supplied the wrong image tag to the file.
 {: tsCauses}
 
 When I try to apply the custom resource file, I receive a parsing error:
@@ -150,11 +150,10 @@ You need to accept the certificate from this url to communicate with your nodes 
 {: #ibp-v2-troubleshooting-status-unavailable}
 {: troubleshoot}
 
-The node status in the tile for the CA,  peer, or ordering node is grey, meaning the status of the node is not available. Ideally, when you hover over any node, the node status should be `Running`.
+A CA, peer, or ordering node has a grey status box, meaning the status of the node is not available. Ideally, when you hover over any node, the node status should be `Running`.
 {: tsSymptoms}
 
-This problem can occur if the node is newly created and the deployment process has not completed. If the node is a CA, then it is likely that the node is not running.
-If the node is a peer or ordering node, this condition occurs when the health checker that runs against the peer or ordering nodes cannot contact the node.  The request for status can fail with a timeout error because the node did not respond within a specific time period, the node could be down, or network connectivity is down.
+This problem can occur if the node is newly created and the deployment process has not completed. If the node is a CA and the status has been grey for more than a few minutes, then it is likely that the deployment process has failed. Peers and ordering nodes take longer to deploy, but this condition can also occur when the health checker that runs against the peer or ordering nodes cannot contact the node. The request for status can fail with a timeout error because the node did not respond within a specific time period, the node could be down, or network connectivity is down.
 {: tsCauses}
 
 If this is a new node, wait a few more minutes for the deployment to complete. You can try reloading the page in your browser to refresh the status. If the node is not new,
@@ -181,7 +180,7 @@ You can resolve this problem by performing the following steps:
  7. From the **Nodes** tab, click **Add Peer** or **Add ordering service** followed by **Import an existing peer** or **Import an existing Ordering service**.
  8. Click **Upload JSON** and browse to the JSON file you just edited. Click **Next**.
  9. Associate the same identity you noted in step three.
- 10. Click **Add peer** or **Add ordering service**.  
+ 10. Click **Add peer** or **Add ordering service**.
 The health checker can now run against the node and report the status of the node.
 {: tsResolve}
 
@@ -191,15 +190,15 @@ The health checker can now run against the node and report the status of the nod
 {: #ibp-console-smart-contracts-troubleshoot-entry1}
 {: troubleshoot}
 
-It is possible you may experience an error when installing, instantiating or upgrading a smart contract.  For example, when you try to install a smart contract on a peer, it fails with the error `An error occurred when installing smart contract on peer.`
+It is possible you may experience an error when installing, instantiating or upgrading a smart contract. For example, when you try to install a smart contract on a peer, it fails with the error `An error occurred when installing smart contract on peer.`
 {: tsSymptoms}
 
 You may receive this error if this version of the smart contract already exists on the peer, or if your peer is out of resources.
 {: tsCauses}
 
-- Open your Kubernetes dashboard and ensure the peer status is `Running`.  
+- Open your Kubernetes dashboard and ensure the peer status is `Running`.
 - Open the peer node and ensure the smart contract version does not already exist on the peer and try again with the proper version.
-- If you are still experiencing problems after the node is up,  [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.  
+- If you are still experiencing problems after the node is up,  [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.
 {: tsResolve}
 
 ## Why is the smart contract that I installed on the peer not listed in the UI?
@@ -219,13 +218,13 @@ In order to view the smart contracts installed on a peer, you need to be a peer 
 {: #ibp-v2-troubleshooting-browser-storage}
 {: troubleshoot}
 
-Your console wallet identities consist of a signing certificate and private key that allow you to manage your blockchain components but they are only stored in your browser local storage. You are responsible for securing and managing these identities. We recommend that you export them to your file system after you create them. Whenever you create a new node, you associate an identity from your console wallet with the node. This admin identity is what allows you to manage the node. When you switch browsers or change to a browser on a different machine, these identities are no longer in your wallet. Therefore, you are unable to manage the components.
+The identities in your wallet consist of a signing certificate and private key that allow you to manage your blockchain components. However, they are only stored in your browser local storage. You are responsible for securing and managing these identities. We recommend that you export them to your file system after you create them. Whenever you create a new node, you associate an identity from your wallet with the node. This admin identity is what allows you to manage the node. When you switch browsers or change to a browser on a different machine, these identities are no longer in your wallet. Therefore, you are unable to manage the components.
 {: tsSymptoms}
 
-One of the new features of {{site.data.keyword.blockchainfull_notm}} Platform is that you are now responsible for securing and managing your certificates. Therefore, they are only persisted in the browser local storage to allow you to manage the component. If you are using a private browser window and then switch to another browser or non-private browser window, the identities that you created will be gone from your console wallet in the new browser session. Therefore, it is required that you export the identities from the console wallet in your private browser session to your file system. You can then import them into your non-private browser session if they are needed. Otherwise, there is no way to recover them.
+One of the features of {{site.data.keyword.blockchainfull_notm}} Platform is that you are now responsible for securing and managing your certificates. Therefore, they are only persisted in the browser local storage to allow you to manage the component. If you are using a private browser window and then switch to another browser or non-private browser window, the identities that you created will be gone from your wallet in the new browser session. Therefore, it is required that you export the identities from the wallet in your private browser session to your file system. You can then import them into your non-private browser session if they are needed. Otherwise, there is no way to recover them.
 {: tsCauses}
 
-- Anytime when you create a new organization MSP definition, you generate keys for an identity that is allowed to administer the organization. Therefore, during that process you must click the **Generate** and then **Export** buttons to store the generated identity in your console wallet and then save it to your file system as a JSON file.
+- Anytime when you create a new organization MSP definition, you generate keys for an identity that is allowed to administer the organization. Therefore, during that process you must click the **Generate** and then **Export** buttons to store the generated identity in your wallet and then save it to your file system as a JSON file.
 - To resolve this problem in your browser, you need to import those identities and associate them with the corresponding node:
   - In the browser where you are experiencing the problem, click the **Wallet** tab followed by **Add identity** to import the JSON file into your wallet.
   - Click **Upload JSON** and browse to the JSON file you exported using the **Add files** button.
@@ -284,7 +283,6 @@ If your session has become inactive, you can try simply refreshing your browser.
 As a best practice, you should have already stored your certificates and identities on your file system. If you happen to be using an incognito window, all the certificates are deleted from the browser local storage when you close the browser. After you log in again you will need to re-import your identities and certificates.
 {: note}
 
-
 ## Why is my first invoke of a smart contract returning the following error: no suitable peers available to initialize from?
 {: #ibp-v2-troubleshooting-smart-contract-anchor-peers}
 {: troubleshoot}
@@ -300,14 +298,14 @@ This error occurs if you have not configured an anchor peer on your channel. Unl
 {: tsCauses}
 
 Use the following steps to [configure anchor peers on your channel](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-channels-anchor-peers).
-Also, you should verify that you are submitting the transactions against the correct channel and organization msp id.
+Also, you should verify that you are submitting the transactions against the correct channel and organization MSP id.
 {: tsResolve}
 
 ## Why are my node operations failing after I create my peer or ordering service?
 {: #ibp-console-build-network-troubleshoot-entry1}
 {: troubleshoot}
 
-It is possible you may experience an error when managing an existing node. When that occurs, it is often useful to consult the node logs.  
+It is possible you may experience an error when managing an existing node. When that occurs, it is often useful to consult the node logs.
 
 For example, when you try to operate the node, the action might fail.
 {: tsSymptoms}
@@ -318,7 +316,7 @@ After creating a new peer or ordering service, depending on your cluster storage
 
 
 
-Check your Kubernetes dashboard and ensure the peer or node status is `Running`. Then try your action again. If you are still experiencing problems after the node is up, [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.  
+Check your Kubernetes dashboard and ensure the peer or node status is `Running`. Then try your action again. If you are still experiencing problems after the node is up, [check your node logs](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-icp-manage#console-icp-manage-node-logs) for errors.
 {: tsResolve}
 
 
@@ -326,13 +324,13 @@ Check your Kubernetes dashboard and ensure the peer or node status is `Running`.
 {: #ibp-console-build-network-troubleshoot-entry2}
 {: troubleshoot}
 
-It is possible you may experience this error under a variety of conditions.
+It is possible to experience this error under a variety of conditions.
 
 The peer log includes `2019-02-06 19:43:24.159 UTC [main] InitCmd -> ERRO 001 Cannot run peer because cannot init crypto, folder “/certs/msp” does not exist`
 {: tsSymptoms}
 
 - This error can occur under the following conditions:
-  - When you created the peer or ordering service organization MSP definition, you specified an enroll ID and secret that corresponds to an identity of type `peer` and not `client`. It must be of type `client`.
+  - When you created the peer or ordering service organization MSP definition, you specified an enroll ID and secret that corresponds to an identity of type `peer` and not `client` or `admin`. It must be of type `client` or `admin`.
   - When you created the peer or ordering service organization MSP definition, you specified an enroll ID and secret that does not match the enroll ID or secret of the corresponding organization admin identity.
   - When you created the peer or ordering service, you specified the enroll ID and secret of an identity that is not type 'peer'.
 

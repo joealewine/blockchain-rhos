@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-14"
+lastupdated: "2019-11-15"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 
@@ -76,7 +76,7 @@ While importing nodes provides the ability to perform many of the actions that c
 Because identities contain private keys, be careful when exporting them to ensure they are handled securely. If a private key is compromised, it can be used to perform malicious actions.
 {: important}
 
-Each {{site.data.keyword.blockchainfull_notm}} Platform component is deployed with the signing certificate of an administrator inside. When actions requiring the permission level of an admin are performed against the component, the singing certificate of the entity attempting the action is checked against the signing certificate inside the node. If they don't match, the action is denied. In this way, these certificates, which are also known as "keys", allow the administrator to operate their components.
+Each {{site.data.keyword.blockchainfull_notm}} Platform component is deployed with the signing certificate of an administrator inside. When actions requiring the permission level of an admin are performed against the component, the signing certificate of the entity attempting the action is checked against the signing certificate inside the node. If they don't match, the action is denied. In this way, these certificates, which are also known as "keys", allow the administrator to operate their components.
 
 If you intend to operate an imported node, you have two options:
 
@@ -103,7 +103,7 @@ To export an identity, open the **Wallet** tab and click on the identity you wan
 
 To import a new identity, open the **Wallet** tab and click **Add identity**. If you want to upload `.pem` certificates manually, click **New identity** and use the fields under **Manual entry** to give the identity a name and to upload the signing certificate and private key of the identity. If you have a JSON that was exported from another console, click **Upload JSON** and then **Add files**, then select the appropriate JSON from your local file system and click **Add identity**. While you will have this option between entering certificates manually or using a JSON for each node, in this topic it is assumed that you have the relevant JSON handy.
 
-After you complete the **Add identity** panel, you can view the new admin identity in your wallet and select to this identity when importing any nodes it is associated with. You will also be able to use this identity when creating new MSPs and components.
+After you complete the **Add identity** panel, you can view the new admin identity in your wallet and select this identity when importing any nodes it is associated with. You will also be able to use this identity when creating new MSPs and components.
 
 ### Importing an organization MSP definition
 {: #ibp-console-import-msp}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-15"
+lastupdated: "2019-11-18"
 
 keywords: IBM Blockchain Platform, images
 
@@ -55,7 +55,7 @@ The images do not include the {{site.data.keyword.blockchainfull_notm}} Platform
 
 ## License and pricing
 
-{{site.data.keyword.blockchainfull_notm}} Platform images can be purchased through an entitlement to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1. After you purchase the platform, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key. You can then use the entitlement key to download the images from the {{site.data.keyword.IBM_notm}} Entitled Registry.
+{{site.data.keyword.blockchainfull_notm}} Platform images can be purchased through an entitlement to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1. After you purchase the platform, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key. You can then use the entitlement key to download the images from the {{site.data.keyword.IBM_notm}} Entitlement Registry.
 
 For more information on the pricing of the images, to the [Pricing](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing) topic.
 
@@ -145,7 +145,7 @@ In addition to using the Fabric tools, you can also use the tools that are provi
 
 We can provide an example of the changes you need to make by updating the `first-network` sample to run the {{site.data.keyword.blockchainfull_notm}} images instead of the community Docker images.
 
-You need to update the `peer-base.yaml` and `docker-compose-base.yaml` that in the `fabric-samples/first-network/base` folder. You can find the orderer section of the `peer-base.yaml` below:
+You need to update the `peer-base.yaml` and `docker-compose-base.yaml` that are in the `fabric-samples/first-network/base` folder. You can find the orderer section of the `peer-base.yaml` below:
 
 ```yaml
 orderer-base:

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-15"
+lastupdated: "2019-11-18"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -16,8 +16,6 @@ subcollection: blockchain-rhos
 {:codeblock: .codeblock}
 {:note: .note}
 {:important: .important}
-{:javascript: data-hd-programlang="javascript"}
-{:java: data-hd-programlang="java"}
 {:tip: .tip}
 {:pre: .pre}
 
@@ -171,7 +169,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   creationTimestamp: null
-  name: ibp-operator
+  name: <NAMESPACE>
 rules:
 - apiGroups:
   - extensions

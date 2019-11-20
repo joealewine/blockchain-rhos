@@ -222,11 +222,11 @@ If you are not using Portworx as your storage solution, you can use the followin
 This example assumes your environment is running with a 1 replica. Currently, replica sets are only supported for CAs.
 {: note}
 
-To find your deployments, run:
+You can find your deployments by running the command:
 
    ```
    kubectl get deployment -n <NAMESPACE>
-   ````
+   ```
    {:codeblock}
 
    where `<NAMESPACE>` can be determined by running the command `kubectl get namespace` and choose the namespace value that begins with `n`.

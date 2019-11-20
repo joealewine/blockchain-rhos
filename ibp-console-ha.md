@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-19"
+lastupdated: "2019-11-20"
 
 keywords: high availability, HA, failures, zone failure, region failure, component failure, worker node failure
 
@@ -207,7 +207,7 @@ If you are using CA replica sets and your PostgreSQL database resides in {{site.
 If you are not using Portworx as your storage solution, you can use the following `kubectl` command to stop the nodes before you take the backup, for example:
 
    ```
-   kubectl scale deployment my-deployment --replicas=0
+   kubectl scale deployment <my-deployment> --replicas=0
    ```
    {:codeblock}
 
@@ -215,10 +215,19 @@ If you are not using Portworx as your storage solution, you can use the followin
    Restart the nodes:
 
    ```
-   kubectl scale deployment my-deployment --replicas=1
+   kubectl scale deployment <my-deployment> --replicas=1
    ```
    {:codeblock}
 
 This example assumes your environment is running with a 1 replica. Currently, replica sets are only supported for CAs.
 {: note}
+
+To find your deployments, run:
+
+   ```
+   kubectl get deployment -n <NAMESPACE>
+   ````
+   {:codeblock}
+
+   where `<NAMESPACE>` can be determined by running the command `kubectl get namespace` and choose the namespace value that begins with `n`.
 

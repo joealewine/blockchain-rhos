@@ -108,6 +108,7 @@ To create the CA that will issue certificates for your first organization, perfo
 
 After you deploy the CA, you need to associate an admin identity. This will allow you to operate your CA and use it to create your organization MSP, register users, and your **peer**.
 
+
 Advanced users may already have their own CA, and not want to create a new CA in the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own external CA instead of creating a new CA here. The CA should sign using ECDSA and the defaults should be set to use P256 curve.See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
 
 ### Associating the CA admin identity
@@ -556,7 +557,7 @@ Instead of using an {{site.data.keyword.blockchainfull_notm}} Platform Certifica
 1. You need to gather the following certificate information and save it to individual files that can be uploaded to the console.   
 **Note:** The certificates inside the files can be in either `PEM` format or `base64 encoded` format.
  * **Peer or ordering service identity certificate** This is the signing certificate from your external CA that the peer or ordering service will use.
- * **Peer or ordering service identity private key**  This is your private key corresponding to the signed certificate from your third-party CA that this peer or ordering service will use.
+ * **Peer or ordering service identity private key**  This is your private key corresponding to the signed certificate from your external CA that this peer or ordering service will use.
  * **Peer or ordering service organization MSP definition** You must manually generate this file using instructions provided in [Manually building an MSP JSON file](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-build-msp).
  * **TLS CA certificate** This is the public signing certificate created by your external TLS CA that will be used by this peer or ordering service.
   * **TLS CA private key** This is the private key corresponding to the signed certificate from your TLS CA that will be used by this peer or ordering service for secure communications with other members on the network.
@@ -565,7 +566,10 @@ Instead of using an {{site.data.keyword.blockchainfull_notm}} Platform Certifica
  * **Peer or ordering service admin identity certificate** This is the signing certificate from your external CA that the admin identity of this peer or ordering service will use. This certificate is also known as your peer or ordering service admin identity key.
  * **Peer or ordering service admin identity private key**  This is the private key corresponding to the signed certificate from your external CA that the admin identity of this peer or ordering service will use.
 
-2. Import the generated peer or ordering service organization MSP definition file into the console, by clicking the **Organizations** tab followed by **Import MSP definition**.
+2. Import the generated peer or ordering service organization MSP definition file into the console, by clicking the **Organizations** tab followed by **Import MSP definition**. 
+
+Because you will be providing the admin certs when you create your nodes, ensure that you check the checkbox **I have an administrator identity for the MSP definition**. If this box is not checked, the MSP will not be listed as an available MSP when you deploy a peer or ordering service.
+{: important}
 
 Now you have the choice of creating a peer or single-node ordering service node, or  a five node ordering service.
 
@@ -580,13 +584,15 @@ Now that you have gathered all the necessary certificates, you are ready to crea
 1. On the **Nodes** tab click **Add peer** or **Add ordering service**.
 2. Make sure the option to **Create** the peer or ordering service is selected. Then click **Next**.
 3. After entering a display name for the node, select the option to use an external CA.
-4. Step through the panels and upload the files corresponding to the certificate and private key you gathered.
-5. Ensure you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list.
-6. On the last step when you are asked to associate an identity with your peer or ordering service, you need to click **New identity**.
-7. Specify any value as the **Display name** for this identity. The display name will be visible in the Wallet after you create the node.
-8. In the **Certificate** field, upload the file that contains  the **Peer or ordering service admin identity certificate**.
-9. In the **Private key** field, upload the file that contains  the **Peer or ordering service admin identity private key**.
-10. Review the information on the Summary page and click **Add peer** or **Add ordering service**.
+4. In the **Certificate** field, upload the `PEM` file that contains  the **Peer or ordering service certificate**.
+5. In the **Private key** field, upload the `PEM` file that contains  the **Peer or ordering service private key**.
+6. Next, when you **Select an MSP** ensure that you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list and click **Next**.
+7. Similarly, upload the TLS certificate `PEM` and TLS private key `PEM` files and click **Next**.
+8. On the last step when you are asked to associate an identity with your peer or ordering service, you need to click **New identity**.
+9. Specify any value as the **Display name** for this identity. The display name will be visible in the Wallet after you create the node.
+10. In the **Certificate** field, upload the file that contains  the **Peer or ordering service admin identity certificate**.
+11. In the **Private key** field, upload the file that contains  the **Peer or ordering service admin identity private key**.
+112. Review the information on the Summary page and click **Add peer** or **Add ordering service**.
 
 ### Option 2: Create a five node ordering service using certificates from an external CA
 {: #ibp-console-build-network-create-five-node}

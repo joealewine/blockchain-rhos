@@ -94,6 +94,7 @@ Perform the following steps from your console:
 
 After you deploy the CA, you will use it when you create your organization MSP, register users, and to create your entry point to a network, the **peer**.
 
+
 Advanced users may already have their own CA, and not want to create a new CA in the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own third-party CA instead of creating new certificates here. The CA should sign using ECDSA and the defaults should be set to use P256 curve. See this topic on [Using a third-party CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
 
 

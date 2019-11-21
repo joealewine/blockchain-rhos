@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-13"
+lastupdated: "2019-11-21"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
@@ -108,7 +108,7 @@ To create the CA that will issue certificates for your first organization, perfo
 
 After you deploy the CA, you need to associate an admin identity. This will allow you to operate your CA and use it to create your organization MSP, register users, and your **peer**.
 
-Advanced users may already have their own CA, and not want to create a new CA in the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own external CA instead of creating a new CA here. The CA should sign using ECDSA and the defaults should be set to use P256 curve. See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
+Advanced users may already have their own CA, and not want to create a new CA in the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own external CA instead of creating a new CA here. The CA should sign using ECDSA and the defaults should be set to use P256 curve.See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
 
 ### Associating the CA admin identity
 {: #ibp-console-build-network-ca-admin}
@@ -303,7 +303,7 @@ The process for creating a CA for an ordering service is identical to creating i
 3. Give this CA a unique display name, `Ordering Service CA`. You're free to reuse the **CA administrator enroll ID** of `admin` and a secret of `adminpw`. As this is a different CA, this identity is distinct from the CA admin identity for created for the `Org1 CA`, even though the ID and secret are identical.The Advanced deployment options can be safely ignored for purposes of this tutorial. For more information on the advanced options see [Building a high availability Certificate Authority (CA)](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca) and the topic on [Resource allocation](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
 5. Review the Summary page, then click **Add Certificate Authority**.
 
-As with the peer, advanced users may already have their own CA and not want to create a new CA using the console. If your existing CA can issue certificates in `X.509` format, you can use your own external CA instead of creating a new one here. See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
+As with the peer, advanced users may already have their own CA and not want to create a new CA using the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own external CA instead of creating new certificates here. See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
 
 ### Associating the CA admin identity
 {: #ibp-console-build-network-orderer-ca-admin}
@@ -544,6 +544,7 @@ After you have created and joined your peer to a channel, you have a basic, thou
 
 You can also create another peer organization by using the [Join a network tutorial](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-join-network#ibp-console-join-network-structure). You can add the second organization to your channel to simulate a distributed network, with two peers that share a single channel ledger.
 
+
 ## Using certificates from an external CA with your peer or ordering service
 {: #ibp-console-build-network-third-party-ca}
 
@@ -727,4 +728,5 @@ You have gathered all of your peer or ordering service certificates from your th
 - If you created the peer node, the next step is to [Create the node that orders transactions](#ibp-console-build-network-create-orderer).
 - If you created the node to join an existing network, the next step is to [Add your organization to list of organizations that can transact](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-join-network#ibp-console-join-network-add-org2).
 - If you created an ordering service, the next step is to [Create a channel](#ibp-console-build-network-create-channel).
+
 

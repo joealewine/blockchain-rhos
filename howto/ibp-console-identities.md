@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-11-21"
 
 keywords: create identities, manage identities, Certificate Authorities, register, enroll, TLS CA, wallet, certificate expiration
 
@@ -217,4 +217,58 @@ Clicking an identity opens a side panel that displays its certificates and priva
 You need to provide the signing certificate of your organization and node admins [to your organization MSP definition](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-create-msp). The nodes or channels that are created by the console uses the certificates from the MSP definition to check who is a valid administrator. As a result, the same signing certificate and private key that you used to add an admin cert to the MSP definition needs to be stored inside your console wallet.
 
 When you use the console to create an orderer or peer, you will encounter an **Associate identity** panel. Select an identity in the wallet whose certificate is also inside your organization MSP definition. You will also need to select an admin identity in the **Associate identity** section when you create or edit a channel. This allows your console to know which identity to use when it communicates with your peers, orderers, and ordering service consortium. The identity that is currently associated with a peer or ordering service is visible on the left side of the node panel, below the name, Node location, and Fabric version.
+
+## Viewing the contents of a signing certificate
+{: #ibp-console-identities-sign-cert}
+
+As a network operator, there may be situations when you need to view the contents of a signing certificate, or sign cert, to debug a problem.
+If you have the certificate `PEM` file, you can run the following openSSL command to print out the certificate contents:
+
+```
+openssl x509 -in <certificate.pem> -text -noout
+```
+{: codeblock}
+
+Replace `<certificate.pem>` with the sign cert file and the output will resemble the following content:
+```
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            68:b9:6d:d3:00:1e:1b:9d:4b:99:1e:ab:ed:05:48:be:28:51:69:3d
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=North Carolina, O=Hyperledger, OU=Fabric, CN=fabric-ca-server
+        Validity
+            Not Before: Nov 20 19:08:00 2019 GMT
+            Not After : Nov 19 19:13:00 2020 GMT
+        Subject: OU=client, OU=org1, OU=department1, CN=user1
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:11:0c:c9:9e:47:d8:38:aa:c7:24:65:90:98:a3:
+                    42:a8:b0:18:3e:03:43:13:ae:64:6a:18:93:6e:06:
+                    23:30:09:c1:93:66:5f:0d:d6:37:1b:a0:c4:e9:cb:
+                    9b:70:63:9a:af:08:20:f2:96:b8:de:3b:c5:6e:58:
+                    a9:9e:fa:d6:de
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                E4:86:14:C1:58:21:D8:6F:B4:79:E5:41:3B:14:9B:3D:C6:36:87:36
+            X509v3 Authority Key Identifier:
+                keyid:70:CA:7D:2E:5A:75:A2:90:27:8C:5D:7D:C7:AF:F1:2C:E1:25:59:70
+
+            1.2.3.4.5.6.7.8.1:
+                {"attrs":{"hf.Affiliation":"org1.department1","hf.EnrollmentID":"user1","hf.Type":"client"}}
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:1a:38:64:47:69:6b:31:e4:96:bc:52:06:71:75:
+         9e:01:57:a4:bd:b0:15:f0:19:c4:23:37:29:14:b1:66:e3:ce:
+         02:20:7a:34:af:7b:fb:65:6c:b8:22:a2:39:78:5d:30:5c:3c:
+         b0:9b:0e:14:d8:76:78:9a:34:2b:bb:d2:97:d4:ce:81
+```   
 

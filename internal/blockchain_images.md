@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-18"
+lastupdated: "2019-11-26"
 
 keywords: IBM Blockchain Platform, images
 
@@ -286,6 +286,8 @@ sudo ./byfn.sh up
 ```
 
 You can use the updates that are provided in this example to deploy the {{site.data.keyword.blockchainfull_notm}} images in the environment of your choice. The Fabric samples that are published by the Hyperledger community are intended to be used only as examples. Do not use the samples as templates for deploying production networks.
+
+
 
 
 

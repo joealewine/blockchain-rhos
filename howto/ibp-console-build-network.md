@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-21"
+lastupdated: "2019-12-03"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
@@ -109,7 +109,7 @@ To create the CA that will issue certificates for your first organization, perfo
 After you deploy the CA, you need to associate an admin identity. This will allow you to operate your CA and use it to create your organization MSP, register users, and your **peer**.
 
 
-Advanced users may already have their own CA, and not want to create a new CA in the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own external CA instead of creating a new CA here. The CA should sign using ECDSA and the defaults should be set to use P256 curve.See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
+Advanced users may already have their own CA, and not want to create a new CA in the console. If your existing CA can issue certificates in `X.509` format, you can use certificates from your own external CA instead of creating a new CA here. The CA should sign using ECDSA and the defaults should be set to use P256 curve. See this topic on [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca) for more information.
 
 ### Associating the CA admin identity
 {: #ibp-console-build-network-ca-admin}
@@ -566,7 +566,7 @@ Instead of using an {{site.data.keyword.blockchainfull_notm}} Platform Certifica
  * **Peer or ordering service admin identity certificate** This is the signing certificate from your external CA that the admin identity of this peer or ordering service will use. This certificate is also known as your peer or ordering service admin identity key.
  * **Peer or ordering service admin identity private key**  This is the private key corresponding to the signed certificate from your external CA that the admin identity of this peer or ordering service will use.
 
-2. Import the generated peer or ordering service organization MSP definition file into the console, by clicking the **Organizations** tab followed by **Import MSP definition**. 
+2. Import the generated peer or ordering service organization MSP definition file into the console, by clicking the **Organizations** tab followed by **Import MSP definition**.
 
 Because you will be providing the admin certs when you create your nodes, ensure that you check the checkbox **I have an administrator identity for the MSP definition**. If this box is not checked, the MSP will not be listed as an available MSP when you deploy a peer or ordering service.
 {: important}

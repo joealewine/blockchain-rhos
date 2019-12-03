@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-18"
+lastupdated: "2019-11-21"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -53,7 +53,7 @@ This topic describes common issues that can occur when using the {{site.data.key
 - [Why does my peer fail to start?](#ibp-console-build-network-troubleshoot-entry2)
 - [Why are my transactions returning an endorsement policy error: signature set did not satisfy policy?](#ibp-v2-troubleshooting-endorsement-sig-failure)
 - [How can I view my smart contract container logs?](#ibp-console-smart-contracts-troubleshoot-entry2)
-- [Why are the transactions I submit from VS Code failing?](#ibp-v2-troubleshooting-anchor-peer)
+- [Why are the transactions I submit from VS Code failing with a No endorsement plan available error?](#ibp-v2-troubleshooting-anchor-peer)
 
 ## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
 {: #ibp-v2-troubleshooting-chrome-v77}
@@ -367,7 +367,7 @@ Follow these [instructions](/docs/services/blockchain-rhos?topic=blockchain-rhos
 
 
 
-## Why are the transactions I submit from VS Code failing?
+## Why are the transactions I submit from VS Code failing with a No endorsement plan available error?
 {: #ibp-v2-troubleshooting-anchor-peer}
 {: troubleshoot}
 
@@ -383,6 +383,4 @@ This error occurs if you are using the Fabric Service Discovery feature but did 
 
 Follow step three of the [private data topic](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-private-data) in the Deploy a smart contract tutorial to configure your anchor peers.
 {: tsResolve}
-
-
 

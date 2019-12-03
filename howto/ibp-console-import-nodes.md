@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-18"
+lastupdated: "2019-11-21"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 

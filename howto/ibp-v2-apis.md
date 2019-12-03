@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-14"
+lastupdated: "2019-12-02"
 
 keywords: APIs, build a network, authentication, service credentials, API key, API endpoint, IAM access token, Fabric CA client, import a network, generate certificates
 
@@ -973,7 +973,7 @@ You have the option of providing a custom domain to your component using the `"c
 ```
 {:codeblock}
 
-This section is provided for advanced users to specify a custom hostname that can be used to address the peer endpoint. Most users can leave this section blank.
+This section is provided for advanced users to specify a custom hostname that can be used to communicate with the peer. Most users can leave this section blank.
 
 ### Completing the configuration file
 {: #ibp-v2-apis-config-file}

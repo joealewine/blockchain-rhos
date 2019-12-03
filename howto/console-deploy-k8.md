@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-26"
+lastupdated: "2019-12-03"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -583,7 +583,8 @@ Replace `<NAMESPACE>` with the name of your namespace. Before you install the co
 ### Advanced deployment options
 {: #console-deploy-k8-advanced}
 
-You can add fields to the `ibp-console.yaml` file to customize the deployment of your console. You can use the additional deployment options to allocate more resources to your cluster, use zones for high availability in a multizone cluster, or provide your own TLS certificates to the console. The new fields must be added to the `spec:` section of `ibp-console.yaml` with one indent added. For example, if you wanted to add the field `newField: newValue` to `ibp-console.yaml`, your file would resemble the following example:
+You can edit the `ibp-console.yaml` file to allocate more resources to your console or use zones for high availability in a multizone cluster. To take advantage of these deployment options, you can use the console resource definition with the `resources:` and `clusterdata:` sections added:
+
 ```yaml
 apiVersion: ibp.com/v1alpha1
 kind: IBPConsole
@@ -598,58 +599,54 @@ metadata:
     image:
       imagePullSecret: "docker-key-secret"
     networkinfo:
-      domain: <DOMAIN>
-      consolePort: <CONSOLE_PORT>
-      proxyPort: <PROXY_PORT>
+        domain: <DOMAIN>
+        consolePort: <CONSOLE_PORT>
+        proxyPort: <PROXY_PORT>
     storage:
       console:
         class: default
         size: 10Gi
-    newField: newValue
+    clusterdata:
+      zones:
+    resources:
+      console:
+        requests:
+          cpu: 500m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
+      configtxlator:
+        limits:
+          cpu: 25m
+          memory: 50Mi
+        requests:
+          cpu: 25m
+          memory: 50Mi
+      couchdb:
+        limits:
+          cpu: 500m
+          memory: 1000Mi
+        requests:
+          cpu: 500m
+          memory: 1000Mi
+      deployer:
+        limits:
+          cpu: 100m
+          memory: 200Mi
+        requests:
+          cpu: 100m
+          memory: 200Mi
 ```
 {:codeblock}
 
-- You need to add the following fields to `ibp-console.yaml` to allocate more resources to your console. Allocating more resources to your console allows you to operate a larger number of nodes or channels.
-  ```yaml
-  resources:
-    console:
-      requests:
-        cpu: 500m
-        memory: 1000Mi
-      limits:
-        cpu: 500m
-        memory: 1000Mi
-    configtxlator:
-      limits:
-        cpu: 25m
-        memory: 50Mi
-      requests:
-        cpu: 25m
-        memory: 50Mi
-    couchdb:
-      limits:
-        cpu: 500m
-        memory: 1000Mi
-      requests:
-        cpu: 500m
-        memory: 1000Mi
-    deployer:
-      limits:
-        cpu: 100m
-        memory: 200Mi
-      requests:
-        cpu: 100m
-        memory: 200Mi
-  ```
-  {:codeblock}
-
-  When you finish editing the file, you can apply it to your cluster to allocate more resources to a currently running console. The console will restart and return to its previous state, allowing you to operate all of your exiting nodes and channels.
+- You can use the `resources:` section to allocate more resources to your console. The values in the example file are the default values allocated to each container. Allocating more resources to your console allows you to operate a larger number of nodes or channels. You can allocate more resources to a currently running console by editing the resource file and applying it to your cluster. The console will restart and return to its previous state, allowing you to operate all of your exiting nodes and channels.
   ```
   kubectl apply -f ibp-console.yaml -n <NAMESPACE>
   ```
   {:codeblock}
 
-- If you plan to use the console with a multizone Kubernetes cluster, you need to add the zones to the `ibp-console.yaml` file. When zones are provided to the deployment, you can select the zone that a node is deployed to using the console or the APIs. For example, if you are deploying a cluster across the zones of dal10, dal12, and dal13, you would add the following to fields to `ibp-console.yaml`.
+- If you plan to use the console with a multizone Kubernetes cluster, you need to add the zones to the `clusterdata.zones:` section of the file. When zones are provided to the deployment, you can select the zone that a node is deployed to using the console or the APIs. As an example, if you are deploying to a cluster across the zones of dal10, dal12, and dal13, you would add the zones to the file by using the format below.
   ```yaml
   clusterdata:
     zones:
@@ -665,7 +662,7 @@ metadata:
   ```
   {:codeblock}
 
-If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.    
+Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.    
 {: Important}
 
 ### Use your own TLS Certificates (Optional)
@@ -686,7 +683,7 @@ kubectl create secret generic console-tls-secret --from-file=tls.crt=./tlscert.p
 ```
 {:codeblock}
 
-After you create the secret, add the following field to the `spec:` section of `ibp-console.yaml` with one indent added. You must provide name of the TLS secret that you created to the field:
+After you create the secret, add the following field to the `spec:` section of `ibp-console.yaml` with one indent added, at the same level as the `resources:` and `clusterdata:` sections of the advanced deployment options. You must provide name of the TLS secret that you created to the field:
 ```
 tlsSecretName: console-tls-secret
 ```

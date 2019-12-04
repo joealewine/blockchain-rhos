@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-12"
+lastupdated: "2019-12-04"
 
 
 keywords: release note, latest changes, Hyperledger Fabric
@@ -23,7 +23,6 @@ subcollection: blockchain-rhos
 
 Use these release notes that are grouped by date to learn about the latest changes to {{site.data.keyword.blockchainfull}} Platform 2.1.1
 {:shortdesc}
-
 ## 8 November 2019
 {: #11-08-2019}
 

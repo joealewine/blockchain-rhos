@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-03"
+lastupdated: "2019-12-05"
 
 keywords: IBM Blockchain Platform, images
 
@@ -294,6 +294,11 @@ You can use the updates that are provided in this example to deploy the {{site.d
 ## Interoperability
 
 Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} images can join the channels of other {{site.data.keyword.blockchainfull_notm}} offerings, such as {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 and {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. However, because you cannot use the console to operate the images, you need to use Fabric tools to join existing channels that were created with a console or create new channels. 
+
+## Upgrading to new versions
+{: #blockchain-images-upgrade}
+
+You can upgrade your deployment to the latest version of the {{site.data.keyword.blockchainfull_notm}} images. The latest images might contain security and stability improvements or use a higher version Hyperledger Fabric, allowing you to take advantage of the latest Fabric features. To upgrade your network, you need to back up the ledger and MSP data for each node and then manually upgrade the node binaries. For more information about a network that you deployed using the {{site.data.keyword.blockchainfull_notm}} images, see [Upgrading Your Network Components](https://hyperledger-fabric.readthedocs.io/en/release-1.4/upgrading_your_network_tutorial.html){: external} in the Hyperleder Fabric documentation.
 
 ## Getting support
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-03"
+lastupdated: "2019-12-05"
 
 keywords: IBM Blockchain Platform, images
 
@@ -294,6 +294,8 @@ You can use the updates that are provided in this example to deploy the {{site.d
 ## Interoperability
 
 Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} images can join the channels of other {{site.data.keyword.blockchainfull_notm}} offerings, such as {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 and {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. However, because you cannot use the console to operate the images, you need to use Fabric tools to join existing channels that were created with a console or create new channels. 
+
+
 
 ## Getting support
 

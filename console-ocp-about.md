@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-15"
+lastupdated: "2019-12-06"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -114,7 +114,7 @@ For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockch
 ## Installing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
 {: #console-ocp-about-install}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment of your nodes. When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform license from Passport Advantage Online, you receive a token that provides access to {{site.data.keyword.IBM_notm}} Entitlement registry. You can use your token with the commands and files that are provided in the installation guide to automatically download the Docker images and start the operator and console on your cluster. When you are ready to get started, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp) if you are deploying the Platform on the OpenShift Container Platform, or if you are deploying on other Kubernetes distributions, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
+The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment of your nodes. When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform license from Passport Advantage Online, you receive a token that provides access to {{site.data.keyword.IBM_notm}} Entitlement registry. You can use your token with the commands and files that are provided in the installation guide to automatically download the Docker images and start the operator and console on your cluster. When you are ready to get started, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 on the OpenShift Container Platform](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp). If you are deploying the platform on other Kubernetes distributions, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 on Kubernetes](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
 
 It is also possible to deploy the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without having access to the public internet. If you are running on OpenShift Container Platform, see [Deploying IBM Blockchain Platform v2.1.1 behind a firewall](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp-firewall). Otherwise, for other Kubernetes distributions see [Deploying IBM Blockchain Platform v2.1.1 behind a firewall](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8-firewall).
 

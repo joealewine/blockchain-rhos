@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-03"
+lastupdated: "2019-12-06"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters, firewall, on-premises
 
@@ -365,7 +365,7 @@ kubectl apply -f ibp-clusterrolebinding.yaml -n <NAMESPACE>
 
 After applying the policies, your must grant your service account the required level of permissions to deploy your console. Run the following command with the name of your target namespace:
 ```
-kubectl -n <NAMESPACE> create rolebinding ibp-operator-rolebinding --clusterrole=ibp-operator --group=system:serviceaccounts:<NAMESPACE>
+kubectl -n <NAMESPACE> create rolebinding ibp-operator-rolebinding --clusterrole=<NAMESPACE> --group=system:serviceaccounts:<NAMESPACE>
 ```
 {:codeblock}
 

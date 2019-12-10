@@ -71,7 +71,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 ## Before you begin
 {: #deploy-ocp-prerequisites-firewall}
 
-1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform](https://docs.openshift.com/container-platform/4.2/welcome/index.html){: external} 3.11, 4.1, or 4.2.
+1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11, 4.1, or 4.2](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
 
 2. You need to install and connect to your cluster by using [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform.
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-15"
+lastupdated: "2019-12-10"
 
 
 keywords: vs code extension, Visual Studio Code extension, smart contract, development tools
@@ -295,6 +295,35 @@ Open the {{site.data.keyword.blockchainfull_notm}} Platform console that is asso
 After you connect to the {{site.data.keyword.blockchainfull_notm}} Platform from VS Code, you can see the list of channels joined by your organization peers under the gateway. Under each channel, you can see the list of smart contracts that are instantiated on each channel and the functions within each smart contract. You can submit transactions to your network by right-clicking a function and selecting **Submit Transaction** and passing the required arguments. You can also generate a test file for the smart contracts that are instantiated on your channels.
 
 
+### Install and instantiate a smart contract from VS Code
+
+You can also import the {{site.data.keyword.blockchainfull_notm}} Platform network into the **Fabric Environments** pane of the extension. You can then use the extension to install and instantiate smart contracts on your network.
+
+You can export nodes from your console and then import them from another console. You can use the same process to export nodes from your console and then import them into the **Fabric Environments** pane. The easiest way is to export all of the nodes of your console in bulk.
+
+1. Navigate to the **Settings** tab in the left navigation. You can see a section that is called **Bulk data management** with two buttons below it. The **Export** button opens a panel on the right.  
+2. Keep the boxes that represent peers, CAs, and ordering services checked. Check the box to export your identities. You can leave the box that represents MSPs unchecked.
+3. Click **Export** to download the nodes and identities to your local file system in .zip file. Extract the file when the download is complete.
+
+You can then import the nodes of your network into the extension.
+
+1. Hover your mouse over the **Fabric Environments** pane and click **+**, **Add Environment**.
+2. Enter a name for your network.
+3. Browse to the nodes that you exported from your console and select a node to import. After you have imported a node, click **Add more (JSON) node definitions** to import another node.
+4. When you have imported the CAs and peers that belong to your organization, along with the ordering nodes of your channels, click **Done adding nodes**.
+
+You also need to import your admin identities into the wallet pane and associate them with your nodes. You need to associate an admin identity with your peers, CA, and an ordering node before you can connect with your network.
+
+1. Click on the environment that you created in the **Fabric Environments** pane.
+2. You can see an **Alert** sign next to the peer and ordering node. Click on the alert to associate an admin identity with the node.
+3. Select **Add a new wallet**.
+4. Select **Create a new wallet**.
+5. Enter a name for your wallet to identify the orderer or peer admin of your network.
+6. Select **Add a new identity**.
+7. Enter name for your peer or orderer admin identity.
+8. Select **Provide a JSON identity file from the {{site.data.keyword.blockchainfull_notm}} Platform** and then browse to the admin identity that you exported from your console. If the identity is the administrator of multiple nodes in your network, you can associate the identity with multiple nodes.
+
+When you have associated an admin identity with your peers, CA, and an ordering node, you can connect to your network and use the extension to install and instantiate smart contracts.
 
 ### Adding wallets and users
 {: #develop-vscode-add-a-wallet}

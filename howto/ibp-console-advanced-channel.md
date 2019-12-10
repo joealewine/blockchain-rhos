@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-05"
+lastupdated: "2019-12-10"
 
 keywords: network components, Kubernetes, batch timeout, channel update, channels, governance, channel configuration, access control
 
@@ -97,7 +97,7 @@ To configure a peer to be an anchor peer, click the **Channels** tab and open th
  - Select at least one peer from each organization in collection definition that you want to serve as the anchor peer for the organization. For redundancy reasons, you can consider selecting more than one peer from each organization in the collection.
 
 #### Join a peer to a channel
-{: #ibp-console-govern-channels-join peer}
+{: #ibp-console-govern-channels-join-peer}
 
 The ordering service and the peers known to this console that are joined to this channel are listed in the **Nodes** field at the top of the channel page. It is possible to add peers to this channel by clicking the **Join peer** button. On the panel that opens, you can specify the peers you want to join this channel, as well as whether you want this peer to bootstrap gossip communication between your organization and other organizations by making this peer an anchor peer. If you already have specified an anchor peer for this channel, you do not need to make this peer an anchor peer (only one anchor peer is needed to bootstrap communication between organizations), though it is sensible to make anchor peers HA by making sure you have at least two anchor peers in each channel.
 

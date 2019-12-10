@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-21"
+lastupdated: "2019-12-10"
 
 keywords: smart contract, private data, private data collection, anchor peer
 
@@ -136,6 +136,44 @@ Click the **Advanced** button if you want to specify a policy in JSON format. Yo
 Endorsement policies are not updated automatically when new organizations join the channel and install a chaincode. For example, if the endorsement policy requires two of five organizations to endorse a transaction, the policy will not be updated to require two out of six organizations when a new organization joins the channel. Instead, the new organization will not be listed on the policy, and they will not be able to endorse transactions. You can add another organization to an endorsement policy by upgrading the relevant chaincode and updating the policy.
 
 
+### What does the user type have to do with the smart contract endorsement policy?
+{: #ibp-console-smart-contracts-endorse-user-type}
+
+It's worth clicking the **Advanced** button to review the endorsement policy that will be used for the smart contract. Every organization that you select from the **Members** drop-down list on this panel will be included in the endorsement policy. If the organization MSP was created based on Hyperledger Fabric v1.4.4 or higher, then the role name is automatically set to `peer`. Otherwise, the role defaults to `member`, meaning the identity type required to endorse transactions can be any of  `client`, `peer`, `orderer`, or `admin`.  
+
+If you know when the organization MSP definition was created, you can determine what version of Hyperledger Fabric was used by examining the release notes in the console by clicking the `?` icon in the upper right corner.
+{: tip}
+
+You should review the roles specified in the policy and ensure that any peers that will be submitting endorsement transactions were registered with the correct type. In the following endorsement policy example, peers who are members of `org1msp` can endorse transactions if their enroll id was registered as any of `client`, `peer`, `orderer`, or `admin`. However, for peers who are members of `org2msp`, their enroll id must have been registered with a `Type` of `peer` to be able to endorse transactions.
+
+```json
+{
+    "identities": [
+        {
+            "role": {
+                "name": "member",
+                "mspId": "org1msp"
+            }
+        },
+        {
+            "role": {
+                "name": "peer",
+                "mspId": "org2msp"
+            }
+        }
+    ],
+    "policy": {
+        "1-of-2": [
+            {
+                "signed-by": 0
+            }
+        ]
+    }
+}
+```  
+{: codeblock}
+
+Unsure which `type` was selected when a peer identity was registered? From the console, you can open the CA where the peer identity was registered and view the list of registered users and their associated type.
 
 ## Upgrading a smart contract
 {: #ibp-console-smart-contracts-upgrade}

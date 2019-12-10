@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-03"
+lastupdated: "2019-12-10"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -19,13 +19,13 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
-# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 behind a firewall
+# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 behind a firewall
 {: #deploy-ocp-firewall}
 
-You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.1 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
+You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.2 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos/howto?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
 {:shortdesc}
 
-You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 onto a Kubernetes cluster that is running on Red Hat OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 onto a Kubernetes cluster that is running on Red Hat OpenShift Container Platform 3.11, 4.1, or 4.2. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 
 ## Need to Know
 
@@ -52,7 +52,7 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 ## Storage
 {: #deploy-ocp-storage-firewall}
 
-{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
+{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/4.2/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
 
 Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster in OpenShift Container Platform, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
 
@@ -71,9 +71,9 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 ## Before you begin
 {: #deploy-ocp-prerequisites-firewall}
 
-1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
+1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform](https://docs.openshift.com/container-platform/4.2/welcome/index.html){: external} 3.11, 4.1, or 4.2.
 
-2. You need to install and connect to your cluster by using [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform.
+2. You need to install and connect to your cluster by using [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform.
 
 ## Pull the {{site.data.keyword.blockchainfull_notm}} Platform images
 
@@ -91,37 +91,37 @@ docker login --username cp --password <KEY> cp.icr.io
 
 After you log in, use the following command to pull all of the component images of the {{site.data.keyword.blockchainfull_notm}} Platform:
 ```
-docker pull cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-ca-init:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-init:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-peer:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-ca:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-dind:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-console:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-grpcweb:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-utilities:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-deployer:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-fluentd:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-ca-init:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-peer:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-orderer:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-ca:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-dind:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-console:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-grpcweb:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-utilities:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20191217-amd64
+docker pull cp.icr.io/cp/ibp-deployer:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
 After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
 ```
-docker tag cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-ca-init:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-init:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-peer:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-ca:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-dind:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-console:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-grpcweb:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-utilities:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-deployer:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-fluentd:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-ca-init:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-peer:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-orderer:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-ca:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-dind:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-console:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-grpcweb:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-utilities:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20191217-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191217-amd64
+docker tag cp.icr.io/cp/ibp-deployer:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
@@ -137,19 +137,19 @@ docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGIS
 
 Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` with the url of your local registry.
 ```
-docker push <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-init:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-console:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-ca:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-dind:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-console:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
@@ -469,7 +469,7 @@ spec:
       annotations:
         productName: "IBM Blockchain Platform"
         productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.1"
+        productVersion: "2.1.2"
     spec:
       hostIPC: false
       hostNetwork: false
@@ -488,7 +488,7 @@ spec:
         - name: docker-key-secret
       containers:
         - name: ibp-operator
-          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
+          image: <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
           command:
           - ibp-operator
           imagePullPolicy: Always
@@ -572,53 +572,53 @@ spec:
   image:
       imagePullSecret: docker-key-secret
       consoleInitImage: <LOCAL_REGISTRY>/ibp-init
-      consoleInitTag: 2.1.1-20191108-amd64
+      consoleInitTag: 2.1.2-20191217-amd64
       consoleImage: <LOCAL_REGISTRY>/ibp-console
-      consoleTag: 2.1.1-20191108-amd64
+      consoleTag: 2.1.2-20191217-amd64
       configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
-      configtxlatorTag: 1.4.3-20191108-amd64
+      configtxlatorTag: 1.4.4-20191217-amd64
       couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-      couchdbTag: 2.3.1-20191108-amd64
+      couchdbTag: 2.3.1-20191217-amd64
       deployerImage: <LOCAL_REGISTRY>/ibp-deployer
-      deployerTag: 2.1.1-20191108-amd64
+      deployerTag: 2.1.2-20191217-amd64
   versions:
       ca:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
             caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
-            caInitTag: 2.1.1-20191108-amd64
+            caInitTag: 2.1.2-20191217-amd64
             caImage: <LOCAL_REGISTRY>/ibp-ca
-            caTag: 1.4.3-20191108-amd64
+            caTag: 1.4.4-20191217-amd64
       peer:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
             peerInitImage: <LOCAL_REGISTRY>/ibp-init
-            peerInitTag: 2.1.1-20191108-amd64
+            peerInitTag: 2.1.2-20191217-amd64
             peerImage: <LOCAL_REGISTRY>/ibp-peer
-            peerTag: 1.4.3-20191108-amd64
+            peerTag: 1.4.4-20191217-amd64
             dindImage: <LOCAL_REGISTRY>/ibp-dind
-            dindTag: 1.4.3-20191108-amd64
+            dindTag: 1.4.4-20191217-amd64
             fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
-            fluentdTag: 2.1.1-20191108-amd64
+            fluentdTag: 2.1.2-20191217-amd64
             grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191108-amd64
+            grpcwebTag: 2.1.2-20191217-amd64
             couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-            couchdbTag: 2.3.1-20191108-amd64
+            couchdbTag: 2.3.1-20191217-amd64
       orderer:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
             ordererInitImage: <LOCAL_REGISTRY>/ibp-init
-            ordererInitTag: 2.1.1-20191108-amd64
+            ordererInitTag: 2.1.2-20191217-amd64
             ordererImage: <LOCAL_REGISTRY>/ibp-orderer
-            ordererTag: 1.4.3-20191108-amd64
+            ordererTag: 1.4.4-20191217-amd64
             grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191108-amd64
+            grpcwebTag: 2.1.2-20191217-amd64
   networkinfo:
     domain: <DOMAIN>
   storage:
@@ -671,53 +671,53 @@ metadata:
     image:
         imagePullSecret: docker-key-secret
         consoleInitImage: <LOCAL_REGISTRY>/ibp-init
-        consoleInitTag: 2.1.1-20191108-amd64
+        consoleInitTag: 2.1.2-20191217-amd64
         consoleImage: <LOCAL_REGISTRY>/ibp-console
-        consoleTag: 2.1.1-20191108-amd64
+        consoleTag: 2.1.2-20191217-amd64
         configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
-        configtxlatorTag: 1.4.3-20191108-amd64
+        configtxlatorTag: 1.4.4-20191217-amd64
         couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-        couchdbTag: 2.3.1-20191108-amd64
+        couchdbTag: 2.3.1-20191217-amd64
         deployerImage: <LOCAL_REGISTRY>/ibp-deployer
-        deployerTag: 2.1.1-20191108-amd64
+        deployerTag: 2.1.2-20191217-amd64
     versions:
         ca:
-          1.4.3-0:
+          1.4.4-0:
             default: true
-            version: 1.4.3-0
+            version: 1.4.4-0
             image:
               caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
-              caInitTag: 2.1.1-20191108-amd64
+              caInitTag: 2.1.2-20191217-amd64
               caImage: <LOCAL_REGISTRY>/ibp-ca
-              caTag: 1.4.3-20191108-amd64
+              caTag: 1.4.4-20191217-amd64
         peer:
-          1.4.3-0:
+          1.4.4-0:
             default: true
-            version: 1.4.3-0
+            version: 1.4.4-0
             image:
               peerInitImage: <LOCAL_REGISTRY>/ibp-init
-              peerInitTag: 2.1.1-20191108-amd64
+              peerInitTag: 2.1.2-20191217-amd64
               peerImage: <LOCAL_REGISTRY>/ibp-peer
-              peerTag: 1.4.3-20191108-amd64
+              peerTag: 1.4.4-20191217-amd64
               dindImage: <LOCAL_REGISTRY>/ibp-dind
-              dindTag: 1.4.3-20191108-amd64
+              dindTag: 1.4.4-20191217-amd64
               fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
-              fluentdTag: 2.1.1-20191108-amd64
+              fluentdTag: 2.1.2-20191217-amd64
               grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-              grpcwebTag: 2.1.1-20191108-amd64
+              grpcwebTag: 2.1.2-20191217-amd64
               couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-              couchdbTag: 2.3.1-20191108-amd64
+              couchdbTag: 2.3.1-20191217-amd64
         orderer:
-          1.4.3-0:
+          1.4.4-0:
             default: true
-            version: 1.4.3-0
+            version: 1.4.4-0
             image:
               ordererInitImage: <LOCAL_REGISTRY>/ibp-init
-              ordererInitTag: 2.1.1-20191108-amd64
+              ordererInitTag: 2.1.2-20191217-amd64
               ordererImage: <LOCAL_REGISTRY>/ibp-orderer
-              ordererTag: 1.4.3-20191108-amd64
+              ordererTag: 1.4.4-20191217-amd64
               grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-              grpcwebTag: 2.1.1-20191108-amd64
+              grpcwebTag: 2.1.2-20191217-amd64
     networkinfo:
         domain: <DOMAIN>
     storage:

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-20"
+lastupdated: "2019-12-10"
 
 keywords: high availability, HA, failures, zone failure, region failure, component failure, worker node failure
 
@@ -35,7 +35,7 @@ You can achieve high availability on different levels in your IT infrastructure 
 
 
 - If you are running on OpenShift Container Platform, you should review the platform-specific guidance for
-[HA on OpenShift Container Platform](https://docs.openshift.com/container-platform/3.11/admin_guide/high_availability.html){: external}. You can use this topic for details on blockchain specific HA guidance along with the recommendations from the platform specific topics above.
+[HA on OpenShift Container Platform](https://docs.openshift.com/container-platform/4.2/admin_guide/high_availability.html){: external}. You can use this topic for details on blockchain specific HA guidance along with the recommendations from the platform specific topics above.
 - If you are using {{site.data.keyword.cloud_notm}} Private, review the content about [Implementing HA on {{site.data.keyword.cloud_notm}} Private](https://www.ibm.com/cloud/garage/practices/manage/high-availability-ibm-cloud-private){: external}.  
 
 
@@ -190,7 +190,7 @@ In all cases, to protect against data corruption, it is recommended that you reg
 
 | Storage solution provider | Guidance |
 |----------|---------|
-| OpenShift Container Platform | You can leverage the capability that is provided by the OpenShift Container platform to [backup persistent volume claims](https://docs.openshift.com/container-platform/3.11/day_two_guide/environment_backup.html#backing-up-pvc_environment-backup){: external}.  But be aware that without snapshot capability, nodes must be [stopped](#ibp-console-ha-stop-nodes) in order to ensure a reliable backup. |
+| OpenShift Container Platform | You can leverage the capability that is provided by the OpenShift Container platform to [backup persistent volume claims](https://docs.openshift.com/container-platform/4.2/day_two_guide/environment_backup.html#backing-up-pvc_environment-backup){: external}.  But be aware that without snapshot capability, nodes must be [stopped](#ibp-console-ha-stop-nodes) in order to ensure a reliable backup. |
 | Portworx | A [snapshot capability](https://docs.portworx.com/portworx-install-with-kubernetes/cloud/ibm/#prerequisites){: external} is available for taking backups without stopping the nodes. |
 {: caption="Table 2. Backup recommendations for storage" caption-side="top"}
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-02"
+lastupdated: "2019-12-10"
 
 keywords: APIs, build a network, authentication, service credentials, API key, API endpoint, IAM access token, Fabric CA client, import a network, generate certificates
 
@@ -32,7 +32,7 @@ This tutorial introduces the generic flow to build a blockchain network with {{s
 ## Prerequisites
 {: #ibp-v2-apis-prereq}
 
-The APIs target your {{site.data.keyword.blockchainfull_notm}} Platform console to authenticate calls and communicate with your nodes. Therefore you must deploy the {{site.data.keyword.blockchainfull_notm}} Platform console before you can start using the {{site.data.keyword.blockchainfull_notm}} Platform console APIs. If you have not yet deployed the console on your cluster, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos/reference?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
+The APIs target your {{site.data.keyword.blockchainfull_notm}} Platform console to authenticate calls and communicate with your nodes. Therefore you must deploy the {{site.data.keyword.blockchainfull_notm}} Platform console before you can start using the {{site.data.keyword.blockchainfull_notm}} Platform console APIs. If you have not yet deployed the console on your cluster, see [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos/reference?topic=blockchain-rhos-deploy-ocp#deploy-ocp).
 
 To use the APIs, you will need to gather the following information:
 
@@ -241,7 +241,7 @@ curl -X DELETE \
 
 You can also use the API's to create, delete, or edit your blockchain nodes. You can view the complete set of APIs that manage your nodes and console settings in the [{{site.data.keyword.blockchainfull_notm}} Platform API reference](https://cloud.ibm.com/apidocs/blockchain).
 
-Because you are using the APIs to communicate with your console on your Kubernetes, you need to substitute the authentication provided by {{site.data.keyword.cloud_notm}} with the API Key provided by your console. Replace the `Bearer Auth` in the API reference with  `-u <api_key>:<api_secret>`. You also need to add a `-k` or ``--insecure`` flag to the command, or download the console TLS certificate using your browser. You can not use the **Try it out** tab to test the APIs for networks deployed with {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
+Because you are using the APIs to communicate with your console on your Kubernetes, you need to substitute the authentication provided by {{site.data.keyword.cloud_notm}} with the API Key provided by your console. Replace the `Bearer Auth` in the API reference with  `-u <api_key>:<api_secret>`. You also need to add a `-k` or ``--insecure`` flag to the command, or download the console TLS certificate using your browser. You can not use the **Try it out** tab to test the APIs for networks deployed with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
 
 As an example, the API call below will return information about all of the components that are managed by your console.
 
@@ -252,7 +252,7 @@ curl -X GET \
   -H 'Authorization: Bearer eyJraWQ.....zJPsw
 ```
 
-The same API call would resemble the request below for a console deployed with {{site.data.keyword.blockchainfull_notm}} Platform 2.1.1.
+The same API call would resemble the request below for a console deployed with {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
 
 ```
 curl -X GET \

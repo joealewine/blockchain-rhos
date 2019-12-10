@@ -2,7 +2,7 @@
 {:topicgroup: .topicgroup}
 
 {: .toc subcollection="blockchain-rhos" category="app_services,databases" audience="service" arm="339" href="/docs/services/blockchain-rhos/index.html" path="services/blockchain-rhos"}
-IBM Blockchain Platform v2.1.1
+IBM Blockchain Platform v2.1.2
 
 	{: .navgroup id="learn"}
 	index.md

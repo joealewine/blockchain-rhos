@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-11"
 
 keywords: IBM Blockchain Platform, images
 
@@ -97,7 +97,7 @@ docker pull cp.icr.io/cp/ibp-nodeenv:1.4.4-20191217-amd64
 
 To deploy and operate the {{site.data.keyword.blockchainfull_notm}} images, you can download the open source tools that are provided by the Hyperledger community. Follow the steps to [Install the prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html) and [Download the Fabric Samples, Binaries, and configuration files](https://hyperledger-fabric.readthedocs.io/en/release-1.4/install.html){: external} in the Hyperledger Fabric documentation. These steps might download the open source Fabric images as well.
 
-After you download the Fabric Samples repository, you can find the configuration files and binaries that you need to set up a network in the `fabric-samples\config` and `fabric-samples\bin` folders. You can also find example artifacts and scripts for how to set up a network by using Docker Compose in the `fabric-samples\first-network` directory. You learn more about these artifacts and the steps that are involved by reading the accompanying [Build Your First Network](http://hyperledger-fabric.readthedocs.io/en/release-1.4/build_network.html){: external} tutorial.
+After you download the Fabric samples and binaries, you can find the configuration files and binaries that you need to set up a network in the `fabric-samples\config` and `fabric-samples\bin` folders. You can also find example artifacts and scripts for how to set up a network by using Docker Compose in the `fabric-samples\first-network` directory. You learn more about these artifacts and the steps that are involved by reading the accompanying [Build Your First Network](http://hyperledger-fabric.readthedocs.io/en/release-1.4/build_network.html){: external} tutorial.
 
 If you are using the open source configuration files, you need to make the following changes to deploy the {{site.data.keyword.blockchainfull_notm}} images:
 
@@ -295,7 +295,10 @@ You can use the updates that are provided in this example to deploy the {{site.d
 
 Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} images can join the channels of other {{site.data.keyword.blockchainfull_notm}} offerings, such as {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 and {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. However, because you cannot use the console to operate the images, you need to use Fabric tools to join existing channels that were created with a console or create new channels. 
 
+## Upgrading to new versions
+{: #blockchain-images-upgrade}
 
+You can upgrade your deployment to the latest version of the {{site.data.keyword.blockchainfull_notm}} images. The latest images might contain security and stability improvements or use a higher version Hyperledger Fabric, allowing you to take advantage of the latest Fabric features. To upgrade your network, you need to back up the ledger and MSP data for each node and then manually upgrade the node binaries. For more information about a network that you deployed using the {{site.data.keyword.blockchainfull_notm}} images, see [Upgrading Your Network Components](https://hyperledger-fabric.readthedocs.io/en/release-1.4/upgrading_your_network_tutorial.html){: external} in the Hyperleder Fabric documentation.
 
 ## Getting support
 

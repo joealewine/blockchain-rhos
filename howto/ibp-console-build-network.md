@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-11"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft
 
@@ -126,7 +126,7 @@ Depending on your cluster type, deployment of the CA can take up to ten minutes.
 Once the CA is running, as indicated by the green box in the tile, complete the following steps:
 
 1. Click the `Org1 CA` tile in the **Nodes** tab. Then click **Associate identity** on the CA overview panel.
-2. On the side panel that opens, provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org1 CA Admin Identity`.
+2. On the side panel that opens, provide an **Enroll ID** of `admin` and an **Enroll secret** of `adminpw`. For the **Identity display name**, you can use the default value of `Org1 CA Admin`.
 3. Click **Associate identity** to add the identity into your console Wallet and associate the admin identity with your CA.
 
 After setting the CA admin identity, you will be able to see the table of registered users in the CA overview panel.

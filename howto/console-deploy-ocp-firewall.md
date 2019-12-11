@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-11"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -527,8 +527,8 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "true"
+            - name: CLUSTERTYPE
+              value: OPENSHIFT
           resources:
             requests:
               cpu: 100m
@@ -569,17 +569,18 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
+  imagePullSecret: docker-key-secret
+  registryURL: <LOCAL_REGISTRY>
   image:
-      imagePullSecret: docker-key-secret
-      consoleInitImage: <LOCAL_REGISTRY>/ibp-init
+      consoleInitImage: ibp-init
       consoleInitTag: 2.1.2-20191217-amd64
-      consoleImage: <LOCAL_REGISTRY>/ibp-console
+      consoleImage: ibp-console
       consoleTag: 2.1.2-20191217-amd64
-      configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
+      configtxlatorImage: ibp-utilities
       configtxlatorTag: 1.4.4-20191217-amd64
-      couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
+      couchdbImage: ibp-couchdb
       couchdbTag: 2.3.1-20191217-amd64
-      deployerImage: <LOCAL_REGISTRY>/ibp-deployer
+      deployerImage: ibp-deployer
       deployerTag: 2.1.2-20191217-amd64
   versions:
       ca:
@@ -587,37 +588,37 @@ spec:
           default: true
           version: 1.4.4-0
           image:
-            caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
+            caInitImage: ibp-ca-init
             caInitTag: 2.1.2-20191217-amd64
-            caImage: <LOCAL_REGISTRY>/ibp-ca
+            caImage: ibp-ca
             caTag: 1.4.4-20191217-amd64
       peer:
         1.4.4-0:
           default: true
           version: 1.4.4-0
           image:
-            peerInitImage: <LOCAL_REGISTRY>/ibp-init
+            peerInitImage: ibp-init
             peerInitTag: 2.1.2-20191217-amd64
-            peerImage: <LOCAL_REGISTRY>/ibp-peer
+            peerImage: ibp-peer
             peerTag: 1.4.4-20191217-amd64
-            dindImage: <LOCAL_REGISTRY>/ibp-dind
+            dindImage: ibp-dind
             dindTag: 1.4.4-20191217-amd64
-            fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
+            fluentdImage: ibp-fluentd
             fluentdTag: 2.1.2-20191217-amd64
-            grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
+            grpcwebImage: ibp-grpcweb
             grpcwebTag: 2.1.2-20191217-amd64
-            couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
+            couchdbImage: ibp-couchdb
             couchdbTag: 2.3.1-20191217-amd64
       orderer:
         1.4.4-0:
           default: true
           version: 1.4.4-0
           image:
-            ordererInitImage: <LOCAL_REGISTRY>/ibp-init
+            ordererInitImage: ibp-init
             ordererInitTag: 2.1.2-20191217-amd64
-            ordererImage: <LOCAL_REGISTRY>/ibp-orderer
+            ordererImage: ibp-orderer
             ordererTag: 1.4.4-20191217-amd64
-            grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
+            grpcwebImage: ibp-grpcweb
             grpcwebTag: 2.1.2-20191217-amd64
   networkinfo:
     domain: <DOMAIN>
@@ -668,17 +669,18 @@ metadata:
     proxyIP:
     email: "<EMAIL>"
     password: "<PASSWORD>"
+    imagePullSecret: docker-key-secret
+    registryURL: <LOCAL_REGISTRY>
     image:
-        imagePullSecret: docker-key-secret
-        consoleInitImage: <LOCAL_REGISTRY>/ibp-init
+        consoleInitImage: ibp-init
         consoleInitTag: 2.1.2-20191217-amd64
-        consoleImage: <LOCAL_REGISTRY>/ibp-console
+        consoleImage: ibp-console
         consoleTag: 2.1.2-20191217-amd64
-        configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
+        configtxlatorImage: ibp-utilities
         configtxlatorTag: 1.4.4-20191217-amd64
-        couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
+        couchdbImage: ibp-couchdb
         couchdbTag: 2.3.1-20191217-amd64
-        deployerImage: <LOCAL_REGISTRY>/ibp-deployer
+        deployerImage: ibp-deployer
         deployerTag: 2.1.2-20191217-amd64
     versions:
         ca:
@@ -686,9 +688,9 @@ metadata:
             default: true
             version: 1.4.4-0
             image:
-              caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
+              caInitImage: ibp-ca-init
               caInitTag: 2.1.2-20191217-amd64
-              caImage: <LOCAL_REGISTRY>/ibp-ca
+              caImage: ibp-ca
               caTag: 1.4.4-20191217-amd64
         peer:
           1.4.4-0:
@@ -697,26 +699,26 @@ metadata:
             image:
               peerInitImage: <LOCAL_REGISTRY>/ibp-init
               peerInitTag: 2.1.2-20191217-amd64
-              peerImage: <LOCAL_REGISTRY>/ibp-peer
+              peerImage: ibp-peer
               peerTag: 1.4.4-20191217-amd64
-              dindImage: <LOCAL_REGISTRY>/ibp-dind
+              dindImage: ibp-dind
               dindTag: 1.4.4-20191217-amd64
-              fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
+              fluentdImage: ibp-fluentd
               fluentdTag: 2.1.2-20191217-amd64
-              grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
+              grpcwebImage: ibp-grpcweb
               grpcwebTag: 2.1.2-20191217-amd64
-              couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
+              couchdbImage: ibp-couchdb
               couchdbTag: 2.3.1-20191217-amd64
         orderer:
           1.4.4-0:
             default: true
             version: 1.4.4-0
             image:
-              ordererInitImage: <LOCAL_REGISTRY>/ibp-init
+              ordererInitImage: ibp-init
               ordererInitTag: 2.1.2-20191217-amd64
-              ordererImage: <LOCAL_REGISTRY>/ibp-orderer
+              ordererImage: ibp-orderer
               ordererTag: 1.4.4-20191217-amd64
-              grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
+              grpcwebImage: ibp-grpcweb
               grpcwebTag: 2.1.2-20191217-amd64
     networkinfo:
         domain: <DOMAIN>

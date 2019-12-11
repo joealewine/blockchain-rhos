@@ -297,7 +297,7 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 
 The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your namespace by using the kubectl CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
-Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will need to edit the file depending on whether you are using open source Kubernetes and Rancher, or whether you are using {{site.data.keyword.cloud_notm}} Private.
+Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will need to edit the file depending on whether you are using open source Kubernetes and Rancher or whether you are using {{site.data.keyword.cloud_notm}} Private.
 
 ```yaml
 apiVersion: apps/v1
@@ -387,8 +387,6 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "false"
             - name: CLUSTERTYPE
               value: <CLUSTER_TYPE>
           resources:
@@ -405,8 +403,6 @@ spec:
 - Replace `<CLUSTER_TYPE>` with `ICP` if you are deploying the platform on {{site.data.keyword.cloud_notm}} Private.
 - If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`.
 - If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
-
-If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
 Then, use the `kubectl` CLI to add the custom resource to your namespace.
 

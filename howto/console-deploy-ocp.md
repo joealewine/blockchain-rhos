@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-11"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -453,8 +453,8 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "true"
+            - name: CLUSTERTYPE
+              value: OPENSHIFT
           resources:
             requests:
               cpu: 100m
@@ -495,8 +495,7 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
-  image:
-    imagePullSecret: "docker-key-secret"
+  imagePullSecret: "docker-key-secret"
   networkinfo:
     domain: <DOMAIN>
   storage:
@@ -547,8 +546,7 @@ metadata:
     proxyIP:
     email: "<EMAIL>"
     password: "<PASSWORD>"
-    image:
-      imagePullSecret: "docker-key-secret"
+    imagePullSecret: "docker-key-secret"
     networkinfo:
         domain: <DOMAIN>
     storage:

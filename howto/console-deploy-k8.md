@@ -1,8 +1,8 @@
-v2.1.2---
+---
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-11"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -297,10 +297,7 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 
 The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your namespace by using the kubectl CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
-Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will apply a different resource file depending on whether you are using open source Kubernetes and Rancher, or whether you are using {{site.data.keyword.cloud_notm}} Private.
-
-
-- **Operator file for Kubernetes v1.11 or higher:**
+Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will need to edit the file depending on whether you are using open source Kubernetes and Rancher, or whether you are using {{site.data.keyword.cloud_notm}} Private.
 
 ```yaml
 apiVersion: apps/v1
@@ -392,8 +389,8 @@ spec:
               value: "ibp-operator"
             - name: ISOPENSHIFT
               value: "false"
-            - name: INGRESS_NEEDED
-              value: "true"
+            - name: CLUSTERTYPE
+              value: <CLUSTER_TYPE>
           resources:
             requests:
               cpu: 100m
@@ -404,107 +401,10 @@ spec:
 ```
 {:codeblock}
 
-- **Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1:**  
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ibp-operator
-  labels:
-    release: "operator"
-    helm.sh/chart: "ibm-ibp"
-    app.kubernetes.io/name: "ibp"
-    app.kubernetes.io/instance: "ibpoperator"
-    app.kubernetes.io/managed-by: "ibp-operator"
-spec:
-  replicas: 1
-  strategy:
-    type: "Recreate"
-  selector:
-    matchLabels:
-      name: ibp-operator
-  template:
-    metadata:
-      labels:
-        name: ibp-operator
-        release: "operator"
-        helm.sh/chart: "ibm-ibp"
-        app.kubernetes.io/name: "ibp"
-        app.kubernetes.io/instance: "ibpoperator"
-        app.kubernetes.io/managed-by: "ibp-operator"
-      annotations:
-        productName: "IBM Blockchain Platform"
-        productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.2"
-    spec:
-      hostIPC: false
-      hostNetwork: false
-      hostPID: false
-      serviceAccountName: default
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: beta.kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-      imagePullSecrets:
-        - name: docker-key-secret
-      containers:
-        - name: ibp-operator
-          image: cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
-          command:
-          - ibp-operator
-          imagePullPolicy: Always
-          securityContext:
-            privileged: false
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-            runAsUser: 1001
-            capabilities:
-              drop:
-              - ALL
-              add:
-              - CHOWN
-              - FOWNER
-          livenessProbe:
-            tcpSocket:
-              port: 8383
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-          readinessProbe:
-            tcpSocket:
-              port: 8383
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            periodSeconds: 5
-          env:
-            - name: WATCH_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: OPERATOR_NAME
-              value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "false"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 200Mi
-            limits:
-              cpu: 100m
-              memory: 200Mi
-```
-{:codeblock}
+- Replace `<CLUSTER_TYPE>` with `IKS` if you are deploying the platform on open source Kubernetes or Rancher.
+- Replace `<CLUSTER_TYPE>` with `ICP` if you are deploying the platform on {{site.data.keyword.cloud_notm}} Private.
+- If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`.
+- If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
 If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
@@ -538,8 +438,7 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
-  image:
-    imagePullSecret: "docker-key-secret"
+  imagePullSecret: "docker-key-secret"
   networkinfo:
     domain: <DOMAIN>
     consolePort: <CONSOLE_PORT>
@@ -596,8 +495,7 @@ metadata:
     proxyIP:
     email: "<EMAIL>"
     password: "<PASSWORD>"
-    image:
-      imagePullSecret: "docker-key-secret"
+    imagePullSecret: "docker-key-secret"
     networkinfo:
         domain: <DOMAIN>
         consolePort: <CONSOLE_PORT>

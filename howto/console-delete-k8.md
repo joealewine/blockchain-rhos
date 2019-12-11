@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-07"
+lastupdated: "2019-12-11"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -46,7 +46,7 @@ kubectl delete ibporderer --all
 
 You can use the Kubectl CLI to remove the {{site.data.keyword.blockchainfull_notm}} Platform operator. When the operator is no longer running on your cluster, you can delete the console and any remaining nodes without them being restarted.
 
-1. Log in to your cluster by using the Kubectl CLI. 
+1. Log in to your cluster by using the Kubectl CLI.
 
 2. Use the CLI to switch to the namespace that you created for your blockchain network:
 
@@ -76,7 +76,7 @@ kubectl delete ibpconsole --all
 If you are done working with the {{site.data.keyword.blockchainfull_notm}} Platform on your Kubernetes cluster, you can delete your namespace.
 
 ```
-kubectl delete namespaces  <NAMESPACE>
+kubectl delete namespaces <NAMESPACE>
 ```
 {:codeblock}
 

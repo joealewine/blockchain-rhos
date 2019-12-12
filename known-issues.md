@@ -25,4 +25,4 @@ subcollection: blockchain-rhos
 ## Chrome browser on Mac OS Catalina
 {: #sw-known-issues-catalina}
 
-The Chrome browser on Mac OS Catalina is not supported when the {{site.data.keyword.blockchainfull}} Platform v2.1.x.
+The Chrome browser on Mac OS Catalina is not supported when the {{site.data.keyword.blockchainfull}} Platform v2.1.x. You can choose a different browser from the list of [supported browsers](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers) instead.

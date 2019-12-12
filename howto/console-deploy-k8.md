@@ -44,11 +44,12 @@ Ensure that your Kubernetes cluster has sufficient resources for the {{site.data
 {: #deploy-k8-browsers}
 The {{site.data.keyword.blockchainfull_notm}} Platform console has been successfully tested on the following browsers:
 
-- Chrome: Version 78.0.3904.70 (Official Build) (64-bit)[^1]
+- Chrome: Version 78.0.3904.70 (Official Build) (64-bit)***
 - Firefox (non-ESR): Version 69.0.1
 - Safari: Version 13.0 (14608.1.49)
 - Edge: v44.17763.1.0
-[^1]: The Chrome browser is not supported on Mac OS Catalina.
+
+{: note} The Chrome browser is not supported on Mac OS Catalina.
 
 ## Storage
 {: #deploy-k8-storage}

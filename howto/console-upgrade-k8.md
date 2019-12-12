@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-11"
+lastupdated: "2019-12-12"
 
 keywords: Kubernetes, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -17,7 +17,7 @@ subcollection: blockchain-rhos
 {:note: .note}
 {:important: .important}
 {:tip: .tip}
-{:pre: .pre}
+{:pre: .pre}_
 
 # Upgrading your console and components
 {: #upgrade-k8}
@@ -32,7 +32,7 @@ You can upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
 | Version | Release date | Image tags | New features |
 |----|----|----|----|
 | [{{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos?topic=blockchain-whats-new#whats-new-12-17-2019) | 17 December 2019 | **Console and tools** <ul><li>2.1.2-20191217-amd64</ul> **Fabric nodes** <ul><li>1.4.4-20191217-amd64</ul> **CouchDB** <ul><li>2.3.1-20191217-amd64</ul> | **Fabric Version Upgrade** <ul><li>Fabric version 1.4.4</ul> **Additional platforms** <ul><li>Platform can be deployed on the OpenShift Container Platform 4.1 and 4.2</ul> **Improvements to the Console UI** <ul><li>Simplified component creation flows</li><li>Zone selection for ordering nodes</li><li>Add peer to a channel from Channels tab</li><li>Anchor peer during join</li><li>Export/Import all</ul> |
-| [{{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-whats-new#whats-new-11-08-2019) | 8 November 2019 | **Console and tools** <ul><li>2.1.1-20191217-amd64</ul> **Fabric nodes** <ul><li>1.4.3-20191217-amd64</ul> **CouchDB** <ul><li>2.3.1-20191217-amd64</ul> | **Additional platforms** <ul><li>Platform can be deployed on Kubernetes v1.11</li><li>Platform can be deployed on {{site.data.keyword.cloud_notm}} Private 3.2.1</li></ul> |
+| [{{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-whats-new#whats-new-11-08-2019) | 8 November 2019 | **Console and tools** <ul><li>2.1.1-20191217-amd64</ul> **Fabric nodes** <ul><li>1.4.3-20191217-amd64</ul> **CouchDB** <ul><li>2.3.1-20191217-amd64</ul> | **Additional platforms** <ul><li>Platform can be deployed on Kubernetes v1.11 - v1.16</li><li>Platform can be deployed on {{site.data.keyword.cloud_notm}} Private 3.2.1</li></ul> |
 | [{{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-whats-new#whats-new-9-24-2019) | 24 September 2019 | **Console and tools** <ul><li>2.1.0-20190918-amd64</ul> **Fabric nodes** <ul><li>1.4.3-20190918-amd64</ul> **CouchDB** <ul><li>2.3.1-20190918-amd64</ul> | **Fabric Version Upgrade** <ul><li>Fabric version 1.4.3</ul> **Additional platforms** <ul><li>Platform can be deployed on the OpenShift Container Platform 3.11</ul> |
 {: caption="Table 1. {{site.data.keyword.blockchainfull_notm}} Platform versions" caption-side="bottom"}
 
@@ -44,26 +44,26 @@ You can upgrade an {{site.data.keyword.blockchainfull_notm}} Platform network by
 2. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-k8-operator)
 3. [Use your console to upgrade your running blockchain nodes](#upgrade-k8-nodes)
 
-You need to complete these steps for each network that is running on a separate project. If you experience any problems, see the instructions for [rolling back an upgrade](#upgrade-k8-rollback). If you deployed your network behind a firewall, without access to the external internet, see the separate set of instructions for [Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall](#upgrade-k8-nodes).
+You need to complete these steps for each network that is running on a separate namespace. If you experience any problems, see the instructions for [rolling back an upgrade](#upgrade-k8-rollback). If you deployed your network behind a firewall, without access to the external internet, see the separate set of instructions for [Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall](#upgrade-k8-nodes).
 
 You can continue to submit transactions to your network while you are upgrading your network. However, you cannot use the console to deploy new nodes, install or instantiate smart contracts, or create new channels during the upgrade process.
 
 ## Before you begin
 
-To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
+To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your namespace. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ## Step one: Download the {{site.data.keyword.blockchainfull_notm}} Platform resource definitions
 {: #upgrade-k8-download}
 
 Before you can upgrade your network, you need to download the resource definitions of the {{site.data.keyword.blockchainfull_notm}} Platform console and operator from your cluster. You will update the operator file and use it to upgrade your network. If there is a problem during the upgrade process, you can use the console and operator files revert your network to your existing deployment.
 
-Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different project, you must switch to each OpenShift project and upgrade each network separately. Go to the OpenShift project of the network that you want to upgrade. Replace `<PROJECT_NAME>` with the name of your project.
+Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different namespace, you must switch to each namespace and upgrade each network separately. Go to the namespace of the network that you want to upgrade. Replace `<NAMESPACE>` with your namespace.
 ```
-oc project <PROJECT_NAME>
+kubectl project <NAMESPACE>
 ```
 {:codeblock}
 
-When you are operating from your project, run the following command to download the custom resource definition of the console:
+When you are operating from your namespace, run the following command to download the custom resource definition of the console:
 ```
 kubectl get deployment ibpconsole -o yaml > console.yaml
 ```
@@ -129,7 +129,7 @@ kubectl apply -f operator-upgrade.yaml
 
 You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command upgraded the operator spec.
 
-After you apply the `operator-upgrade.yaml` custom resource definition to your OpenShift project, the operator will restart and pull the latest operator image. Once the new operator is running, it will pull the latest images for the console UI and your blockchain nodes. You need to wait 10 to 15 minutes for the upgrade to complete. You can continue to submit transactions to your network during the upgrade process. However, you cannot access the console UI from your browser or use the {{site.data.keyword.blockchainfull_notm}} APIs.
+After you apply the `operator-upgrade.yaml` custom resource definition to your namespace, the operator will restart and pull the latest operator image. Once the new operator is running, it will pull the latest images for the console UI and your blockchain nodes. You need to wait 10 to 15 minutes for the upgrade to complete. You can continue to submit transactions to your network during the upgrade process. However, you cannot access the console UI from your browser or use the {{site.data.keyword.blockchainfull_notm}} APIs.
 
 You can check that the upgrade is complete by running `kubectl get deployment`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
@@ -169,7 +169,7 @@ You can continue to submit transactions to your network while you are upgrading 
 
 ### Before you begin
 
-To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8-firewall#deploy-k8-entitlement-key-firewall) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
+To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8-firewall#deploy-k8-entitlement-key-firewall) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your namespace. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ### Step one: Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images
 {: #upgrade-k8-images-firewall}
@@ -253,15 +253,15 @@ After you complete these steps, you can use the following instructions to deploy
 ### Step two: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
 {: #upgrade-k8-operator-firewall}
 
-You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your OpenShift project. You can then update the spec with the latest operator image that you pushed to your local registry.
+You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your namespace. You can then update the spec with the latest operator image that you pushed to your local registry.
 
-Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different project, you must switch to each OpenShift project and upgrade each network separately. Go to the OpenShift project of the network that you want to upgrade. Replace `<PROJECT_NAME>` with the name of your project.
+Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different namespace, you must switch to each namespace and upgrade each network separately. Go to the namespace of the network that you want to upgrade. Replace `<NAMESPACE>` with your namespace.
 ```
-oc project <PROJECT_NAME>
+kubectl project <NAMESPACE>
 ```
 {:codeblock}
 
-When you are operating from your project, run the following command to download the operator deployment spec to your local file system:
+When you are operating from your namespace, run the following command to download the operator deployment spec to your local file system:
 ```
 kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
@@ -313,7 +313,7 @@ kubectl apply -f operator-upgrade.yaml
 
 You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command upgraded the operator spec.
 
-After you apply the `operator-upgrade.yaml` custom resource definition to your OpenShift project, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
+After you apply the `operator-upgrade.yaml` custom resource definition to your namespace, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
 
 You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
@@ -328,7 +328,7 @@ If you experience a problem while you are upgrading the operator, go to this [tr
 
 After you upgrade the operator, you can then upgrade your console to use the latest set of console and Fabric images that you downloaded.
 
-Log in to your cluster by using the OpenShift CLI and switch to your OpenShift project. Run the following command to download the custom resource definition of the console:
+Log in to your cluster by using the OpenShift CLI and switch to your namespace. Run the following command to download the custom resource definition of the console:
 ```
 kubectl get deployment ibpconsole -o yaml > console.yaml
 ```

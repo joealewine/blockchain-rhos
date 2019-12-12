@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-11"
+lastupdated: "2019-12-12"
 
 keywords: IBM Blockchain Platform, images
 
@@ -142,6 +142,7 @@ In addition to using the Fabric tools, you can also use the tools that are provi
 
 
 ## Example
+{: #blockchain-images-example}
 
 We can provide an example of the changes you need to make by updating the `first-network` sample to run the {{site.data.keyword.blockchainfull_notm}} images instead of the community Docker images.
 

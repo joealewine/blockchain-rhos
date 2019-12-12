@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-12"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -66,7 +66,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform includes the following ke
 - **Choose your compute**. You have the flexibility to decide the amount of CPU, memory, and storage you want to provision in your Kubernetes cluster. For more information, see [How the console interacts with your Kubernetes cluster](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern#ibp-console-govern-iks-console-interaction).
 - **Scale** up and down the resources in your Kubernetes cluster, paying for only what you need. For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing).
 - **Disaster recovery and multizone high availability (HA).** This ability duplicates your node deployment across zones, enabling zero down time of your components and disaster recovery (DR).
-- **Run Anywhere**. Thanks to the **unified codebase** of the {{site.data.keyword.blockchainfull_notm}} Platform console, it is possible to run your components on any Kubernetes v1.11 or higher container platform on x86_64.
+- **Run Anywhere**. Thanks to the **unified codebase** of the {{site.data.keyword.blockchainfull_notm}} Platform console, it is possible to run your components on any Kubernetes v1.11 - v1.16 container platform on x86_64.
 - **Connect to other Fabric networks**: Join {{site.data.keyword.blockchainfull_notm}} Platform peers to any network running Hyperledger Fabric components. Similarly, you can invite Fabric peers to join channels hosted on an ordering service deployed on the {{site.data.keyword.blockchainfull_notm}} Platform. Note that you will need to use Hyperledger Fabric APIs or the CLI.
 
 ## Supported Platforms
@@ -78,7 +78,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 can be deployed us
 |----|----|----|
 | **Red Hat OpenShift Container Platform (OCP) 3.11, 4.1, and 4.2 and OpenShift Kubernetes Distribution (OKD) 3.11:** |Any x86_64 hardware running:  <ul><li>OCP 3.11 that meet the [system and environment requirements](https://docs.openshift.com/container-platform/3.11/install/prerequisites.html){: external}. </li> <li> [OCP 4.1 available platforms](https://docs.openshift.com/container-platform/4.1/architecture/architecture-installation.html#available-platforms_architecture-installation){: external} </li> <li>[OCP 4.2 available platforms](https://docs.openshift.com/container-platform/4.2/architecture/architecture-installation.html#available-platforms_architecture-installation){: external} </li></ul> | <ul> <li> Red Hat OpenShift 3.11 Cluster on {{site.data.keyword.cloud_notm}} </li> <li> Red Hat OpenShift 3.11 Cluster on Microsoft Azure <li> Red Hat OpenShift 4.1  <br><br> See these articles on [OpenShift Container Platform 3.x Tested Integrations](https://access.redhat.com/articles/2176281){: external} or [OpenShift Container Platform 4.x Tested Integrations](https://access.redhat.com/articles/4128421){: external}(Red Hat subscription required to view content). Scroll down to the bottom of the article to the section titled 'Tested Platforms' to view the list of cloud providers tested on OpenShift Container Platform 3.11, 4.1, or 4.2. </li></ul>
 | **{{site.data.keyword.cloud_notm}} Private 3.2.1** | <ul><li>x86_64</li><li>LinuxOne on s390x</li></ul>| <ul><li>Intel (x86)</li><li>LinuxOne (s390x)</ul>|
-| **Kubernetes v1.11 and higher** | <ul><li>x86_64 </li></ul> | <ul><li>Kubernetes</li> <br>The platform has also been tested on Rancher v2.3.2 and Azure Kubernetes Service (AKS).</ul>|
+| **Kubernetes v1.11 - v1.16** | <ul><li>x86_64 </li></ul> | <ul><li>Kubernetes</li> <br>The platform has also been tested on Rancher v2.3.2 and Azure Kubernetes Service (AKS).</ul>|
 {: caption="Table 1. Supported Platforms" caption-side="bottom"}
 
 If you are not running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private then you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.

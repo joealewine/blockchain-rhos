@@ -3,7 +3,7 @@
 copyright:
   years: 2019
 
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-12"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft, join a network, system channel
 
@@ -223,7 +223,7 @@ Use your console to perform the following steps:
 4. The **Advanced deployment options** can be safely ignored for purposes of this tutorial. For more information about these options, see the links below.
    * [State database selection](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-level-couch)
    * [Multizone high availability](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-ha#ibp-console-ha-multi-zone)
-   * [Kubernetes zone selection]((/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-ha#ibp-console-ha-multi-zone)
+   * [Kubernetes zone selection](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-ha#ibp-console-ha-multi-zone)
    * [External Certificate Authority configuration](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-third-party-ca)
    * [Resource allocation](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources)</blockchain advanced-deployment>
 5. Click **Next**.
@@ -237,7 +237,8 @@ Use your console to perform the following steps:
 8. Review the summary and click **Add peer**.
 **Task: Deploying a peer**
 
-  |  | **Display name** | **MSP ID** | **Enroll ID** | **Secret** |
+
+|  | **Display name** | **MSP ID** | **Enroll ID** | **Secret** |
   | ------------------------- |-----------|-----------|-----------|-----------|
   | **Create Peer** | Peer Org2 | org2msp |||
   | **CA** | Org2 CA ||||
@@ -246,7 +247,6 @@ Use your console to perform the following steps:
   | **TLS CA** | Org2 CA ||||
   | **TLS CA ID** | || peer2 | peer2pw |
   | **Associate identity** | Org2 MSP Admin  |||||
-
   *Figure 8. Deploying a peer*  
 
 In a production scenario, it is recommended to deploy three peers to each channel. This is to allow one peer to go down (for example, during a maintenance cycle) and still maintain highly available peers. To deploy more than one peer for an organization, use the same CA you used to register your first peer identity. In this tutorial, that would be `Org2 CA`. Then, register a new peer identity using a distinct enroll ID and secret. For example, `org2secondpeer` and `org2secondpeerpw`. Then, when creating the peer, give this enroll ID and secret. As this peer is still associated with Org2, choose `Org2 CA`, `Org2 MSP`, and `Org2 MSP Admin ` from the drop-down lists. You may choose to give this new peer a different admin, which can be registered and enrolled with `Org2 CA`, but this optional. This tutorial series will only show the process for creating a single peer for each peer organization.

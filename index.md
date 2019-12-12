@@ -4,6 +4,8 @@ copyright:
   years: 2019
 lastupdated: "2019-12-12"
 
+keywords: Kubernetes, IBM Cloud Private, OCP, OpenShift Container Platform, IBM Blockchain Platform
+
 subcollection: blockchain-rhos
 
 ---

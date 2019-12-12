@@ -57,7 +57,8 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console has been successf
 - Safari: Version 13.0 (14608.1.49)
 - Edge: v44.17763.1.0
 
-{: note} The Chrome browser is not supported on Mac OS Catalina.
+The Chrome browser is not supported on Mac OS Catalina.
+{: note}
 
 ## Storage
 {: #deploy-ocp-storage}

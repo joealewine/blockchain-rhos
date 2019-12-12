@@ -40,22 +40,34 @@ You can upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
 
 You can upgrade an {{site.data.keyword.blockchainfull_notm}} Platform network by using the following steps:
 
-1. [Download the {{site.data.keyword.blockchainfull_notm}} Platform resource definitions from your cluster](#upgrade-ocp-download)
-2. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator)
-3. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes)
+1. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator)
+2. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes)
+
+Once you upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator, the operator automatically upgrade the console running on your OpenShift project. You can then use the upgraded console to upgrade your blockchain nodes.
 
 You need to complete these steps for each network that is running on a separate project. If you experience any problems, see the instructions for [rolling back an upgrade](#upgrade-ocp-rollback). If you deployed your network behind a firewall, without access to the external internet, see the separate set of instructions for [Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall](#upgrade-ocp-nodes).
 
 You can continue to submit transactions to your network while you are upgrading your network. However, you cannot use the console to deploy new nodes, install or instantiate smart contracts, or create new channels during the upgrade process.
 
+### Upgrading platforms
+
+If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or V2.1.1 on the OpenShift Container Platform 3.11, you can upgrade your network to run on OpenShift Container Platform 4.1 or 4.2. Because the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 cannot run on OpenShift Container Platform 3.11, you first need to follow the steps to upgrade your blockchain network to v2.1.2. After your network is upgraded to v2.1.1, you can then upgrade your OpenShift cluster.
+
+### Roll back back an upgrade
+{: #upgrade-ocp-rollback}
+
+When upgrade your operator, it saves the secrets, deployment spec, and network information of your console before it the operator attempts to upgrade the console. If your upgrade fails for any reason, {{site.data.keyword.blockchainfull_notm}} can roll back your upgrade and restore your previous deployment using the information on your cluster. If you need to roll back your upgrade, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page.
+
+You can roll back an upgrade after you have used the console to operate your network. However, after you have used the console to upgrade your blockchain nodes, you can no longer roll back your console to a previous version of the platform.
+
 ## Before you begin
 
 To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
-## Step one: Download the {{site.data.keyword.blockchainfull_notm}} Platform resource definitions
-{: #upgrade-ocp-download}
+## Step one: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
+{: #upgrade-ocp-operator-firewall}
 
-Before you can upgrade your network, you need to download the resource definitions of the {{site.data.keyword.blockchainfull_notm}} Platform console and operator from your cluster. You will update the operator file and use it to upgrade your network. If there is a problem during the upgrade process, you can use the console and operator files revert your network to your existing deployment.
+You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your OpenShift project. When the upgraded operator is running, the new operator will upgrade your console and download the latest images for your blockchain nodes.
 
 Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different project, you must switch to each OpenShift project and upgrade each network separately. Go to the OpenShift project of the network that you want to upgrade. Replace `<PROJECT_NAME>` with the name of your project.
 ```
@@ -63,28 +75,13 @@ oc project <PROJECT_NAME>
 ```
 {:codeblock}
 
-When you are operating from your project, run the following command to download the custom resource definition of the console:
-```
-kubectl get deployment ibpconsole -o yaml > console.yaml
-```
-{:codeblock}
-
-Save `console.yaml` file in case you need to roll back your upgrade.
-
-You can now download custom resource definition of the operator. Run the following command to download the operator deployment spec to your local file system:
+When you are operating from your project, run the following command to download the operator deployment spec to your local file system:
 ```
 kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Open the `operator.yaml` file in a text editor and save a new copy of the file as `operator-upgrade.yaml`. Save an original copy of the `operator.yaml` in case you need to roll back your upgrade.
-
-## Step two: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
-{: #upgrade-ocp-operator}
-
-You can use the `operator-upgrade.yaml` file to upgrade your {{site.data.keyword.blockchainfull_notm}} operator to the latest version. When the upgraded operator is running, the new operator will upgrade your console and download the latest images for your blockchain nodes.
-
-Open the `operator-upgrade.yaml` file. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Rename the operator deployment spec `operator-upgrade.yaml` and open it in a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
 ```
 cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
 ```
@@ -102,6 +99,7 @@ Replace this section with the following lines at the same indentation:
 - name: CLUSTERTYPE
   value: OPENSHIFT
 ```
+
 When you are finished editing the file, the `env:` section would look similar to the following:
 ```
 env:
@@ -121,7 +119,7 @@ env:
   value: OPENSHIFT
 ```
 
-Save the file on your local system. You can then upgrade your operator with the following command:
+Save the file on your local system. You can then issue the following command upgrade your operator:
 ```
 kubectl apply -f operator-upgrade.yaml
 ```
@@ -129,18 +127,17 @@ kubectl apply -f operator-upgrade.yaml
 
 You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command upgraded the operator spec.
 
-After you apply the `operator-upgrade.yaml` custom resource definition to your OpenShift project, the operator will restart and pull the latest operator image. Once the new operator is running, it will pull the latest images for the console UI and your blockchain nodes. You need to wait 10 to 15 minutes for the upgrade to complete. You can continue to submit transactions to your network during the upgrade process. However, you cannot access the console UI from your browser or use the {{site.data.keyword.blockchainfull_notm}} APIs.
+After you apply the `operator-upgrade.yaml` custom resource definition to your OpenShift project, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
 
-You can check that the upgrade is complete by running `kubectl get deployment`. If the upgrade is successful, then you can see the following tables with four ones displayed.
+You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
 NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           10m
-ibpconsole     1         1         1            1           3m
+ibp-operator   1         1         1            1           1m
 ```
 
-If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can also use the instructions for [rolling back an upgrade](#upgrade-ocp-rollback)
+If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
 
-## Step three: Upgrade your blockchain nodes
+## Step two: Upgrade your blockchain nodes
 {: #upgrade-ocp-nodes}
 
 After you upgrade your console, you can use the console UI to upgrade the nodes of your blockchain network. Browse to the console UI open the nodes overview tab. You can find the **Patch available** text on a node tile if there is an update available for the component. You can install this patch whenever you are ready. These patches are optional, but they are recommended. You cannot patch nodes that were imported into the console.
@@ -149,11 +146,6 @@ Apply patches to nodes one at a time. Your nodes are unavailable to process requ
 {:important}
 
 To apply a patch to a node, open the node tile and click the **Install patch** button. You cannot patch nodes that you imported to the console.
-
-## Roll back back an upgrade
-{: #upgrade-ocp-rollback}
-
-You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment. You can run the command to apply the original operator file, `kubectl apply -f console.yaml` to restore your original operator deployment.
 
 ## Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall
 {: #upgrade-ocp-firewall}
@@ -267,7 +259,7 @@ kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Open the `operator-upgrade.yaml` file. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Rename the operator deployment spec `operator-upgrade.yaml` and open it in a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
 ```
 cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
 ```
@@ -334,7 +326,7 @@ kubectl get deployment ibpconsole -o yaml > console.yaml
 ```
 {:codeblock}
 
-Open `console.yaml` in a text editor and save a new copy of the file as `console-upgrade.yaml`. You need to update the image section of the `console-upgrade.yaml` so that your console can use the latest version of console and the blockchain node images that you downloaded. Copy the lines below as a complete block and replace the `image:` section of `console-upgrade.yaml`
+Open `console.yaml` in a text editor and save a new copy of the file as `console-upgrade.yaml`. Copy the lines below as a complete block and replace the `image:` section of `console-upgrade.yaml`
 
 ```
 imagePullSecret: docker-key-secret

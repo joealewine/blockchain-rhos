@@ -17,7 +17,7 @@ subcollection: blockchain-rhos
 {:note: .note}
 {:important: .important}
 {:tip: .tip}
-{:pre: .pre}_
+{:pre: .pre}
 
 # Upgrading your console and components
 {: #upgrade-k8}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-10"
+lastupdated: "2019-12-12"
 
 
 keywords: release note, latest changes, Hyperledger Fabric
@@ -20,8 +20,6 @@ subcollection: blockchain-rhos
 
 # Release notes
 {: #release-notes-saas-20}
-
-
 
 Use these release notes that are grouped by date to learn about the latest changes to {{site.data.keyword.blockchainfull}} Platform v2.1
 {:shortdesc}

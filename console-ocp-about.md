@@ -110,6 +110,7 @@ For more information, see [Pricing](/docs/services/blockchain-rhos?topic=blockch
 - This offering does not include an entitlement to Red Hat OpenShift.
 - There is no free trial at this time. Customers who are interesting in exploring the functionality should try the offering on [{{site.data.keyword.cloud_notm}}](/docs/services/blockchain?topic=blockchain-ibp-console-overview){: external}.
 - You are responsible for the management of health monitoring, security, logging, and resource usage of your blockchain components.
+- You cannot access the {{site.data.keyword.blockchainfull_notm}} Platform console using the Chrome browser on Mac OS Catalina.
 
 ## Installing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
 {: #console-ocp-about-install}

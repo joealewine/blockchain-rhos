@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-11"
+lastupdated: "2019-12-12"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -92,7 +92,6 @@ docker login --username cp --password <KEY> cp.icr.io
 After you log in, use the following command to pull all of the component images of the {{site.data.keyword.blockchainfull_notm}} Platform:
 ```
 docker pull cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
-docker pull cp.icr.io/cp/ibp-ca-init:2.1.2-20191217-amd64
 docker pull cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64
 docker pull cp.icr.io/cp/ibp-peer:1.4.4-20191217-amd64
 docker pull cp.icr.io/cp/ibp-orderer:1.4.4-20191217-amd64
@@ -110,7 +109,6 @@ docker pull cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64
 After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
 ```
 docker tag cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
-docker tag cp.icr.io/cp/ibp-ca-init:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.2-20191217-amd64
 docker tag cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
 docker tag cp.icr.io/cp/ibp-peer:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
 docker tag cp.icr.io/cp/ibp-orderer:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
@@ -138,7 +136,6 @@ docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGIS
 Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` with the url of your local registry.
 ```
 docker push <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.2-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
@@ -588,7 +585,7 @@ spec:
           default: true
           version: 1.4.4-0
           image:
-            caInitImage: ibp-ca-init
+            caInitImage: ibp-init
             caInitTag: 2.1.2-20191217-amd64
             caImage: ibp-ca
             caTag: 1.4.4-20191217-amd64
@@ -688,7 +685,7 @@ metadata:
             default: true
             version: 1.4.4-0
             image:
-              caInitImage: ibp-ca-init
+              caInitImage: ibp-init
               caInitTag: 2.1.2-20191217-amd64
               caImage: ibp-ca
               caTag: 1.4.4-20191217-amd64

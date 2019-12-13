@@ -22,6 +22,17 @@ subcollection: blockchain-rhos
 # What's new
 {: #whats-new}
 
+## December 17, 2019
+{: #whats-new-12-17-2019}
+
+{{site.data.keyword.blockchainfull}} Platform v2.1.2 can now be deployed on the OpenShift Container Platform 4.1 and 4.2. You can find a table of table of deployment options by going to [Supported platforms](/docs/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites). {{site.data.keyword.blockchainfull}} Platform v2.1.2 also provides improvements to the {{site.data.keyword.blockchainfull}} Platform console. See the [Release notes](/docs/blockchain-rhos?topic=blockchain-rhos-release-notes-saas-20#12-17-2019) for a full list of new features that are included with this release.
+
+If you have an existing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 deployment and are interested in upgrading to {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2, see the following topics:
+- [Upgrading your console and components on the OpenShift Container Platform](/docs/blockchain-rhos?topic=blockchain-rhos-upgrade-ocp)
+- [Upgrading your console and components on Kubernetes or {{site.data.keyword.cloud_notm}} Private 3.2.1](/docs/blockchain-rhos?topic=blockchain-rhos-upgrade-k8)
+- [Upgrading the {{site.data.keyword.blockchainfull_notm}} images](/docs/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images-upgrade)
+
+
 ## November 08, 2019
 {: #whats-new-11-08-2019}
 

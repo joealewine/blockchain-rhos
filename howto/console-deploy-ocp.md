@@ -77,7 +77,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 1. Log in to [MyIBM Container Software Library](https://myibm.ibm.com/products-services/containerlibrary){: external} with the IBMid and password that are associated with the entitled software.
 
-2. In the Entitlement keys section, select Copy key to copy the entitlement key to the clipboard.
+2. In the Entitlement keys section, select **Copy key** to copy the entitlement key to the clipboard. Save this value for use later during deployment.
 
 ## Before you begin
 {: #deploy-ocp-prerequisites}

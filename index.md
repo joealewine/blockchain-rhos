@@ -36,6 +36,14 @@ The **{{site.data.keyword.blockchainfull_notm}} Platform v2.1.2** is purchased a
 With this offering, you are responsible for purchasing and provisioning your own Kubernetes cluster.
 {: important}
 
+## Already have an {{site.data.keyword.blockchainfull_notm}} Platform v2.1.x network and want to upgrade?
+{: #get-started-console-ocp-upgrade}
+
+Check out the following topics for instructions on how to upgrade:
+- [Upgrading your console and components on the OpenShift Container Platform](/docs/blockchain-rhos?topic=blockchain-rhos-upgrade-ocp)
+- [Upgrading your console and components on Kubernetes or {{site.data.keyword.cloud_notm}} Private 3.2.1](/docs/blockchain-rhos?topic=blockchain-rhos-upgrade-k8)
+- [Upgrading the {{site.data.keyword.blockchainfull_notm}} images](/docs/blockchain-rhos?topic=blockchain-rhos-blockchain-images#blockchain-images-upgrade)
+
 ## Is {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 suitable for you?
 {: #get-started-console-ocp-suitable}
 
@@ -45,7 +53,7 @@ With this offering, you are responsible for purchasing and provisioning your own
 |----|---|----|
 | Where do you want to deploy the platform?|  Multiple Kubernetes distributions on a private, public or hybrid multicloud | An {{site.data.keyword.IBM_notm}} Kubernetes Service cluster on {{site.data.keyword.cloud_notm}} |  
 | What are my deployment options? | <ul><li> Full platform </li> <li> Only {{site.data.keyword.blockchainfull_notm}} images ** </li> </ul>| <ul><li> Full platform </li> </ul>
-| How is it billed? |Contact us for [pricing]/docs/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing) |[$0.29 USD per allocated CPU hour](/docs/services/blockchain?topic=blockchain-ibp-saas-pricing)  |
+| How is it billed? |Contact us for [pricing](/docs/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing) |[$0.29 USD per allocated CPU hour](/docs/services/blockchain?topic=blockchain-ibp-saas-pricing)  |
 | Can I connect with Peers in other clouds? |  Yes| Yes |
 | Can my data center be on-premises and behind a firewall? | Yes| No |
 | Can I use a console UI to deploy and manage my blockchain components? | Yes | Yes |
@@ -66,7 +74,7 @@ Are you a developer? Check out the [**{{site.data.keyword.blockchainfull_notm}} 
 
 1. Review the [Supported Platforms](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites).
 
-2. Install a Kubernetes cluster and login to your cluster. If you are using OpenShift, see the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the CLI. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
+2. Install a Kubernetes cluster and log in to your cluster. If you are using OpenShift, see the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the CLI. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
 
 3. If you are _not_ running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private, you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.
 

@@ -2,9 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-10"
-
-
+lastupdated: "2019-12-13"
 
 keywords: security, encryption, storage, tls, iam, roles, keys
 
@@ -24,7 +22,7 @@ subcollection: blockchain-rhos
 # Security
 {: #ibp-security}
 
-{{site.data.keyword.blockchainfull}} Platform provides a scalable, highly reliable platform that helps customers deploy applications and data quickly and securely. This document provides information about securing your {{site.data.keyword.blockchainfull_notm}} Platform service instance, where the blockchain console runs, and best practices for securing the linked customer-owned Kubernetes cluster.
+{{site.data.keyword.blockchainfull}} Platform provides a scalable, highly reliable platform that helps customers deploy applications and data quickly and securely. This document provides information about securing your {{site.data.keyword.blockchainfull_notm}} Platform service instance, where the blockchain console runs, and best practices for securing the  Kubernetes cluster where the blockchain nodes are deployed.
 {:shortdesc}
 
 ## Security on the {{site.data.keyword.blockchainfull_notm}} Platform console
@@ -75,7 +73,7 @@ You also have the option to bring your own certificates from your own non-{{site
 ### Membership Service Providers (MSPs)
 {: #ibp-security-ibp-msp}
 
-Whereas Certificate Authorities generate the certificates that represent identities, turning these identities into roles in the {{site.data.keyword.blockchainfull_notm}} Platform is done through the creation of Membership Service Providers (MSPs) in the console. These MSPs, which structurally are comprised of folders containing certificates, are used to represent organizations on the network. Every organization will have one and only one MSP and will always contain at least one **admincert** that identifies an administrator of the organization. When an MSP is associated with a peer, for example, it denotes that the peer belongs to that organization. Later on in the flow for creating a peer (or any node), this same administrator identity can be used to serve as the administrator of the peer as well. In order to perform some actions on a node, an administrator role is required. For example, to be able to install a smart contract on a peer, your public key must exist in the 'admincerts' folder of the peer's organization MSP, which therefore makes you an administrator of the peer organization.
+Whereas Certificate Authorities generate the certificates that represent identities, turning these identities into roles in the {{site.data.keyword.blockchainfull_notm}} Platform is done through the creation of Membership Service Providers (MSPs) in the console. These MSPs, which structurally are comprised of folders containing certificates, are used to represent organizations on the network. Every organization will have one and only one MSP and will always contain at least one **admincert** that identifies an administrator of the organization. When an MSP is associated with a peer, for example, it denotes that the peer belongs to that organization. Later on in the flow for creating a peer (or any node), this same administrator identity can be used to serve as the administrator of the peer as well. In order to perform some actions on a node, an administrator role is required. For example, to be able to install a smart contract on a peer, your public key must exist in the `admincerts` folder of the peer's organization MSP, which therefore makes you an administrator of the peer organization.
 
 MSPs also identify the root CA that generated the certificates for the organization and any other roles beyond administrator that are associated with the organization (for example, members of a sub-organizational group), as well as setting the basis for defining access privileges in the context of a network and channel (e.g., channel admins, readers, writers).
 
@@ -110,7 +108,7 @@ In order to use the blockchain [APIs](https://cloud.ibm.com/apidocs/blockchain){
 See this topic on how to [Connect to your console using API keys](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-apis#console-icp-manage-api-key) for more details.
 
 
-## Best practices for security on the customer Kuberenetes cluster
+## Best practices for security on the customer Kubernetes cluster
 {: #ibp-security-Kubernetes}
 
 **Audience:** Tasks in this section are typically performed by **Kubernetes infrastructure managers**.
@@ -155,7 +153,7 @@ The Kubernetes Container Platform provides the underlying network, including the
 ### Cluster and Operating System security
 {: #ibp-security-Kubernetes-container-os}
 
-- **Sensitive data:** Cluster configuration data is stored in the `etcd` component of your Kubernetes master. Data in etcd is stored on the local disk of the Kubernetes master and is backed up to {{site.data.keyword.cos_full_notm}}. Data is encrypted during transit to {{site.data.keyword.cos_full_notm}}. If you are using OpenShift, you can choose to enable encryption for your etcd data on the local disk of your Kubernetes master by [Encrypting Data at the datastore layer ](https://docs.openshift.com/container-platform/4.2/admin_guide/encrypting_data.html){: external} for your cluster.
+- **Sensitive data:** Cluster configuration data is stored in the `etcd` component of your Kubernetes master. Data in etcd is stored on the local disk of the Kubernetes master and is backed up to {{site.data.keyword.cos_full_notm}}. Data is encrypted during transit to {{site.data.keyword.cos_full_notm}}. If you are using OpenShift, you can choose to enable encryption for your etcd data on the local disk of your Kubernetes master by [Encrypting Data at the datastore layer](https://docs.openshift.com/container-platform/4.2/admin_guide/encrypting_data.html){: external} for your cluster.
 
 
 
@@ -188,11 +186,9 @@ Customers are responsible for encrypting their own storage and the encryption mu
 
 
 
-For more information about encryption on {{site.data.keyword.cloud_notm}} Private:
-- [Encrypting volumes that are used by IBM Cloud Private](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.2/installing/fips_encrypt_volumes.html){: external}
-
-
-For more information on securing your persistent storage on OpenShift, see this topic on [Volume Security](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/pod_security_context.html){: external}.
+- For more information about encryption on {{site.data.keyword.cloud_notm}} Private:
+[Encrypting volumes that are used by IBM Cloud Private](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.2/installing/fips_encrypt_volumes.html){: external} 
+- For more information on securing your persistent storage on OpenShift, see this topic on [Volume Security](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/pod_security_context.html){: external}.
 
 
 ### Data privacy

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: Kubernetes, IBM Cloud Private, OCP, OpenShift Container Platform, IBM Blockchain Platform
 
@@ -45,7 +45,7 @@ With this offering, you are responsible for purchasing and provisioning your own
 |----|---|----|
 | Where do you want to deploy the platform?|  Multiple Kubernetes distributions on a private, public or hybrid multicloud | An {{site.data.keyword.IBM_notm}} Kubernetes Service cluster on {{site.data.keyword.cloud_notm}} |  
 | What are my deployment options? | <ul><li> Full platform </li> <li> Only {{site.data.keyword.blockchainfull_notm}} images ** </li> </ul>| <ul><li> Full platform </li> </ul>
-| How is it billed? |Contact us for pricing |[$0.29 USD per allocated CPU hour](/docs/services/blockchain?topic=blockchain-ibp-saas-pricing)  |
+| How is it billed? |Contact us for [pricing]/docs/blockchain-rhos?topic=blockchain-rhos-ibp-rhos-pricing) |[$0.29 USD per allocated CPU hour](/docs/services/blockchain?topic=blockchain-ibp-saas-pricing)  |
 | Can I connect with Peers in other clouds? |  Yes| Yes |
 | Can my data center be on-premises and behind a firewall? | Yes| No |
 | Can I use a console UI to deploy and manage my blockchain components? | Yes | Yes |

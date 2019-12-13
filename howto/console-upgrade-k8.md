@@ -79,7 +79,7 @@ kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Rename the operator deployment spec `operator-upgrade.yaml` and open it in a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Open `operator.yaml` in a text editor and save a new copy of the file as `operator-upgrade.yaml`. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
 ```
 cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
 ```
@@ -119,6 +119,13 @@ env:
   value: ibp-operator
 - name: CLUSTERTYPE
   value: IKS
+```
+{:codeblock}
+
+If you created a new Kubernetes secret to store your entitlement key, you also need to update the image pull secret in your console spec:
+```
+imagePullSecrets:
+  - name: <NEW_SECRET>
 ```
 {:codeblock}
 
@@ -260,7 +267,7 @@ kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Rename the operator deployment spec `operator-upgrade.yaml` and open it in a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Open `operator.yaml` in a text editor and save a new copy of the file as `operator-upgrade.yaml`. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
 ```
 cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
 ```
@@ -300,6 +307,13 @@ env:
   value: ibp-operator
 - name: CLUSTERTYPE
   value: IKS
+```
+{:codeblock}
+
+If you created a new Kubernetes secret to store your entitlement key, you also need to update the image pull secret in your console spec:
+```
+imagePullSecrets:
+  - name: <NEW_SECRET>
 ```
 {:codeblock}
 

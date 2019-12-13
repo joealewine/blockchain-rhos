@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: IBM Blockchain Platform, images
 
@@ -144,7 +144,7 @@ In addition to using the Fabric tools, you can also use the tools that are provi
 ## Example
 {: #blockchain-images-example}
 
-We can provide an example of the changes you need to make by updating the `first-network` sample to run the {{site.data.keyword.blockchainfull_notm}} images instead of the community Docker images.
+We can provide an example of the changes you need to make by updating the `first-network` sample to run the {{site.data.keyword.blockchainfull_notm}} images instead of the community Docker images. The example is provided for context, and is not a template for deploying a production network.
 
 You need to update the `peer-base.yaml` and `docker-compose-base.yaml` that are in the `fabric-samples/first-network/base` folder. You can find the orderer section of the `peer-base.yaml` below:
 

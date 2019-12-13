@@ -84,7 +84,7 @@ kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Rename the operator deployment spec `operator-upgrade.yaml` and open it in a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Open `operator.yaml` in a text editor and save a new copy of the file as `operator-upgrade.yaml`. Open `operator-upgrade.yaml` a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
 ```
 cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
 ```
@@ -102,6 +102,7 @@ Replace this section with the following lines at the same indentation:
 - name: CLUSTERTYPE
   value: OPENSHIFT
 ```
+{:codeblock}
 
 When you are finished editing the file, the `env:` section would look similar to the following:
 ```
@@ -121,6 +122,14 @@ env:
 - name: CLUSTERTYPE
   value: OPENSHIFT
 ```
+{:codeblock}
+
+If you created a new Kubernetes secret to store your entitlement key, you also need to update the image pull secret in your operator spec:
+```
+imagePullSecrets:
+  - name: <NEW_SECRET>
+```
+{:codeblock}
 
 Save the file on your local system. You can then issue the following command upgrade your operator:
 ```
@@ -260,7 +269,7 @@ kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Rename the operator deployment spec `operator-upgrade.yaml` and open it in a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Open `operator.yaml` in a text editor and save a new copy of the file as `operator-upgrade.yaml`. Open `operator-upgrade.yaml` a text editor. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
 ```
 cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
 ```
@@ -297,6 +306,13 @@ env:
 - name: CLUSTERTYPE
   value: OPENSHIFT
 ```
+
+If you created a new Kubernetes secret to store your entitlement key, you also need to update the image pull secret in your console spec:
+```
+imagePullSecrets:
+  - name: <NEW_SECRET>
+```
+{:codeblock}
 
 Save the file on your local system. You can then issue the following command upgrade your operator:
 ```

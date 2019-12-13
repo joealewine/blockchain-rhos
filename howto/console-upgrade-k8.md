@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: Kubernetes, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -57,9 +57,9 @@ To upgrade your network, you need to [retrieve your entitlement key](/docs/servi
 
 Before you can upgrade your network, you need to download the resource definitions of the {{site.data.keyword.blockchainfull_notm}} Platform console and operator from your cluster. You will update the operator file and use it to upgrade your network. If there is a problem during the upgrade process, you can use the console and operator files revert your network to your existing deployment.
 
-Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different namespace, you must switch to each namespace and upgrade each network separately. Go to the namespace of the network that you want to upgrade. Replace `<NAMESPACE>` with your namespace.
+Log in to your cluster by using the OpenShift CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different namespace, you must switch to each namespace and upgrade each network separately. use the following command to set the context to the namespace of the network that you want to upgrade. Replace `<NAMESPACE>` with your namespace.
 ```
-kubectl project <NAMESPACE>
+kubectl config set-context --current --namespace=<NAMESPACE>
 ```
 {:codeblock}
 

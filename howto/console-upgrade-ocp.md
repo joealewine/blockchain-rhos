@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -22,12 +22,13 @@ subcollection: blockchain-rhos
 # Upgrading your console and components
 {: #upgrade-ocp}
 
-You can upgrade the {{site.data.keyword.blockchainfull}} Platform without disrupting a running network. Because the platform is deployed using a Kubernetes operator, you can pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images from the IBM Entitlement registry without having to reinstall the platform. You can use these instructions to upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
+You can upgrade the {{site.data.keyword.blockchainfull}} Platform without disrupting a running network. Because the platform is deployed by using a Kubernetes operator, you can pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images from the IBM Entitlement registry without having to reinstall the platform. You can use these instructions to upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
 {:shortdesc}
 
 ## {{site.data.keyword.blockchainfull_notm}} Platform overview
+{: #upgrade-ocp-platform-overview}
 
-You can upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 from any previous release of the {{site.data.keyword.blockchainfull_notm}} Platform. The table below provides an overview of past releases.
+You can upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 from any previous release of the {{site.data.keyword.blockchainfull_notm}} Platform. The table provides an overview of past releases.
 
 | Version | Release date | Image tags | New features |
 |----|----|----|----|
@@ -36,36 +37,38 @@ You can upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
 | [{{site.data.keyword.blockchainfull_notm}} Platform v2.1.0](/docs/services/blockchain-rhos?topic=blockchain-whats-new#whats-new-9-24-2019) | 24 September 2019 | **Console and tools** <ul><li>2.1.0-20190918-amd64</ul> **Fabric nodes** <ul><li>1.4.3-20190918-amd64</ul> **CouchDB** <ul><li>2.3.1-20190918-amd64</ul> | **Fabric Version Upgrade** <ul><li>Fabric version 1.4.3</ul> **Additional platforms** <ul><li>Platform can be deployed on the OpenShift Container Platform 3.11</ul> |
 {: caption="Table 1. {{site.data.keyword.blockchainfull_notm}} Platform versions" caption-side="bottom"}
 
-## Upgrade overview
+## Upgrading platforms
+{: #upgrade-ocp-platform}
+
+If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or V2.1.1 on the OpenShift Container Platform 3.11, you can upgrade your network to run on OpenShift Container Platform 4.2. Because the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 cannot run on OpenShift Container Platform 4.x, you need to upgrade your blockchain network before you upgrade your cluster. First, follow the steps to [upgrade your network to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](#upgrade-ocp-overview). You can then migrate your OpenShift cluster from 3.11 to 4.2. You cannot migrate your OpenShift cluster from 3.11 to 4.1. For more information, see [Migrating OpenShift Container Platform 3.7 to 4.2](https://docs.openshift.com/container-platform/4.2/migration/migrating-3-4/migrating-openshift-3-to-4.html#migrating-openshift-3-to-4).
+
+## Upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
+{: #upgrade-ocp-steps}
 
 You can upgrade an {{site.data.keyword.blockchainfull_notm}} Platform network by using the following steps:
 
 1. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator)
 2. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes)
 
-Once you upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator, the operator automatically upgrade the console running on your OpenShift project. You can then use the upgraded console to upgrade your blockchain nodes.
+After you upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator, the operator will automatically upgrade the console that is deployed on your OpenShift project. You can then use the upgraded console to upgrade your blockchain nodes.
 
-You need to complete these steps for each network that is running on a separate project. If you experience any problems, see the instructions for [rolling back an upgrade](#upgrade-ocp-rollback). If you deployed your network behind a firewall, without access to the external internet, see the separate set of instructions for [Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall](#upgrade-ocp-nodes).
+You need to complete these steps for each network that that runs on a separate project. If you experience any problems, see the instructions for [rolling back an upgrade](#upgrade-ocp-rollback). If you deployed your network behind a firewall, without access to the external internet, see the separate set of instructions for [Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall](#upgrade-ocp-nodes).
 
 You can continue to submit transactions to your network while you are upgrading your network. However, you cannot use the console to deploy new nodes, install or instantiate smart contracts, or create new channels during the upgrade process.
 
-### Upgrading platforms
-
-If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or V2.1.1 on the OpenShift Container Platform 3.11, you can upgrade your network to run on OpenShift Container Platform 4.1 or 4.2. Because the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 cannot run on OpenShift Container Platform 3.11, you first need to follow the steps to upgrade your blockchain network to v2.1.2. After your network is upgraded to v2.1.1, you can then upgrade your OpenShift cluster.
-
-### Roll back back an upgrade
+### Roll back an upgrade
 {: #upgrade-ocp-rollback}
 
-When upgrade your operator, it saves the secrets, deployment spec, and network information of your console before it the operator attempts to upgrade the console. If your upgrade fails for any reason, {{site.data.keyword.blockchainfull_notm}} can roll back your upgrade and restore your previous deployment using the information on your cluster. If you need to roll back your upgrade, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page.
+When you upgrade your operator, it saves the secrets, deployment spec, and network information of your console before it the operator attempts to upgrade the console. If your upgrade fails for any reason, {{site.data.keyword.blockchainfull_notm}} can roll back your upgrade and restore your previous deployment by using the information on your cluster. If you need to roll back your upgrade, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page.
 
-You can roll back an upgrade after you have used the console to operate your network. However, after you have used the console to upgrade your blockchain nodes, you can no longer roll back your console to a previous version of the platform.
+You can roll back an upgrade after you use the console to operate your network. However, after you use the console to upgrade your blockchain nodes, you can no longer roll back your console to a previous version of the platform.
 
 ## Before you begin
 
 To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ## Step one: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
-{: #upgrade-ocp-operator-firewall}
+{: #upgrade-ocp-operator}
 
 You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your OpenShift project. When the upgraded operator is running, the new operator will upgrade your console and download the latest images for your blockchain nodes.
 
@@ -142,7 +145,7 @@ If you experience a problem while you are upgrading the operator, go to this [tr
 
 After you upgrade your console, you can use the console UI to upgrade the nodes of your blockchain network. Browse to the console UI open the nodes overview tab. You can find the **Patch available** text on a node tile if there is an update available for the component. You can install this patch whenever you are ready. These patches are optional, but they are recommended. You cannot patch nodes that were imported into the console.
 
-Apply patches to nodes one at a time. Your nodes are unavailable to process requests or transactions while the patch is being applied. Therefore, to avoid any disruption of service, whenever possible you should ensure that another node of the same type is available to process requests. Installing patches on a node takes about a minute to complete and when the update is complete, the node is ready to process requests.
+Apply patches to nodes one at a time. Your nodes are unavailable to process requests or transactions while the patch is being applied. Therefore, to avoid any disruption of service, you need to ensure that another node of the same type is available to process requests whenever possible. Installing patches on a node takes about a minute to complete and when the update is complete, the node is ready to process requests.
 {:important}
 
 To apply a patch to a node, open the node tile and click the **Install patch** button. You cannot patch nodes that you imported to the console.
@@ -150,7 +153,7 @@ To apply a patch to a node, open the node tile and click the **Install patch** b
 ## Upgrading the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall
 {: #upgrade-ocp-firewall}
 
-If you deployed the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the external internet, you can upgrade your network usign the following steps:
+If you deployed the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the external internet, you can upgrade your network by using the following steps:
 
 1. [Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images](#upgrade-ocp-images-firewall)
 2. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator-firewall)
@@ -210,13 +213,13 @@ docker tag cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-fl
 ```
 {:codeblock}
 
-You can use the `docker images` command to check if the new tags have been created. You can then push the images with the new tags to your docker registry. Log in to your registry using the following command:
+You can use the `docker images` command to check that the new tags were added. You can then push the images with the new tags to your docker registry. Log in to your registry by using the following command:
 ```
 docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGISTRY>
 ```
 {:codeblock}
 
-- Replace `<USER>` with your user name
+- Replace `<USER>` with your username
 - Replace `<LOCAL_REGISTRY_PASSWORD>` with the password to your registry.
 - Replace `<LOCAL_REGISTRY>` with the url of your local registry.
 
@@ -270,7 +273,7 @@ You also need to edit the `env:` section of the file. Find the following lines i
 ```
 {:codeblock}
 
-Replace this section with the following lines at the same indentation:
+Replace the values above with the following lines at the same indentation:
 ```
 - name: CLUSTERTYPE
   value: OPENSHIFT
@@ -324,7 +327,7 @@ kubectl get deployment ibpconsole -o yaml > console.yaml
 ```
 {:codeblock}
 
-Open `console.yaml` in a text editor and save a new copy of the file as `console-upgrade.yaml`. Copy the lines below as a complete block and replace the `image:` section of `console-upgrade.yaml`
+Open `console.yaml` in a text editor and save a new copy of the file as `console-upgrade.yaml`. Copy the section as a complete block and replace the `image:` section of `console-upgrade.yaml`
 
 ```
 imagePullSecret: docker-key-secret

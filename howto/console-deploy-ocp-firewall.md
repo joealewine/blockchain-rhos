@@ -362,6 +362,12 @@ rules:
   - '*'
   verbs:
   - '*'
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
 ```
 {:codeblock}
 
@@ -568,7 +574,7 @@ spec:
   password: "<PASSWORD>"
   imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
-  image:
+  images:
       consoleInitImage: ibp-init
       consoleInitTag: 2.1.2-20191217-amd64
       consoleImage: ibp-console
@@ -668,7 +674,7 @@ metadata:
     password: "<PASSWORD>"
     imagePullSecret: docker-key-secret
     registryURL: <LOCAL_REGISTRY>
-    image:
+    images:
         consoleInitImage: ibp-init
         consoleInitTag: 2.1.2-20191217-amd64
         consoleImage: ibp-console

@@ -299,6 +299,12 @@ rules:
   - '*'
   verbs:
   - '*'
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
 ```
 {:codeblock}
 

@@ -234,7 +234,6 @@ Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` w
 ```
 docker push <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
-docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-ca:1.4.4-20191217-amd64
@@ -351,7 +350,7 @@ Open `console.yaml` in a text editor and save a new copy of the file as `console
 ```
 imagePullSecret: docker-key-secret
 registryURL: <LOCAL_REGISTRY>
-image:
+images:
     consoleInitImage: ibp-init
     consoleInitTag: 2.1.2-20191217-amd64
     consoleImage: ibp-console
@@ -424,7 +423,7 @@ spec:
   email: user@website.com
   imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
-  image:
+  images:
       consoleInitImage: ibp-init
       consoleInitTag: 2.1.2-20191217-amd64
       consoleImage: ibp-console

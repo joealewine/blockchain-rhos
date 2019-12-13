@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters, firewall, on-premises
 
@@ -532,7 +532,7 @@ spec:
   password: "<PASSWORD>"
   imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
-  image:
+  images:
       imagePullSecret: docker-key-secret
       consoleInitImage: ibp-init
       consoleInitTag: 2.1.2-20191217-amd64
@@ -639,7 +639,7 @@ spec:
   password: "<PASSWORD>"
   imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
-  image:
+  images:
       consoleInitImage: ibp-init
       consoleInitTag: 2.1.2-20191217-amd64
       consoleImage: ibp-console

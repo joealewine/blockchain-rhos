@@ -47,8 +47,9 @@ If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or V2
 
 You can upgrade an {{site.data.keyword.blockchainfull_notm}} Platform network by using the following steps:
 
-1. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator)
-2. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes)
+1. [Update the ClusterRole](#upgrade-ocp-clusterrole)
+2. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator)
+3. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes)
 
 After you upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator, the operator will automatically upgrade the console that is deployed on your OpenShift project. You can then use the upgraded console to upgrade your blockchain nodes.
 
@@ -67,7 +68,110 @@ You can roll back an upgrade after you use the console to operate your network. 
 
 To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
-## Step one: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
+## Step One: Update the ClusterRole
+{: #upgrade-ocp-clusterrole}
+
+You need to update the ClusterRole that is applied to your project. Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: <PROJECT_NAME>
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - persistentvolumeclaims
+  - persistentvolumes
+  - customresourcedefinitions
+  verbs:
+  - '*'
+- apiGroups:
+  - "*"
+  resources:
+  - pods
+  - services
+  - endpoints
+  - persistentvolumeclaims
+  - persistentvolumes
+  - events
+  - configmaps
+  - secrets
+  - ingresses
+  - roles
+  - rolebindings
+  - serviceaccounts
+  - nodes
+  - routes
+  - routes/custom-host
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - nodes
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - servicemonitors
+  verbs:
+  - get
+  - create
+- apiGroups:
+  - apps
+  resourceNames:
+  - ibp-operator
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ibp.com
+  resources:
+  - '*'
+  - ibpservices
+  - ibpcas
+  - ibppeers
+  - ibpfabproxies
+  - ibporderers
+  verbs:
+  - '*'
+- apiGroups:
+  - ibp.com
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+```
+{:codeblock}
+
+After you save and edit the file, run the following commands. Replace `<PROJECT_NAME>` with your project.
+```
+oc apply -f ibp-clusterrole.yaml -n <PROJECT_NAME>
+oc adm policy add-scc-to-group <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
+```
+
+## Step two: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
 {: #upgrade-ocp-operator}
 
 You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your OpenShift project. When the upgraded operator is running, the new operator will upgrade your console and download the latest images for your blockchain nodes.
@@ -149,7 +253,7 @@ ibp-operator   1/1       1            1           46s
 
 If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
 
-## Step two: Upgrade your blockchain nodes
+## Step three: Upgrade your blockchain nodes
 {: #upgrade-ocp-nodes}
 
 After you upgrade your console, you can use the console UI to upgrade the nodes of your blockchain network. Browse to the console UI open the nodes overview tab. You can find the **Patch available** text on a node tile if there is an update available for the component. You can install this patch whenever you are ready. These patches are optional, but they are recommended. You cannot patch nodes that were imported into the console.
@@ -165,9 +269,10 @@ To apply a patch to a node, open the node tile and click the **Install patch** b
 If you deployed the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the external internet, you can upgrade your network by using the following steps:
 
 1. [Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images](#upgrade-ocp-images-firewall)
-2. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator-firewall)
-3. [Upgrade your console](#upgrade-ocp-console-firewall)
-4. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes-firewall)
+2. [Update the ClusterRole](#upgrade-ocp-clusterrole-firewall)
+3. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-ocp-operator-firewall)
+4. [Upgrade your console](#upgrade-ocp-console-firewall)
+5. [Use your console to upgrade your running blockchain nodes](#upgrade-ocp-nodes-firewall)
 
 You can continue to submit transactions to your network while you are upgrading your network. However, you cannot use the console to deploy new nodes, install or instantiate smart contracts, or create new channels during the upgrade process.
 
@@ -236,7 +341,6 @@ Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` w
 ```
 docker push <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
-docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
 docker push <LOCAL_REGISTRY>/ibp-ca:1.4.4-20191217-amd64
@@ -252,7 +356,110 @@ docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 
 After you complete these steps, you can use the following instructions to deploy the {{site.data.keyword.blockchainfull_notm}} Platform with the images in your registry.
 
-### Step two: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
+## Step two: Update the ClusterRole
+{: #upgrade-ocp-clusterrole}
+
+You need to update the ClusterRole that is applied to your project. Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: <PROJECT_NAME>
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - persistentvolumeclaims
+  - persistentvolumes
+  - customresourcedefinitions
+  verbs:
+  - '*'
+- apiGroups:
+  - "*"
+  resources:
+  - pods
+  - services
+  - endpoints
+  - persistentvolumeclaims
+  - persistentvolumes
+  - events
+  - configmaps
+  - secrets
+  - ingresses
+  - roles
+  - rolebindings
+  - serviceaccounts
+  - nodes
+  - routes
+  - routes/custom-host
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - nodes
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - servicemonitors
+  verbs:
+  - get
+  - create
+- apiGroups:
+  - apps
+  resourceNames:
+  - ibp-operator
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ibp.com
+  resources:
+  - '*'
+  - ibpservices
+  - ibpcas
+  - ibppeers
+  - ibpfabproxies
+  - ibporderers
+  verbs:
+  - '*'
+- apiGroups:
+  - ibp.com
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+```
+{:codeblock}
+
+After you save and edit the file, run the following commands. Replace `<PROJECT_NAME>` with your project.
+```
+oc apply -f ibp-clusterrole.yaml -n <PROJECT_NAME>
+oc adm policy add-scc-to-group <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
+```
+
+### Step three: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
 {: #upgrade-ocp-operator-firewall}
 
 You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your OpenShift project. You can then update the spec with the latest operator image that you pushed to your local registry.
@@ -332,7 +539,7 @@ ibp-operator   1/1       1            1           1m
 
 If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
 
-### Step three: Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform console
+### Step four: Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform console
 {: #upgrade-ocp-console-firewall}
 
 After you upgrade the operator, you can then upgrade your console to use the latest set of console and Fabric images that you downloaded.
@@ -348,7 +555,7 @@ Open `console.yaml` in a text editor and save a new copy of the file as `console
 ```
 imagePullSecret: docker-key-secret
 registryURL: <LOCAL_REGISTRY>
-image:
+images:
     consoleInitImage: ibp-init
     consoleInitTag: 2.1.2-20191217-amd64
     consoleImage: ibp-console
@@ -421,7 +628,7 @@ spec:
   email: user@website.com
   imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
-  image:
+  images:
       consoleInitImage: ibp-init
       consoleInitTag: 2.1.2-20191217-amd64
       consoleImage: ibp-console
@@ -502,7 +709,7 @@ ibpconsole     1/1       1            1           4m
 
 If you experience a problem while you are upgrading the console, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f console.yaml` to restore your original operator deployment.
 
-### Step four: Upgrade your blockchain nodes
+### Step five: Upgrade your blockchain nodes
 {: #upgrade-ocp-nodes-firewall}
 
 After you upgrade your console, you can use the console UI to upgrade the nodes of your blockchain network. For more information, see [Upgrade your blockchain nodes](#upgrade-ocp-nodes).

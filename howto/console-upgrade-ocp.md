@@ -134,8 +134,8 @@ After you apply the `operator-upgrade.yaml` custom resource definition to your O
 
 You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           1m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibp-operator   1/1       1            1           46s
 ```
 
 If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
@@ -310,8 +310,8 @@ After you apply the `operator-upgrade.yaml` custom resource definition to your O
 
 You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           1m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibp-operator   1/1       1            1           1m
 ```
 
 If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
@@ -480,8 +480,8 @@ After you apply the file, the console deployment restarts and downloads the upda
 
 You can check that the upgrade is finished by running `kubectl get deployment ibpconsole`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibpconsole     1         1         1            1           1m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibpconsole     1/1       1            1           4m
 ```
 
 If you experience a problem while you are upgrading the console, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f console.yaml` to restore your original operator deployment.

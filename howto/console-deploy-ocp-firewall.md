@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -545,8 +545,8 @@ kubectl apply -f ibp-operator.yaml -n <PROJECT_NAME>
 
 You can confirm that the operator deployed by running the command `kubectl get deployment -n <PROJECT_NAME>`. If your operator deployment is successful, then you can see the following tables with four ones displayed. The operator takes about a minute to deploy.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           1m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibp-operator   1/1       1            1           46s
 ```
 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console
@@ -816,9 +816,9 @@ kubectl apply -f ibp-console.yaml -n <PROJECT_NAME>
 
 You can confirm that the operator deployed by running the command `kubectl get deployment -n <PROJECT_NAME>`. If your console deployment is successful, you can see `ibpconsole` added to the deployment table, with four ones displayed. The console takes a few minutes to deploy. You might need to click refresh and wait for the table to be updated.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           10m
-ibpconsole     1         1         1            1           4m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibp-operator   1/1       1            1           10m
+ibpconsole     1/1       1            1           4m
 ```
 
 The console consists of four containers that are deployed inside a single pod:

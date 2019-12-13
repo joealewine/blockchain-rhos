@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-13"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -57,7 +57,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console has been successf
 - Safari: Version 13.0 (14608.1.49)
 - Edge: v44.17763.1.0
 
-The Chrome browser is not supported on Mac OS Catalina.
+The Chrome browser is currently not supported on Mac OS Catalina when the {{site.data.keyword.blockchainfull_notm}} Platform  v2.1.x is deployed with the default configuration that uses self signed certificates. To avoid this problem, use a different browser with Catalina, or use your own [TLS certificates](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-).
 {: note}
 
 ## Storage
@@ -85,6 +85,9 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11, 4.1, or 4.2](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
 
 2. You need to install and connect to your cluster by using the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
+
+3. If you plan to use the console from the Chrome browser on Mac OS Catalina, you will need to follow the advanced configuration instructions to [configure your own TLS certificates](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-) instead of using self-signed certificates, or use a different [/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers] on Mac OS Catalina.
+https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers
 
 ## Log in to your OpenShift cluster
 {: #deploy-ocp-login}
@@ -618,6 +621,9 @@ Unlike the resource allocation, you cannot add zones to a running network. If yo
 ### Use your own TLS Certificates (Optional)
 
 The {{site.data.keyword.blockchainfull_notm}} Platform console uses TLS certificates to secure the communication between the console and your blockchain nodes and between the console and your browser. You have the option of creating your own TLS certificates and providing them to the console by using creating a Kubernetes secret. If you skip this step, the console creates its own self-signed TLS certificates during deployment.
+
+The Chrome browser is currently not supported on Mac OS Catalina when the {{site.data.keyword.blockchainfull_notm}} Platform  v2.1.x is deployed with the default configuration that uses self signed certificates. To avoid this problem, use a [different browser](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers) with Catalina, or follow these instructions to configure your own TLS certificates.
+{: important}
 
 You can use a Certificate Authority or tool to create the TLS certificates for the console. The TLS certificate needs to include the hostname of the console and the proxy in the subject name or the alternative domain names. The console and proxy hostname are in the following format:
 

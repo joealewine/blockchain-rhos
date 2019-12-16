@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-13"
+lastupdated: "2019-12-16"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -201,7 +201,7 @@ volumes:
 
 After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your project. Replace `<PROJECT_NAME>` with your project.
 ```
-oc apply -f ibp-scc.yaml -n <PROJECT_NAME>
+oc apply -f ibp-scc.yaml
 oc adm policy add-scc-to-user <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
 ```
 {:codeblock}
@@ -310,7 +310,7 @@ rules:
 
 After you save and edit the file, run the following commands. Replace `<PROJECT_NAME>` with your project.
 ```
-oc apply -f ibp-clusterrole.yaml -n <PROJECT_NAME>
+oc apply -f ibp-clusterrole.yaml
 oc adm policy add-scc-to-group <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
 ```
 {:codeblock}
@@ -343,7 +343,7 @@ roleRef:
 
 After you save and edit the file, run the following commands. Replace `<PROJECT_NAME>` with your project.
 ```
-oc apply -f ibp-clusterrolebinding.yaml -n <PROJECT_NAME>
+oc apply -f ibp-clusterrolebinding.yaml
 oc adm policy add-cluster-role-to-user <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
 ```
 {:codeblock}
@@ -507,6 +507,7 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
+  registryURL: cp.icr.io/cp
   imagePullSecret: "docker-key-secret"
   networkinfo:
     domain: <DOMAIN>
@@ -558,6 +559,7 @@ metadata:
     proxyIP:
     email: "<EMAIL>"
     password: "<PASSWORD>"
+    registryURL: cp.icr.io/cp
     imagePullSecret: "docker-key-secret"
     networkinfo:
         domain: <DOMAIN>

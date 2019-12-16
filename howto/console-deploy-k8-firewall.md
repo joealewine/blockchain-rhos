@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-13"
+lastupdated: "2019-12-16"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters, firewall, on-premises
 
@@ -246,9 +246,9 @@ spec:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your namespace. Replace `<NAMESPACE>` with your namespace.
+After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your namespace.
 ```
-kubectl apply -f ibp-psp.yaml -n <NAMESPACE>
+kubectl apply -f ibp-psp.yaml
 ```
 {:codeblock}
 
@@ -326,9 +326,9 @@ rules:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your namespace.
+After you save and edit the file, run the following commands.
 ```
-kubectl apply -f ibp-clusterrole.yaml -n <NAMESPACE>
+kubectl apply -f ibp-clusterrole.yaml
 ```
 {:codeblock}
 
@@ -352,9 +352,9 @@ roleRef:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your namespace.
+After you save and edit the file, run the following commands.
 ```
-kubectl apply -f ibp-clusterrolebinding.yaml -n <NAMESPACE>
+kubectl apply -f ibp-clusterrolebinding.yaml
 ```
 {:codeblock}
 
@@ -530,8 +530,8 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
-  imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
+  imagePullSecret: docker-key-secret
   images:
       imagePullSecret: docker-key-secret
       consoleInitImage: ibp-init

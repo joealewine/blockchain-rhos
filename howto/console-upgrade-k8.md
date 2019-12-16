@@ -135,9 +135,9 @@ kubectl apply -f operator-upgrade.yaml
 ```
 {:codeblock}
 
-You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command upgraded the operator spec.
+You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command updated the operator spec.
 
-After you apply the `operator-upgrade.yaml` custom resource definition to your namespace, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
+After you apply the `operator-upgrade.yaml` operator spec to your namespace, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
 
 You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
@@ -164,8 +164,7 @@ If you deployed the {{site.data.keyword.blockchainfull_notm}} Platform behind a 
 
 1. [Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images](#upgrade-k8-images-firewall)
 2. [Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform operator](#upgrade-k8-operator-firewall)
-3. [Upgrade your console](#upgrade-k8-console-firewall)
-4. [Use your console to upgrade your running blockchain nodes](#upgrade-k8-nodes-firewall)
+3. [Use your console to upgrade your running blockchain nodes](#upgrade-k8-nodes-firewall)
 
 You can continue to submit transactions to your network while you are upgrading your network. However, you cannot use the console to deploy new nodes, install or instantiate smart contracts, or create new channels during the upgrade process.
 
@@ -256,7 +255,7 @@ After you complete these steps, you can use the following instructions to deploy
 ### Step two: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
 {: #upgrade-k8-operator-firewall}
 
-You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your cluster. You can then update the spec with the latest operator image that you pushed to your local registry.
+You can upgrade the {{site.data.keyword.blockchainfull_notm}} operator by fetching the operator deployment spec from your cluster. You can then update the spec with the latest operator image that you pushed to your local registry. When the upgraded operator is running, the new operator will download the images that you pushed to your local registry and upgrade your console.
 
 Log in to your cluster by using the kubectl CLI. Because each {{site.data.keyword.blockchainfull_notm}} network runs in a different namespace, you must switch to each namespace and upgrade each network separately. use the following command to set the context to the namespace of the network that you want to upgrade. Replace `<NAMESPACE>` with your namespace.
 ```
@@ -270,9 +269,9 @@ kubectl get deployment ibp-operator -o yaml > operator.yaml
 ```
 {:codeblock}
 
-Open `operator.yaml` in a text editor and save a new copy of the file as `operator-upgrade.yaml`. You need to update the `image:` field with the updated version of the operator image. You can find the name and tag of the latest operator image below:
+Open `operator.yaml` in a text editor and save a new copy of the file as `operator-upgrade.yaml`. You need to update the `image:` field with the updated version of the operator image. Open `operator-upgrade.yaml` a text editor. You need to update the `image:` field with the updated version of the operator image:
 ```
-cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
+<LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
@@ -326,9 +325,9 @@ kubectl apply -f operator-upgrade.yaml
 ```
 {:codeblock}
 
-You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command upgraded the operator spec.
+You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm that the command updated the operator spec.
 
-After you apply the `operator-upgrade.yaml` custom resource definition to your namespace, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
+After you apply the `operator-upgrade.yaml` deployment spec to your namespace, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
 
 You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
 ```
@@ -336,179 +335,24 @@ NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 ibp-operator   1         1         1            1           1m
 ```
 
-If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
+If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems.
 
-### Step three: Upgrade the {{site.data.keyword.blockchainfull_notm}} Platform console
-{: #upgrade-k8-console-firewall}
-
-After you upgrade the operator, you can then upgrade your console to use the latest set of console and Fabric images that you downloaded.
-
-Log in to your cluster by using the OpenShift CLI and switch to your namespace. Run the following command to download the custom resource definition of the console:
+If you console experiences an image pull error, you may need to update the console deployment spec with local registry that you used to download the images. Run the following command to download the deployment spec of the console:
 ```
-kubectl get deployment ibpconsole -o yaml > console.yaml
+kubectl get ibpconsole ibpconsole -o yaml > console.yaml
 ```
-{:codeblock}
-
-Open `console.yaml` in a text editor and save a new copy of the file as `console-upgrade.yaml`. Copy the section as a complete block and replace the `image:` section of `console-upgrade.yaml`
-
+Then add the URL of your local registry to the `spec:` section of `console.yaml`. Replace `<LOCAL_REGISTRY>` with the url of your local registry:
 ```
-imagePullSecret: docker-key-secret
-registryURL: <LOCAL_REGISTRY>
-images:
-    consoleInitImage: ibp-init
-    consoleInitTag: 2.1.2-20191217-amd64
-    consoleImage: ibp-console
-    consoleTag: 2.1.2-20191217-amd64
-    configtxlatorImage: ibp-utilities
-    configtxlatorTag: 1.4.4-20191217-amd64
-    couchdbImage: ibp-couchdb
-    couchdbTag: 2.3.1-20191217-amd64
-    deployerImage: ibp-deployer
-    deployerTag: 2.1.2-20191217-amd64
-versions:
-    ca:
-      1.4.4-0:
-        default: true
-        version: 1.4.4-0
-        image:
-          caInitImage: ibp-init
-          caInitTag: 2.1.2-20191217-amd64
-          caImage: ibp-ca
-          caTag: 1.4.4-20191217-amd64
-    peer:
-      1.4.4-0:
-        default: true
-        version: 1.4.4-0
-        image:
-          peerInitImage: ibp-init
-          peerInitTag: 2.1.2-20191217-amd64
-          peerImage: ibp-peer
-          peerTag: 1.4.4-20191217-amd64
-          dindImage: ibp-dind
-          dindTag: 1.4.4-20191217-amd64
-          fluentdImage: ibp-fluentd
-          fluentdTag: 2.1.2-20191217-amd64
-          grpcwebImage: ibp-grpcweb
-          grpcwebTag: 2.1.2-20191217-amd64
-          couchdbImage: ibp-couchdb
-          couchdbTag: 2.3.1-20191217-amd64
-    orderer:
-      1.4.4-0:
-        default: true
-        version: 1.4.4-0
-        image:
-          ordererInitImage: ibp-init
-          ordererInitTag: 2.1.2-20191217-amd64
-          ordererImage: ibp-orderer
-          ordererTag: 1.4.4-20191217-amd64
-          grpcwebImage: ibp-grpcweb
-          grpcwebTag: 2.1.2-20191217-amd64
-```
-{:codeblock}
-
-Replace `<LOCAL_REGISTRY>` with the url of your local registry. Make sure that you included the `imagePullSecret:` and `imagePullSecret` fields. If you used a different name when you created your [docker token secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret), you need to edit the field of `imagePullSecret: docker-key-secret`.
-
-When you are done editing the file, `console-upgrade.yaml` would resemble the following example:
-```
-apiVersion: ibp.com/v1alpha1
-kind: IBPConsole
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: '{"license":"accept","serviceAccountName":"default","email":"gvt@ibm.com","passwordSecretName":"ibpconsole-console-pw","image":{"imagePullSecret":"regcred"},"storage":{"console":{"size":"1Gi"}},"networkinfo":{"domain":"ibp20openshifttestcluster-0defdaa0c51bd4a2dcb024eab4bf04a1-0001.us-south.containers.appdomain.cloud","peerPort":0}}'
-    last-applied-spec: '{"license":"accept","serviceAccountName":"default","email":"gvt@ibm.com","passwordSecretName":"ibpconsole-console-pw","image":{"imagePullSecret":"regcred"},"storage":{"console":{"size":"1Gi"}},"networkinfo":{"domain":"ibp20openshifttestcluster-0defdaa0c51bd4a2dcb024eab4bf04a1-0001.us-south.containers.appdomain.cloud","peerPort":0}}'
-  creationTimestamp: 2019-09-17T01:08:17Z
-  generation: 3
-  name: ibpconsole
-  namespace: gvttest
-  resourceVersion: "10015040"
-  selfLink: /apis/ibp.com/v1alpha1/namespaces/gvttest/ibpconsoles/ibpconsole
-  uid: a1ec51af-d8e7-11e9-b410-f29368fc99e3
 spec:
-  email: user@website.com
-  imagePullSecret: docker-key-secret
   registryURL: <LOCAL_REGISTRY>
-  images:
-      consoleInitImage: ibp-init
-      consoleInitTag: 2.1.2-20191217-amd64
-      consoleImage: ibp-console
-      consoleTag: 2.1.2-20191217-amd64
-      configtxlatorImage: ibp-utilities
-      configtxlatorTag: 1.4.4-20191217-amd64
-      couchdbImage: ibp-couchdb
-      couchdbTag: 2.3.1-20191217-amd64
-      deployerImage: ibp-deployer
-      deployerTag: 2.1.2-20191217-amd64
-  versions:
-      ca:
-        1.4.4-0:
-          default: true
-          version: 1.4.4-0
-          image:
-            caInitImage: ibp-init
-            caInitTag: 2.1.2-20191217-amd64
-            caImage: ibp-ca
-            caTag: 1.4.4-20191217-amd64
-      peer:
-        1.4.4-0:
-          default: true
-          version: 1.4.4-0
-          image:
-            peerInitImage: ibp-init
-            peerInitTag: 2.1.2-20191217-amd64
-            peerImage: ibp-peer
-            peerTag: 1.4.4-20191217-amd64
-            dindImage: ibp-dind
-            dindTag: 1.4.4-20191217-amd64
-            fluentdImage: ibp-fluentd
-            fluentdTag: 2.1.2-20191217-amd64
-            grpcwebImage: ibp-grpcweb
-            grpcwebTag: 2.1.2-20191217-amd64
-            couchdbImage: ibp-couchdb
-            couchdbTag: 2.3.1-20191217-amd64
-      orderer:
-        1.4.4-0:
-          default: true
-          version: 1.4.4-0
-          image:
-            ordererInitImage: ibp-init
-            ordererInitTag: 2.1.2-20191217-amd64
-            ordererImage: ibp-orderer
-            ordererTag: 1.4.4-20191217-amd64
-            grpcwebImage: ibp-grpcweb
-            grpcwebTag: 2.1.2-20191217-amd64
-  license: accept
-  networkinfo:
-    domain: openshiftcluster.appdomain.cloud
-    peerPort: 0
-  passwordSecretName: ibpconsole-console-pw
-  serviceAccountName: default
-  storage:
-    console:
-      size: 10Gi
-status:
-  lastHeartbeatTime: 2019-09-17 01:11:39.713842542 +0000 UTC m=+218.363012778
-  reason: allPodsRunning
-  status: "True"
-  type: Deployed
-  ```
-
-Save the file on your local system. You can then issue the following command upgrade your console:
+```
+Save the updated file as `console-upgrade.yaml` on your local system. You can then issue the following command upgrade your console:
 ```
 kubectl apply -f console-upgrade.yaml
 ```
 {:codeblock}
 
-After you apply the file, the console deployment restarts and downloads the updated images for the console and the components. The console upgrade takes a few minutes. You cannot access the console UI from your browser or use the {{site.data.keyword.blockchainfull_notm}} APIs during the upgrade.
-
-You can check that the upgrade is finished by running `kubectl get deployment ibpconsole`. If the upgrade is successful, then you can see the following tables with four ones displayed.
-```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibpconsole     1         1         1            1           1m
-```
-
-If you experience a problem while you are upgrading the console, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f console.yaml` to restore your original operator deployment.
-
-### Step four: Upgrade your blockchain nodes
+### Step three: Upgrade your blockchain nodes
 {: #upgrade-k8-nodes-firewall}
 
 After you upgrade your console, you can use the console UI to upgrade the nodes of your blockchain network. For more information, see [Upgrade your blockchain nodes](#upgrade-k8-nodes).

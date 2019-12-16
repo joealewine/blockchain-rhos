@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-13"
+lastupdated: "2019-12-16"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -22,7 +22,7 @@ subcollection: blockchain-rhos
 # Upgrading your console and components
 {: #upgrade-ocp}
 
-You can upgrade the {{site.data.keyword.blockchainfull}} Platform without disrupting a running network. Because the platform is deployed by using a Kubernetes operator, you can pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images from the IBM Entitlement registry without having to reinstall the platform. You can use these instructions to upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
+You can upgrade the {{site.data.keyword.blockchainfull}} Platform without disrupting a running network. Because the platform is deployed by using a Kubernetes operator, you can pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement registry without having to reinstall the platform. You can use these instructions to upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
 {:shortdesc}
 
 ## {{site.data.keyword.blockchainfull_notm}} Platform overview
@@ -60,13 +60,13 @@ You can continue to submit transactions to your network while you are upgrading 
 ### Roll back an upgrade
 {: #upgrade-ocp-rollback}
 
-When you upgrade your operator, it saves the secrets, deployment spec, and network information of your console before it the operator attempts to upgrade the console. If your upgrade fails for any reason, {{site.data.keyword.blockchainfull_notm}} can roll back your upgrade and restore your previous deployment by using the information on your cluster. If you need to roll back your upgrade, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page.
+When you upgrade your operator, it saves the secrets, deployment spec, and network information of your console before it attempts to upgrade the console. If your upgrade fails for any reason, the {{site.data.keyword.blockchainfull_notm}} can roll back your upgrade and restore your previous deployment by using the information on your cluster. If you need to roll back your upgrade, you can submit a support case from the [mysupport](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page.
 
 You can roll back an upgrade after you use the console to operate your network. However, after you use the console to upgrade your blockchain nodes, you can no longer roll back your console to a previous version of the platform.
 
 ## Before you begin
 
-To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
+To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-entitlement-key) from the My {{site.data.keyword.IBM_notm}} Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ## Step One: Update the ClusterRole
 {: #upgrade-ocp-clusterrole}
@@ -278,12 +278,12 @@ You can continue to submit transactions to your network while you are upgrading 
 
 ### Before you begin
 
-To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp-firewall#deploy-ocp-entitlement-key-firewall) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
+To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp-firewall#deploy-ocp-entitlement-key-firewall) from the My {{site.data.keyword.IBM_notm}} Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ### Step one: Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images
 {: #upgrade-ocp-images-firewall}
 
-To upgrade your network, download the latest set of {{site.data.keyword.blockchainfull_notm}} Platform images and push them to A to a docker registry that you can access from behind your firewall.
+To upgrade your network, download the latest set of {{site.data.keyword.blockchainfull_notm}} Platform images and push them to a docker registry that you can access from behind your firewall.
 
 Use the following command to log in to the {{site.data.keyword.IBM_notm}} Entitlement Registry:
 ```

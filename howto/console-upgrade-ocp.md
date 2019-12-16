@@ -359,7 +359,7 @@ docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 
 After you complete these steps, you can use the following instructions to deploy the {{site.data.keyword.blockchainfull_notm}} Platform with the images in your registry.
 
-## Step two: Update the ClusterRole
+### Step two: Update the ClusterRole
 {: #upgrade-ocp-clusterrole}
 
 You need to update the ClusterRole that is applied to your project. Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. Edit the file and replace `<PROJECT_NAME>` with the name of your project.

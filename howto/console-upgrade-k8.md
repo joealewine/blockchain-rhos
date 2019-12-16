@@ -22,7 +22,7 @@ subcollection: blockchain-rhos
 # Upgrading your console and components
 {: #upgrade-k8}
 
-You can upgrade the {{site.data.keyword.blockchainfull}} Platform without disrupting a running network. Because the platform is deployed by using a Kubernetes operator, you can pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images from the IBM Entitlement registry without having to reinstall the platform. You can use these instructions to upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
+You can upgrade the {{site.data.keyword.blockchainfull}} Platform without disrupting a running network. Because the platform is deployed by using a Kubernetes operator, you can pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement registry without having to reinstall the platform. You can use these instructions to upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
 {:shortdesc}
 
 ## {{site.data.keyword.blockchainfull_notm}} Platform overview
@@ -60,7 +60,7 @@ You can roll back an upgrade after you use the console to operate your network. 
 
 ## Before you begin
 
-To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-entitlement-key) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your namespace. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
+To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-entitlement-key) from the My {{site.data.keyword.IBM_notm}} Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your namespace. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ## Step one: Upgrade the {{site.data.keyword.blockchainfull_notm}} operator
 {: #upgrade-k8-operator}
@@ -171,12 +171,16 @@ You can continue to submit transactions to your network while you are upgrading 
 
 ### Before you begin
 
-To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8-firewall#deploy-k8-entitlement-key-firewall) from the My IBM Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your namespace. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
+To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8-firewall#deploy-k8-entitlement-key-firewall) from the My {{site.data.keyword.IBM_notm}} Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#deploy-k8-docker-registry-secret) to store the key on your namespace. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
 ### Step one: Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images
 {: #upgrade-k8-images-firewall}
 
+<<<<<<< HEAD
+To upgrade your network, download the latest set of {{site.data.keyword.blockchainfull_notm}} Platform images and push them to a docker registry that you can access from behind your firewall.
+=======
 To upgrade your network, download the latest set of {{site.data.keyword.blockchainfull_notm}} Platform images and push them to a to a docker registry that you can access from behind your firewall.
+>>>>>>> fbcfdc50929ebbb7fbdfc0aefc6908a1185aaa4a
 
 Use the following command to log in to the {{site.data.keyword.IBM_notm}} Entitlement Registry:
 ```

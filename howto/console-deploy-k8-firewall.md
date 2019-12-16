@@ -25,11 +25,11 @@ subcollection: blockchain-rhos
 You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.2 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
 {:shortdesc}
 
-You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.2 on any x86_64 Kubernetes cluster running at v1.11 - v1.16. Use these instructions if you are using distributions such as Rancher or {{site.data.keyword.cloud_notm}} Private. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.2 on any x86_64 Kubernetes cluster running at v1.11 through v1.16. Use these instructions if you are using distributions such as Rancher or {{site.data.keyword.cloud_notm}} Private. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 
 ## Need to Know
 
-- If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using GO chaincode.
+- If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using chaincode written in Go.
 
 - After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
 
@@ -72,15 +72,15 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [Supported Platforms](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites).
 
-2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the Kubectl CLI.
+2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the kubectl CLI.
 
 3. If you are not running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private then you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.
 
 ## Pull the {{site.data.keyword.blockchainfull_notm}} Platform images
 
-You can download the complete set of {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement Registry. To deploy the platform without access to the public internet, you need to pull the images from the {{site.data.keyword.IBM_notm}} Registry and then push the images to a docker registry that you can access from behind your firewall.
+You can download the complete set of {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement Registry. To deploy the platform without access to the public internet, you need to pull the images from the {{site.data.keyword.IBM_notm}} Registry and then push the images to a Docker registry that you can access from behind your firewall.
 
-After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You can then use this key to access the {{site.data.keyword.blockchainfull_notm}} Platform images.
+After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My {{site.data.keyword.IBM_notm}} dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You can then use this key to access the {{site.data.keyword.blockchainfull_notm}} Platform images.
 
 Use the following command to log in to the {{site.data.keyword.IBM_notm}} Entitlement Registry:
 ```
@@ -110,7 +110,7 @@ docker pull cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64
 If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the image tag with `s390x`
 {: important}
 
-After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
+After you download the images, you must change the image tags to refer to your Docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
 ```
 docker tag cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
 docker tag cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
@@ -127,7 +127,7 @@ docker tag cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-fl
 ```
 {:codeblock}
 
-You can use the `docker images` command to check if the new tags have been created. You can push the images with the new tags to your docker registry. Log in to your registry using the following command:
+You can use the `docker images` command to check if the new tags have been created. You can push the images with the new tags to your Docker registry. Log in to your registry using the following command:
 ```
 docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGISTRY>
 ```
@@ -159,8 +159,7 @@ After you complete these steps, you can use the following instructions to deploy
 ## Log in to your Kubernetes cluster
 {: #deploy-k8s-login-firewall}
 
-Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI.
-If you are using {{site.data.keyword.cloud_notm} Private, you can log in to your cluster by using the following command:
+Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI. Follow the instructions for logging into to your cluster. If you are using {{site.data.keyword.cloud_notm} Private, you can log in to your cluster by using the following command:
 ```
 cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
 ```
@@ -206,7 +205,7 @@ kubectl get storageclasses
 ## Add security and access policies
 {: #deploy-k8-scc-firewall}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the Kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
+The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
 ### Apply the Pod Security Policy
 
@@ -370,7 +369,7 @@ kubectl -n <NAMESPACE> create rolebinding ibp-operator-rolebinding --clusterrole
 ## Create a secret for your entitlement key
 {: #deploy-k8-docker-registry-secret-firewall}
 
-After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
+After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own Docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
 
 Run the following command to create the secret and add it to your namespace:
 ```
@@ -500,7 +499,7 @@ spec:
 - If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`.
 - If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
-Then, use the `kubectl` CLI to add the custom resource to your namespace.
+Then, use the kubectl CLI to add the custom resource to your namespace.
 
 ```
 kubectl apply -f ibp-operator.yaml -n <NAMESPACE>
@@ -752,7 +751,7 @@ spec:
   ```
   {:codeblock}
 
-Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.    
+Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.
 {: Important}
 
 ### Use your own TLS Certificates (Optional)
@@ -761,10 +760,10 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console uses TLS certific
 
 You can use a Certificate Authority or tool to create the TLS certificates for the console. The TLS certificate needs to include the hostname of the console and the proxy in the subject name or the alternative domain names. The console and proxy hostname are in the following format:
 
-**Console hostname:** ``<NAMESPACE>-ibpconsole-console.<DOMAIN>``  
-**Proxy hostname:** ``<NAMESPACE>-ibpconsole-proxy.<DOMAIN>``
+**Console hostname:** `<NAMESPACE>-ibpconsole-console.<DOMAIN>`
+**Proxy hostname:** `<NAMESPACE>-ibpconsole-proxy.<DOMAIN>`
 
-- Replace `<NAMESPACE>` with the name of the Kubernetse namespace that you created.
+- Replace `<NAMESPACE>` with the name of the Kubernetes namespace that you created.
 - Replace `<DOMAIN>` with the name of your cluster domain.
 
 Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your Kubernetes namespace. The TLS certificate and key need to be in PEM format.
@@ -816,7 +815,6 @@ As an example, a command to get the logs from the UI container would look like t
 kubectl logs -f ibpconsole-55cf9db6cc-856nz console -n blockchain-project
 ```
 {:codeblock}
-
 
 ## Log in to the console
 {: #deploy-k8-log-in}

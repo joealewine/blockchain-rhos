@@ -28,7 +28,7 @@ You can use the following instructions to deploy the {{site.data.keyword.blockch
 ## Resources required
 {: #deploy-k8-resources-required}
 
-Ensure that your Kubernetes cluster has sufficient resources for the {{site.data.keyword.blockchainfull_notm}} console and for the blockchain nodes that you create. The amount of resources that are required can vary depending on your infrastructure, network design, and performance requirements. To help you deploy a cluster of the appropriate size, the default CPU, memory, and storage requirements for each component type are provided in this table. Your actual resource allocations are visible in your blockchain console when you deploy a node and can be adjusted at deployment time or after deployment according to your business needs.
+Ensure that your Kubernetes cluster has sufficient resources for the {{site.data.keyword.blockchainfull_notm}} Platform console and for the blockchain nodes that you create. The amount of resources that are required can vary depending on your infrastructure, network design, and performance requirements. To help you deploy a cluster of the appropriate size, the default CPU, memory, and storage requirements for each component type are provided in this table. Your actual resource allocations are visible in your blockchain console when you deploy a node and can be adjusted at deployment time or after deployment according to your business needs.
 
 | **Component** (all containers) | CPU**  | Memory (GB) | Storage (GB) |
 |--------------------------------|---------------|-----------------------|------------------------|
@@ -49,7 +49,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console has been successf
 - Safari: Version 13.0 (14608.1.49)
 - Edge: v44.17763.1.0
 
-The Chrome browser is currently not supported on Mac OS Catalina when the {{site.data.keyword.blockchainfull_notm}} Platform  v2.1.x is deployed with the default configuration that uses self signed certificates. To avoid this problem, use a different browser with Catalina, or use your own [TLS certificates](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-k8#use-your-own-tls-certificates-optional-).
+The Chrome browser is currently not supported on Mac OS Catalina when the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.x is deployed with the default configuration that uses self signed certificates. To avoid this problem, use a different browser with Catalina, or use your own [TLS certificates](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-k8#use-your-own-tls-certificates-optional-).
 {: note}
 
 ## Storage
@@ -76,7 +76,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [Supported Platforms](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites).
 
-2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the Kubectl CLI.
+2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the kubectl CLI.
 
 3. If you are not running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private then you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.
 
@@ -85,9 +85,7 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 ## Log in to your cluster
 {: #deploy-k8-login}
 
-Before you can complete the next steps, you need to log in to your cluster by using the Kubectl CLI.
-
-If you are using {{site.data.keyword.cloud_notm}} Private, you can log in to your cluster by using the following command:
+Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI. Follow the instructions for logging into to your cluster. If you are using {{site.data.keyword.cloud_notm}} Private, you can log in to your cluster by using the following command:
 
 ```
 cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
@@ -119,7 +117,7 @@ kubectl get storageclasses
 ## Add security and access policies
 {: #deploy-k8-scc}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the Kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
+The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
 ### Apply the Pod Security Policy
 
@@ -283,7 +281,7 @@ kubectl -n <NAMESPACE> create rolebinding ibp-operator-rolebinding --clusterrole
 ## Create a secret for your entitlement key
 {: #deploy-k8-docker-registry-secret}
 
-After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You need to store the entitlement key on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
+After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My {{site.data.keyword.IBM_notm}} dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You need to store the entitlement key on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
 
 Run the following command to create the secret and add it to your namespace:
 ```
@@ -409,7 +407,7 @@ spec:
 - If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`.
 - If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
-Then, use the `kubectl` CLI to add the custom resource to your namespace.
+Then, use the kubectl CLI to add the custom resource to your namespace.
 
 ```
 kubectl apply -f ibp-operator.yaml -n <NAMESPACE>
@@ -563,7 +561,7 @@ metadata:
   ```
   {:codeblock}
 
-Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.    
+Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.
 {: Important}
 
 ### Use your own TLS Certificates (Optional)

@@ -175,11 +175,7 @@ To upgrade your network, you need to [retrieve your entitlement key](/docs/servi
 ### Step one: Pull the latest {{site.data.keyword.blockchainfull_notm}} Platform images
 {: #upgrade-k8-images-firewall}
 
-<<<<<<< HEAD
 To upgrade your network, download the latest set of {{site.data.keyword.blockchainfull_notm}} Platform images and push them to a docker registry that you can access from behind your firewall.
-=======
-To upgrade your network, download the latest set of {{site.data.keyword.blockchainfull_notm}} Platform images and push them to a to a docker registry that you can access from behind your firewall.
->>>>>>> fbcfdc50929ebbb7fbdfc0aefc6908a1185aaa4a
 
 Use the following command to log in to the {{site.data.keyword.IBM_notm}} Entitlement Registry:
 ```

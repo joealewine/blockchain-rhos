@@ -22,7 +22,7 @@ subcollection: blockchain-rhos
 # Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 behind a firewall
 {: #deploy-k8-firewall}
 
-You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.2 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
+You can use these instructions to deploy {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
 {:shortdesc}
 
 You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.2 on any x86_64 Kubernetes cluster running at v1.11 through v1.16. Use these instructions if you are using distributions such as Rancher or {{site.data.keyword.cloud_notm}} Private. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
@@ -31,7 +31,7 @@ You can use the following instructions to deploy the {{site.data.keyword.blockch
 
 - If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using chaincode written in Go.
 
-- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
+- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
 
 ## Resources required
 {: #deploy-k8-resources-required-firewall}
@@ -159,7 +159,7 @@ After you complete these steps, you can use the following instructions to deploy
 ## Log in to your Kubernetes cluster
 {: #deploy-k8s-login-firewall}
 
-Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI. Follow the instructions for logging into to your cluster. If you are using {{site.data.keyword.cloud_notm} Private, you can log in to your cluster by using the following command:
+Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI. Follow the instructions for logging into to your cluster. If you are using {{site.data.keyword.cloud_notm}} Private, you can log in to your cluster by using the following command:
 ```
 cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
 ```
@@ -183,7 +183,7 @@ router-6cc88df47c-mwzbq             1/1       Running   0          7d
 ## Create a new namespace
 {: #deploy-k8-namespace-firewall}
 
-After you connect to your cluster, create a new namespace for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
+After you connect to your cluster, create a new namespace for your deployment of the {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
 
 If you are using the CLI, create a new namespace by the following command:
 ```
@@ -253,7 +253,7 @@ kubectl apply -f ibp-psp.yaml
 
 ### Apply the ClusterRole
 
-Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. This file defines the required ClusterRole for the PodSecurityPolicy.
+Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. This file defines the required ClusterRole for the PodSecurityPolicy. Edit the file and replace `<NAMESPACE>` with the name of your namespace.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1

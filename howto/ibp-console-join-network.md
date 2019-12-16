@@ -3,7 +3,7 @@
 copyright:
   years: 2019
 
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-16"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft, join a network, system channel
 
@@ -83,7 +83,6 @@ Perform the following steps from your console:
 2. In this tutorial, we're creating nodes, so make sure the option to **Create a Certificate Authority** is selected. Then click **Next**.
 3. Use the side panel to give your CA a **display name**. Our recommended value for this CA is `Org2 CA`. Then give your CA admin credentials by specifying a **CA administrator enroll ID** of `admin` and a secret of `adminpw`.The Advanced deployment options can be safely ignored for purposes of this tutorial. For more information on the advanced options see [Building a high availability Certificate Authority (CA)](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca) and the topic on [Resource allocation](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources).
 4. The **Advanced deployment options** can be safely ignored for purposes of this tutorial. For more information about these options, see the link  below.
-   * [Kubernetes zone selection](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca)
    * [Database selection](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-ha-ca#ibp-console-build-ha-ca-create)
    * [Resource allocation](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-govern-components#ibp-console-govern-components-allocate-resources)
 5. Review the Summary page, then click **Add Certificate Authority**.
@@ -147,7 +146,8 @@ Once you have associated the CA admin, you can use the CA tile to create these i
 
 1. Click the `Org2 CA` tile and ensure the `admin` identity that you created for the CA is visible in the table. Then click the **Register User** button.
 2. First we'll register the organization admin, which we can do by giving an **Enroll ID** of `org2admin` and a **secret** of `org2adminpw`. Then set the `Type` for this identity as `admin`. The affiliation field is for advanced users and is not a part of the tutorial, so click the box that says **Use root affiliation**. If you want to learn more about how affiliations are used by the Fabric CA, see this topic on [Registering a new identity](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.4/users-guide.html#registering-a-new-identity){: external}. For now, select any affiliation from the list (for example, `Org2`). Also, ignore the **Maximum enrollments** field. If you want to learn more about enrollments, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register). Click **Next**.
-3. After the organization admin has been registered, repeat this same process for the identity of the peer (also using the `Org2 CA`). For the peer identity, give an enroll ID of `peer2` and a secret of `peer2pw`. This is a node identity, so select `peer` as the **Type**. Click the box that says **Use root affiliation** and ignore **Maximum enrollments**. Then, on the next panel, do not assign any **Attributes**, as before.
+3. This tutorial does not configure attributes on identities, see [Registering identities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-register) if you want to learn more about it. Click **Register user**.
+4. After the organization admin has been registered, repeat this same process for the identity of the peer (also using the `Org2 CA`). For the peer identity, give an enroll ID of `peer2` and a secret of `peer2pw`. This is a node identity, so select `peer` as the **Type**. Click the box that says **Use root affiliation** and ignore **Maximum enrollments**. Then, on the next panel, do not assign any **Attributes**, as before.
 
 Registering these identities with the CA is only the first step in **creating** an identity. You will not be able to use these identities until they have been **enrolled**. For the `org2admin` identity, this will happen during the creation of the MSP, which we will see in the next step. In the case of the peer, it happens during the creation of the peer.
 {:note}

@@ -34,20 +34,20 @@ The console will not work in the Chrome browser on Mac OS Catalina when the {{si
       ```
       kubectl get po
       ```
-      { :codeblock}
+      {: codeblock}
    2. Exec into the pod by running the command:
       ```
       kubectl get po <pod-name> -c optools bash
       ```
-      { :codeblock}
+      {: codeblock}
    3. Delete the console key and certificate by running the command:
       ```
       rm -f /certs/tls.key rm -f /certs/tls.crt
       ```
-      { :codeblock}
+      {: codeblock}
    4. Delete the console pod which causes it to restart by running the command:
       ```
       kubectl delete po <pod-name>
       ```
-      { :codeblock}
+      {: codeblock}
     When the pod restart completes, you should now be able to login to your console URL from a Chrome Browser.    

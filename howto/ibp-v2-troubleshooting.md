@@ -31,11 +31,11 @@ General problems may occur when using the console to manage nodes, channels, or 
 This topic describes common issues that can occur when using the {{site.data.keyword.blockchainfull_notm}} Platform console.  
 
 **Issues during Deployment**
-- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
 - [My deployment fails when I try apply the security and access policies to my namespace](#ibp-v2-troubleshooting-deployment-policies)
 - [My deployment fails when I try apply the custom resource definition of the console or operator](#ibp-v2-troubleshooting-deployment-cr)
 
 **Issues with the Console**
+- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
 - [Why am I not able to login to the console from my Chrome browser on Mac OS Catalina?](#ibp-v2-troubleshooting-console-catalina)
 - [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls)
 - [When I hover over my node, the status is `Status unavailable`, what does this mean?](#ibp-v2-troubleshooting-status-unavailable)
@@ -56,52 +56,6 @@ This topic describes common issues that can occur when using the {{site.data.key
 - [How can I view my smart contract container logs?](#ibp-console-smart-contracts-troubleshoot-entry2)
 - [Why are the transactions I submit from VS Code failing with a No endorsement plan available error?](#ibp-v2-troubleshooting-anchor-peer)
 
-## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
-{: #ibp-v2-troubleshooting-chrome-v77}
-{: troubleshoot}
-
-The console has been working successfully, but requests have started to fail. For example, after I create an ordering service and open it I see the error: `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details.`
-{: tsSymptoms}
-
-This problem can be caused by a [bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1006243){: external} introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
-{: tsCauses}
-
-To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can upgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser. If this solution does not resolve your problem see [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls).
-{: tsResolve}
-
-
-## Why am I not able to login to the console from my Chrome browser on Mac OS Catalina?
-{: #ibp-v2-troubleshooting-console-catalina}
-
-The console has been working successfully, but after I upgraded my Mac OS to Catalina, I can no longer log into the console.
-{: tsSymptoms}
-
-There are three ways to resolve this problem:
-{: tsResolve}
-1.  Use a different [supported browser](docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers) with Catalina.
-2. Use your own [TLS certificates when deploying on OpenShift Contain Platform](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-) or [TLS certificates when deploying on Kubernetes or {{site.data.keyword.cloud_notm}} Private](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8#use-your-own-tls-certificates-optional-).
-3. Run the following commands to generate a new key and certificate pair for the console that will fix the problem.
-   1. Run the following command to get the pod that corresponds to the ibp console:
-      ```
-      kubectl get po
-      ```
-      { :codeblock}
-   2. Exec into the pod by running the command:
-      ```
-      kubectl get po <pod-name> -c optools bash
-      ```
-      { :codeblock}
-   3. Delete the console key and certificate by running the command:
-      ```
-      rm -f /certs/tls.key rm -f /certs/tls.crt
-      ```
-      { :codeblock}
-   4. Delete the console pod which causes it to restart by running the command:
-      ```
-      kubectl delete po <pod-name>
-      ```
-      { :codeblock}
-   When the pod restart completes, you should now be able to login to your console URL from a Chrome Browser.    
 
 ## My deployment fails when I try apply the security and access policies to my namespace
 {: #ibp-v2-troubleshooting-deployment-policies}
@@ -157,7 +111,52 @@ error: error parsing console.yaml: error converting YAML to JSON: yaml: line 11:
 This problem occurs when there is a problem with the indents in your file. Refer to the documentation for the correct format for the custom resource files of the console and operator.
 {: tsCauses}
 
+## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
+{: #ibp-v2-troubleshooting-chrome-v77}
+{: troubleshoot}
 
+The console has been working successfully, but requests have started to fail. For example, after I create an ordering service and open it I see the error: `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details.`
+{: tsSymptoms}
+
+This problem can be caused by a [bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1006243){: external} introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
+{: tsCauses}
+
+To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can upgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser. If this solution does not resolve your problem see [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls).
+{: tsResolve}
+
+
+## Why am I not able to login to the console from my Chrome browser on Mac OS Catalina?
+{: #ibp-v2-troubleshooting-console-catalina}
+
+The console has been working successfully, but after I upgraded my Mac OS to Catalina, I can no longer log into the console.
+{: tsSymptoms}
+
+There are three ways to resolve this problem:
+{: tsResolve}
+1.  Use a different [supported browser](docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers) with Catalina.
+2. Use your own [TLS certificates when deploying on OpenShift Contain Platform](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-) or [TLS certificates when deploying on Kubernetes or {{site.data.keyword.cloud_notm}} Private](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-k8#use-your-own-tls-certificates-optional-).
+3. Run the following commands to generate a new key and certificate pair for the console that will fix the problem.
+   1. Run the following command to get the pod that corresponds to the ibp console:
+      ```
+      kubectl get po
+      ```
+      {: codeblock}
+   2. Exec into the pod by running the command:
+      ```
+      kubectl get po <pod-name> -c optools bash
+      ```
+      {: codeblock}
+   3. Delete the console key and certificate by running the command:
+      ```
+      rm -f /certs/tls.key rm -f /certs/tls.crt
+      ```
+      {: codeblock}
+   4. Delete the console pod which causes it to restart by running the command:
+      ```
+      kubectl delete po <pod-name>
+      ```
+      {: codeblock}
+   When the pod restart completes, you should now be able to login to your console URL from a Chrome Browser.
 
 ## Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?
 {: #ibp-v2-troubleshooting-accept-tls}

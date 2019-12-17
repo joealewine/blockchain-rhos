@@ -130,7 +130,7 @@ You can view the CA admin identity in your console wallet by clicking on the **W
 
   | **Field** |  **Display name** | **Description** |
   | ------------------------- |-----------|----------|
-  | **Identity** | Org2 CA Admin  | Org2 CA admin identity |
+  | **Identity** | Org2 CA Admin | Org2 CA admin identity |
 
   *Figure 4. Check your Wallet*
 

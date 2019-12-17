@@ -55,6 +55,7 @@ This topic describes common issues that can occur when using the {{site.data.key
 - [Why are my transactions returning an endorsement policy error: signature set did not satisfy policy?](#ibp-v2-troubleshooting-endorsement-sig-failure)
 - [How can I view my smart contract container logs?](#ibp-console-smart-contracts-troubleshoot-entry2)
 - [Why are the transactions I submit from VS Code failing with a No endorsement plan available error?](#ibp-v2-troubleshooting-anchor-peer)
+- [Why are the transactions I submit from VS Code failing with an endorsement failure?](#ibp-v2-troubleshooting-endorsement)
 
 
 ## My deployment fails when I try apply the security and access policies to my namespace
@@ -416,5 +417,18 @@ This error occurs if you are using the Fabric Service Discovery feature but did 
 {: tsCauses}
 
 Follow step three of the [private data topic](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-private-data) in the Deploy a smart contract tutorial to configure your anchor peers.
+{: tsResolve}
+
+## Why are the transactions I submit from VS Code failing with an endorsement failure?
+{: #ibp-v2-troubleshooting-endorsement}
+{: troubleshoot}
+
+My smart contract endorsement proposals from my peer are failing with the endorsement error `...`
+{: tsSymptoms}
+
+This error occurs when the peer's enroll id type does not match the smart contract endorsement policy that was configured when the smart contract was instantiated on the channel.
+{: tsCauses}
+
+The only way to resolve this error is to delete the peer and create a new one with an enroll id that has the correct type `peer`. You can use the enroll id and secret from an existing user of type `peer` from the peer's CA or register a new user with type `peer`.
 {: tsResolve}
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-17"
 
 keywords: IBM Blockchain Platform, system requirements, Kubernetes, behind a firewall
 
@@ -43,7 +43,7 @@ For experienced Hyperledger Fabric customers, a purchase of {{site.data.keyword.
 The {{site.data.keyword.blockchainfull_notm}} Platform includes the following key features:
 
 **BUILD ---- Integrated developer experience**
-- **Easily code** your smart contracts in Node.js, Golang, or Javascript, write client applications using the new {{site.data.keyword.blockchainfull_notm}} VS Code extension, leverage **SDK integration** with the user interface console, and learn from our rich tutorials and samples.
+- **Easily code** your smart contracts in Node.js, Golang, or JavaScript, write client applications using the new {{site.data.keyword.blockchainfull_notm}} VS Code extension, leverage **SDK integration** with the user interface console, and learn from our rich tutorials and samples.
 - **Simplified DevOps** allows you to move from development to test to production in a single environment by scaling up your Kubernetes resources to add more components.
 - **Kubernetes service integration.** Leverage services such as Grafana and Prometheus for logging and Kibana for monitoring.
 - **Up-to-date Fabric key features**. Leverage the latest features of Hyperledger Fabric v1.4.4:

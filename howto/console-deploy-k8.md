@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-17"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -571,7 +571,7 @@ You can use a Certificate Authority or tool to create the TLS certificates for t
 **Console hostname:** ``<NAMESPACE>-ibpconsole-console.<DOMAIN>``  
 **Proxy hostname:** ``<NAMESPACE>-ibpconsole-proxy.<DOMAIN>``
 
-- Replace `<NAMESPACE>` with the name of the Kubernetse namespace that you created.
+- Replace `<NAMESPACE>` with the name of the Kubernetes namespace that you created.
 - Replace `<DOMAIN>` with the name of your cluster domain.
 
 Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your Kubernetes namespace. The TLS certificate and key need to be in PEM format.

@@ -111,6 +111,7 @@ error: error parsing console.yaml: error converting YAML to JSON: yaml: line 11:
 This problem occurs when there is a problem with the indents in your file. Refer to the documentation for the correct format for the custom resource files of the console and operator.
 {: tsCauses}
 
+
 ## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
 {: #ibp-v2-troubleshooting-chrome-v77}
 {: troubleshoot}

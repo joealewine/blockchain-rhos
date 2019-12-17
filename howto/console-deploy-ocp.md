@@ -689,7 +689,7 @@ kubectl logs -f ibpconsole-55cf9db6cc-856nz optools -n blockchain-project
 You can use your browser to access the console by browsing to the console URL:
 
 ```
-https://<PROJECT_NAME>-ibpconsole-console.<DOMAIN>:443
+https://<PROJECT_NAME>-ibpconsole-console.<DOMAIN>
 ```
 
 - Replace `<PROJECT_NAME>` with the name of the OpenShift project that you created.
@@ -697,14 +697,14 @@ https://<PROJECT_NAME>-ibpconsole-console.<DOMAIN>:443
 
 Your console URL looks similar to the following example:
 ```
-https://blockchain-project-ibpconsole-console.xyz.abc.com:443
+https://blockchain-project-ibpconsole-console.xyz.abc.com
 ```
 
 You can also find your console URL by logging in to your OpenShift cluster and running the following command. Replace `<PROJECT_NAME>` with the name of your project:
 ```
 oc get routes -n <PROJECT_NAME>
 ```
-In the output of the command, you can see the URLs for the proxy and the console. You need to add `https://` to the beginning console URL to to access the console.
+In the output of the command, you can see the URLs for the proxy and the console. You need to add `https://` to the beginning console URL to to access the console. You do not need to add a port to the URL.
 
 In your browser, you can see the console log in screen:
 - For the **User ID**, use the value you provided for the `email:` field in the `ibp-console.yaml` file.

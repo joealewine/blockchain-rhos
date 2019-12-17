@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-17"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -43,7 +43,7 @@ If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2
 ## Upgrading platforms
 {: #upgrade-ocp-platform}
 
-If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or V2.1.1 on the OpenShift Container Platform 3.11, you can upgrade your network to run on OpenShift Container Platform 4.2. Because the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 cannot run on OpenShift Container Platform 4.x, you need to upgrade your blockchain network before you upgrade your cluster. First, follow the steps to [upgrade your network to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](#upgrade-ocp-overview). You can then migrate your OpenShift cluster from 3.11 to 4.2. You cannot migrate your OpenShift cluster from 3.11 to 4.1. For more information, see [Migrating OpenShift Container Platform 3.7 to 4.2](https://docs.openshift.com/container-platform/4.2/migration/migrating-3-4/migrating-openshift-3-to-4.html#migrating-openshift-3-to-4).
+If you are using {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or V2.1.1 on the OpenShift Container Platform 3.11, you can upgrade your network to run on OpenShift Container Platform 4.2. Because the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 cannot run on OpenShift Container Platform 4.x, you need to upgrade your blockchain network before you upgrade your cluster. First, follow the steps to [upgrade your network to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](#upgrade-ocp-steps). You can then migrate your OpenShift cluster from 3.11 to 4.2. You cannot migrate your OpenShift cluster from 3.11 to 4.1. For more information, see [Migrating OpenShift Container Platform 3.7 to 4.2](https://docs.openshift.com/container-platform/4.2/migration/migrating-3-4/migrating-openshift-3-to-4.html#migrating-openshift-3-to-4).
 
 ## Upgrade to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
 {: #upgrade-ocp-steps}
@@ -249,10 +249,11 @@ You can use the `kubectl get deployment ibp-operator -o yaml` command to confirm
 
 After you apply the `operator-upgrade.yaml` operator spec to your OpenShift project, the operator will restart and pull the latest image. The upgrade takes about a minute. While the upgrade is taking place, you can still access your console UI. However, you cannot use the console to install and instantiate chaincode, or use the console or the APIs to create or remove a node.
 
-You can check that the upgrade is complete by running `kubectl get deployment ibp-operator`. If the upgrade is successful, then you can see the following tables with four ones displayed.
+You can check that the upgrade is complete by running `kubectl get deployment`. If the upgrade is successful, then you can see the following tables with four ones displayed for your operator and your console.
 ```
 NAME           READY     UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1/1       1            1           46s
+ibp-operator   1/1       1            1           1m
+ibpconsole     1/1       1            1           4m
 ```
 
 If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems. You can run the command to apply the original operator file, `kubectl apply -f operator.yaml` to restore your original operator deployment.
@@ -280,6 +281,7 @@ If you deployed the {{site.data.keyword.blockchainfull_notm}} Platform behind a 
 You can continue to submit transactions to your network while you are upgrading your network. However, you cannot use the console to deploy new nodes, install or instantiate smart contracts, or create new channels during the upgrade process.
 
 ### Before you begin
+{: #upgrade-ocp-begin-firewall}
 
 To upgrade your network, you need to [retrieve your entitlement key](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp-firewall#deploy-ocp-entitlement-key-firewall) from the My {{site.data.keyword.IBM_notm}} Dashboard, and [create a Kubernetes secret](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-docker-registry-secret) to store the key on your OpenShift project. If the Entitlement key secret was removed from your cluster, or if your key is expired, then you need to download another key and create a new secret.
 
@@ -360,7 +362,7 @@ docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 After you complete these steps, you can use the following instructions to deploy the {{site.data.keyword.blockchainfull_notm}} Platform with the images in your registry.
 
 ### Step two: Update the ClusterRole
-{: #upgrade-ocp-clusterrole}
+{: #upgrade-ocp-clusterrole-firewall}
 
 You need to update the ClusterRole that is applied to your project. Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. Edit the file and replace `<PROJECT_NAME>` with the name of your project.
 
@@ -543,21 +545,30 @@ ibpconsole     1/1       1            1           4m
 
 If you experience a problem while you are upgrading the operator, go to this [troubleshooting topic](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-v2-troubleshooting#ibp-v2-troubleshooting-deployment-cr) for a list of commonly encountered problems.
 
-If you console experiences an image pull error, you may need to update the console deployment spec with local registry that you used to download the images. Run the following command to download the deployment spec of the console:
+If your console experiences an image pull error, you may need to update the console deployment spec with the local registry that you used to download the images.
+```
+NAME                          READY     STATUS              RESTARTS   AGE
+ibp-operator-b9446759-6tmls   1/1       Running             0          1m
+ibpconsole-57ff4bcbb7-79dhn   0/4       Init:ErrImagePull   0          1m
+```
+This can happen if you have changed your regsitry URL between deployments. Run the following command to download the deployment spec of the console:
 ```
 kubectl get ibpconsole ibpconsole -o yaml > console.yaml
 ```
+{:codeblock}
+
 Then add the URL of your local registry to the `spec:` section of `console.yaml`. Replace `<LOCAL_REGISTRY>` with the url of your local registry:
 ```
 spec:
   registryURL: <LOCAL_REGISTRY>
 ```
+{:codeblock}
+
 Save the updated file as `console-upgrade.yaml` on your local system. You can then issue the following command upgrade your console:
 ```
 kubectl apply -f console-upgrade.yaml
 ```
 {:codeblock}
-
 
 ### Step four: Upgrade your blockchain nodes
 {: #upgrade-ocp-nodes-firewall}

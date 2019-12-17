@@ -700,7 +700,11 @@ Your console URL looks similar to the following example:
 https://blockchain-project-ibpconsole-console.xyz.abc.com:443
 ```
 
-You can also find your console URL and your proxy URL by using the OpenShift web console. Use the dropdown menu next to **OpenShift Container Platform** at the top of the page to switch from **Service Catalog** to **Cluster Console**. In the left navigation pane, click **Networking** and then **Routes**. Use the **Projects:** dropdown to select all projects. On the page that is displayed, you can see the URLs for the proxy and the console.
+You can also find your console URL by logging in to your OpenShift cluster and running the following command. Replace `<PROJECT_NAME>` with the name of your project:
+```
+oc get routes -n <PROJECT_NAME>
+```
+In the output of the command, you can see the URLs for the proxy and the console. You need to add `https://` to the beginning console URL to to access the console.
 
 In your browser, you can see the console log in screen:
 - For the **User ID**, use the value you provided for the `email:` field in the `ibp-console.yaml` file.

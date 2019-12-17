@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-13"
+lastupdated: "2019-12-17"
 
 keywords: IBM Blockchain Platform, images
 
@@ -43,7 +43,7 @@ Although you can deploy the {{site.data.keyword.blockchainfull_notm}} images on 
 
 The {{site.data.keyword.blockchainfull_notm}} Docker images are based on Hyperledger Fabric v1.4.4. The documentation to install and deploy the images will be updated with the latest version of Fabric used by the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2.
 
-Hyperledger Fabric v1.4 is the long term support release of Hyperledger Fabric. As a result, {{site.data.keyword.blockchainfull_notm}} will provide support networks deployed on Fabric v1.4.4 or higher until six months after the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 moves to the next long term support release.
+See the [My Support](https://www.ibm.com/support/pages/support-ibm-blockchain-platform-v21x){: external} page for details on what is supported.
 
 ## Considerations and limitations
 
@@ -299,7 +299,7 @@ Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} i
 ## Upgrading to new versions
 {: #blockchain-images-upgrade}
 
-You can upgrade your deployment to the latest version of the {{site.data.keyword.blockchainfull_notm}} images. The latest images might contain security and stability improvements or use a higher version Hyperledger Fabric, allowing you to take advantage of the latest Fabric features. To upgrade your network, you need to back up the ledger and MSP data for each node and then manually upgrade the node binaries. For more information about a network that you deployed using the {{site.data.keyword.blockchainfull_notm}} images, see [Upgrading Your Network Components](https://hyperledger-fabric.readthedocs.io/en/release-1.4/upgrading_your_network_tutorial.html){: external} in the Hyperleder Fabric documentation.
+You can upgrade your deployment to the latest version of the {{site.data.keyword.blockchainfull_notm}} images. The latest images normally contain security or stability improvements, or use a higher version Hyperledger Fabric, allowing you to take advantage of the latest Fabric features. To upgrade your network, you need to back up the ledger and MSP data for each node and then manually upgrade the node binaries. For more information about upgrading a network that you deployed using the {{site.data.keyword.blockchainfull_notm}} images, see [Upgrading Your Network Components](https://hyperledger-fabric.readthedocs.io/en/release-1.4/upgrading_your_network_tutorial.html){: external} in the Hyperleder Fabric documentation.
 
 ## Getting support
 

@@ -3,7 +3,7 @@
 copyright:
   years: 2019
 
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-17"
 
 keywords: getting started tutorials, create a CA, enroll, register, create an MSP, wallet, create a peer, create ordering service, Raft, join a network, system channel
 
@@ -244,8 +244,6 @@ Use your console to perform the following steps:
   | **CA** | Org2 CA ||||
   | **Peer Identity** | |  | peer2 | peer2pw |
   | **Administrator certificate** | org2msp ||||
-  | **TLS CA** | Org2 CA ||||
-  | **TLS CA ID** | || peer2 | peer2pw |
   | **Associate identity** | Org2 MSP Admin  |||||
   *Figure 8. Deploying a peer*  
 

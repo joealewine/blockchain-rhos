@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-17"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -36,7 +36,7 @@ This topic describes common issues that can occur when using the {{site.data.key
 
 **Issues with the Console**
 - [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
-- [Why am I not able to login to the console from my Chrome browser on Mac OS Catalina?](#ibp-v2-troubleshooting-console-catalina)
+- [Why am I not able to log in to the console from my Chrome browser on Mac OS Catalina?](#ibp-v2-troubleshooting-console-catalina)
 - [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls)
 - [When I hover over my node, the status is `Status unavailable`, what does this mean?](#ibp-v2-troubleshooting-status-unavailable)
 - [When I hover over my node, the status is `Status undetectable`, what does this mean?](#ibp-v2-troubleshooting-status-undetectable)
@@ -125,7 +125,7 @@ To resolve this problem, open the console in a new browser tab in Chrome. Any id
 {: tsResolve}
 
 
-## Why am I not able to login to the console from my Chrome browser on Mac OS Catalina?
+## Why am I not able to log in to the console from my Chrome browser on Mac OS Catalina?
 {: #ibp-v2-troubleshooting-console-catalina}
 
 The console has been working successfully, but after I upgraded my Mac OS to Catalina, I can no longer log into the console.

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-17"
 
 
 keywords: release note, latest changes, Hyperledger Fabric
@@ -38,7 +38,7 @@ All new nodes are deployed using Hyperledger Fabric v1.4.4.
 #### Support for OpenShift Container Platform (OCP) 4.1 and 4.2
 {: #12-17-2019-ocp4.x}
 
-In addition to supporting deployment on OCP 3.11, you can now also deploy the platform on OCP 4.1 and 4.2.
+In addition to supporting deployment on OCP 3.11, you can now also deploy the platform on OpenShift Container Platform 4.1 and 4.2.
 
 #### Simplified component creation flows
 {: #12-17-2019-flow}
@@ -81,7 +81,7 @@ In addition to the existing `client` and `peer` Node OU types that are available
 {: #11-08-2019-images}
 
 
-A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 now includes an entitlement to peer, CA, ordering service, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability.
+A purchase of {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 now includes an entitlement to peer, CA, ordering service, and smart contract container images that are signed and supported by {{site.data.keyword.IBM_notm}}. The images are based on the open source Fabric code base and contain a number of enhancements for stability and serviceability.
 
 ## 24 September 2019
 {: #09-24-2019}

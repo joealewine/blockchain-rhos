@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-12"
+lastupdated: "2019-12-17"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 
@@ -153,7 +153,8 @@ Importing a peer is performed from the **Nodes** tab.
 2. Click **Add file** to upload the peer JSON file that was exported from the console where it was originally deployed.
 3. Set the admin identity for the peer by clicking **Existing identity** and selecting the peer admin identity that you imported into your wallet.
 
-
+If the peer was exported before October 2nd, 2019, you might have to supply location information specifying where the peer was created. If you see this field, you can choose whether to supply the location or to have the peer re-exported, in which case the console will not ask for this information.
+{: note}
 
 After you import the peer into the console, you can install smart contracts on the peer and join the peer to channels in your blockchain.
 
@@ -180,7 +181,8 @@ Navigate to the **Nodes** tab.
 2. Click **Add file** to upload the CA JSON file that was exported from the console where it was originally deployed.
 3. After the CA has been added, click on it in the **Nodes** panel. Then click **Associate identity** and select the CA admin identity from your wallet.
 
-
+If the CA was exported before October 2nd, 2019, you might have to supply location information specifying where the CA was created. If you see this field, you can choose whether to supply the location or to have the CA re-exported, in which case the console will not ask for this information.
+{: note}
 
 After you have imported the CA into the console, you can use your CA to create new identities and generate the necessary certificates to operate your components and submit transactions to the network. To learn more, see [Managing certificate authorities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-manage-ca).
 
@@ -212,7 +214,8 @@ Navigate to the **Nodes** tab.
 3. Click **Add file** to upload the ordering service JSON. Note that regardless of how many nodes are in this ordering service, the JSON representing this ordering service will be one file.
 4. Set the admin identity for the ordering nodes by clicking **Existing identity**. Recall from the [Before you begin section](#ibp-console-import-orderer-before-you-begin) that you can effectively skip this step if you want by selecting any identity in your wallet. However, if you want to have the correct node admin identity exported from the console where it was created and imported into your console and select it in this step, you can choose to do that.
 
-
+If the ordering service was exported before October 2nd, 2019, you might have to supply location information specifying where the ordering service was created. If you see this field, you can choose whether to supply the location or to have the ordering service re-exported, in which case the console will not ask for this information.
+{: note}
 
 After you have imported the ordering service into the console, you can add new organization members to the consortium (if your MSP was added as an admin of the ordering service) and select the ordering service when creating new channels (if your organization has been added to the consortium).
 

@@ -52,6 +52,7 @@ The images do not include the {{site.data.keyword.blockchainfull_notm}} Platform
 
 - {{site.data.keyword.blockchainfull_notm}} provides support for Hyperledger Fabric only if you purchase {{site.data.keyword.blockchainfull_notm}} v2.1.2 and deploy the {{site.data.keyword.blockchainfull_notm}} images. You cannot purchase support for the Hyperledger Fabric Docker images that are provided by the Hyperledger community. {{site.data.keyword.blockchainfull_notm}} does not support images that have been altered.
 - You cannot use the {{site.data.keyword.blockchainfull_notm}} Platform console to deploy or operate the images.
+- If you download the image for the gRPC web proxy and connect the proxy to node that you deploy, you can import the node into an {{site.data.keyword.blockchainfull_notm}} Platform console. After you import a node into the console, you can operate that node alongside nodes that were deployed by using the {{site.data.keyword.blockchainfull_notm}} Platform.
 
 ## License and pricing
 
@@ -90,7 +91,11 @@ docker pull cp.icr.io/cp/ibp-nodeenv:1.4.4-20191217-amd64
 ```
 {:codeblock}
 
+If you want to import a node that you deploy into an {{site.data.keyword.blockchainfull_notm}} Platform console, you can pull the image of the gRPC web proxy.
 
+```
+docker pull cp.icr.io/cp/ibp-grpcweb:2.1.2-20191217-amd64
+```
 
 ## Getting started
 {: #getting-started}
@@ -139,7 +144,38 @@ If you are using the open source configuration files, you need to make the follo
 
 In addition to using the Fabric tools, you can also use the tools that are provided in the `ibp-utilities` image to operate your network. The utilities image includes the configtxlator, cryptogen, configtxgen binaries.
 
+### Configuring the gRPC web proxy (optional)
+{: #getting-started-proxy}
 
+If you want your nodes to be visible in the {{site.data.keyword.blockchainfull_notm}} Platform console, you can deploy an instance of the gRPC web proxy and then connect it to a node that you deployed with the {{site.data.keyword.blockchainfull_notm}} images. You can then import the node into a console that was deployed by using the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 or {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. You need to deploy a separate web proxy for each node.
+
+To deploy the proxy, you need to set the following environment variables inside the container.
+```
+LICENSE=accept
+BACKEND_ADDRESS=<NODE_ENDPOINT_URL>
+EXTERNAL_ADDRESS=<PROXY_ENDPOINT_URL>
+SERVER_TLS_CERT_FILE=<TLS_CERTIFICATE>
+SERVER_TLS_KEY_FILE=<TLS_KEY>
+SERVER_TLS_CLIENT_CA_FILES=<ROOT_TLS_CERTIFICATE>
+SERVER_BIND_ADDRESS=0.0.0.0
+SERVER_HTTP_DEBUG_PORT=8080
+SERVER_HTTP_TLS_PORT=7443
+BACKEND_TLS=true
+SERVER_HTTP_MAX_WRITE_TIMEOUT=5m
+SERVER_HTTP_MAX_READ_TIMEOUT=5m
+USE_WEBSOCKETS=true
+```
+- Use the `BACKEND_ADDRESS` variable to point to the endpoint url of your node.
+- Use the `EXTERNAL_ADDRESS` to select the web proxy url that you will use to access the node from your console.
+- Use the `SERVER_HTTP_TLS_PORT` to select the port that you will use the access the web proxy.
+- You also need to provide TLS certificates that will secure the communication between the console and gRPC proxy server. It is recommended that you use certificates that were issued to secure the domain name of your cluster. The common name of the TLS certificates must be the domain name of your web proxy url. The TLS certificates then need be mounted inside the web proxy container. Use the `SERVER_TLS` variables to point to the TLS certificates.
+
+After the web proxy container is deployed, you can import the node into a console by creating a node JSON file. For more information about how to create the file, see [Importing nodes from a locally deployed network](/docs/services/blockchain?topic=blockchain-ibp-console-import-nodes#ibp-console-import-icp). You need to use the following values when you create the file:
+- Use the web proxy url and port for the `"grpcwp_url"` field. You specified these values with the `EXTERNAL_ADDRESS` and `SERVER_HTTP_TLS_PORT` environment variables.
+- Use the node endpoint url and port for the `"api_url"` field. You specified these values with the `BACKEND_ADDRESS` environment variable.
+- Encode the public TLS certificate of the web proxy in base64 format and paste it in the`"pem"` field. You specified the path to this certificate with the `SERVER_TLS_CLIENT_CA_FILES` environment variable.
+
+We deploy an [example web proxy](#example-proxy) using Docker Compose as part of the example provided below. While the example is not a template for deploying a web proxy in production, it can be used for additional context on how you would connect a proxy to a running node.
 
 ## Example
 {: #blockchain-images-example}
@@ -288,13 +324,92 @@ sudo ./byfn.sh up
 
 You can use the updates that are provided in this example to deploy the {{site.data.keyword.blockchainfull_notm}} images in the environment of your choice. The Fabric samples that are published by the Hyperledger community are intended to be used only as examples. Do not use the samples as templates for deploying production networks.
 
+### Deploying an {{site.data.keyword.blockchainfull_notm}} Certificate Authority
+{: #blockchain-images-example-ca}
 
+The `first-network` sample does not use Certificate Authorities to deploy the network. However, you can find a file below that you can use to deploy an {{site.data.keyword.blockchainfull_notm}} Certificate Authority using Docker Compose. If you want to deploy a CA as part of the example, you should use this file instead of editing the `docker-compose-ca.yaml` file in the `first-network` directory, which deploys a CA using existing crypto material. Save the following file as ``docker-compose-ibm-ca.yaml``:
 
+```yaml
+version: '2'
 
+networks:
+  byfn:
+
+services:
+
+  ca-org1:
+    image: cp.icr.io/cp/ibp-ca:1.4.4-20191217-amd64
+    environment:
+      - LICENSE=accept
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-org1
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=7054
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - fabric-ca-config:/etc/hyperledger/fabric-ca-server
+    container_name: ca_org1
+```
+You need to mount a copy of the Fabric CA server configuration file in the CA container. Create a folder named `fabric-ca-config` and save a copy of the [Fabric CA server configuration file](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.4/serverconfig.html) inside as `fabric-ca-server-config.yaml`. Update the sample file with information about your organization and the domain name of your CA. The docker compose file will use this file to start the Fabric CA server and set the username and password of your CA admin to `admin` and `adminpw`. You can find more information about the Fabric CA server in the [Fabric CA users guide](https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html). After you have saved `docker-compose-ibm-ca.yaml` and the configuration file, you can deploy the CA using the following command:
+```
+docker-compose -f docker-compose-ibm-ca.yaml up
+```
+
+When the CA is deployed, you can use the Fabric CA client or the Fabric SDKs to register new identities and generate certificates. For more information about how you would set up a blockchain network by using Certificate Authorities, see the [Fabric CA Operations guide](https://hyperledger-fabric-ca.readthedocs.io/en/latest/operations_guide.html).
+
+### Deploying the gRPC web proxy
+{: #example-proxy}
+
+We can also deploy an instance of the web proxy as an example of how you would connect the proxy to a deployed orderer or peer. Because the network was deployed by using docker compose, we cannot import the node into an {{site.data.keyword.blockchainfull_notm}} Platform console.
+
+Save the docker compose file below as `docker-compose-grpc.yaml`. The web proxy is configured to communicate with `peer0.org1.example.com:7051` in your network. When you deploy the proxy, the domain name of the container will be `web_proxy.peer0.org1.example.com`. You need to create TLS certificates with `web_proxy.peer0.org1.example.com` as a subject name. After they are created, the TLS certificates are stored in a folder that is named `grpc_tls`, which will be mounted inside the container. Port `7443` is exposed to communicate with the proxy.
+
+```yaml
+version: '2'
+
+networks:
+  byfn:
+
+services:
+  web_proxy.peer0.org1.example.com:
+    container_name: web_proxy.peer0.org1.example.com
+    image: ip-ibp-images-team-docker-remote.artifactory.swg-devops.com/cp/ibp-grpcweb:2.1.2-20191217-amd64
+    environment:
+      - LICENSE=accept
+      - BACKEND_ADDRESS=peer0.org1.example.com:7051
+      - EXTERNAL_ADDRESS=web_proxy.peer0.org1.example.com
+      - SERVER_TLS_CERT_FILE=/certs/tls/server.crt
+      - SERVER_TLS_KEY_FILE=/certs/tls/server.key
+      - SERVER_TLS_CLIENT_CA_FILES=/certs/tls/ca.crt
+      - SERVER_BIND_ADDRESS=0.0.0.0
+      - SERVER_HTTP_DEBUG_PORT=8080
+      - SERVER_HTTP_TLS_PORT=7443
+      - BACKEND_TLS=true
+      - SERVER_HTTP_MAX_WRITE_TIMEOUT=5m
+      - SERVER_HTTP_MAX_READ_TIMEOUT=5m
+      - USE_WEBSOCKETS=true
+    ports:
+      - "7443:7443"
+    volumes:
+      - ./grpc_tls:/certs/tls
+    networks:
+      - byfn
+  ```
+After you create the peer, you can deploy the web proxy by using docker compose:
+```
+docker-compose -f docker-compose-grpc.yaml up
+```
+You can ping the web proxy by navigating to `http://localhost:7443/` with a web browser. You will see the logs of the request being rejected because you did not have a TLS certificate:
+```
+web_proxy.peer0.org1.example.com    | 2019/11/13 20:43:04 http: TLS handshake error from 172.29.0.1:57580: tls: first record does not look like a TLS handshake
+web_proxy.peer0.org1.example.com    | 2019/11/13 20:43:09 http: TLS handshake error from 172.29.0.1:57576: EOF
+```
 
 ## Interoperability
 
-Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} images can join the channels of other {{site.data.keyword.blockchainfull_notm}} offerings, such as {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 and {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. However, because you cannot use the console to operate the images, you need to use Fabric tools to join existing channels that were created with a console or create new channels. 
+Nodes that are deployed by using the {{site.data.keyword.blockchainfull_notm}} images can join the channels of other {{site.data.keyword.blockchainfull_notm}} offerings, such as {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 and {{site.data.keyword.blockchainfull_notm}} Platform for {{site.data.keyword.cloud_notm}}. Unless you connected an instance of the gRPC web proxy to the node, you cannot use the console to operate the images. You need to use Fabric tools to join existing channels that were created with a console or create new channels.
 
 ## Upgrading to new versions
 {: #blockchain-images-upgrade}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-17"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -48,6 +48,15 @@ Ensure that your OpenShift cluster has sufficient resources for the {{site.data.
 {: caption="Table 1. Default resource allocations" caption-side="bottom"}
 
 ** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
+
+## Browsers
+{: #deploy-ocp-browsers-firewall}
+The {{site.data.keyword.blockchainfull_notm}} Platform console has been successfully tested on the following browsers:
+
+- Chrome: Version 78.0.3904.70 (Official Build) (64-bit)
+- Firefox (non-ESR): Version 69.0.1
+- Safari: Version 13.0 (14608.1.49)
+- Edge: v44.17763.1.0
 
 ## Storage
 {: #deploy-ocp-storage-firewall}

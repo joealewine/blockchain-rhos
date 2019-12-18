@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-17"
+lastupdated: "2019-12-18"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -130,7 +130,7 @@ To resolve this problem, open the console in a new browser tab in Chrome. Any id
 ## Why am I not able to log in to the console from my Chrome browser on Mac OS Catalina?
 {: #ibp-v2-troubleshooting-console-catalina}
 
-The console has been working successfully, but after I upgraded my Mac OS to Catalina, I can no longer log into the console.
+The console has been working successfully, but after I upgraded my Mac OS to Catalina, I can no longer log in to the console.
 {: tsSymptoms}
 
 There are three ways to resolve this problem:

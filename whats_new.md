@@ -2,7 +2,7 @@
 
 copyright:
   years: 2017, 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-18"
 
 keywords: IBM Blockchain Platform, release, new features
 
@@ -25,7 +25,7 @@ subcollection: blockchain-rhos
 ## December 17, 2019
 {: #whats-new-12-17-2019}
 
-{{site.data.keyword.blockchainfull}} Platform v2.1.2 can now be deployed on the OpenShift Container Platform 4.1 and 4.2. You can find a table of table of deployment options by going to [Supported platforms](/docs/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites). {{site.data.keyword.blockchainfull}} Platform v2.1.2 also provides improvements to the {{site.data.keyword.blockchainfull}} Platform console. See the [Release notes](/docs/blockchain-rhos?topic=blockchain-rhos-release-notes-saas-20#12-17-2019) for a full list of new features that are included with this release.
+{{site.data.keyword.blockchainfull}} Platform v2.1.2 can now be deployed on the OpenShift Container Platform 4.1 and 4.2. You can find a table of deployment options by going to [Supported platforms](/docs/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites). {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 also provides improvements to the {{site.data.keyword.blockchainfull_notm}} Platform console. See the [Release notes](/docs/blockchain-rhos?topic=blockchain-rhos-release-notes-saas-20#12-17-2019) for a full list of new features that are included with this release.
 
 If you have an existing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.0 or v2.1.1 deployment and are interested in upgrading to {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2, see the following topics:
 - [Upgrading your console and components on the OpenShift Container Platform](/docs/blockchain-rhos?topic=blockchain-rhos-upgrade-ocp)
@@ -41,7 +41,7 @@ If you have an existing {{site.data.keyword.blockchainfull_notm}} Platform v2.1.
 
 If you are an experienced Hyperledger Fabric customer and prefer to deploy and manage the containers yourself, you can download and use the container images without the management console. For more information, see [Using the IBM Blockchain images](/docs/services/blockchain-rhos?topic=blockchain-rhos-blockchain-images).
 
-If you are an existing {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 customer, there is no upgrade needed to the  {{site.data.keyword.blockchainfull}} Platform v2.1.1.
+If you are an existing {{site.data.keyword.blockchainfull_notm}} Platform 2.1.0 customer, there is no upgrade needed to the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1.
 
 {: note}
 

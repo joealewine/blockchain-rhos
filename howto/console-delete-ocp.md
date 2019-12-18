@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-06"
+lastupdated: "2019-12-16"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -76,7 +76,7 @@ kubectl delete ibpconsole --all
 If you are done working with the {{site.data.keyword.blockchainfull_notm}} Platform on your OpenShift cluster, you can delete your OpenShift project.
 
 ```
-kubectl delete project <PROJECT_NAME>
+oc delete project <PROJECT_NAME>
 ```
 {:codeblock}
 

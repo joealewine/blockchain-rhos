@@ -2,7 +2,7 @@
 {:topicgroup: .topicgroup}
 
 {: .toc subcollection="blockchain-rhos" category="app_services,databases" audience="service" arm="339" href="/docs/services/blockchain-rhos/index.html" path="services/blockchain-rhos"}
-IBM Blockchain Platform v2.1.1
+IBM Blockchain Platform v2.1.2
 
 	{: .navgroup id="learn"}
 	index.md
@@ -22,12 +22,14 @@ IBM Blockchain Platform v2.1.1
 	Install on the OpenShift Container Platform
 		howto/console-deploy-ocp.md
 		howto/console-deploy-ocp-firewall.md
+		howto/console-upgrade-ocp.md
 		howto/console-delete-ocp.md
 
 	{: .topicgroup}
 	Install on Kubernetes
 		howto/console-deploy-k8.md
 		howto/console-deploy-k8-firewall.md
+		howto/console-upgrade-k8.md
 		howto/console-delete-k8.md
 
 	internal/blockchain_images.md
@@ -67,6 +69,7 @@ IBM Blockchain Platform v2.1.1
 
 	{: .navgroup id="help"}
 	release-notes.md
+	known-issues.md
 	howto/ibp-v2-troubleshooting.md
 	ibmblockchain_support.md
 	{: .navgroup-end}

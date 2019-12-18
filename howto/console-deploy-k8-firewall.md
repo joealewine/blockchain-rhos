@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-06"
+lastupdated: "2019-12-17"
 
 keywords: IBM Blockchain Platform console, deploy, resource requirements, storage, parameters, firewall, on-premises
 
@@ -19,19 +19,19 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
-# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 behind a firewall
+# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 behind a firewall
 {: #deploy-k8-firewall}
 
-You can use these instructions to deploy {{site.data.keyword.blockchainfull}} Platform v2.1.1 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
+You can use these instructions to deploy {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 behind a firewall without internet connectivity. If you are deploying the platform on a cluster with access to the external internet, use the main instructions for [Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2](/docs/services/blockchain-rhos?topic=blockchain-rhos-deploy-k8).
 {:shortdesc}
 
-You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.1 on any x86_64 Kubernetes cluster running at v1.11 or higher. Use these instructions if you are using distributions such as Rancher or {{site.data.keyword.cloud_notm}} Private. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.2 on any x86_64 Kubernetes cluster running at v1.11 through v1.16. Use these instructions if you are using distributions such as Rancher or {{site.data.keyword.cloud_notm}} Private. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 
 ## Need to Know
 
-- If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using GO chaincode.
+- If you are deploying the {{site.data.keyword.blockchainfull_notm}} Platform behind a firewall, without access to the public internet, your JavaScript or TypeScript chaincode will not be able to download external depenencies when the chaincode is instantiated. You need point to a local NPM registry for your chaincode to access the required dependencies. This problem does not occur if you are using chaincode written in Go.
 
-- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](https://test.cloud.ibm.com/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
+- After you deploy your peer and ordering nodes, you need to expose the ports of your nodes for your network to be able to respond to requests from applications or nodes outside your firewall. For more information about the ports that you need to expose, see [Internet Ports](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-security#ibp-security-ibp-ports) in the security guide.
 
 ## Resources required
 {: #deploy-k8-resources-required-firewall}
@@ -48,10 +48,19 @@ Ensure that your Kubernetes cluster has sufficient resources for the {{site.data
 {: caption="Table 1. Default resource allocations" caption-side="bottom"}
 ** These values can vary slightly. Actual VPC allocations are visible in the blockchain console when a node is deployed.  
 
+## Browsers
+{: #deploy-k8-browsers-firewall}
+The {{site.data.keyword.blockchainfull_notm}} Platform console has been successfully tested on the following browsers:
+
+- Chrome: Version 78.0.3904.70 (Official Build) (64-bit)
+- Firefox (non-ESR): Version 69.0.1
+- Safari: Version 13.0 (14608.1.49)
+- Edge: v44.17763.1.0
+
 ## Storage
 {: #deploy-k8-storage-firewall}
 
-{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class.
+{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/4.2/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class.
 
 Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
 
@@ -72,15 +81,15 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [Supported Platforms](/docs/services/blockchain-rhos?topic=blockchain-rhos-console-ocp-about#console-ocp-about-prerequisites).
 
-2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the Kubectl CLI.
+2. You need to install and connect to your cluster by using the [kubectl CLI](https://kubernetes.io/docs/tasks/tools/install-kubectl){: external} to deploy the platform. If you are using {{site.data.keyword.cloud_notm}} Private, install the [{{site.data.keyword.cloud_notm}} Private CLI 3.2.1](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.1/manage_cluster/install_cli.html){: external}. The {{site.data.keyword.cloud_notm}} Private CLI includes the kubectl CLI.
 
 3. If you are not running the platform on Red Hat OpenShift Container Platform, Red Hat Open Kubernetes Distribution, or {{site.data.keyword.cloud_notm}} Private then you need to setup the nginx ingress controller and it needs to be running in [SSL passthrough mode](https://kubernetes.github.io/ingress-nginx/user-guide/tls/#ssl-passthrough){: external}.
 
 ## Pull the {{site.data.keyword.blockchainfull_notm}} Platform images
 
-You can download the complete set of {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement Registry. To deploy the platform without access to the public internet, you need to pull the images from the {{site.data.keyword.IBM_notm}} Registry and then push the images to a docker registry that you can access from behind your firewall.
+You can download the complete set of {{site.data.keyword.blockchainfull_notm}} Platform images from the {{site.data.keyword.IBM_notm}} Entitlement Registry. To deploy the platform without access to the public internet, you need to pull the images from the {{site.data.keyword.IBM_notm}} Registry and then push the images to a Docker registry that you can access from behind your firewall.
 
-After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My IBM dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You can then use this key to access the {{site.data.keyword.blockchainfull_notm}} Platform images.
+After you purchase the {{site.data.keyword.blockchainfull_notm}} Platform, you can access the [My {{site.data.keyword.IBM_notm}} dashboard](https://myibm.ibm.com/dashboard/){: external} to obtain your entitlement key for the offering. You can then use this key to access the {{site.data.keyword.blockchainfull_notm}} Platform images.
 
 Use the following command to log in to the {{site.data.keyword.IBM_notm}} Entitlement Registry:
 ```
@@ -92,44 +101,42 @@ docker login --username cp --password <KEY> cp.icr.io
 
 After you log in, use the following command to pull all of the component images of the {{site.data.keyword.blockchainfull_notm}} Platform:
 ```
-docker pull cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-ca-init:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-init:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-peer:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-ca:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-dind:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-console:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-grpcweb:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-utilities:1.4.3-20191108-amd64
-docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-deployer:2.1.1-20191108-amd64
-docker pull cp.icr.io/cp/ibp-fluentd:2.1.1-20191108-amd64
+docker pull cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-peer:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-orderer:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-ca:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-dind:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-console:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-grpcweb:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-utilities:1.4.4-20191217-amd64
+docker pull cp.icr.io/cp/ibp-couchdb:2.3.1-20191217-amd64
+docker pull cp.icr.io/cp/ibp-deployer:2.1.2-20191217-amd64
+docker pull cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
 If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the image tag with `s390x`
 {: important}
 
-After you download the images, you must change the image tags to refer to your docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
+After you download the images, you must change the image tags to refer to your Docker registry. Replace `<LOCAL_REGISTRY>` with the url of your local registry and run the following commands:
 ```
-docker tag cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-ca-init:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-init:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-peer:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-orderer:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-ca:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-dind:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-console:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-grpcweb:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-utilities:1.4.3-20191108-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191108-amd64
-docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-deployer:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191108-amd64
-docker tag cp.icr.io/cp/ibp-fluentd:2.1.1-20191108-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191108-amd64
+docker tag cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-init:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-peer:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-orderer:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-ca:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-ca:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-dind:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-dind:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-console:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-console:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-grpcweb:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-grpcweb:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-utilities:1.4.4-20191217-amd64 <LOCAL_REGISTRY>/ibp-utilities:1.4.4-20191217-amd64
+docker tag cp.icr.io/cp/ibp-couchdb:2.3.1-20191217-amd64 <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191217-amd64
+docker tag cp.icr.io/cp/ibp-deployer:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-deployer:2.1.2-20191217-amd64
+docker tag cp.icr.io/cp/ibp-fluentd:2.1.2-20191217-amd64 <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
-You can use the `docker images` command to check if the new tags have been created. You can push the images with the new tags to your docker registry. Log in to your registry using the following command:
+You can use the `docker images` command to check if the new tags have been created. You can push the images with the new tags to your Docker registry. Log in to your registry using the following command:
 ```
 docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGISTRY>
 ```
@@ -141,19 +148,18 @@ docker login --username <USER> --password <LOCAL_REGISTRY_PASSWORD> <LOCAL_REGIS
 
 Then, run the following command to push the images. Replace `<LOCAL_REGISTRY>` with the url of your local registry.
 ```
-docker push <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca-init:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-init:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-peer:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-ca:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-dind:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-console:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.3-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.1-20191108-amd64
-docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.1-20191108-amd64
+docker push <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-init:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-peer:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-orderer:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-ca:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-dind:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-console:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-grpcweb:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-utilities:1.4.4-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-couchdb:2.3.1-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-deployer:2.1.2-20191217-amd64
+docker push <LOCAL_REGISTRY>/ibp-fluentd:2.1.2-20191217-amd64
 ```
 {:codeblock}
 
@@ -162,8 +168,7 @@ After you complete these steps, you can use the following instructions to deploy
 ## Log in to your Kubernetes cluster
 {: #deploy-k8s-login-firewall}
 
-Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI.
-If you are using {{site.data.keyword.cloud_notm} Private, you can log in to your cluster by using the following command:
+Before you can complete the next steps, you need to log in to your cluster by using the kubectl CLI. Follow the instructions for logging into to your cluster. If you are using {{site.data.keyword.cloud_notm}} Private, you can log in to your cluster by using the following command:
 ```
 cloudctl login -a https://<cluster_CA_domain>:8443 --skip-ssl-validation
 ```
@@ -187,7 +192,7 @@ router-6cc88df47c-mwzbq             1/1       Running   0          7d
 ## Create a new namespace
 {: #deploy-k8-namespace-firewall}
 
-After you connect to your cluster, create a new namespace for your deployment of {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
+After you connect to your cluster, create a new namespace for your deployment of the {{site.data.keyword.blockchainfull_notm}} Platform. You can create a namespace by using the kubectl CLI. The namespace needs to be created by a cluster administrator.
 
 If you are using the CLI, create a new namespace by the following command:
 ```
@@ -209,7 +214,7 @@ kubectl get storageclasses
 ## Add security and access policies
 {: #deploy-k8-scc-firewall}
 
-The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the Kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
+The {{site.data.keyword.blockchainfull_notm}} Platform requires specific security and access policies to be added to your namespace. The contents of a set of `.yaml` files are provided here for you to copy and edit to define the security policies. You must save these files to your local system and then add them your namespace by using the kubectl CLI. These steps need to be completed by a cluster administrator. Also, be aware that the peer `init` and `dind` containers that get deployed are required to run in privileged mode.
 
 ### Apply the Pod Security Policy
 
@@ -249,15 +254,15 @@ spec:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your namespace. Replace `<NAMESPACE>` with your namespace.
+After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your namespace.
 ```
-kubectl apply -f ibp-psp.yaml -n <NAMESPACE>
+kubectl apply -f ibp-psp.yaml
 ```
 {:codeblock}
 
 ### Apply the ClusterRole
 
-Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. This file defines the required ClusterRole for the PodSecurityPolicy.
+Copy the following text to a file on your local system and save the file as `ibp-clusterrole.yaml`. This file defines the required ClusterRole for the PodSecurityPolicy. Edit the file and replace `<NAMESPACE>` with the name of your namespace.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -329,9 +334,9 @@ rules:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your namespace.
+After you save and edit the file, run the following commands.
 ```
-kubectl apply -f ibp-clusterrole.yaml -n <NAMESPACE>
+kubectl apply -f ibp-clusterrole.yaml
 ```
 {:codeblock}
 
@@ -355,9 +360,9 @@ roleRef:
 ```
 {:codeblock}
 
-After you save and edit the file, run the following commands. Replace `<NAMESPACE>` with your namespace.
+After you save and edit the file, run the following commands.
 ```
-kubectl apply -f ibp-clusterrolebinding.yaml -n <NAMESPACE>
+kubectl apply -f ibp-clusterrolebinding.yaml
 ```
 {:codeblock}
 
@@ -373,7 +378,7 @@ kubectl -n <NAMESPACE> create rolebinding ibp-operator-rolebinding --clusterrole
 ## Create a secret for your entitlement key
 {: #deploy-k8-docker-registry-secret-firewall}
 
-After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
+After you push the {{site.data.keyword.blockchainfull_notm}} Platform images to your own Docker registry, you need to store the password to that registry on your cluster by creating a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/){: external}. Using a Kubernetes secret allows you to securely store the key on your cluster and pass it to the operator and the console deployments.
 
 Run the following command to create the secret and add it to your namespace:
 ```
@@ -395,9 +400,8 @@ The name of the secret that you are creating is `docker-key-secret`. This value 
 
 The {{site.data.keyword.blockchainfull_notm}} Platform uses an operator to install the {{site.data.keyword.blockchainfull_notm}} Platform console. You can deploy the operator on your cluster by adding a custom resource to your namespace by using the kubectl CLI. The custom resource pulls the operator image from the Docker registry and starts it on your cluster.
 
-Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. Replace `<LOCAL_REGISTRY>` with the url of your local registry. If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
+Copy the following text to a file on your local system and save the file as `ibp-operator.yaml`. You will need to edit the file depending on whether you are using open source Kubernetes and Rancher or whether you are using {{site.data.keyword.cloud_notm}} Private.
 
-- **Operator file for Kubernetes v1.11 or higher:**
 
 ```yaml
 apiVersion: apps/v1
@@ -429,7 +433,7 @@ spec:
       annotations:
         productName: "IBM Blockchain Platform"
         productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.1"
+        productVersion: "2.1.2"
     spec:
       hostIPC: false
       hostNetwork: false
@@ -448,7 +452,7 @@ spec:
         - name: docker-key-secret
       containers:
         - name: ibp-operator
-          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
+          image: <LOCAL_REGISTRY>/ibp-operator:2.1.2-20191217-amd64
           command:
           - ibp-operator
           imagePullPolicy: Always
@@ -487,10 +491,8 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "false"
-            - name: INGRESS_NEEDED
-              value: "true"
+            - name: CLUSTERTYPE
+              value: <CLUSTER_TYPE>
           resources:
             requests:
               cpu: 100m
@@ -501,110 +503,12 @@ spec:
 ```
 {:codeblock}
 
+- Replace `<CLUSTER_TYPE>` with `IKS` if you are deploying the platform on open source Kubernetes or Rancher.
+- Replace `<CLUSTER_TYPE>` with `ICP` if you are deploying the platform on {{site.data.keyword.cloud_notm}} Private.
+- If you are deploying the platform on LinuxOne on s390x, replace `amd64` in the operator image tag with `s390x`.
+- If you changed the name of the Docker key secret, then you need to edit the field of `name: docker-key-secret`.
 
-- **Operator file for {{site.data.keyword.cloud_notm}} Private 3.2.1:**  
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ibp-operator
-  labels:
-    release: "operator"
-    helm.sh/chart: "ibm-ibp"
-    app.kubernetes.io/name: "ibp"
-    app.kubernetes.io/instance: "ibpoperator"
-    app.kubernetes.io/managed-by: "ibp-operator"
-spec:
-  replicas: 1
-  strategy:
-    type: "Recreate"
-  selector:
-    matchLabels:
-      name: ibp-operator
-  template:
-    metadata:
-      labels:
-        name: ibp-operator
-        release: "operator"
-        helm.sh/chart: "ibm-ibp"
-        app.kubernetes.io/name: "ibp"
-        app.kubernetes.io/instance: "ibpoperator"
-        app.kubernetes.io/managed-by: "ibp-operator"
-      annotations:
-        productName: "IBM Blockchain Platform"
-        productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.1"
-    spec:
-      hostIPC: false
-      hostNetwork: false
-      hostPID: false
-      serviceAccountName: default
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: beta.kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-      imagePullSecrets:
-        - name: docker-key-secret
-      containers:
-        - name: ibp-operator
-          image: <LOCAL_REGISTRY>/ibp-operator:2.1.1-20191108-amd64
-          command:
-          - ibp-operator
-          imagePullPolicy: Always
-          securityContext:
-            privileged: false
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-            runAsUser: 1001
-            capabilities:
-              drop:
-              - ALL
-              add:
-              - CHOWN
-              - FOWNER
-          livenessProbe:
-            tcpSocket:
-              port: 8383
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-          readinessProbe:
-            tcpSocket:
-              port: 8383
-            initialDelaySeconds: 10
-            timeoutSeconds: 5
-            periodSeconds: 5
-          env:
-            - name: WATCH_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: OPERATOR_NAME
-              value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "false"
-          resources:
-            requests:
-              cpu: 100m
-              memory: 200Mi
-            limits:
-              cpu: 100m
-              memory: 200Mi
-```
-{:codeblock}
-
-Then, use the `kubectl` CLI to add the custom resource to your namespace.
+Then, use the kubectl CLI to add the custom resource to your namespace.
 
 ```
 kubectl apply -f ibp-operator.yaml -n <NAMESPACE>
@@ -634,56 +538,58 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
-  image:
+  registryURL: <LOCAL_REGISTRY>
+  imagePullSecret: docker-key-secret
+  images:
       imagePullSecret: docker-key-secret
-      consoleInitImage: <LOCAL_REGISTRY>/ibp-init
-      consoleInitTag: 2.1.1-20191108-amd64
-      consoleImage: <LOCAL_REGISTRY>/ibp-console
-      consoleTag: 2.1.1-20191108-amd64
-      configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
-      configtxlatorTag: 1.4.3-20191108-amd64
-      couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-      couchdbTag: 2.3.1-20191108-amd64
-      deployerImage: <LOCAL_REGISTRY>/ibp-deployer
-      deployerTag: 2.1.1-20191108-amd64
+      consoleInitImage: ibp-init
+      consoleInitTag: 2.1.2-20191217-amd64
+      consoleImage: ibp-console
+      consoleTag: 2.1.2-20191217-amd64
+      configtxlatorImage: ibp-utilities
+      configtxlatorTag: 1.4.4-20191217-amd64
+      couchdbImage: ibp-couchdb
+      couchdbTag: 2.3.1-20191217-amd64
+      deployerImage: ibp-deployer
+      deployerTag: 2.1.2-20191217-amd64
   versions:
       ca:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
-            caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
-            caInitTag: 2.1.1-20191108-amd64
-            caImage: <LOCAL_REGISTRY>/ibp-ca
-            caTag: 1.4.3-20191108-amd64
+            caInitImage: ibp-init
+            caInitTag: 2.1.2-20191217-amd64
+            caImage: ibp-ca
+            caTag: 1.4.4-20191217-amd64
       peer:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
-            peerInitImage: <LOCAL_REGISTRY>/ibp-init
-            peerInitTag: 2.1.1-20191108-amd64
-            peerImage: <LOCAL_REGISTRY>/ibp-peer
-            peerTag: 1.4.3-20191108-amd64
-            dindImage: <LOCAL_REGISTRY>/ibp-dind
-            dindTag: 1.4.3-20191108-amd64
-            fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
-            fluentdTag: 2.1.1-20191108-amd64
-            grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191108-amd64
-            couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-            couchdbTag: 2.3.1-20191108-amd64
+            peerInitImage: ibp-init
+            peerInitTag: 2.1.2-20191217-amd64
+            peerImage: ibp-peer
+            peerTag: 1.4.4-20191217-amd64
+            dindImage: ibp-dind
+            dindTag: 1.4.4-20191217-amd64
+            fluentdImage: ibp-fluentd
+            fluentdTag: 2.1.2-20191217-amd64
+            grpcwebImage: ibp-grpcweb
+            grpcwebTag: 2.1.2-20191217-amd64
+            couchdbImage: ibp-couchdb
+            couchdbTag: 2.3.1-20191217-amd64
       orderer:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
-            ordererInitImage: <LOCAL_REGISTRY>/ibp-init
-            ordererInitTag: 2.1.1-20191108-amd64
-            ordererImage: <LOCAL_REGISTRY>/ibp-orderer
-            ordererTag: 1.4.3-20191108-amd64
-            grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191108-amd64
+            ordererInitImage: ibp-init
+            ordererInitTag: 2.1.2-20191217-amd64
+            ordererImage: ibp-orderer
+            ordererTag: 1.4.4-20191217-amd64
+            grpcwebImage: ibp-grpcweb
+            grpcwebTag: 2.1.2-20191217-amd64
   networkinfo:
     domain: <DOMAIN>
     consolePort: <CONSOLE_PORT>
@@ -739,56 +645,57 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
-  image:
-      imagePullSecret: docker-key-secret
-      consoleInitImage: <LOCAL_REGISTRY>/ibp-init
-      consoleInitTag: 2.1.1-20191108-amd64
-      consoleImage: <LOCAL_REGISTRY>/ibp-console
-      consoleTag: 2.1.1-20191108-amd64
-      configtxlatorImage: <LOCAL_REGISTRY>/ibp-utilities
-      configtxlatorTag: 1.4.3-20191108-amd64
-      couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-      couchdbTag: 2.3.1-20191108-amd64
-      deployerImage: <LOCAL_REGISTRY>/ibp-deployer
-      deployerTag: 2.1.1-20191108-amd64
+  imagePullSecret: docker-key-secret
+  registryURL: <LOCAL_REGISTRY>
+  images:
+      consoleInitImage: ibp-init
+      consoleInitTag: 2.1.2-20191217-amd64
+      consoleImage: ibp-console
+      consoleTag: 2.1.2-20191217-amd64
+      configtxlatorImage: ibp-utilities
+      configtxlatorTag: 1.4.4-20191217-amd64
+      couchdbImage: ibp-couchdb
+      couchdbTag: 2.3.1-20191217-amd64
+      deployerImage: ibp-deployer
+      deployerTag: 2.1.2-20191217-amd64
   versions:
       ca:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
-            caInitImage: <LOCAL_REGISTRY>/ibp-ca-init
-            caInitTag: 2.1.1-20191108-amd64
-            caImage: <LOCAL_REGISTRY>/ibp-ca
-            caTag: 1.4.3-20191108-amd64
+            caInitImage: ibp-init
+            caInitTag: 2.1.2-20191217-amd64
+            caImage: ibp-ca
+            caTag: 1.4.4-20191217-amd64
       peer:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
-            peerInitImage: <LOCAL_REGISTRY>/ibp-init
-            peerInitTag: 2.1.1-20191108-amd64
-            peerImage: <LOCAL_REGISTRY>/ibp-peer
-            peerTag: 1.4.3-20191108-amd64
-            dindImage: <LOCAL_REGISTRY>/ibp-dind
-            dindTag: 1.4.3-20191108-amd64
-            fluentdImage: <LOCAL_REGISTRY>/ibp-fluentd
-            fluentdTag: 2.1.1-20191108-amd64
-            grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191108-amd64
-            couchdbImage: <LOCAL_REGISTRY>/ibp-couchdb
-            couchdbTag: 2.3.1-20191108-amd64
+            peerInitImage: ibp-init
+            peerInitTag: 2.1.2-20191217-amd64
+            peerImage: ibp-peer
+            peerTag: 1.4.4-20191217-amd64
+            dindImage: ibp-dind
+            dindTag: 1.4.4-20191217-amd64
+            fluentdImage: ibp-fluentd
+            fluentdTag: 2.1.2-20191217-amd64
+            grpcwebImage: ibp-grpcweb
+            grpcwebTag: 2.1.2-20191217-amd64
+            couchdbImage: ibp-couchdb
+            couchdbTag: 2.3.1-20191217-amd64
       orderer:
-        1.4.3-0:
+        1.4.4-0:
           default: true
-          version: 1.4.3-0
+          version: 1.4.4-0
           image:
-            ordererInitImage: <LOCAL_REGISTRY>/ibp-init
-            ordererInitTag: 2.1.1-20191108-amd64
-            ordererImage: <LOCAL_REGISTRY>/ibp-orderer
-            ordererTag: 1.4.3-20191108-amd64
-            grpcwebImage: <LOCAL_REGISTRY>/ibp-grpcweb
-            grpcwebTag: 2.1.1-20191108-amd64
+            ordererInitImage: ibp-init
+            ordererInitTag: 2.1.2-20191217-amd64
+            ordererImage: ibp-orderer
+            ordererTag: 1.4.4-20191217-amd64
+            grpcwebImage: ibp-grpcweb
+            grpcwebTag: 2.1.2-20191217-amd64
   networkinfo:
     domain: <DOMAIN>
     consolePort: <CONSOLE_PORT>
@@ -853,7 +760,7 @@ spec:
   ```
   {:codeblock}
 
-Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.    
+Unlike the resource allocation, you cannot add zones to a running network. If you have already deployed a console and used it to create nodes on your cluster, you will lose your previous work. After the console restarts, you need to deploy new nodes.
 {: Important}
 
 ### Use your own TLS Certificates (Optional)
@@ -862,10 +769,10 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console uses TLS certific
 
 You can use a Certificate Authority or tool to create the TLS certificates for the console. The TLS certificate needs to include the hostname of the console and the proxy in the subject name or the alternative domain names. The console and proxy hostname are in the following format:
 
-**Console hostname:** ``<NAMESPACE>-ibpconsole-console.<DOMAIN>``  
-**Proxy hostname:** ``<NAMESPACE>-ibpconsole-proxy.<DOMAIN>``
+**Console hostname:** `<NAMESPACE>-ibpconsole-console.<DOMAIN>`
+**Proxy hostname:** `<NAMESPACE>-ibpconsole-proxy.<DOMAIN>`
 
-- Replace `<NAMESPACE>` with the name of the Kubernetse namespace that you created.
+- Replace `<NAMESPACE>` with the name of the Kubernetes namespace that you created.
 - Replace `<DOMAIN>` with the name of your cluster domain.
 
 Navigate to the TLS certificates that you plan to use on your local system. Name the TLS certificate `tlscert.pem` and the corresponding private key `tlskey.pem`. Run the following command to create the Kubernetes secret and add it to your Kubernetes namespace. The TLS certificate and key need to be in PEM format.
@@ -917,7 +824,6 @@ As an example, a command to get the logs from the UI container would look like t
 kubectl logs -f ibpconsole-55cf9db6cc-856nz console -n blockchain-project
 ```
 {:codeblock}
-
 
 ## Log in to the console
 {: #deploy-k8-log-in}

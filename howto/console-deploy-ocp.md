@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-26"
+lastupdated: "2019-12-17"
 
 keywords: OpenShift, IBM Blockchain Platform console, deploy, resource requirements, storage, parameters
 
@@ -19,16 +19,16 @@ subcollection: blockchain-rhos
 {:tip: .tip}
 {:pre: .pre}
 
-# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1
+# Deploying {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2
 {: #deploy-ocp}
 
 
-You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.1 onto a Kubernetes cluster that is running on OpenShift Container Platform 3.11. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
+You can use the following instructions to deploy the {{site.data.keyword.blockchainfull}} Platform v2.1.2 onto a Kubernetes cluster that is running on OpenShift Container Platform 3.11, 4.1, or 4.2. The {{site.data.keyword.blockchainfull_notm}} Platform uses a [Kubernetes Operator](https://www.openshift.com/learn/topics/operators){: external} to install the {{site.data.keyword.blockchainfull_notm}} Platform console on your cluster and manage the deployment and your blockchain nodes. When the {{site.data.keyword.blockchainfull_notm}} Platform console is running on your cluster, you can use the console to create blockchain nodes and operate a multicloud blockchain network.
 {:shortdesc}
 
 The following diagram shows the steps that a cluster administrator needs to take on the OpenShift Container Platform to deploy the {{site.data.keyword.blockchainfull_notm}} Platform.
 
-![{{site.data.keyword.blockchainfull_notm}} Platform 2.1.1 deployment overview](../images/OCP_deploy_flow.svg "{{site.data.keyword.blockchainfull_notm}} Platform 2.1.1 deployment overview"){: caption="Figure 1. Deployment process on OpenShift"  caption-side="bottom"}
+![{{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 deployment overview](../images/OCP_deploy_flow.svg "{{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 deployment overview"){: caption="Figure 1. Deployment process on OpenShift"  caption-side="bottom"}
 
 ## Resources required
 {: #deploy-ocp-resources-required}
@@ -60,7 +60,7 @@ The {{site.data.keyword.blockchainfull_notm}} Platform console has been successf
 ## Storage
 {: #deploy-ocp-storage}
 
-{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/3.11/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
+{{site.data.keyword.blockchainfull_notm}} Platform requires persistent storage for each CA, peer, and ordering node that you deploy, in addition to the storage required by the {{site.data.keyword.blockchainfull_notm}} console. The {{site.data.keyword.blockchainfull_notm}} Platform console uses [dynamic provisioning](https://docs.openshift.com/container-platform/4.2/install_config/persistent_storage/dynamically_provisioning_pvs.html#basic-spec-definition){: external} to allocate storage for each blockchain node that you deploy by using a pre-defined storage class. You have the opportunity to choose your persistent storage from the available storage options for the OpenShift Container Platform.
 
 Before you deploy the {{site.data.keyword.blockchainfull_notm}} Platform console, you must create a storage class with enough backing storage for the {{site.data.keyword.blockchainfull_notm}} console and the nodes that you create. You can set this storage class to the default storage class of your Kubernetes cluster or create a new class that is used by the {{site.data.keyword.blockchainfull_notm}} Platform console. If you are using a multizone cluster in OpenShift Container Platform, then you must configure the default storage class for each zone. After you create the storage class, run the command `kubectl patch storageclass` to set the storage class of the multizone region to be the default storage class.
 
@@ -74,14 +74,14 @@ When you purchase the {{site.data.keyword.blockchainfull_notm}} Platform from PP
 
 1. Log in to [MyIBM Container Software Library](https://myibm.ibm.com/products-services/containerlibrary){: external} with the IBMid and password that are associated with the entitled software.
 
-2. In the Entitlement keys section, select Copy key to copy the entitlement key to the clipboard.
+2. In the Entitlement keys section, select **Copy key** to copy the entitlement key to the clipboard. Save this value for use later during deployment.
 
 ## Before you begin
 {: #deploy-ocp-prerequisites}
 
-1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
+1. The {{site.data.keyword.blockchainfull_notm}} Platform can be installed only on the [OpenShift Container Platform 3.11, 4.1, or 4.2](https://docs.openshift.com/container-platform/3.11/welcome/index.html){: external}.
 
-2. You need to install and connect to your cluster by using the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/3.11/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
+2. You need to install and connect to your cluster by using the [OpenShift Container Platform CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/get_started_cli.html#installing-the-cli){: external} to deploy the platform. If you are using an OpenShift cluster that was deployed with the {{site.data.keyword.IBM_notm}} Kubernetes Service, use these instructions to [Install the OpenShift Origin CLI](/docs/openshift?topic=openshift-openshift-cli#cli_oc).
 
 ## Log in to your OpenShift cluster
 {: #deploy-ocp-login}
@@ -195,7 +195,7 @@ volumes:
 
 After you save and edit the file, run the following commands to add the file to your cluster and add the policy to your project. Replace `<PROJECT_NAME>` with your project.
 ```
-oc apply -f ibp-scc.yaml -n <PROJECT_NAME>
+oc apply -f ibp-scc.yaml
 oc adm policy add-scc-to-user <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
 ```
 {:codeblock}
@@ -293,12 +293,18 @@ rules:
   - '*'
   verbs:
   - '*'
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
 ```
 {:codeblock}
 
 After you save and edit the file, run the following commands. Replace `<PROJECT_NAME>` with your project.
 ```
-oc apply -f ibp-clusterrole.yaml -n <PROJECT_NAME>
+oc apply -f ibp-clusterrole.yaml
 oc adm policy add-scc-to-group <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
 ```
 {:codeblock}
@@ -331,7 +337,7 @@ roleRef:
 
 After you save and edit the file, run the following commands. Replace `<PROJECT_NAME>` with your project.
 ```
-oc apply -f ibp-clusterrolebinding.yaml -n <PROJECT_NAME>
+oc apply -f ibp-clusterrolebinding.yaml
 oc adm policy add-cluster-role-to-user <PROJECT_NAME> system:serviceaccounts:<PROJECT_NAME>
 ```
 {:codeblock}
@@ -395,7 +401,7 @@ spec:
       annotations:
         productName: "IBM Blockchain Platform"
         productID: "54283fa24f1a4e8589964e6e92626ec4"
-        productVersion: "2.1.1"
+        productVersion: "2.1.2"
     spec:
       hostIPC: false
       hostNetwork: false
@@ -414,7 +420,7 @@ spec:
         - name: docker-key-secret
       containers:
         - name: ibp-operator
-          image: cp.icr.io/cp/ibp-operator:2.1.1-20191108-amd64
+          image: cp.icr.io/cp/ibp-operator:2.1.2-20191217-amd64
           command:
           - ibp-operator
           imagePullPolicy: Always
@@ -453,8 +459,8 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "ibp-operator"
-            - name: ISOPENSHIFT
-              value: "true"
+            - name: CLUSTERTYPE
+              value: OPENSHIFT
           resources:
             requests:
               cpu: 100m
@@ -474,8 +480,8 @@ kubectl apply -f ibp-operator.yaml -n <PROJECT_NAME>
 
 You can confirm that the operator deployed by running the command `kubectl get deployment -n <PROJECT_NAME>`. If your operator deployment is successful, then you can see the following tables with four ones displayed. The operator takes about a minute to deploy.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           1m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibp-operator   1/1       1            1           46s
 ```
 
 ## Deploy the {{site.data.keyword.blockchainfull_notm}} Platform console
@@ -495,8 +501,8 @@ spec:
   serviceAccountName: default
   email: "<EMAIL>"
   password: "<PASSWORD>"
-  image:
-    imagePullSecret: "docker-key-secret"
+  registryURL: cp.icr.io/cp
+  imagePullSecret: "docker-key-secret"
   networkinfo:
     domain: <DOMAIN>
   storage:
@@ -547,8 +553,8 @@ metadata:
     proxyIP:
     email: "<EMAIL>"
     password: "<PASSWORD>"
-    image:
-      imagePullSecret: "docker-key-secret"
+    registryURL: cp.icr.io/cp
+    imagePullSecret: "docker-key-secret"
     networkinfo:
         domain: <DOMAIN>
     storage:
@@ -648,9 +654,9 @@ kubectl apply -f ibp-console.yaml -n <PROJECT_NAME>
 
 You can confirm that the operator deployed by running the command `kubectl get deployment -n <PROJECT_NAME>`. If your console deployment is successful, you can see `ibpconsole` added to the deployment table, with four ones displayed. The console takes a few minutes to deploy. You might need to click refresh and wait for the table to be updated.
 ```
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-ibp-operator   1         1         1            1           10m
-ibpconsole     1         1         1            1           4m
+NAME           READY     UP-TO-DATE   AVAILABLE   AGE
+ibp-operator   1/1       1            1           10m
+ibpconsole     1/1       1            1           4m
 ```
 
 The console consists of four containers that are deployed inside a single pod:
@@ -683,7 +689,7 @@ kubectl logs -f ibpconsole-55cf9db6cc-856nz optools -n blockchain-project
 You can use your browser to access the console by browsing to the console URL:
 
 ```
-https://<PROJECT_NAME>-ibpconsole-console.<DOMAIN>:443
+https://<PROJECT_NAME>-ibpconsole-console.<DOMAIN>
 ```
 
 - Replace `<PROJECT_NAME>` with the name of the OpenShift project that you created.
@@ -691,13 +697,14 @@ https://<PROJECT_NAME>-ibpconsole-console.<DOMAIN>:443
 
 Your console URL looks similar to the following example:
 ```
-https://blockchain-project-ibpconsole-console.xyz.abc.com:443
+https://blockchain-project-ibpconsole-console.xyz.abc.com
 ```
 
-You can also find your console URL and your proxy URL by using the OpenShift web console. Use the dropdown menu next to **OpenShift Container Platform** at the top of the page to switch from **Service Catalog** to **Cluster Console**. In the left navigation pane, click **Networking** and then **Routes**. Use the **Projects:** dropdown to select all projects. On the page that is displayed, you can see the URLs for the proxy and the console.
-
-When you go to your console URL, your browser will display a screen that states **Your connection is not secure** or **Your connection is not private**. This is because your browser needs to accept the self-signed certificates that are generated by the console. Use the advanced options to make an exception and proceed to the URL. When you see the login screen, open a new tab in your browser and navigate to the proxy URL: `https://<PROJECT_NAME>-ibpconsole-proxy.<DOMAIN>:443`. You need to accept the certificate from this url to communicate with your nodes from your console.
-{: important}
+You can also find your console URL by logging in to your OpenShift cluster and running the following command. Replace `<PROJECT_NAME>` with the name of your project:
+```
+oc get routes -n <PROJECT_NAME>
+```
+In the output of the command, you can see the URLs for the proxy and the console. You need to add `https://` to the beginning console URL to to access the console. You do not need to add a port to the URL.
 
 In your browser, you can see the console log in screen:
 - For the **User ID**, use the value you provided for the `email:` field in the `ibp-console.yaml` file.

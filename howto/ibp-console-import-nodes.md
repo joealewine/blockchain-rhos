@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-21"
+lastupdated: "2019-12-17"
 
 keywords: import nodes, another console, import a CA, import a peer, import admin identities, import an ordering service node
 
@@ -53,8 +53,7 @@ Note that when you import a component, you do not actually import the physical c
 
 After you import a node into the console, you can also modify its connection information by using the node's **Settings** tab.
 
-
-
+As you will see below, there are two ways to export and import components and identities: in bulk, or one at a time. Each fulfills a different use case and has different considerations and limitations.
 
 ## Limitations
 {: #ibp-console-import-limitations}
@@ -68,7 +67,24 @@ While importing nodes provides the ability to perform many of the actions that c
 - If you are importing a node that is deployed on a network deployed locally, you must ensure that the gRPC web proxy port used by the component is externally exposed to the console. For more information, see [Importing nodes from a locally deployed network](#ibp-console-import-icp).
 - When you open the tile of an imported node, the Fabric version is not visible and the **Usage and info** tab is not available, even if you have also imported the admin identity.
 
+## Exporting and importing in bulk
+{: #ibp-console-import-bulk-export-import}
 
+In cases where users want to export and import all of the peers, CAs, ordering services, MSPs, and identities at once, the {{site.data.keyword.blockchainfull_notm}} Platform console now allows for the bulk management of data as a ZIP file that contains the JSON representing the various nodes, MSPs, and identities. To export or import data in bulk, navigate to the **Settings** tab in the left hand navigation. You will see a section called **Bulk data management** with two buttons below it. The **Export** button will open a panel on the right, where you have several options of what to export. The **Import** button also opens a panel where you can select the ZIP from your local file system.
+
+While exporting and importing components in bulk is highly convenient for some use cases, there are important considerations to keep in mind:
+
+- While you have the option to check or uncheck the boxes representing peers, CAs, ordering services, MSPs, and identities, you cannot, for example, choose to export only some peers and not others. If the peer box is checked, every peer will be included in the ZIP, and likewise for other components.
+- If a console has already imported some of the information contained in a bulk transfer, for example a few of the peers, duplicate representations of these components will appear in the console after performing the import. These duplicates do no harm, but it is a best practice to only have one representation of a component at a time.
+- The **Identities** box is left unchecked in the export screen by default for reasons we discussed earlier: these identities contain private keys, therefore it is inadvisable to export them unless it is necessary to do so. Also, unlike MSPs and nodes, **the console does not permit duplicate identities**. If you attempt to import a bulk data ZIP that includes an identity that already exists in your console, the import will fail. Note once again that **all** identities will be sent in the bulk transfer, regardless of the other boxes you check. For example, if you only leave the peer box selected, and select identities, every identity in your wallet will be sent, not just the identities relevant to the peer.
+- However, it you do choose to export identities along with nodes, note that the associations between identities and nodes will persist along with the transfer. That is, you will not have to perform the extra step of clicking on nodes and associating an admin identity with them.
+- It is necessary that all of the members of a channel have the MSPs of all of the other members of a channel to allow for the validation of signatures. However, note that by selecting the MSPs button, **all** MSPs in your console would be exported, not just the MSPs relevant to a particular channel.
+
+**If you import a bulk data transfer of nodes and do not also import identities, you will have to perform the separate step of associating identities with the nodes**. There are a few ways to procure an identity that can operate a node. For more information about, see [Gathering certificates or credentials](#ibp-console-import-start-here). Regardless of the process used to acquire the identity, after the bulk import has been completed you will need to click on each imported node. For peers and ordering nodes, a box on the left of the screen will say **Identity not associated with** (peer or ordering node), depending on the node in question. After clicking on this box, you will be able to associate the relevant identity by selecting it from your wallet. Note that this process is distinctly different than the process for importing individual nodes, where you will be asked to associate an identity as part of the import process.
+
+You will also need to associate an admin identity for the CA. This process is similar to the peer and ordering node process except that after you click on the imported CA you will see a separate screen asking you to associate an identity rather than a box on the left.
+
+For cases where bulk data transfers are impractical or inadvisable, you can follow the steps below to export and import components and identities one at a time.
 
 ## Gathering certificates or credentials
 {: #ibp-console-import-start-here}
@@ -137,7 +153,8 @@ Importing a peer is performed from the **Nodes** tab.
 2. Click **Add file** to upload the peer JSON file that was exported from the console where it was originally deployed.
 3. Set the admin identity for the peer by clicking **Existing identity** and selecting the peer admin identity that you imported into your wallet.
 
-
+If the peer was exported before October 2nd, 2019, you might have to supply location information specifying where the peer was created. If you see this field, you can choose whether to supply the location or to have the peer re-exported, in which case the console will not ask for this information.
+{: note}
 
 After you import the peer into the console, you can install smart contracts on the peer and join the peer to channels in your blockchain.
 
@@ -164,7 +181,8 @@ Navigate to the **Nodes** tab.
 2. Click **Add file** to upload the CA JSON file that was exported from the console where it was originally deployed.
 3. After the CA has been added, click on it in the **Nodes** panel. Then click **Associate identity** and select the CA admin identity from your wallet.
 
-
+If the CA was exported before October 2nd, 2019, you might have to supply location information specifying where the CA was created. If you see this field, you can choose whether to supply the location or to have the CA re-exported, in which case the console will not ask for this information.
+{: note}
 
 After you have imported the CA into the console, you can use your CA to create new identities and generate the necessary certificates to operate your components and submit transactions to the network. To learn more, see [Managing certificate authorities](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-identities#ibp-console-identities-manage-ca).
 
@@ -196,14 +214,15 @@ Navigate to the **Nodes** tab.
 3. Click **Add file** to upload the ordering service JSON. Note that regardless of how many nodes are in this ordering service, the JSON representing this ordering service will be one file.
 4. Set the admin identity for the ordering nodes by clicking **Existing identity**. Recall from the [Before you begin section](#ibp-console-import-orderer-before-you-begin) that you can effectively skip this step if you want by selecting any identity in your wallet. However, if you want to have the correct node admin identity exported from the console where it was created and imported into your console and select it in this step, you can choose to do that.
 
-
+If the ordering service was exported before October 2nd, 2019, you might have to supply location information specifying where the ordering service was created. If you see this field, you can choose whether to supply the location or to have the ordering service re-exported, in which case the console will not ask for this information.
+{: note}
 
 After you have imported the ordering service into the console, you can add new organization members to the consortium (if your MSP was added as an admin of the ordering service) and select the ordering service when creating new channels (if your organization has been added to the consortium).
 
 ## Importing nodes from a locally deployed network
 {: #ibp-console-import-icp}
 
-You can import nodes that were created through {{site.data.keyword.cloud_notm}}, Red Hat OpenShift, {{site.data.keyword.cloud_notm}} Private, and Kubernetes v1.11 or higher container platform on x86_64 into blockchain consoles that have been deployed on other clusters or on {{site.data.keyword.cloud_notm}}. However, you need to ensure that the port used by the gRPC URL of your nodes is exposed from outside the cluster. If you are deploying your network behind a firewall, you need to enable a passthru, for example by using white listing, to allow the console outside the cluster to communicate with your nodes.
+You can import nodes that were created through {{site.data.keyword.cloud_notm}}, Red Hat OpenShift, {{site.data.keyword.cloud_notm}} Private, and Kubernetes v1.11 - v1.16 container platform on x86_64 into blockchain consoles that have been deployed on other clusters or on {{site.data.keyword.cloud_notm}}. However, you need to ensure that the port used by the gRPC URL of your nodes is exposed from outside the cluster. If you are deploying your network behind a firewall, you need to enable a passthru, for example by using white listing, to allow the console outside the cluster to communicate with your nodes.
 
 As an example, you can find the JSON file of a peer below. To communicate with the peer from another console, you need to ensure that the `grpcwp_url` port, port 32403 in this example, is open to external traffic.
 

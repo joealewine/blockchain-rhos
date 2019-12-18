@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-21"
+lastupdated: "2019-12-10"
 
 keywords: network components, Kubernetes, OpenShift, allocate resources, batch timeout, reallocate resources, LevelDB, CouchDB, ordering nodes, ordering, add and remove, governance
 
@@ -204,5 +204,182 @@ Instead of using an {{site.data.keyword.blockchainfull_notm}} Platform Certifica
 
 For more information about this process, including a look at the certificates you will need, see [Using certificates from an external CA with your peer or ordering service](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-third-party-ca).
 
+### Before you begin
+{: #ibp-console-govern-third-party-ca-prereq}
 
+1. You need to gather the following certificate information and save it to individual files that can be uploaded to the console.   
+**Note:** The certificates inside the files can be in either `PEM` format or `base64 encoded` format.
+ * **Peer or ordering service identity certificate** This is the signing certificate from your external CA that the peer or ordering service will use.
+ * **Peer or ordering service identity private key**  This is your private key corresponding to the signed certificate from your third-party CA that this peer or ordering service will use.
+ * **Peer or ordering service organization MSP definition** You must manually generate this file using instructions provided in [Manually building an MSP JSON file](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-organizations#console-organizations-build-msp).
+ * **TLS CA certificate** This is the public signing certificate created by your external TLS CA that will be used by this peer or ordering service.
+  * **TLS CA private key** This is the private key corresponding to the signed certificate from your TLS CA that will be used by this peer or ordering service for secure communications with other members on the network.
+ * **TLS CA root certificate** (Optional) This is the root certificate of your external TLS CA. You must provide either a TLS CA root certificate or an intermediate TLS CA certificate, you may also provide both.
+ * **Intermediate TLS certificate**: (Optional) This is the TLS certificate if your TLS certificate is issued by an intermediate TLS CA. Upload the intermediate TLS CA certificate. You must provide either a TLS CA root certificate or an intermediate TLS CA certificate, you may also provide both.
+ * **Peer or ordering service admin identity certificate** This is the signing certificate from your external CA that the admin identity of this peer or ordering service will use. This certificate is also known as your peer or ordering service admin identity key.
+ * **Peer or ordering service admin identity private key**  This is the private key corresponding to the signed certificate from your external CA that the admin identity of this peer or ordering service will use.
+
+2. Import the generated peer or ordering service organization MSP definition file into the console, by clicking the **Organizations** tab followed by **Import MSP definition**.
+
+Now you have the choice of creating a peer or single-node ordering service node, or  a five node ordering service.
+
+### Option 1: Create a new peer or single-node ordering service using certificates from an external CA
+{: #ibp-console-govern-create-peer-orderer-third-party-ca-}
+
+You can skip to **Option 2** if you want to create a new five node ordering service. The following instructions are only for creating a peer or single-node ordering service using certificates from your external CA.
+{:note}
+
+Now that you have gathered all the necessary certificates, you are ready to create a peer or ordering service which uses those certificates. Follow these instructions to create the peer or single-node ordering service with certificates from an external CA.
+
+1. On the **Nodes** tab click **Add peer** or **Add ordering service**.
+2. Make sure the option to **Create** the peer or ordering service is selected. Then click **Next**.
+3. After entering a display name for the node, select the option to use an external CA.
+4. Step through the panels and upload the files corresponding to the certificate and private key you gathered.
+5. Ensure you select the peer or ordering service organization MSP definition that you imported into the console from the drop-down list.
+6. On the last step when you are asked to associate an identity with your peer or ordering service, you need to click **New identity**.
+7. Specify any value as the **Display name** for this identity. The display name will be visible in the Wallet after you create the node.
+8. In the **Certificate** field, upload the file that contains  the **Peer or ordering service admin identity certificate**.
+9. In the **Private key** field, upload the file that contains  the **Peer or ordering service admin identity private key**.
+10. Review the information on the Summary page and click **Add peer** or **Add ordering service**.
+
+### Option 2: Create a five node ordering service using certificates from an external CA
+{: #ibp-console-govern-create-five-node}
+
+ You  have the additional option of deploying a five node ordering service that uses the Raft consensus protocol.  Before you deploy a five node ordering service, you need to build a JSON file that contains all of the certificates for the five nodes by using the following instructions:
+
+#### Create the certificates JSON file
+{: #ibp-console-govern-create-certs-file}
+
+The required certificates JSON file contains an array of five `msp` entries, where each array element contains the certificates for one of the ordering nodes.  You must specify unique certificates for each node, do not reuse certificates across the different ordering nodes. The certificates in the `component` section represent the certificates for the node itself, while the `tls` section includes the certificates issued by the TLS CA.  
+
+- **keystore**: The private key for this node
+- **signcerts**: The public key (also known as a signing certificate or enrollment certificate) assigned by the CA for this node.
+- **cacerts**: The certificate of the root CA.
+- **admincerts**: The certificate of the admin users of the node. This might also be the admin of the organization.
+- **intermediatecerts**: If your network includes multi-level CAs, paste in the certificate of the intermediate CA. If you did not use an intermediate certificate, you can leave this field blank.
+
+Using the certificates you gathered above, paste in the corresponding certificate in the fields below, in base64 format.
+
+You can convert the contents of your certificate file, `<cert.pem>` from `PEM` format into a base64 string by running the following command on your local machine:
+
+```
+export FLAG=$(if [ "$(uname -s)" == "Linux" ]; then echo "-d"; else echo "-b 0"; fi)
+cat <cert.pem> | base64 $FLAG
+```
+{:codeblock}
+
+```
+[
+    {
+        "msp": {
+            "component": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "admincerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            },
+            "tls": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            }
+        }
+    },
+    {
+        "msp": {
+            "component": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "admincerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            },
+            "tls": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            }
+        }
+    },
+    {
+        "msp": {
+            "component": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "admincerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            },
+            "tls": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            }
+        }
+    },
+    {
+        "msp": {
+            "component": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "admincerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            },
+            "tls": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            }
+        }
+    },
+    {
+        "msp": {
+            "component": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "admincerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            },
+            "tls": {
+                "keystore": [“<cert>“],
+                "signcerts": [“<cert>“],
+                "cacerts": [“<cert>“],
+                "intermediatecerts": [“<cert>“]
+            }
+        }
+    }
+]
+```
+{:codeblock}
+
+Save this definition as a `JSON` file.
+
+#### Create the ordering service and use the certificates from the external CA for each ordering node
+{: #ibp-console-govern-create-five-node-os}
+
+Now that you have created a JSON file with all of the certificates for the ordering nodes, you are ready to create the ordering service.
+
+1. On the **Nodes** tab click **Add ordering service**.
+2. Make sure the option to **Create** an ordering service is selected. Then click **Next**.
+3. Enter a single **Display name** for the five ordering nodes. The display name that you provide will be the prefix for each ordering node name and a number will be appended to it.
+4. In **Number of ordering nodes**, select **Five ordering nodes**. Then select **External Certificate Authority configuration** and click **Next**.
+5. Click **Add file** to upload the JSON file that contains all of the certificates.
+6. Select the **Organization MSP** definition that you imported.
+7.  On the next panel, you have the opportunity to configure resource allocation for the nodes. The selections you make here are applied to all five ordering nodes.  If you want to learn more about how to allocate resources to your node, see this topic on [Allocating resources](#ibp-console-govern-components-allocate-resources).
+8. Review the summary and click **Add ordering service**.
+
+### What's next
+{: #ibp-console-govern-third-party-ca-next}
+
+You have gathered all of your peer or ordering service certificates from your third-party CA, created their corresponding organization MSP definition and created a peer or ordering service. If you are following along in the tutorials, you can return to the next step.
+- If you created the peer node, the next step is to [Create the node that orders transactions](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-orderer).
+- If you created the node to join an existing network, the next step is to [Add your organization to list of organizations that can transact](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-join-network#ibp-console-join-network-add-org2).
+- If you created an ordering service, the next step is to [Create a channel](/docs/services/blockchain?topic=blockchain-ibp-console-build-network#ibp-console-build-network-create-channel#ibp-console-build-network-create-channel).
 

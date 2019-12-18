@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-11-21"
+lastupdated: "2019-12-18"
 keywords: troubleshooting, debug, why, what does this mean, how can I, when I
 
 subcollection: blockchain-rhos
@@ -31,11 +31,12 @@ General problems may occur when using the console to manage nodes, channels, or 
 This topic describes common issues that can occur when using the {{site.data.keyword.blockchainfull_notm}} Platform console.  
 
 **Issues during Deployment**
-- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
 - [My deployment fails when I try apply the security and access policies to my namespace](#ibp-v2-troubleshooting-deployment-policies)
 - [My deployment fails when I try apply the custom resource definition of the console or operator](#ibp-v2-troubleshooting-deployment-cr)
 
 **Issues with the Console**
+- [Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?](#ibp-v2-troubleshooting-chrome-v77)
+- [Why am I not able to log in to the console from my Chrome browser on Mac OS Catalina?](#ibp-v2-troubleshooting-console-catalina)
 - [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls)
 - [When I hover over my node, the status is `Status unavailable`, what does this mean?](#ibp-v2-troubleshooting-status-unavailable)
 - [When I hover over my node, the status is `Status undetectable`, what does this mean?](#ibp-v2-troubleshooting-status-undetectable)
@@ -54,26 +55,14 @@ This topic describes common issues that can occur when using the {{site.data.key
 - [Why are my transactions returning an endorsement policy error: signature set did not satisfy policy?](#ibp-v2-troubleshooting-endorsement-sig-failure)
 - [How can I view my smart contract container logs?](#ibp-console-smart-contracts-troubleshoot-entry2)
 - [Why are the transactions I submit from VS Code failing with a No endorsement plan available error?](#ibp-v2-troubleshooting-anchor-peer)
-
-## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
-{: #ibp-v2-troubleshooting-chrome-v77}
-{: troubleshoot}
-
-The console has been working successfully, but requests have started to fail. For example, after I create an ordering service and open it I see the error: `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details.`
-{: tsSymptoms}
-
-This problem can be caused by a [bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1006243){: external} introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
-{: tsCauses}
-
-To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can upgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser. If this solution does not resolve your problem see [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls).
-{: tsResolve}
+- [Why are the transactions I submit from VS Code failing with an endorsement failure?](#ibp-v2-troubleshooting-endorsement)
 
 
 ## My deployment fails when I try apply the security and access policies to my namespace
 {: #ibp-v2-troubleshooting-deployment-policies}
 {: troubleshoot}
 
-When I try to deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 and apply the Security Context Constraint, clusterRole, or ClusterRoleBinding to my namespace, I encounter one of the following errors.
+When I try to deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 and apply the Security Context Constraint, clusterRole, or ClusterRoleBinding to my namespace, I encounter one of the following errors.
 
 When I apply the file, I receive a user forbidden error:
 {: tsSymptoms}
@@ -100,7 +89,7 @@ This problem occurs when there is a problem with the indents in your file. Refer
 {: #ibp-v2-troubleshooting-deployment-cr}
 {: troubleshoot}
 
-When I try to deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.1 and apply the custom resource definition of the operator or the console, I encounter one of the following errors:
+When I try to deploy the {{site.data.keyword.blockchainfull_notm}} Platform v2.1.2 and apply the custom resource definition of the operator or the console, I encounter one of the following errors:
 
 When I apply the custom resource file, I receive an image pull or image pull back-off error:
 {: tsSymptoms}
@@ -124,6 +113,52 @@ This problem occurs when there is a problem with the indents in your file. Refer
 {: tsCauses}
 
 
+## Why are my console actions failing in my Chrome browser Version 77.0.3865.90 (Official Build) (64-bit)?
+{: #ibp-v2-troubleshooting-chrome-v77}
+{: troubleshoot}
+
+The console has been working successfully, but requests have started to fail. For example, after I create an ordering service and open it I see the error: `Unable to get system channel. If you associated an identity without administrative privilege on the ordering service node, you will not be able to view or manage ordering service details.`
+{: tsSymptoms}
+
+This problem can be caused by a [bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1006243){: external} introduced by the Chrome browser `Version 77.0.3865.90 (Official Build) (64-bit)` that causes actions from the browser to fail.
+{: tsCauses}
+
+To resolve this problem, open the console in a new browser tab in Chrome. Any identities that you saved in your console wallet will persist in the new browser tab. To avoid this problem you can upgrade your Chrome browser version. Ensure you have downloaded all of your wallet identities to your local machine before closing your browser. If this solution does not resolve your problem see [Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?](#ibp-v2-troubleshooting-accept-tls).
+{: tsResolve}
+
+
+## Why am I not able to log in to the console from my Chrome browser on Mac OS Catalina?
+{: #ibp-v2-troubleshooting-console-catalina}
+
+The console has been working successfully, but after I upgraded my Mac OS to Catalina, I can no longer log in to the console.
+{: tsSymptoms}
+
+There are three ways to resolve this problem:
+{: tsResolve}
+1.  Use a different [supported browser](docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#deploy-ocp-browsers) with Catalina.
+2. Use your own [TLS certificates when deploying on OpenShift Contain Platform](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-ocp#use-your-own-tls-certificates-optional-) or [TLS certificates when deploying on Kubernetes or {{site.data.keyword.cloud_notm}} Private](/docs/blockchain-rhos?topic=blockchain-rhos-deploy-k8#use-your-own-tls-certificates-optional-).
+3. Run the following commands to generate a new key and certificate pair for the console that will fix the problem.
+   1. Run the following command to get the pod that corresponds to the ibp console:
+      ```
+      kubectl get po
+      ```
+      {: codeblock}
+   2. Exec into the pod by running the command:
+      ```
+      kubectl get po <pod-name> -c optools bash
+      ```
+      {: codeblock}
+   3. Delete the console key and certificate by running the command:
+      ```
+      rm -f /certs/tls.key rm -f /certs/tls.crt
+      ```
+      {: codeblock}
+   4. Delete the console pod which causes it to restart by running the command:
+      ```
+      kubectl delete po <pod-name>
+      ```
+      {: codeblock}
+   When the pod restart completes, you should now be able to login to your console URL from a Chrome Browser.
 
 ## Why is my channel creation failing or I am unable to add a new organization to my ordering service with the error "Unable to get system channel"?
 {: #ibp-v2-troubleshooting-accept-tls}
@@ -383,4 +418,23 @@ This error occurs if you are using the Fabric Service Discovery feature but did 
 
 Follow step three of the [private data topic](/docs/services/blockchain-rhos?topic=blockchain-rhos-ibp-console-smart-contracts#ibp-console-smart-contracts-private-data) in the Deploy a smart contract tutorial to configure your anchor peers.
 {: tsResolve}
+
+
+## Why are the transactions I submit from VS Code failing with an endorsement failure?
+{: #ibp-v2-troubleshooting-endorsement}
+{: troubleshoot}
+
+My smart contract endorsement proposals from my peer are failing from my client application with the endorsement error `error: [Channel.js]: Channel:<channel_name> received discovery error:failed constructing descriptor for chaincodes:<name:"chaincode-name">`
+{: tsSymptoms}
+
+Also in the endorsing peer logs I can see the error:
+```
+UTC [discovery] chaincodeQuery -> ERRO 23c Failed constructing descriptor for chaincode chaincodes:<name:"chaincode-name">,: cannot satisfy any principal combination
+```
+This error occurs when the peer's enroll id type does not match the smart contract endorsement policy that was configured when the smart contract was instantiated on the channel.
+{: tsCauses}
+
+The only way to resolve this error is to delete the peer and create a new one with an enroll id that has the correct type `peer`. You can use the enroll id and secret from an existing user of type `peer` from the peer's CA or register a new user with type `peer`. Follow the instructions in the [Build a network tutorial](/docs/blockchain-rhos?topic=blockchain-rhos-ibp-console-build-network#ibp-console-build-network-create-peer-org1) to create a new peer identity with the correct type and peer.
+{: tsResolve}
+
 

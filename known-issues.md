@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-12-16"
+lastupdated: "2019-12-19"
 
 keywords: catalina, chrome
 
@@ -50,4 +50,11 @@ The console will not work in the Chrome browser on Mac OS Catalina when the {{si
       kubectl delete po <pod-name>
       ```
       {: codeblock}
-    When the pod restart completes, you should now be able to login to your console URL from a Chrome Browser.    
+    When the pod restart completes, you should now be able to login to your console URL from a Chrome Browser.
+
+## Exporting an ordering node shows error for missing TLS certs
+{: #sw-known-issues-orderer-tls-cert-error}
+
+When attempting to export an ordering node, you might see the following error: `Some ordering service TLS certificates could not be retrieved at this time and will not be included in the exported information.`
+
+You can safely ignore this error, as the certificates the console is trying to pull are only needed for a feature that is not currently enabled.
